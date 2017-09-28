@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Navbar from './navbar';
+//import Navbar from './navbar';
 
+console.log('home component')
 
-class Home extends React.Component {
+class Home extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
@@ -28,10 +29,13 @@ class Home extends React.Component {
     }
 
     render() {
+        let handleSubmit = this.handleSubmit;
+        let handleChange = this.handleChange;
+
         return (
             <form onSubmit={handleSubmit} className="itinerary-form">
             <div className="form-group">
-                <label>Email</label>
+                <label>Itinerary</label>
                 <input name="itinerary" 
                        value={this.state.newItinerary} 
                        onChange={handleChange} 
@@ -48,3 +52,14 @@ class Home extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+
+}
+
+const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(Home);
+export default HomeContainer;

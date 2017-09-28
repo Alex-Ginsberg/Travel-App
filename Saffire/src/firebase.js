@@ -1,6 +1,7 @@
 import * as firebase from 'firebase';
+import {firebase_pw} from './secrets.js';
 var config = {
-    apiKey: 'AIzaSyDuAASA5oV_s6QVUtxrS01i1n3fqKYHthg',
+    apiKey: firebase_pw,
     authDomain: 'deets-76612.firebaseapp.com',
     databaseURL: 'https://deets-76612.firebaseio.com',
     projectId: 'deets-76612',
