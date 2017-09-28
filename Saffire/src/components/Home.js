@@ -11,7 +11,7 @@ class Home extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             newItinerary: '',
-            dirtyItinerary: false,
+            dirtyItinerary: false
         }
     }
 
