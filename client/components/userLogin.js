@@ -10,12 +10,12 @@ import firebase from '../firebase'
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-class UserSignup extends React.Component{
+class UserLogin extends React.Component{
     constructor() {
         console.log('HERE')
+        console.log('CURRENT USER: ', firebase.auth().currentUser)
         super()
         this.state = {
-            name: '',
             email: '',
             password: ''
         }
@@ -27,10 +27,6 @@ class UserSignup extends React.Component{
         return (
             <div>
             <form onSubmit={this.handleSubmit}>
-              <div>
-                <label htmlFor='name'><small>Name</small></label>
-                <input name='name' type='text' onChange={(e) => {this.setState({name: e.target.value})}}/>
-              </div>
               <div>
                 <label htmlFor='email'><small>Email</small></label>
                 <input name='email' type='text' onChange={(e) => this.setState({email: e.target.value})}/>
@@ -49,24 +45,15 @@ class UserSignup extends React.Component{
     }
 
     handleSubmit(e) {
-        // Firebase signup
         e.preventDefault()
-        console.log('EMAIL: ', this.state.email)
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
             console.log(error.code);
             console.log(error.message);
          });
-        var userRef = firebase.database().ref('users');
-        userRef.push({
-            name: this.state.name,
-            email: this.state.email,
-            password: this.state.password
-        })
-        console.log(firebase.auth().currentUser)
     }
 }
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect()(UserSignup))
+export default withRouter(connect()(UserLogin))
 
