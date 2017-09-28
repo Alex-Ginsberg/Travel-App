@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import {Route, Router} from 'react-router'
 import {Switch} from 'react-router-dom'
 import history from './history'
-import { Main, UserLogin, UserSignup } from './components'
+
+import {me} from './store'
+import { Main, UserLogin, UserSignup, Home } from './components'
 
 
 /**
@@ -13,11 +15,14 @@ export default class Routes extends Component {
 
     return (
       <Router history={history}>
+
         <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/login" component={UserLogin} />
           <Route path="/signup" component={UserSignup} />
+          <Route path='/home' component={Home} />
         </Switch>
+      
       </Router>
     )
   }

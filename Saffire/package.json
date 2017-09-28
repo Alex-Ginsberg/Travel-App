@@ -4,6 +4,12 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
     "body-parser": "^1.18.2",
     "firebase": "^4.4.0",
     "history": "^4.7.2",
@@ -23,9 +29,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test-mocha": "node ./**/*.spec.js"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "enzyme": "^3.0.0",
+    "mocha": "^3.5.3",
+    "sinon": "^4.0.0",
     "webpack": "^3.6.0"
   }
 }

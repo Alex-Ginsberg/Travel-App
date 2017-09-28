@@ -2,6 +2,7 @@ import React from 'react';
 import {expect} from 'chai';
 import {shallow} from 'enzyme';
 import {spy} from 'sinon';
+import {Home} from './Home';
 
 describe('React components', () => {
     describe('Home Page Component', () => {
