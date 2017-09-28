@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import Navbar from './navbar'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import Navbar from './navbar';
 
 
 class Home extends React.Component {
@@ -48,16 +48,3 @@ class Home extends React.Component {
         )
     }
 }
-
-const mapStateToProps = (state, ownProps) => {
-    return {
-
-    }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-
-}
-
-const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(Home)
-export default HomeContainer
