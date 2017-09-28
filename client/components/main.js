@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
+import firebase from '../firebase'
 
 /**
  * COMPONENT
@@ -12,7 +13,15 @@ import {logout} from '../store'
  */
 const Main = (props) => {
   const {children, handleClick, isLoggedIn} = props
-
+  
+  // Left in as reference
+//   var userRef = firebase.database().ref('users');
+//   userRef.push ({
+//     name: "Ron",
+//     number: 1,
+//     age: 30
+//  });
+//   console.log(userRef)
   return (
     <div>
       <h1>BOILERMAKER</h1>
