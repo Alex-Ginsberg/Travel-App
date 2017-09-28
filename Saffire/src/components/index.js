@@ -9,5 +9,5 @@ export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
 export {default as UserSignup} from './userSignup'
 export {default as UserLogin} from './userLogin'
-
+export {default as AllItineraries} from './AllItineraries'
 

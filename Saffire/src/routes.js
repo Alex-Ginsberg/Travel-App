@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, UserSignup, UserLogin} from './components'
+import {Main, Login, Signup, UserHome, UserSignup, UserLogin, AllItineraries} from './components'
 import {me} from './store'
 
 /**
@@ -25,6 +25,7 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path='/login' component={UserLogin} />
             <Route path='/signup' component={UserSignup} />
+            <Route path='/itineraries' component={AllItineraries} />
             {
               isLoggedIn &&
                 <Switch>

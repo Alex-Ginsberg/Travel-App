@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 var config = {
-  apiKey: 'AIzaSyDuAASA5oV_s6QVUtxrS01i1n3fqKYHthg',
+  apiKey: 'AIzaSyDeV8rKrgGHtr0AwqY36l9a9Ca7cHVGyV8',
   authDomain: 'deets-76612.firebaseapp.com',
   databaseURL: 'https://deets-76612.firebaseio.com',
   projectId: 'deets-76612',

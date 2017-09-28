@@ -51,6 +51,15 @@ class UserLogin extends React.Component {
     })
     this.props.history.push('/home')
   }
+
+  // handleItinerarySubmit (e) {
+  //   e.preventDefault()
+  //   let itinerariesRef = firebase.database().ref('itineraries')
+  //   itineraries.push({
+  //     name: <PLUG IN WHERE USER ENTERED ITIN NAME>,
+  //     owner: firebase.auth().currentUser.email
+  //   })
+  // }
 }
 
 // The `withRouter` wrapper makes sure that updates are not blocked
