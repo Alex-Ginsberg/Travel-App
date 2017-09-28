@@ -51,11 +51,24 @@ class UserSignup extends React.Component{
     handleSubmit(e) {
         // Firebase signup
         e.preventDefault()
+        const name = this.state.name
         console.log('EMAIL: ', this.state.email)
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
             console.log(error.code);
             console.log(error.message);
          });
+        var userRef = firebase.database().ref('users');
+        userRef.push({
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password
+        })
+        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        .catch(function(err) {
+            console.log(error.code);
+            console.log(error.message);
+        });
+        console.log(firebase.auth().currentUser)
     }
 }
 
