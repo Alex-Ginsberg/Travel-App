@@ -5,10 +5,23 @@ As a guest,...
     + I should be able to log in to my account
 
 As a user,...
-    + I should be able to access my dashboard
+    + I should be able to access my dashboard, and see all itineraries I have created and/or belong to
     + I should be able to create a group itinerary
     + I should be able to insert a url and create an event node
     + I should be able to add people to my itinerary group
     + I should be able to delete an event node from the itinerary
     + I should be able to drag/drop event nodes
     + I should be able to delete an itinerary 
+
+itineraries: {
+    itinerary1: {
+        event1: {
+            time: ...,
+            name: ...,
+            type: ...,
+            location: ...,
+        },
+        ...
+        ..
+    }
+}
