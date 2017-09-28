@@ -4,7 +4,7 @@ import {Switch} from 'react-router-dom'
 import history from './history'
 
 import {me} from './store'
-import { Main, UserLogin, UserSignup, Home } from './components'
+import { Main, UserLogin, UserSignup } from './components'
 
 
 /**
@@ -20,7 +20,6 @@ export default class Routes extends Component {
           <Route exact path="/" component={Main} />
           <Route path="/login" component={UserLogin} />
           <Route path="/signup" component={UserSignup} />
-          <Route path='/home' component={Home} />
         </Switch>
       
       </Router>
