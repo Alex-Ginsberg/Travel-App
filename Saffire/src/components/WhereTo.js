@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 //import Navbar from './navbar';
-import { setItinerary } from '../reducers/actions';
+import { setItinerary } from '../actions';
 
 
 class WhereTo extends Component {
@@ -26,7 +26,7 @@ class WhereTo extends Component {
 
     render() {
         let handleSubmit = this.handleSubmit;
-
+        console.log('props2', this.props)
         return (
             <div className="form-group">
                 <form onSubmit={handleSubmit} className="itinerary-form">
@@ -52,7 +52,7 @@ class WhereTo extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        itineraryName: state.newItinerary
+        itineraryName: state.currentItinerary
     }
 }
 
