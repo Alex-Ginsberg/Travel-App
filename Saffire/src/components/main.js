@@ -11,7 +11,10 @@ import WhereTo from './WhereTo'
  *  rendered out by the component's `children`.
  */
 export const Main = (props) => {
-  console.log('main', firebase.auth().currentUser)
+  // if(firebase.auth().currentUser === null) {
+  // } else {
+  //   console.log('main email', firebase.auth().currentUser.email)
+  // }
   return (
     <div className="sapphire-app">
       <h1 className="app-title">Sapphire</h1>
@@ -19,9 +22,14 @@ export const Main = (props) => {
       <div className = "sapphire-auth-div">
         <Link to='/login' className = "sapphire-app-login">Login</Link>
         <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
-        <button onClick={() => firebase.auth().signOut().then(console.log(firebase.auth())).catch(err => console.log(err))}>Logout</button>
+        <button onClick={() => (firebase.auth().signOut()).catch(err => console.log(err))}>Logout</button>
         
       </div>
+
+
+      {/* <div>
+        <button onClick={() => (console.log('checked', firebase.auth().currentUser))}> check </button>
+        </div> */}
     </div>
   )
 }
