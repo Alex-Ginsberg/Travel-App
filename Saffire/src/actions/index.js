@@ -35,7 +35,16 @@ export const fetchEvents = itinerary => dispatch => {
             console.log('ITIN: ', events)
             let eventsArr = []
             for (var key in events) {
-                eventsArr.push(events[key])
+                console.log('IN LOOP: ', key, events[key])
+                const toAdd = {
+                    key: key,
+                    added: events[key].added,
+                    description: events[key].description,
+                    image: events[key].image,
+                    title: events[key].title,
+                    url: events[key].url
+                }
+                eventsArr.push(toAdd)
             }
             return dispatch(setEvents(eventsArr))
         })
@@ -47,27 +56,41 @@ export const addEvent = (url, itin) => dispatch => {
         .then(preview => {
             let isFirstEvent = false
             const itinKey = itin.key
-            const eventNode = {
-                title: preview.title,
-                description: preview.description,
-                image: preview.image,
-                url: preview.url
-            }
-            // var amandaAgeRef = ref.child("players").child("-KGb1Ls-gEErWbAMMnZC").child('age');
+            let newId
             const currentItinRef = firebase.database().ref().child('itineraries').child(itin.key).child('events')
             console.log(currentItinRef)
             currentItinRef.transaction(currentEvents => {
                 if (currentEvents === null){
                     isFirstEvent = true
-                    return {event1: eventNode}
+                    return {event1: {
+                        title: preview.title,
+                        description: preview.description,
+                        image: preview.image,
+                        url: preview.url,
+                        added: false
+                    }}
                 }
             })
             if (!isFirstEvent) {
-                currentItinRef.push(eventNode)
+                const newRef = currentItinRef.push({
+                    title: preview.title,
+                    description: preview.description,
+                    image: preview.image,
+                    url: preview.url,
+                    added: false
+                })
+                newId = newRef.key
+                console.log('NEWID: ', newId)
+            }
+            const eventNode = {
+                title: preview.title,
+                description: preview.description,
+                image: preview.image,
+                url: preview.url,
+                added: false, 
+                key: newId
             }
             return dispatch(newEvent(eventNode))
-            
-            // Add event node to the current itins events
         })
 
 }

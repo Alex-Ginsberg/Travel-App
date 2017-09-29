@@ -56,10 +56,11 @@ class IdeaBoard extends Component {
             <LinkPreview />
             <div>
                 {this.props.currentEvents.map(event => (
-                    <div key={event.title}>
-                        <p>Title: {event.title}</p>
-                        <p>Description: {event.description}</p>
-                        <img src={event.image} />
+                    <div key={event.title} className="event-node" style = {{backgroundImage: `url(${event.image})`}}>
+                    <h2 >{event.title}</h2>
+                    <button onClick={() => {
+                        {/* Change event to added */}
+                        }}>+</button>
                     </div>
                 ))}
             </div>

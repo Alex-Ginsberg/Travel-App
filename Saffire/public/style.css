@@ -100,3 +100,35 @@ body {
     margin-top: -200px;
     opacity: 1;
 }
+
+/*
+    ==================================
+                Idea Board
+    ==================================
+*/
+.event-node {
+    display: flex;
+    height: 300px;
+    width: 300px;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.event-image {
+    height: 250px;
+    width: 250px;
+}
+
+.event-title {
+    position: relative;
+    bottom: 100px;
+}
+
+.event-node > h2 {
+    color: black;
+    font-size: 20px;
+    font-family: sans-serif;
+    opacity: 0.7;
+}
