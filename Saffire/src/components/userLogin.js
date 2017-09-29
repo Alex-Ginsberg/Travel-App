@@ -49,7 +49,7 @@ class UserLogin extends React.Component {
       console.log(error.code)
       console.log(error.message)
     })
-    this.props.history.push('/home')
+    this.props.history.push('/itineraries')
   }
 
   // handleItinerarySubmit (e) {

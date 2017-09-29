@@ -1,8 +1,7 @@
 import { SET_ITINERARY } from '../actions';
 
-const initialState = {
-    newItinerary: ''
-}
+const initialState =  ''
+
 
 
 export default function(state = initialState, action) {
