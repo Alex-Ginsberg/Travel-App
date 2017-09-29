@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import firebase from '../firebase'
 import WhereTo from './WhereTo'
+import BurgerMenu from './Menu';
 
 
 /**
@@ -17,13 +17,16 @@ export const Main = (props) => {
   // }
   return (
     <div className="sapphire-app">
+      
+      <div className="top-bar">
+      <BurgerMenu />
       <h1 className="app-title">Sapphire</h1>
+      </div>
       <WhereTo />
+
       <div className = "sapphire-auth-div">
         <Link to='/login' className = "sapphire-app-login">Login</Link>
         <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
-        <button onClick={() => (firebase.auth().signOut()).catch(err => console.log(err))}>Logout</button>
-        
       </div>
 
 
