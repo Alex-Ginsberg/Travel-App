@@ -12,7 +12,7 @@ class WhereTo extends Component {
             newItinerary: '',
             dirtyItinerary: false
         }
-       
+
     }
 
     handleSubmit(e) {
