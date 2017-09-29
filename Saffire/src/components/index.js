@@ -10,4 +10,6 @@ export {Login, Signup} from './auth-form'
 export {default as UserSignup} from './userSignup'
 export {default as UserLogin} from './userLogin'
 export {default as AllItineraries} from './AllItineraries'
+export {default as WhereTo} from './WhereTo'
+
 
