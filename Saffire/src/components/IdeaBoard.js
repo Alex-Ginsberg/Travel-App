@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import LinkPreview from './LinkPreview'
-//import { postIdea } from '../actions';
+import { addEvent, fetchEvents } from '../actions';
 
 
 class IdeaBoard extends Component {
@@ -15,6 +15,10 @@ class IdeaBoard extends Component {
         }
     }
 
+    componentDidMount() {
+        this.props.getItineraryEvents(this.props.itineraryName)
+    }
+
     handleChange(e) {
         let url = e.target.value
         this.setState({
@@ -24,11 +28,13 @@ class IdeaBoard extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        
+        this.props.sendUrl(this.state.newURL, this.props.itineraryName)
     }
     
 
     render() {
+        console.log('CURRENT ITIN: ', this.props.itineraryName)
+        console.log('EVENTS: ', this.props.currentEvents)
         let handleSubmit = this.handleSubmit;
         let handleChange = this.handleChange;
         let itineraryName = this.props.itineraryName
@@ -48,10 +54,19 @@ class IdeaBoard extends Component {
                     <button type="submit" className="btn btn-primary">Enter</button>
                 </form>
             <LinkPreview />
+            <div>
+                {this.props.currentEvents.map(event => (
+                    <div key={event.title}>
+                        <p>Title: {event.title}</p>
+                        <p>Description: {event.description}</p>
+                        <img src={event.image} />
+                    </div>
+                ))}
+            </div>
 
             </div>
-            <p>Left arrow: <i class="arrow left"></i></p>
-            <p>Right arrow: <i class="arrow right"></i></p>
+            <p>Left arrow: <i className="arrow left"></i></p>
+            <p>Right arrow: <i className="arrow right"></i></p>
         </div>
         )
     }
@@ -59,13 +74,19 @@ class IdeaBoard extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        itineraryName: state.currentItinerary
+        itineraryName: state.currentItinerary,
+        currentEvents: state.currentEvents
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        
+        getItineraryEvents(itin) {
+            dispatch(fetchEvents(itin))
+        },
+        sendUrl(url, itin) {
+            dispatch(addEvent(url, itin))
+        }
     }
 }
 
