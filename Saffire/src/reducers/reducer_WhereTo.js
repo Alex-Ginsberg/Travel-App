@@ -1,6 +1,6 @@
 import { SET_ITINERARY } from '../actions';
 
-const initialState =  ''
+const initialState =  {}
 
 
 

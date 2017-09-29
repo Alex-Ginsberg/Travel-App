@@ -3,12 +3,6 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import firebase from '../firebase'
 
-/**
- * COMPONENT
- *  The Main component is our 'picture frame' - it displays the navbar and anything
- *  else common to our entire app. The 'picture' inside the frame is the space
- *  rendered out by the component's `children`.
- */
 class AllItineraries extends React.Component {
   constructor () {
     super()
@@ -39,7 +33,9 @@ class AllItineraries extends React.Component {
     return (
       <div>
         {this.state.itinArray.map(itin => (
-          <a key={itin} href={`/itineraries/${itin}`}>{itin}</a>
+          <button onPress={() => {
+            console.log(itin)
+            }}>{itin}</button>
         ))}
       </div>
 
