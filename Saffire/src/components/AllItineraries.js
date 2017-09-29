@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import firebase from '../firebase'
+import { postItinerary } from '../actions'
 
 class AllItineraries extends React.Component {
   constructor () {
@@ -25,16 +26,15 @@ class AllItineraries extends React.Component {
       this.setState({itinArray: itinArray})
     }, error => console.log(error.code))
   }
-
   render () {
-    // Should render out links to those itineraries instead of just rendering out ids
-    // Turn them into links
     console.log('CURRENT USER: ', firebase.auth().currentUser)
     return (
       <div>
         {this.state.itinArray.map(itin => (
-          <button onPress={() => {
-            console.log(itin)
+          <button key={itin} onClick={() => {
+            firebase.database().ref(`/itineraries/${itin}`).once('value')
+              .then(snapshot => this.props.setItineraryName(snapshot.val()))
+            this.props.history.push('/home')
             }}>{itin}</button>
         ))}
       </div>
@@ -43,6 +43,15 @@ class AllItineraries extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+      setItineraryName(itineraryName) {
+          dispatch(postItinerary(itineraryName))
+      }
+  }
+}
+
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect()(AllItineraries))
+export default withRouter(connect(null, mapDispatchToProps)(AllItineraries))

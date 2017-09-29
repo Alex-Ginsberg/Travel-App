@@ -60,12 +60,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+  
         setItineraryName(itineraryName) {
             dispatch(postItinerary(itineraryName))
         }
     }
-}
+  }
 
 const WhereToContainer = connect(mapStateToProps, mapDispatchToProps)(WhereTo);
 export default WhereToContainer;
