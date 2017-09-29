@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import firebase from '../firebase'
 import WhereTo from './WhereTo'
+import BurgerMenu from './Menu';
 
 
 /**
@@ -11,17 +11,33 @@ import WhereTo from './WhereTo'
  *  rendered out by the component's `children`.
  */
 export const Main = (props) => {
-  console.log('main', firebase.auth().currentUser)
+  // if(firebase.auth().currentUser === null) {
+  // } else {
+  //   console.log('main email', firebase.auth().currentUser.email)
+  // }
   return (
     <div className="sapphire-app">
+      <div className="top-bar">
+      <BurgerMenu />
       <h1 className="app-title">Sapphire</h1>
-      <WhereTo />
+      </div>
+
       <div className = "sapphire-auth-div">
         <Link to='/login' className = "sapphire-app-login">Login</Link>
         <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
-        <button onClick={() => firebase.auth().signOut().then(console.log(firebase.auth())).catch(err => console.log(err))}>Logout</button>
-        
+      <div className="border">
+        <div className = "appp">
+          <h1 className="app-title">Sapphire</h1>
+          <WhereTo />
+        </div>
       </div>
+    </div>
+    </div>
+
+
+      {/* <div>
+        <button onClick={() => (console.log('checked', firebase.auth().currentUser))}> check </button>
+        </div> */}
     </div>
   )
 }
