@@ -15,7 +15,6 @@ class WhereTo extends Component {
        
     }
 
-
     handleSubmit(e) {
         e.preventDefault()
         let newItinerary = this.state.newItinerary
@@ -26,17 +25,19 @@ class WhereTo extends Component {
 
     render() {
         let handleSubmit = this.handleSubmit;
-        console.log('props2', this.props)
         return (
-            <div className="form-group">
+
+            <div className="sapphire-itinerary-div">
+                <form onSubmit={handleSubmit} className="sapphire-itinerary-form">
+
                     {/* {
                         this.state.dirtyItinerary && this.state.newItinerary.length ? 
                         <p className="errorItinerary alert alert-danger" >please enter an itinerary name</p> :
                         <p></p>
                     } */}
-                <form onSubmit={handleSubmit} className="itinerary-form">
+
     
-                    
+                    <label>Create an Itinerary</label>
                     <input name="itineraryName" 
                         type="text" 
                         className="form-control" 
@@ -47,6 +48,7 @@ class WhereTo extends Component {
                     <button type="submit" className="btn btn-primary">Enter</button>
                 </form>
                 {/* <span>{this.props.itineraryName}</span> */}
+
             </div>
         )
     }
