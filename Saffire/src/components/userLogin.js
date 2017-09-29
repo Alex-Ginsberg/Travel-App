@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {withRouter, Link} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import firebase from '../firebase'
 
 /**
@@ -48,18 +47,11 @@ class UserLogin extends React.Component {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
       console.log(error.code)
       console.log(error.message)
-    })
-    this.props.history.push('/itineraries')
+    }).then(() => this.props.history.push('/itineraries'))
+    
   }
 
-  // handleItinerarySubmit (e) {
-  //   e.preventDefault()
-  //   let itinerariesRef = firebase.database().ref('itineraries')
-  //   itineraries.push({
-  //     name: <PLUG IN WHERE USER ENTERED ITIN NAME>,
-  //     owner: firebase.auth().currentUser.email
-  //   })
-  // }
+  
 }
 
 // The `withRouter` wrapper makes sure that updates are not blocked

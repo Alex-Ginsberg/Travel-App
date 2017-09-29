@@ -1,0 +1,86 @@
+/*
+    ==================================
+               Box-Sizing
+    ==================================
+*/
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+/*
+    ==================================
+                Body
+    ==================================
+*/
+body {
+    background-image: url("https://images.pexels.com/photos/297755/pexels-photo-297755.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/*
+    ==================================
+                Home Page
+    ==================================
+*/
+.sapphire-app {
+    text-align: center;
+}
+
+.app-title {
+    font-size: 3.5em;
+    font-family: "Grand Hotel";
+    border-bottom: 5px solid azure;
+    color: azure;
+    letter-spacing: .2em;
+    font-weight: 600;
+    text-shadow: 3px 3px black;
+    padding-bottom: 5px;
+}
+
+.sapphire-itinerary-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-top: 200px;
+}
+
+.sapphire-itinerary-form label{
+    font-size: 2.5em;
+    color: azure;
+    display: block;
+    text-shadow: 3px 3px black;
+    letter-spacing: .1em;
+}
+
+.sapphire-itinerary-form input{
+    width: 330px;
+    font-size: 28px;
+    border-radius: 10px;
+    margin-top: 10px;
+
+}
+
+.sapphire-itinerary-form button{
+    font-size: 24px;
+    background-color: lightgreen;
+    color: azure;
+    border-radius: 10px;
+    border: 3px solid azure;
+    font-weight: 600;
+}
+
+.sapphire-auth-div {
+    padding-top: 10px;
+
+}
+.sapphire-app-login {
+    font-size: 2em;
+    text-decoration: none;
+    color: black;  
+    padding: 0 10px;
+    font-weight: 550;
+    text-shadow: 3px 3px azure;
+}

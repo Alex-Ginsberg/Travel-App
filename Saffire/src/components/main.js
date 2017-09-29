@@ -1,11 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {withRouter, Link} from 'react-router-dom'
-import {logout} from '../store'
+import {Link} from 'react-router-dom'
 import firebase from '../firebase'
-
-import '../App.css';
 import WhereTo from './WhereTo'
 
 
@@ -16,30 +11,17 @@ import WhereTo from './WhereTo'
  *  rendered out by the component's `children`.
  */
 export const Main = (props) => {
-  
-  // Left in as reference
-//   var userRef = firebase.database().ref('users');
-//   userRef.push ({
-//     name: "Ron",
-//     number: 1,
-//     age: 30
-//  });
-//   console.log(userRef)
+  console.log('main', firebase.auth().currentUser)
   return (
-    <div className="App">
-      <h1>safFire</h1>
-
-      <nav>
-        <div id="login" style={{float: 'right', margin: 50}}>
-          <Link to='/login'>Login</Link>
-        </div>
-      </nav>
-
-      <div className='input' style={{display: 'center', margin: 50}}>
-        <WhereTo />
+    <div className="sapphire-app">
+      <h1 className="app-title">Sapphire</h1>
+      <WhereTo />
+      <div className = "sapphire-auth-div">
+        <Link to='/login' className = "sapphire-app-login">Login</Link>
+        <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
+        <button onClick={() => firebase.auth().signOut().then(console.log(firebase.auth())).catch(err => console.log(err))}>Logout</button>
+        
       </div>
-     
-    
     </div>
   )
 }
