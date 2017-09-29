@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import firebase from '../firebase'
-import { postItinerary } from '../actions'
+import { postItinerary, setCurrentItinerary } from '../actions'
 
 class AllItineraries extends React.Component {
   constructor () {
@@ -32,9 +32,10 @@ class AllItineraries extends React.Component {
       <div>
         {this.state.itinArray.map(itin => (
           <button key={itin} onClick={() => {
+            console.log('BEFORE DISPATCH: ', itin)
             firebase.database().ref(`/itineraries/${itin}`).once('value')
-              .then(snapshot => this.props.setItineraryName(snapshot.val()))
-              {/* Should then go to singleItinerary */}
+              .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin))
+              .then(() => this.props.history.push('/money'))
             }}>{itin}</button>
         ))}
       </div>
@@ -48,6 +49,10 @@ const mapDispatchToProps = (dispatch) => {
 
       setItineraryName(itineraryName) {
           dispatch(postItinerary(itineraryName))
+      },
+
+      setCurrentItinerary(itinerary, itin) {
+        dispatch(setCurrentItinerary(itinerary, itin))
       }
   }
 }
