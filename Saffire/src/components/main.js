@@ -19,7 +19,6 @@ export const Main = (props) => {
     <div className="sapphire-app">
       <div className="top-bar">
       <BurgerMenu />
-      <h1 className="app-title">Sapphire</h1>
       </div>
 
       <div className = "sapphire-auth-div">
@@ -32,7 +31,7 @@ export const Main = (props) => {
         </div>
       </div>
     </div>
-    </div>
+
 
 
       {/* <div>
