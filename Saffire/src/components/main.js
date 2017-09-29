@@ -4,7 +4,10 @@ import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
 import firebase from '../firebase'
+
 import '../App.css';
+import WhereTo from './WhereTo'
+
 
 /**
  * COMPONENT
@@ -24,15 +27,21 @@ export const Main = (props) => {
 //   console.log(userRef)
   return (
     <div className="App">
-      <h1>saffire</h1>
+      <h1>safFire</h1>
 
       <nav>
-        <div>
+        <div id="login" style={{float: 'right', margin: 50}}>
           <Link to='/login'>Login</Link>
         </div>
       </nav>
+
+      <div className='input' style={{display: 'center', margin: 50}}>
+        <WhereTo />
+      </div>
+     
     
     </div>
   )
 }
+
 
