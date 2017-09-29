@@ -17,17 +17,22 @@ export const Main = (props) => {
   // }
   return (
     <div className="sapphire-app">
-      
       <div className="top-bar">
       <BurgerMenu />
       <h1 className="app-title">Sapphire</h1>
       </div>
-      <WhereTo />
 
       <div className = "sapphire-auth-div">
         <Link to='/login' className = "sapphire-app-login">Login</Link>
         <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
+      <div className="border">
+        <div className = "appp">
+          <h1 className="app-title">Sapphire</h1>
+          <WhereTo />
+        </div>
       </div>
+    </div>
+    </div>
 
 
       {/* <div>
