@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Route, Router} from 'react-router'
 import {Switch} from 'react-router-dom'
 import history from './history'
-import { Main, UserLogin, UserSignup, AllItineraries } from './components'
+import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard } from './components'
 
 
 /**
@@ -19,6 +19,7 @@ export default class Routes extends Component {
           <Route path="/login" component={UserLogin} />
           <Route path="/signup" component={UserSignup} />
           <Route path="/itineraries" component={AllItineraries} />
+          <Route path="/money" component={IdeaBoard} />
         </Switch>
       
       </Router>
