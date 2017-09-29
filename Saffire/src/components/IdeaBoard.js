@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import LinkPreview from './LinkPreview'
-import { addEvent } from '../actions';
+import { addEvent, fetchEvents } from '../actions';
 
 
 class IdeaBoard extends Component {
@@ -16,7 +16,7 @@ class IdeaBoard extends Component {
     }
 
     componentDidMount() {
-
+        this.props.getItineraryEvents(this.props.itineraryName)
     }
 
     handleChange(e) {
@@ -34,6 +34,7 @@ class IdeaBoard extends Component {
 
     render() {
         console.log('CURRENT ITIN: ', this.props.itineraryName)
+        console.log('EVENTS: ', this.props.currentEvents)
         let handleSubmit = this.handleSubmit;
         let handleChange = this.handleChange;
         let itineraryName = this.props.itineraryName
@@ -53,6 +54,15 @@ class IdeaBoard extends Component {
                     <button type="submit" className="btn btn-primary">Enter</button>
                 </form>
             <LinkPreview />
+            <div>
+                {this.props.currentEvents.map(event => (
+                    <div key={event.title}>
+                        <p>Title: {event.title}</p>
+                        <p>Description: {event.description}</p>
+                        <img src={event.image} />
+                    </div>
+                ))}
+            </div>
 
             </div>
             <p>Left arrow: <i className="arrow left"></i></p>
@@ -64,15 +74,16 @@ class IdeaBoard extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        itineraryName: state.currentItinerary
+        itineraryName: state.currentItinerary,
+        currentEvents: state.currentEvents
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // getItineraryEvents(itin) {
-        //     dispatch(fetchEvents(itin))
-        // }
+        getItineraryEvents(itin) {
+            dispatch(fetchEvents(itin))
+        },
         sendUrl(url, itin) {
             dispatch(addEvent(url, itin))
         }

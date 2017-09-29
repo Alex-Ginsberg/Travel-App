@@ -3,7 +3,7 @@ import firebase from '../firebase'
 import axios from 'axios'
 
 export const SET_ITINERARY = 'SET_ITINERARY'
-// export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
+export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
 export const SELECT_ITINERARY = 'SELECT_ITINERARY'
 export const ADD_EVENT = 'ADD_EVENT'
 
@@ -27,15 +27,19 @@ export const postItinerary = itinerary => dispatch => {
         return dispatch(setItinerary(itinObj))
 }
 
-// export const fetchEvents = itinerary => dispatch => {
-//     const itinerariesRef = firebase.database().ref(`/itineraries/${itinerary}`)
-//     itinerariesRef.once('value')
-//         .then(snapshot => {
-//             const itin = snapshot.val()
-//             console.log('ITIN: ', itin)
-//             return dispatch(setEvents(itinerary))
-//         })
-// }
+export const fetchEvents = itinerary => dispatch => {
+    const itinerariesRef = firebase.database().ref(`/itineraries/${itinerary.key}`)
+    itinerariesRef.once('value')
+        .then(snapshot => {
+            const events = snapshot.val().events
+            console.log('ITIN: ', events)
+            let eventsArr = []
+            for (var key in events) {
+                eventsArr.push(events[key])
+            }
+            return dispatch(setEvents(eventsArr))
+        })
+}
 
 export const addEvent = (url, itin) => dispatch => {
     axios.get(`http://api.linkpreview.net/?key=59ceb254e639805e71e929ab347575465baaf5072e1b1&q=${url}`)
@@ -61,6 +65,7 @@ export const addEvent = (url, itin) => dispatch => {
             if (!isFirstEvent) {
                 currentItinRef.push(eventNode)
             }
+            return dispatch(newEvent(eventNode))
             
             // Add event node to the current itins events
         })
@@ -80,7 +85,8 @@ export const setCurrentItinerary = (itinerary, itin) => dispatch => {
 //action creator
 
 export const setItinerary = itineraryName => ({type: SET_ITINERARY, itineraryName});
-// export const setEvents = events => ({type: GET_CURRENT_EVENTS, events})
+export const setEvents = events => ({type: GET_CURRENT_EVENTS, events})
+export const newEvent = event => ({type: ADD_EVENT, event})
 // export const selectItinerary = itinerary => ({type: SELECT_ITINERARY, itinerary})
 
 
