@@ -34,7 +34,7 @@ class AllItineraries extends React.Component {
           <button key={itin} onClick={() => {
             firebase.database().ref(`/itineraries/${itin}`).once('value')
               .then(snapshot => this.props.setItineraryName(snapshot.val()))
-            this.props.history.push('/home')
+              {/* Should then go to singleItinerary */}
             }}>{itin}</button>
         ))}
       </div>
