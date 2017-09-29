@@ -30,21 +30,21 @@ body {
 }
 
 .app-title {
-    font-size: 3.5em;
-    font-family: "Grand Hotel";
-    border-bottom: 5px solid azure;
+    font-size: 5em;
+    font-family: "Helvetica Neue";
     color: azure;
-    letter-spacing: .2em;
-    font-weight: 600;
+    letter-spacing: .1em;
+    font-weight: 500;
     text-shadow: 3px 3px black;
     padding-bottom: 5px;
+    margin-top: 200px;
+    margin-bottom: 0;
 }
 
 .sapphire-itinerary-div {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    margin-top: 200px;
 }
 
 .sapphire-itinerary-form label{
@@ -56,15 +56,15 @@ body {
 }
 
 .sapphire-itinerary-form input{
-    width: 330px;
-    font-size: 28px;
+    width: 700px;
+    font-size: 33px;
     border-radius: 10px;
     margin-top: 10px;
 
 }
 
 .sapphire-itinerary-form button{
-    font-size: 24px;
+    font-size: 30px;
     background-color: lightgreen;
     color: azure;
     border-radius: 10px;
@@ -74,13 +74,29 @@ body {
 
 .sapphire-auth-div {
     padding-top: 10px;
-
+    text-align: right;
+    margin-right: 50px;
+    margin-top: 20px;
 }
+
 .sapphire-app-login {
-    font-size: 2em;
+    font-size: 1.4em;
     text-decoration: none;
-    color: black;  
+    color: lightgrey ;
     padding: 0 10px;
     font-weight: 550;
-    text-shadow: 3px 3px azure;
+
+}
+
+.border {
+    background-color: black;
+    opacity: .7;
+    display: inline-block;
+    margin-top: 100px;
+    padding: 150px;
+}
+
+.appp {
+    margin-top: -200px;
+    opacity: 1;
 }

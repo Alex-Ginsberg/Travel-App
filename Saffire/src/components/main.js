@@ -14,13 +14,15 @@ export const Main = (props) => {
   console.log('main', firebase.auth().currentUser)
   return (
     <div className="sapphire-app">
-      <h1 className="app-title">Sapphire</h1>
-      <WhereTo />
-      <div className = "sapphire-auth-div">
+       <div className = "sapphire-auth-div">
         <Link to='/login' className = "sapphire-app-login">Login</Link>
         <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
-        <button onClick={() => firebase.auth().signOut().then(console.log(firebase.auth())).catch(err => console.log(err))}>Logout</button>
-        
+      </div>
+      <div className="border">
+        <div className = "appp">
+          <h1 className="app-title">Sapphire</h1>
+          <WhereTo />
+        </div>
       </div>
     </div>
   )
