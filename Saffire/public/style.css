@@ -15,9 +15,7 @@
     ==================================
 */
 body {
-    background-image: url("https://images.pexels.com/photos/297755/pexels-photo-297755.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb");
-    background-size: cover;
-    background-repeat: no-repeat;
+
 }
 
 /*
@@ -100,3 +98,60 @@ body {
     margin-top: -200px;
     opacity: 1;
 }
+
+/*
+    ===========================================
+                User Sign-Up
+    ===========================================
+*/
+
+.sapphire-user-signup-div {
+    background-image: url("https://images.pexels.com/photos/196666/pexels-photo-196666.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb");
+    background-size: cover;
+    height: 100vh;
+}
+
+.sapphire-user-signup-box {
+    text-align: center;
+}
+
+.sapphire-user-signup-form {
+    display: inline-block;
+    border: 5px solid lightgrey;
+    background-color: white;
+    padding: 30px;
+    margin-top: 200px;
+    opacity: .75;
+}
+
+.sapphire-user-signup-form h1 {
+    font-size: 3em;
+    text-shadow: 2px 2px black;
+    font-weight: 600;
+    color: lightgrey;
+}
+
+.sapphire-user-signup-input label {
+    display: block;
+    font-size: 1.7em;
+    padding-bottom: 2px;
+    font-weight: 600;
+    color: black;
+}
+
+.sapphire-user-signup-input input {
+    width: 300px;
+    font-size: 28px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.sapphire-user-signup-form button {
+    font-size: 30px;
+    border-radius: 10px;
+    background-color: lightgreen;
+    color: azure;
+    font-weight: 600;
+    padding: 4px 9px;
+}
+

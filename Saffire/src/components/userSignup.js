@@ -23,24 +23,29 @@ class UserSignup extends React.Component {
 
   render () {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label htmlFor='name'><small>Name</small></label>
-            <input name='name' type='text' onChange={(e) => { this.setState({name: e.target.value}) }}/>
-          </div>
-          <div>
-            <label htmlFor='email'><small>Email</small></label>
-            <input name='email' type='text' onChange={(e) => this.setState({email: e.target.value})}/>
-          </div>
-          <div>
-            <div>
+      <div className = "sapphire-user-signup-div">
+        <div className = "sapphire-user-signup-box">
+          <form onSubmit={this.handleSubmit} className = "sapphire-user-signup-form">
+          
+            <h1>Create an Account</h1>
+            <div className = "sapphire-user-signup-input">
+              <label htmlFor='name'><small>Name</small></label>
+              <input name='name' type='text' onChange={(e) => { this.setState({name: e.target.value}) }} placeholder="Enter name"/>
+            </div>
+
+            <div className = "sapphire-user-signup-input">
+              <label htmlFor='email'><small>Email</small></label>
+              <input name='email' type='email' onChange={(e) => this.setState({email: e.target.value})} placeholder="Enter email"/>
+            </div>
+
+            <div className = "sapphire-user-signup-input">
               <label htmlFor='password'><small>Password</small></label>
-              <input name='password' type='password' onChange={(e) => this.setState({password: e.target.value})}/>
+              <input name='password' type='password' onChange={(e) => this.setState({password: e.target.value})} placeholder="Enter password"/>
             </div>
             <button type='submit'>Submit</button>
-          </div>
-        </form>
+          </form>
+
+        </div>
       </div>
     )
   }
