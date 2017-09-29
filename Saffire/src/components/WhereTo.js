@@ -8,10 +8,10 @@ class WhereTo extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-        // this.state = {
-        //     newItinerary: '',
-        //     dirtyItinerary: false
-        // }
+        this.state = {
+            newItinerary: '',
+            dirtyItinerary: false
+        }
     }
 
 
