@@ -28,8 +28,12 @@ export const postItinerary = itinerary => dispatch => {
         return dispatch(setItinerary(itinObj))
 }
 
-export const fetchEvents = itinerary => dispatch => {
-    const itinerariesRef = firebase.database().ref(`/itineraries/${itinerary.key}`)
+export const fetchEvents = (itinerary, fromLike) => dispatch => {
+    let itinKey
+    if (fromLike) {itinKey = itinerary}
+    else {itinKey = itinerary.key}
+    console.log('INSIDE FETH: ', itinKey)
+    const itinerariesRef = firebase.database().ref(`/itineraries/${itinKey}`)
     itinerariesRef.once('value')
         .then(snapshot => {
             const events = snapshot.val().events
@@ -43,7 +47,8 @@ export const fetchEvents = itinerary => dispatch => {
                     description: events[key].description,
                     image: events[key].image,
                     title: events[key].title,
-                    url: events[key].url
+                    url: events[key].url,
+                    likes: events[key].likes
                 }
                 eventsArr.push(toAdd)
             }
@@ -116,6 +121,7 @@ export const newLike = (eventId, itinKey) => dispatch => {
     currentItinRef.transaction(likes => {
         return likes + 1
     })
+    return dispatch(fetchEvents(itinKey, true))
 }
 
 //action creator

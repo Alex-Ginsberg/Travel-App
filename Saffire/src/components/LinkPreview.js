@@ -49,7 +49,7 @@ class LinkPreview extends Component {
           <img src={this.props.image} alt="" />
         </CardMedia>
         <CardActions>
-          <FlatButton label="Like" onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)}/>
+          <FlatButton label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)}/>
           <FlatButton label="Add To Itinerary" />
         </CardActions>
       </Card>
