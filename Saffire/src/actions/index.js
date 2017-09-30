@@ -6,6 +6,7 @@ export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
 export const SELECT_ITINERARY = 'SELECT_ITINERARY'
 export const ADD_EVENT = 'ADD_EVENT'
+export const LIKE = 'LIKE'
 
 
 
@@ -67,7 +68,9 @@ export const addEvent = (url, itin) => dispatch => {
                         description: preview.description,
                         image: preview.image,
                         url: preview.url,
-                        added: false
+                        added: false,
+                        likes: 0,
+                        key: 'event1'
                     }}
                 }
             })
@@ -77,7 +80,8 @@ export const addEvent = (url, itin) => dispatch => {
                     description: preview.description,
                     image: preview.image,
                     url: preview.url,
-                    added: false
+                    added: false,
+                    likes: 0
                 })
                 newId = newRef.key
                 console.log('NEWID: ', newId)
@@ -88,7 +92,8 @@ export const addEvent = (url, itin) => dispatch => {
                 image: preview.image,
                 url: preview.url,
                 added: false, 
-                key: newId
+                key: newId,
+                likes: 0
             }
             return dispatch(newEvent(eventNode))
         })

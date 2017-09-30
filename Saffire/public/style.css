@@ -114,6 +114,8 @@ body {
     justify-content: center;
     background-size: cover;
     background-position: center;
+    background-color: white;
+    border-radius: 20%;
 }
 
 .event-image {
