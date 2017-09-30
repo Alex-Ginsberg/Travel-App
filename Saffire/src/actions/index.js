@@ -167,6 +167,42 @@ export const fetchUsers = () => dispatch => {
         })
 }
 
+export const addFriend = (friend) => dispatch => {
+    console.log('INSIDE ADD FRIEND: ', friend)
+    const usersRef = firebase.database().ref().child('users')
+    usersRef.once('value')
+        .then(snapshot => {
+            const users = snapshot.val()
+            let loggedInUser = null
+            for (var key in users) {
+                if (users[key].email === firebase.auth().currentUser.email){loggedInUser = key}
+            }
+            console.log('LOGGED IN USER: ', loggedInUser)
+            return loggedInUser
+        })
+        .then(loggedIn => {
+            const currentUserRef = firebase.database().ref().child('users').child(loggedIn).child('friends')
+            console.log(currentUserRef)
+            currentUserRef.transaction(friends => {
+                if (friends === null) {
+                    return {firstFriend: {
+                        name: friend.name,
+                        email: friend.email,
+                        key: friend.key
+                    }}
+                }
+            })
+                console.log('ADDING ANOTHER FRIEND')
+                currentUserRef.push({
+                    name: friend.name,
+                    email: friend.email,
+                    key: friend.key
+                })
+
+        })
+        
+}
+
 //action creator
 
 export const setItinerary = itineraryName => ({type: SET_ITINERARY, itineraryName});
