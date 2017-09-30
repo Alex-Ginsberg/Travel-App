@@ -6,6 +6,7 @@ export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
 export const SELECT_ITINERARY = 'SELECT_ITINERARY'
 export const ADD_EVENT = 'ADD_EVENT'
+export const LIKE = 'LIKE'
 
 
 
@@ -27,15 +28,29 @@ export const postItinerary = itinerary => dispatch => {
         return dispatch(setItinerary(itinObj))
 }
 
-export const fetchEvents = itinerary => dispatch => {
-    const itinerariesRef = firebase.database().ref(`/itineraries/${itinerary.key}`)
+export const fetchEvents = (itinerary, fromLike) => dispatch => {
+    let itinKey
+    if (fromLike) {itinKey = itinerary}
+    else {itinKey = itinerary.key}
+    console.log('INSIDE FETH: ', itinKey)
+    const itinerariesRef = firebase.database().ref(`/itineraries/${itinKey}`)
     itinerariesRef.once('value')
         .then(snapshot => {
             const events = snapshot.val().events
             console.log('ITIN: ', events)
             let eventsArr = []
             for (var key in events) {
-                eventsArr.push(events[key])
+                console.log('IN LOOP: ', key, events[key])
+                const toAdd = {
+                    key: key,
+                    added: events[key].added,
+                    description: events[key].description,
+                    image: events[key].image,
+                    title: events[key].title,
+                    url: events[key].url,
+                    likes: events[key].likes
+                }
+                eventsArr.push(toAdd)
             }
             return dispatch(setEvents(eventsArr))
         })
@@ -47,27 +62,45 @@ export const addEvent = (url, itin) => dispatch => {
         .then(preview => {
             let isFirstEvent = false
             const itinKey = itin.key
-            const eventNode = {
-                title: preview.title,
-                description: preview.description,
-                image: preview.image,
-                url: preview.url
-            }
-            // var amandaAgeRef = ref.child("players").child("-KGb1Ls-gEErWbAMMnZC").child('age');
+            let newId
             const currentItinRef = firebase.database().ref().child('itineraries').child(itin.key).child('events')
             console.log(currentItinRef)
             currentItinRef.transaction(currentEvents => {
                 if (currentEvents === null){
                     isFirstEvent = true
-                    return {event1: eventNode}
+                    return {event1: {
+                        title: preview.title,
+                        description: preview.description,
+                        image: preview.image,
+                        url: preview.url,
+                        added: false,
+                        likes: 0,
+                        key: 'event1'
+                    }}
                 }
             })
             if (!isFirstEvent) {
-                currentItinRef.push(eventNode)
+                const newRef = currentItinRef.push({
+                    title: preview.title,
+                    description: preview.description,
+                    image: preview.image,
+                    url: preview.url,
+                    added: false,
+                    likes: 0
+                })
+                newId = newRef.key
+                console.log('NEWID: ', newId)
+            }
+            const eventNode = {
+                title: preview.title,
+                description: preview.description,
+                image: preview.image,
+                url: preview.url,
+                added: false, 
+                key: newId,
+                likes: 0
             }
             return dispatch(newEvent(eventNode))
-            
-            // Add event node to the current itins events
         })
 
 }
@@ -80,6 +113,15 @@ export const setCurrentItinerary = (itinerary, itin) => dispatch => {
         key: itin
     }
     return dispatch(setItinerary(newRef))
+}
+
+export const newLike = (eventId, itinKey) => dispatch => {
+    console.log('INSIDE LIKE: ', eventId, itinKey)
+    const currentItinRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('likes')
+    currentItinRef.transaction(likes => {
+        return likes + 1
+    })
+    return dispatch(fetchEvents(itinKey, true))
 }
 
 //action creator
