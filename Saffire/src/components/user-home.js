@@ -1,15 +1,22 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import BurgerMenu from './Menu'
+import firebase from 'firebase';
 
 /**
  * COMPONENT
  */
 export const UserHome = (props) => {
   const {email} = props
+  console.log('currentuser firebase', firebase.auth().currentUser)
+  console.log('firebase', firebase.auth())
 
   return (
+
     <div>
+      <div id="burgerMenu">
+        <BurgerMenu />
+      </div>
       <h3>Welcome, {email}</h3>
     </div>
   )
@@ -26,9 +33,4 @@ const mapState = (state) => {
 
 export default connect(mapState)(UserHome)
 
-/**
- * PROP TYPES
- */
-UserHome.propTypes = {
-  email: PropTypes.string
-}
+
