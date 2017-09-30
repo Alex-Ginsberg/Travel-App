@@ -7,7 +7,7 @@ export const styles = {
       top: '36px'
     },
     bmBurgerBars: {
-      background: 'white'
+      background: 'white',
     },
     bmCrossButton: {
       height: '24px',
@@ -19,14 +19,14 @@ export const styles = {
     bmMenu: {
       background: 'white',
       padding: '2.5em 1.5em 0',
-      fontSize: '1.15em'
+      fontSize: '1.15em',
     },
     bmMorphShape: {
       fill: '#373a47'
     },
     bmItemList: {
       color: '#b8b7ad',
-      padding: '0.8em'
+      padding: '0.8em',
     },
     bmOverlay: {
       background: 'rgba(0, 0, 0, 0.3)'

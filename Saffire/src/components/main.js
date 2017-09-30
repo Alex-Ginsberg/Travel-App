@@ -16,8 +16,9 @@ export const Main = (props) => {
   //   console.log('main email', firebase.auth().currentUser.email)
   // }
   return (
-    <div className="sapphire-app">
-      
+
+    <div className="sapphire-app bg-main">
+
       <div className="top-bar">
       <BurgerMenu />
       </div>
@@ -33,7 +34,14 @@ export const Main = (props) => {
         <WhereTo />
         </div>
       </div>
-      
+
+
+
+
+      {/* <div>
+        <button onClick={() => (console.log('checked', firebase.auth().currentUser))}> check </button>
+        </div> */}
+
     </div>
   )
 }
