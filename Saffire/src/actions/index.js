@@ -48,7 +48,8 @@ export const fetchEvents = (itinerary, fromLike) => dispatch => {
                     image: events[key].image,
                     title: events[key].title,
                     url: events[key].url,
-                    likes: events[key].likes
+                    likes: events[key].likes,
+                    likedBy: events[key].likedBy
                 }
                 eventsArr.push(toAdd)
             }
@@ -122,13 +123,17 @@ export const newLike = (eventId, itinKey) => dispatch => {
     likesRef.transaction(likes => {
         return likes + 1
     })
+    let isFirstLike = false
     likedByRef.transaction(likedBy => {
         if(likedBy === null) {
+            isFirstLike = true
             return {firstLiker : {
                 name: firebase.auth().currentUser.email
             }}
-        }
-    })
+    }})
+    if (!isFirstLike) {
+        likedByRef.push({name: firebase.auth().currentUser.email})
+    }
     return dispatch(fetchEvents(itinKey, true))
 }
 

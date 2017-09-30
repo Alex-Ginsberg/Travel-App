@@ -31,6 +31,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 import {connect} from 'react-redux';
 import {newLike} from '../actions'
+import firebase from '../firebase'
 
 class LinkPreview extends Component {
   constructor(props) {
@@ -39,6 +40,10 @@ class LinkPreview extends Component {
 
 
   render () {
+    let likedByArray = []
+    for (var key in this.props.likedBy) {
+      likedByArray.push(this.props.likedBy[key].name)
+    }
     return(
       <Card expanded={false}>
         <CardMedia
@@ -49,7 +54,7 @@ class LinkPreview extends Component {
           <img src={this.props.image} alt="" />
         </CardMedia>
         <CardActions>
-          <FlatButton label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)}/>
+          <FlatButton label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={likedByArray.includes(firebase.auth().currentUser.email)}/>
           <FlatButton label="Add To Itinerary" />
         </CardActions>
       </Card>
