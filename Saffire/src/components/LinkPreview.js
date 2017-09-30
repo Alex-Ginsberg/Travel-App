@@ -38,9 +38,10 @@ class LinkPreview extends Component {
     super(props)
   }
 
-
   render () {
     let likedByArray = []
+    // Will create an array with the emails of everybody who has already liked this event
+    // Used to make sure an event can only be liked once
     for (var key in this.props.likedBy) {
       likedByArray.push(this.props.likedBy[key].name)
     }

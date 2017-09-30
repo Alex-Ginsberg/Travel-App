@@ -8,15 +8,17 @@ export const SELECT_ITINERARY = 'SELECT_ITINERARY'
 export const ADD_EVENT = 'ADD_EVENT'
 
 
-
+                                                                                            // Used for adding a new itinerary to the database
 export const postItinerary = itinerary => dispatch => {
-        const itinerariesRef = firebase.database().ref('itineraries')
+        const itinerariesRef = firebase.database().ref('itineraries')                       // Gets a reference to the 'itineraries' table in firebase
         console.log('INSIDE THuNK, CURRENT USER: ', firebase.auth().currentUser.email)
-        const newRef = itinerariesRef.push({
+        const newRef = itinerariesRef.push({                                                // Pushes the new itinerary to firebase
             name: itinerary,
             owner: firebase.auth().currentUser.email
         })
-        var newId = newRef.key;
+        var newId = newRef.key;                                                             // Gets the PK from the newly created instance
+                                                                                            // Creates a new object that resembles the one added to the database
+                                                                                            // The only difference is that this object has the PK has a value; used in other functionality
         const itinObj = {
             key: newId,
             name: itinerary,
@@ -26,20 +28,20 @@ export const postItinerary = itinerary => dispatch => {
         console.log('SETITIN: ', setItinerary(itinObj))
         return dispatch(setItinerary(itinObj))
 }
-
+                                                                                            // Used for getting all events for a certain itinerary from the database
 export const fetchEvents = (itinerary, fromLike) => dispatch => {
     let itinKey
-    if (fromLike) {itinKey = itinerary}
+    if (fromLike) {itinKey = itinerary}                                                     // If we are fetching events because there has been a new like, itinerary passed in will already be the key
     else {itinKey = itinerary.key}
     console.log('INSIDE FETH: ', itinKey)
-    const itinerariesRef = firebase.database().ref(`/itineraries/${itinKey}`)
-    itinerariesRef.once('value')
+    const itinerariesRef = firebase.database().ref(`/itineraries/${itinKey}`)               // Gets a reference to the particular itinerary we are getting the events from
+    itinerariesRef.once('value')                                                            // 'once' is used to read data from the reference             
         .then(snapshot => {
-            const events = snapshot.val().events
+            const events = snapshot.val().events                                            // Get the events object from the reference
             console.log('ITIN: ', events)
             let eventsArr = []
-            for (var key in events) {
-                console.log('IN LOOP: ', key, events[key])
+            for (var key in events) {                                                       // Loop adds an object to state array
+                console.log('IN LOOP: ', key, events[key])                                  // Object is similar to event in database; difference is that it contains PK
                 const toAdd = {
                     key: key,
                     added: events[key].added,
@@ -55,7 +57,7 @@ export const fetchEvents = (itinerary, fromLike) => dispatch => {
             return dispatch(setEvents(eventsArr))
         })
 }
-
+                                                                                            // Used when a new event is added to the itinerary's idea board
 export const addEvent = (url, itin) => dispatch => {
     axios.get(`http://api.linkpreview.net/?key=59ceb254e639805e71e929ab347575465baaf5072e1b1&q=${url}`)
         .then(res => res.data)
@@ -114,18 +116,18 @@ export const setCurrentItinerary = (itinerary, itin) => dispatch => {
     }
     return dispatch(setItinerary(newRef))
 }
-
+                                                                                            // Used when someone likes an event
 export const newLike = (eventId, itinKey) => dispatch => {
     console.log('INSIDE LIKE: ', eventId, itinKey)
     const likedByRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('likedBy')
     const likesRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('likes')
-    likesRef.transaction(likes => {
+    likesRef.transaction(likes => {                                                         // Updates the like counter in firebase
         return likes + 1
     })
     let isFirstLike = false
-    likedByRef.transaction(likedBy => {
-        if(likedBy === null) {
-            isFirstLike = true
+    likedByRef.transaction(likedBy => {                                                     // Will add the currently logged in user to the 'likedBy' group
+        if(likedBy === null) {                                                              // This makes sure each event can only be liked by each user once
+            isFirstLike = true                                                              // Will also allow for seeing who is going to an event
             return {firstLiker : {
                 name: firebase.auth().currentUser.email
             }}
@@ -135,11 +137,11 @@ export const newLike = (eventId, itinKey) => dispatch => {
     }
     return dispatch(fetchEvents(itinKey, true))
 }
-
+                                                                                            // Used for moving an item from 'vote' to 'added
 export const confirmEvent = (eventId, itinKey) => dispatch => {
     console.log('INSIDE ADD EVENT: ', eventId)
     const addedRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('added')
-    addedRef.transaction(added => {
+    addedRef.transaction(added => {                                                         // Updates its 'added' field to be true
         return true
     })
     return dispatch(fetchEvents(itinKey, true))

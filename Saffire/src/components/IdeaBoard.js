@@ -44,6 +44,7 @@ class IdeaBoard extends Component {
             <h2>{itineraryName.name}</h2>
             <h3>Put your ideas here!</h3>
             <div className="form-group">
+                {/* Form for adding a link preview by putting in a URL */}
                 <form onSubmit={handleSubmit} className="itinerary-form">
                     <input className="urlForm" 
                         type="url" 
@@ -55,6 +56,7 @@ class IdeaBoard extends Component {
                 </form>
             <div>
                 <h1>Vote!</h1>
+                {/* Will render out all events that have not been added yet */}
                 {this.props.currentEvents.map(event => (
                     <MuiThemeProvider>
                         {!event.added  && <LinkPreview eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/>}
@@ -63,6 +65,7 @@ class IdeaBoard extends Component {
             </div>
             <div>
                 <h1>Added!</h1>
+                {/* Will render all events that HAVE been added */}
                 {this.props.currentEvents.map(event => (
                     <MuiThemeProvider>
                         {event.added && <LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/>}
