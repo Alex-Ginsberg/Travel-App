@@ -30,7 +30,7 @@ import React, {Component} from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import {connect} from 'react-redux';
-import {newLike} from '../actions'
+import {newLike, confirmEvent} from '../actions'
 import firebase from '../firebase'
 
 class LinkPreview extends Component {
@@ -55,7 +55,7 @@ class LinkPreview extends Component {
         </CardMedia>
         <CardActions>
           <FlatButton label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={likedByArray.includes(firebase.auth().currentUser.email)}/>
-          <FlatButton label="Add To Itinerary" />
+          {!this.props.hasBeenAdded && <FlatButton label="Add To Itinerary" onClick={() => this.props.confirmEvent(this.props.eventKey, this.props.itinKey) }/>}
         </CardActions>
       </Card>
     )
@@ -72,6 +72,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     newLike(eventId, itinKey) {
       dispatch(newLike(eventId, itinKey))
+    },
+    confirmEvent(eventId, itinKey) {
+      dispatch(confirmEvent(eventId, itinKey))
     }
   }
 }

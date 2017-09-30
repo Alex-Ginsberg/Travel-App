@@ -6,7 +6,6 @@ export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
 export const SELECT_ITINERARY = 'SELECT_ITINERARY'
 export const ADD_EVENT = 'ADD_EVENT'
-export const LIKE = 'LIKE'
 
 
 
@@ -134,6 +133,15 @@ export const newLike = (eventId, itinKey) => dispatch => {
     if (!isFirstLike) {
         likedByRef.push({name: firebase.auth().currentUser.email})
     }
+    return dispatch(fetchEvents(itinKey, true))
+}
+
+export const confirmEvent = (eventId, itinKey) => dispatch => {
+    console.log('INSIDE ADD EVENT: ', eventId)
+    const addedRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('added')
+    addedRef.transaction(added => {
+        return true
+    })
     return dispatch(fetchEvents(itinKey, true))
 }
 
