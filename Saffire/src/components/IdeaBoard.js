@@ -56,7 +56,7 @@ class IdeaBoard extends Component {
             <div>
                 {this.props.currentEvents.map(event => (
                     <MuiThemeProvider>
-                        <LinkPreview title={event.title} image={event.image} description={event.description} key={event.key}/>
+                        <LinkPreview eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} />
                     </MuiThemeProvider>
                 ))}
             </div>

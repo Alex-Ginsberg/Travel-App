@@ -30,6 +30,7 @@ import React, {Component} from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import {connect} from 'react-redux';
+import {newLike} from '../actions'
 
 class LinkPreview extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class LinkPreview extends Component {
           <img src={this.props.image} alt="" />
         </CardMedia>
         <CardActions>
-          <FlatButton label="Like" />
+          <FlatButton label="Like" onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)}/>
           <FlatButton label="Add To Itinerary" />
         </CardActions>
       </Card>
@@ -64,7 +65,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    newLike(eventId, itinKey) {
+      dispatch(newLike(eventId, itinKey))
+    }
   }
 }
 

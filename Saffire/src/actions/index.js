@@ -110,6 +110,14 @@ export const setCurrentItinerary = (itinerary, itin) => dispatch => {
     return dispatch(setItinerary(newRef))
 }
 
+export const newLike = (eventId, itinKey) => dispatch => {
+    console.log('INSIDE LIKE: ', eventId, itinKey)
+    const currentItinRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('likes')
+    currentItinRef.transaction(likes => {
+        return likes + 1
+    })
+}
+
 //action creator
 
 export const setItinerary = itineraryName => ({type: SET_ITINERARY, itineraryName});
