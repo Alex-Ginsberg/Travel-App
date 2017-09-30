@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import LinkPreview from './LinkPreview'
 import { addEvent, fetchEvents } from '../actions';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 class IdeaBoard extends Component {
@@ -40,7 +41,7 @@ class IdeaBoard extends Component {
         let itineraryName = this.props.itineraryName
         return (
         <div>
-            <h2>Title of Itinerary</h2>
+            <h2>{itineraryName.name}</h2>
             <h3>Put your ideas here!</h3>
             <div className="form-group">
                 <form onSubmit={handleSubmit} className="itinerary-form">
@@ -49,21 +50,16 @@ class IdeaBoard extends Component {
                         className="form-control"
                         onChange={handleChange}
                         placeholder="Enter a URL"
-                        value={this.state.newURL}/>
-                        
+                        value={this.state.newURL}/>                       
                     <button type="submit" className="btn btn-primary">Enter</button>
                 </form>
-            <LinkPreview />
             <div>
                 {this.props.currentEvents.map(event => (
-                    <div key={event.title}>
-                        <p>Title: {event.title}</p>
-                        <p>Description: {event.description}</p>
-                        <img src={event.image} />
-                    </div>
+                    <MuiThemeProvider>
+                        <LinkPreview eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes}/>
+                    </MuiThemeProvider>
                 ))}
             </div>
-
             </div>
             <p>Left arrow: <i className="arrow left"></i></p>
             <p>Right arrow: <i className="arrow right"></i></p>
@@ -86,7 +82,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         sendUrl(url, itin) {
             dispatch(addEvent(url, itin))
-        }
+        },
     }
 }
 

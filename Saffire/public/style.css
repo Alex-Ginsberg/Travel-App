@@ -15,6 +15,7 @@
     ==================================
 */
 
+
 /*
     ==================================
                 Home Page
@@ -107,6 +108,7 @@
 }
 
 /*
+
     ==================================
                 Login
     ==================================
@@ -171,3 +173,94 @@ margin-left: 90px;
     color: black;
     border: 2px solid black
 }
+
+
+    ==================================
+                Idea Board
+    ==================================
+*/
+.event-node {
+    display: flex;
+    height: 300px;
+    width: 300px;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-color: white;
+    border-radius: 20%;
+}
+
+.event-image {
+    height: 250px;
+    width: 250px;
+}
+
+.event-title {
+    position: relative;
+    bottom: 100px;
+}
+
+.event-node > h2 {
+    color: black;
+    font-size: 20px;
+    font-family: sans-serif;
+    opacity: 0.7;
+}
+
+    ===========================================
+                User Sign-Up
+    ===========================================
+*/
+
+.sapphire-user-signup-div {
+    background-image: url("https://images.pexels.com/photos/196666/pexels-photo-196666.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb");
+    background-size: cover;
+    height: 100vh;
+}
+
+.sapphire-user-signup-box {
+    text-align: center;
+}
+
+.sapphire-user-signup-form {
+    display: inline-block;
+    border: 5px solid lightgrey;
+    background-color: white;
+    padding: 30px;
+    margin-top: 200px;
+    opacity: .75;
+}
+
+.sapphire-user-signup-form h1 {
+    font-size: 3em;
+    text-shadow: 2px 2px black;
+    font-weight: 600;
+    color: lightgrey;
+}
+
+.sapphire-user-signup-input label {
+    display: block;
+    font-size: 1.7em;
+    padding-bottom: 2px;
+    font-weight: 600;
+    color: black;
+}
+
+.sapphire-user-signup-input input {
+    width: 300px;
+    font-size: 28px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.sapphire-user-signup-form button {
+    font-size: 30px;
+    border-radius: 10px;
+    background-color: lightgreen;
+    color: azure;
+    font-weight: 600;
+    padding: 4px 9px;
+}
+
+

@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import firebase from '../firebase'
 import { postItinerary, setCurrentItinerary } from '../actions'
+import BurgerMenu from './Menu'
 
 class AllItineraries extends React.Component {
   constructor () {
@@ -20,7 +21,12 @@ class AllItineraries extends React.Component {
       let itinObj = snapshot.val().itineraries
       console.log(itinObj)
       for (var prop in itinObj) {
-        if (itinObj[prop].owner === firebase.auth().currentUser.email)
+        if (firebase.auth().currentUser === null) {
+          alert('Please Login')
+          this.props.history.push('/');
+          break;
+        }
+        else if (itinObj[prop].owner === firebase.auth().currentUser.email)
         itinArray.push(prop)
       }
       this.setState({itinArray: itinArray})
@@ -30,6 +36,10 @@ class AllItineraries extends React.Component {
     console.log('CURRENT USER: ', firebase.auth().currentUser)
     return (
       <div>
+        <div id="burger">
+          <BurgerMenu />
+        </div>
+
         {this.state.itinArray.map(itin => (
           <button key={itin} onClick={() => {
             console.log('BEFORE DISPATCH: ', itin)
