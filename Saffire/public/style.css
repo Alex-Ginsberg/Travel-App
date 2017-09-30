@@ -14,17 +14,20 @@
                 Body
     ==================================
 */
-body {
-    background-image: url("https://images.pexels.com/photos/297755/pexels-photo-297755.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb");
-    background-size: cover;
-    background-repeat: no-repeat;
-}
 
 /*
     ==================================
                 Home Page
     ==================================
 */
+
+.bg-main {
+    background-image: url("https://images.pexels.com/photos/297755/pexels-photo-297755.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
 .sapphire-app {
     text-align: center;
 }
@@ -76,11 +79,11 @@ body {
     padding-top: 10px;
     text-align: right;
     margin-right: 50px;
-    margin-top: 20px;
 }
 
 .sapphire-app-login {
     font-size: 1.4em;
+    display: inline-block;
     text-decoration: none;
     color: lightgrey ;
     padding: 0 10px;
@@ -91,12 +94,80 @@ body {
 .border {
     background-color: black;
     opacity: .7;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     margin-top: 100px;
-    padding: 150px;
+    padding: 130px;
 }
 
 .appp {
     margin-top: -200px;
     opacity: 1;
+}
+
+/*
+    ==================================
+                Login
+    ==================================
+*/
+
+.bg-login {
+    background-image: url("https://static.pexels.com/photos/239520/pexels-photo-239520.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.box-login {
+    display: inline-block;
+    background-color: #7C7A7A;
+    opacity: .8;
+    
+    width: 400px;
+    height: 600px;
+    margin-top: 200px;
+    margin-left: 800px;
+    
+}
+
+.login-title {
+    font-style: "Helvetica Neue";
+    font-size: 2.5em;
+    margin: 50px 145px;
+    position: fixed;
+}
+
+.login-form {
+    padding: 10px;
+    margin: 130px 10px
+}
+.login-label-email {
+font-style: "Helvetica Neue";
+font-size: 2.5em;
+padding: 10px;
+margin-left: 120px;
+}
+
+.login-label-password {
+font-style: "Helvetica Neue";
+font-size: 2.5em;
+padding: 10px;
+margin-left: 90px;
+}
+
+.login-input {
+    width: 300px;
+    font-size: 1.75em;
+    margin: 5px 30px;
+    border: 2px solid black
+}
+
+.login-submit-button {
+    font-size: 24px;
+    margin-top: 25px;
+    margin-left: 130px;
+    background-color: white;
+    color: black;
+    border: 2px solid black
 }
