@@ -6,6 +6,7 @@ export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
 export const SELECT_ITINERARY = 'SELECT_ITINERARY'
 export const ADD_EVENT = 'ADD_EVENT'
+export const SET_USERS = 'SET_USERS'
 
 
                                                                                             // Used for adding a new itinerary to the database
@@ -147,11 +148,31 @@ export const confirmEvent = (eventId, itinKey) => dispatch => {
     return dispatch(fetchEvents(itinKey, true))
 }
 
+export const fetchUsers = () => dispatch => {
+    console.log('INSIDE FETCH USERS')
+    const usersRef = firebase.database().ref().child('users')
+    usersRef.once('value')
+        .then(snapshot => {
+            const users = snapshot.val()
+            let usersArr = []
+            for (var key in users) {
+                const toAdd = {
+                    key: key,
+                    email: users[key].email,
+                    name: users[key].name
+                }
+                usersArr.push(toAdd)
+            }
+            return dispatch(setUsers(usersArr))
+        })
+}
+
 //action creator
 
 export const setItinerary = itineraryName => ({type: SET_ITINERARY, itineraryName});
 export const setEvents = events => ({type: GET_CURRENT_EVENTS, events})
 export const newEvent = event => ({type: ADD_EVENT, event})
+export const setUsers = users => ({type: SET_USERS, users})
 // export const selectItinerary = itinerary => ({type: SELECT_ITINERARY, itinerary})
 
 
