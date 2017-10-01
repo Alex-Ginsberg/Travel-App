@@ -24,13 +24,13 @@ export const Main = (props) => {
       </div>
       
       <div className = "sapphire-auth-div">
+        <h1 className="app-title">Sapphire</h1>
         <Link to='/login' className = "sapphire-app-login">Login</Link>
         <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
       </div>
 
       <div className="border">
         <div className = "appp">
-        <h1 className="app-title">Sapphire</h1>
         <WhereTo />
         </div>
       </div>

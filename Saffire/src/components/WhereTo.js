@@ -47,11 +47,11 @@ class WhereTo extends Component {
                     <input name="itineraryName" 
                         type="text" 
                         className="form-control" 
-                        placeholder="Create an Itinerary Name"
+                        placeholder="Name Your Itinerary"
                         onChange={(e) => {this.setState({newItinerary: e.target.value, dirtyItinerary: true})}}/>
                     {(this.state.dirtyItinerary && !this.state.newItinerary.length) && <p className="errorItinerary alert alert-danger" >please enter an itinerary name</p>}
 
-                    <button type="submit" className="btn btn-primary">Enter</button>
+                    <button type="submit" className="btn btn-primary">Start</button>
                 </form>
                 {/* <span>{this.props.itineraryName}</span> */}
 
