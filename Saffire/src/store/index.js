@@ -7,10 +7,11 @@ import user from './user'
 import currentItinerary from '../reducers/reducer_WhereTo'
 import currentEvents from '../reducers/currentEvents'
 import users from '../reducers/users'
+import currentUser from '../reducers/currentUser'
 
 
 
-const reducer = combineReducers({user, currentItinerary, burgerMenu, currentEvents, users })
+const reducer = combineReducers({user, currentItinerary, burgerMenu, currentEvents, users, currentUser })
 const store = createStore(reducer, applyMiddleware(thunkMiddleware, createLogger()));
 
 export default store

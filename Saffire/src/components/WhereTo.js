@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 //import Navbar from './navbar';
-import { postItinerary } from '../actions';
+import { postItinerary, getCurrentUser } from '../actions';
 
 
 class WhereTo extends Component {
@@ -15,15 +15,21 @@ class WhereTo extends Component {
 
     }
 
+    componentDidMount() {
+        this.props.getCurrentUser() 
+    }
+
     handleSubmit(e) {
         e.preventDefault()
         let newItinerary = this.state.newItinerary
-        this.props.setItineraryName(newItinerary)   
+        this.props.setItineraryName(newItinerary) 
+         
     }
 
     
 
     render() {
+        console.log('USER: ', this.props.currentUser)
         let handleSubmit = this.handleSubmit;
         return (
 
@@ -56,7 +62,8 @@ class WhereTo extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        itineraryName: state.currentItinerary
+        itineraryName: state.currentItinerary,
+        currentUser: state.currentUser
     }
 }
 
@@ -65,9 +72,12 @@ const mapDispatchToProps = (dispatch) => {
   
         setItineraryName(itineraryName) {
             dispatch(postItinerary(itineraryName))
-        }
+        },
+        getCurrentUser() {
+            dispatch(getCurrentUser())
     }
   }
+}
 
 const WhereToContainer = connect(mapStateToProps, mapDispatchToProps)(WhereTo);
 export default WhereToContainer;

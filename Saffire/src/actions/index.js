@@ -7,6 +7,7 @@ export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
 export const SELECT_ITINERARY = 'SELECT_ITINERARY'
 export const ADD_EVENT = 'ADD_EVENT'
 export const SET_USERS = 'SET_USERS'
+export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 
 
                                                                                             // Used for adding a new itinerary to the database
@@ -203,12 +204,50 @@ export const addFriend = (friend) => dispatch => {
         
 }
 
+export const getCurrentUser = () => dispatch => {
+    const usersRef = firebase.database().ref().child('users')
+    usersRef.once('value')
+        .then(snapshot => {
+            const users = snapshot.val()
+            let loggedInUser = null
+            for (var key in users) {
+                if (users[key].email === firebase.auth().currentUser.email){loggedInUser = {
+                    key: key,
+                    email: users[key].email,
+                    friends: users[key].friends,
+                    image: users[key].image,
+                    name: users[key].name
+                }}
+            }
+            console.log('LOGGED IN USER: ', loggedInUser)
+            return dispatch(setCurrentUser(loggedInUser))
+        })
+}
+
+export const addToItinerary = (itin, user) => dispatch => {
+    const itinRef = firebase.database().ref().child('itineraries').child(itin).child('members')
+    let isFirst = false
+    itinRef.transaction(members => {
+        if (members === null){
+            isFirst = true
+            return {firstMember: {
+                key: user
+            }}
+        }
+    })
+    if (!isFirst) {
+        itinRef.push({key: user})
+    }
+
+}
+
 //action creator
 
 export const setItinerary = itineraryName => ({type: SET_ITINERARY, itineraryName});
 export const setEvents = events => ({type: GET_CURRENT_EVENTS, events})
 export const newEvent = event => ({type: ADD_EVENT, event})
 export const setUsers = users => ({type: SET_USERS, users})
+export const setCurrentUser = user => ({type: SET_CURRENT_USER, user})
 // export const selectItinerary = itinerary => ({type: SELECT_ITINERARY, itinerary})
 
 
