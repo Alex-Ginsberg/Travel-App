@@ -13,4 +13,5 @@ export {default as AllItineraries} from './AllItineraries'
 export {default as WhereTo} from './WhereTo'
 export {default as IdeaBoard} from './IdeaBoard'
 export {default as LinkPreview} from './LinkPreview'
+export {default as FindFriends} from './FindFriends'
 
