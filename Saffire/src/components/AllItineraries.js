@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import firebase from '../firebase'
-import { postItinerary, setCurrentItinerary } from '../actions'
+import { postItinerary, setCurrentItinerary, getCurrentUser } from '../actions'
 import BurgerMenu from './Menu'
 
 class AllItineraries extends React.Component {
@@ -16,9 +16,24 @@ class AllItineraries extends React.Component {
 
   componentDidMount () {
     const ref = firebase.database().ref()
+    this.props.getCurrentUser()
     let itinArray = []
+    let memberArray = []
     ref.on('value', snapshot => {
       let itinObj = snapshot.val().itineraries
+        for (var key in itinObj) {
+          if (itinObj[key].members) {
+            for (var innerKey in itinObj[key].members) {
+              memberArray.push(itinObj[key].members[innerKey])
+            }
+          }
+          
+        }
+      console.log('MEMBERS: ', memberArray)   
+      let memberKeys = []
+      for (var i = 0; i < memberArray.length; i++) {
+        memberKeys.push(memberArray[i].key)
+      }  
       console.log(itinObj)
       for (var prop in itinObj) {
         if (firebase.auth().currentUser === null) {
@@ -26,14 +41,15 @@ class AllItineraries extends React.Component {
           this.props.history.push('/');
           break;
         }
-        else if (itinObj[prop].owner === firebase.auth().currentUser.email)
+        else if (itinObj[prop].owner === firebase.auth().currentUser.email || memberKeys.includes(this.props.currentUser.key))
         itinArray.push(prop)
       }
       this.setState({itinArray: itinArray})
     }, error => console.log(error.code))
+    
   }
   render () {
-    console.log('CURRENT USER: ', firebase.auth().currentUser)
+    console.log('CURRENT USER: ', this.props.currentUser)
     return (
       <div>
         <div id="burger">
@@ -54,6 +70,12 @@ class AllItineraries extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+      currentUser: state.currentUser
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
 
@@ -63,10 +85,13 @@ const mapDispatchToProps = (dispatch) => {
 
       setCurrentItinerary(itinerary, itin) {
         dispatch(setCurrentItinerary(itinerary, itin))
-      }
+      },
+      getCurrentUser() {
+        dispatch(getCurrentUser())
+    }
   }
 }
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(null, mapDispatchToProps)(AllItineraries))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllItineraries))

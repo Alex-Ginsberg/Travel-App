@@ -23,20 +23,25 @@ class UserLogin extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className="bg-login">
+        <div className="box-login">
+          <p className="login-title">Login</p>
         <form onSubmit={this.handleSubmit}>
-          <div>
-            <label htmlFor='email'><small>Email</small></label>
-            <input name='email' type='text' onChange={(e) => this.setState({email: e.target.value})}/>
+          <div className="login-form">
+          <div className="login-email">
+            <label className="login-label-email" htmlFor='email'><small>Email</small></label>
+            <input className="email login-input" type='text' onChange={(e) => this.setState({email: e.target.value})}/>
           </div>
           <div>
-            <div>
-              <label htmlFor='password'><small>Password</small></label>
-              <input name='password' type='password' onChange={(e) => this.setState({password: e.target.value})}/>
+            <div className="login-password">
+              <label className="login-label-password" htmlFor='password'><small>Password</small></label>
+              <input className="password login-input" type='password' onChange={(e) => this.setState({password: e.target.value})}/>
             </div>
-            <button type='submit'>Submit</button>
+            <button className="login-submit-button" type='submit'>Submit</button>
+            </div>
           </div>
         </form>
+        </div>
       </div>
 
     )
