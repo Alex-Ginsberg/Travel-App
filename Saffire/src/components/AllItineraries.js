@@ -16,7 +16,7 @@ class AllItineraries extends React.Component {
 
   componentDidMount () {
     const ref = firebase.database().ref()
-    this.props.getCurrentUser()
+    // this.props.getCurrentUser()
     let itinArray = []
     let memberArray = []
     ref.on('value', snapshot => {

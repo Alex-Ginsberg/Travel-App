@@ -1,7 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux';
 import WhereTo from './WhereTo'
 import BurgerMenu from './Menu';
+import { getCurrentUser } from '../actions';
+import firebase from '../firebase'
 
 
 /**
@@ -10,11 +13,21 @@ import BurgerMenu from './Menu';
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-export const Main = (props) => {
+class Main extends Component {
   // if(firebase.auth().currentUser === null) {
   // } else {
   //   console.log('main email', firebase.auth().currentUser.email)
   // }
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+    
+  }
+
+  render() {
+    
   return (
 
     <div className="sapphire-app bg-main">
@@ -45,5 +58,25 @@ export const Main = (props) => {
     </div>
   )
 }
+
+
+}
+
+const mapStateToProps = (state) => {
+  return {
+      currentUser: state.currentUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      getCurrentUser() {
+          dispatch(getCurrentUser())
+  }
+}
+}
+
+const MainContainer = connect(mapStateToProps, mapDispatchToProps)(Main);
+export default MainContainer;
 
 
