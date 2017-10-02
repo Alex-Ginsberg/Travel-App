@@ -91,8 +91,6 @@ class AllItineraries extends React.Component {
         <div className = "sapphire-auth-div">
         <h1 className="app-title">Sapphire</h1>
         </div>
-        {this.state.itinArray.map(itin => (
-          <button key={itin} onClick={() => {
             {toRenderItins.map(itin => (
               <button key={itin.key} onClick={() => {
 
@@ -102,10 +100,12 @@ class AllItineraries extends React.Component {
                   .then(() => this.props.history.push('/money'))
                 }}>{itin.name}</button>
             ))}
-          </div>
-
+          
+            </div>
     )
+    
   }
+  
 }
 
 const mapStateToProps = (state) => {
