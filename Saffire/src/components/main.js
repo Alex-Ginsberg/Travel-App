@@ -37,7 +37,7 @@ class Main extends Component {
       </div>
       
       <div className = "sapphire-auth-div">
-        <h1 className="app-title">Sapphire</h1>
+        <h1 className="app-title">Saffire</h1>
         <Link to='/login' className = "sapphire-app-login">Login</Link>
         <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
       </div>
