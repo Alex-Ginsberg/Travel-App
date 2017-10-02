@@ -83,19 +83,26 @@ class AllItineraries extends React.Component {
     }
     console.log('TO RENDER: ', toRenderItins)
     return (
-      <div>
+      <div className="itin-main">
         <div id="burger">
           <BurgerMenu />
         </div>
-        {toRenderItins.map(itin => (
-          <button key={itin.key} onClick={() => {
-            console.log('BEFORE DISPATCH: ', itin)
-            firebase.database().ref(`/itineraries/${itin.key}`).once('value')
-              .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
-              .then(() => this.props.history.push('/money'))
-            }}>{itin.name}</button>
-        ))}
-      </div>
+
+        <div className = "sapphire-auth-div">
+        <h1 className="app-title">Sapphire</h1>
+        </div>
+        {this.state.itinArray.map(itin => (
+          <button key={itin} onClick={() => {
+            {toRenderItins.map(itin => (
+              <button key={itin.key} onClick={() => {
+
+                console.log('BEFORE DISPATCH: ', itin)
+                firebase.database().ref(`/itineraries/${itin.key}`).once('value')
+                  .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
+                  .then(() => this.props.history.push('/money'))
+                }}>{itin.name}</button>
+            ))}
+          </div>
 
     )
   }
