@@ -205,24 +205,52 @@ export const addFriend = (friend) => dispatch => {
 }
 
 export const getCurrentUser = () => dispatch => {
+    console.log('IN GET: ', firebase.auth().currentUser)
+    if (firebase.auth().currentUser) {
+        
+        const usersRef = firebase.database().ref().child('users')
+        usersRef.once('value')
+            .then(snapshot => {
+                const users = snapshot.val()
+                let loggedInUser = null
+                for (var key in users) {
+                    if (users[key].email === firebase.auth().currentUser.email){loggedInUser = {
+                        key: key,
+                        email: users[key].email,
+                        friends: users[key].friends,
+                        image: users[key].image,
+                        name: users[key].name
+                    }}
+                }
+                console.log('LOGGED IN USER: ', loggedInUser)
+                return dispatch(setCurrentUser(loggedInUser))
+            })
+    }
+    else {
+        return dispatch(setCurrentUser({}))
+    }
+}
+
+export const onUserListener = (user) => dispatch => {
     const usersRef = firebase.database().ref().child('users')
     usersRef.once('value')
-        .then(snapshot => {
-            const users = snapshot.val()
-            let loggedInUser = null
-            for (var key in users) {
-                if (users[key].email === firebase.auth().currentUser.email){loggedInUser = {
-                    key: key,
-                    email: users[key].email,
-                    friends: users[key].friends,
-                    image: users[key].image,
-                    name: users[key].name
-                }}
-            }
-            console.log('LOGGED IN USER: ', loggedInUser)
-            return dispatch(setCurrentUser(loggedInUser))
-        })
+    .then(snapshot => {
+        const users = snapshot.val()
+        let loggedInUser = null
+        for (var key in users) {
+            if (users[key].email === user.email){loggedInUser = {
+                key: key,
+                email: users[key].email,
+                friends: users[key].friends,
+                image: users[key].image,
+                name: users[key].name
+            }}
+        }
+        console.log('LOGGED IN USER: ', loggedInUser)
+        return dispatch(setCurrentUser(loggedInUser))
+    })
 }
+
 
 export const addToItinerary = (itin, user) => dispatch => {
     const itinRef = firebase.database().ref().child('itineraries').child(itin).child('members')
