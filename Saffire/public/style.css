@@ -134,7 +134,7 @@
 }
 
 .login-title {
-    font-style: "Helvetica Neue";
+    font-family: "Helvetica Neue";
     font-size: 2.5em;
     margin: 50px 145px;
     position: fixed;
@@ -145,14 +145,14 @@
     margin: 130px 10px
 }
 .login-label-email {
-font-style: "Helvetica Neue";
+font-family: "Helvetica Neue";
 font-size: 2.5em;
 padding: 10px;
 margin-left: 120px;
 }
 
 .login-label-password {
-font-style: "Helvetica Neue";
+font-family: "Helvetica Neue";
 font-size: 2.5em;
 padding: 10px;
 margin-left: 90px;
@@ -174,7 +174,7 @@ margin-left: 90px;
     border: 2px solid black
 }
 
-
+/*
     ==================================
                 Idea Board
     ==================================
@@ -208,6 +208,7 @@ margin-left: 90px;
     opacity: 0.7;
 }
 
+/*
     ===========================================
                 User Sign-Up
     ===========================================
@@ -262,5 +263,93 @@ margin-left: 90px;
     font-weight: 600;
     padding: 4px 9px;
 }
+
+/*
+    ===========================================
+                Dashboard/User-Home
+    ===========================================
+*/
+
+.dash-div-image {
+    background-image: url("https://static.pexels.com/photos/210200/pexels-photo-210200.jpeg");
+    background-size: cover;
+    display: flex;
+    height: 700px;
+    
+}
+
+#dash-title-border {
+    background-color: #7C7A7A;
+    height: 400px;
+    width: 1200px;
+    margin-left: 350px;
+    margin-top: 100px;
+    opacity: .6;
+    
+}
+
+#dash-title {
+    font-family: "Helvetica Neue";
+    font-size: 150px;
+    position: absolute;
+    margin-left: 525px;
+    margin-top: 200px;
+    color: white;
+
+}
+
+#dash-welcome {
+    font-size: 25px;
+    font-family: "Helvetica Neue";
+    margin-top: 35px;
+    color: white;
+}
+
+#dash-logout {
+    font-size: 25px;
+    font-family: "Helvetica Neue";
+    margin-top: 35px;
+    margin-left: 30px;
+    color: white;
+}
+
+.dash-itinerary {
+    width: auto;
+    height: 1500px;
+}
+
+.dash-groups {
+    width: auto;
+    height: 500px;
+    background-color: #F09903;
+}
+
+#dash-myItinerary-header {
+    display: absolute;
+    font-family: "Helvetica Neue";
+    font-size: 50px;
+    margin-left: 800px;
+    color: black;
+}
+
+#dash-header-line {
+    width: 500px;
+    height: 1px;
+    border-bottom: 5px solid black;
+    margin-left: 670px;
+    margin-top: 100px;
+
+}
+
+#dash-myBuddies-header {
+    float: left;
+    font-family: "Helvetica Neue";
+    font-size: 50px;
+    margin-left: 800px;
+    color: black;
+}
+
+
+
 
 

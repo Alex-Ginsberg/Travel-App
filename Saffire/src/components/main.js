@@ -1,7 +1,34 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import WhereTo from './WhereTo'
-import BurgerMenu from './Menu';
+import BurgerMenu from './Menu'
+import firebase from '../firebase'
+
+//access firebase storage
+
+//create a reference with initial file path and name
+let storage = firebase.storage();
+let storageRef = storage.ref('saffire_logo.png');
+
+//create a reference from a Google Cloud Storage URI
+let gsReference = storage.refFromURL('gs://bucket/saffire_logo.png')
+
+//create a reference from an HTTPS URL
+//let httpsReference = storage.refFromURL('https://firebasestorage.googleapis.com/b/bucket/o/%20saffire_logo.png')
+
+// storageRef.child('saffire_logo.png').getDownloadURL().then(url => {
+//   let xhr = new XMLHttpRequest();
+//   xhr.responseType = 'blob';
+//   xhr.onload = function(event) {
+//     let blob = xhr.response;
+//   };
+//   xhr.open('GET', url);
+//   xhr.send();
+// })
+
+console.log(storageRef)
+
+
 
 
 /**
@@ -22,7 +49,6 @@ export const Main = (props) => {
       <div className="top-bar">
       <BurgerMenu />
       </div>
-      
       <div className = "sapphire-auth-div">
         <Link to='/login' className = "sapphire-app-login">Login</Link>
         <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
