@@ -15,6 +15,9 @@
     ==================================
 */
 
+body {
+
+}
 
 /*
     ==================================
@@ -22,101 +25,90 @@
     ==================================
 */
 
-.bg-main {
+
+.sapphire-app {
+    text-align: center;
     background-image: url("https://images.pexels.com/photos/297755/pexels-photo-297755.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb");
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
-    /* width:70%; */
 }
 
-.sapphire-app {
-    text-align: center;
-}
-
-.app-title {
-    font-size: 2.5em;
+.sapphire-app-title {
+    font-size: 2.8em;
+    opacity: .8;
+    margin-top: 0;
     font-family: "Helvetica";
     color: white;
-    /* letter-spacing: .1em; */
-    font-weight: 100;
-    /* text-shadow: 3px 3px black; */
-    /* padding-bottom: 5px; */
-    /* margin-top: 200px; */
-    /* margin-bottom: 0; */
+    letter-spacing: .2em;
+    text-shadow: 3px 3px black; 
+    padding-top: 30px;
+    display: inline-block;
+    margin-right: -200px;
 }
 
+
 .sapphire-itinerary-div {
-    display: flex;
-    margin-top: 25%;
-    flex-direction: column;
-    flex-wrap: wrap;
+    display: inline-block;
+    padding: 100px;
 }
 
 .sapphire-itinerary-form label{
     color: azure;
+    font-size: 2em;
+    font-weight: 600;
+    padding-bottom: 10px;
     display: block;
-    text-shadow: 3px 3px black;
-    letter-spacing: .1em;
+    text-shadow: 2px 2px black;
+    letter-spacing: .2em;
 }
 
 .sapphire-itinerary-form input{
-    /* width: 700px; */
-    font-size: 20px;
-    border-radius: 5px;
-    /* margin-top: 10px; */
-
+    width: 700px;
+    font-size: 30px;
+    border-radius: 10px;
 }
 
 
 .sapphire-itinerary-form button{
-    font-size: 20px;
+    font-size: 30px;
     background-color: lightgreen;
     color: azure;
     border-radius: 5px;
-    border: 1px solid azure;
+    border: 4px solid azure;
     font-weight: 600;
-    margin: 5%;
 }
 
 .sapphire-auth-div {
-    padding-top: 40px;
-    text-align: right;
-    margin-right: 25px;
     font-size: .8em;
+    float: right;
+    margin-top: 50px;
+    margin-right: 50px;
+    
 }
 
 .sapphire-app-login {
-    font-size: 1.2em;
+    font-size: 1.8em;
     display: inline-block;
     text-decoration: none;
+    text-shadow: 2px 2px black;
     color: white;
     padding: 0 10px;
     font-weight: 100;
-
 }
 
-.border {
-    background-color: black;
+.sapphire-home-page-border {
+    background-color: darkgrey;
     opacity: .85;
-    height: 25%;
-    width: 100%;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* flex-wrap: wrap; */
-    /* margin-top: 100px; */
-    /* padding: 130px; */
+    margin: 0 auto;
+    margin-top: 300px;
 }
 
-.appp {
-    /* opacity: 1; */
-}
 
-.form-control {
-    text-align: center;
-    /* margin-top: 15%; */
-    position: relative;
-    /* text-size: .8em; */
+.clearfix {
+    clear: both;
+    display: table;
+    content: "";
 }
 
 /*
@@ -417,11 +409,34 @@ ITINERARY
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
-    /* width:70%; */
 }
-
-
 
 .menu-item {
     font: Helvetica;
+}
+
+.sapphire-idea-board {
+    border: 7px solid;
+    display: inline-block;
+    padding: 20px;
+    background-color: white;
+}
+
+.sapphire-idea-board button{
+    display: block;
+    font-size: 30px;
+    color: azure;
+    background-color: lightgreen;
+    border-radius: 10px;
+    padding: 5px 9px;
+    margin: 20px 0;
+}
+
+.sapphire-event-board {
+    border: 10px solid black;
+    display: inline-block;
+    margin: 0 auto;
+    width: 500px;
+    height: 500px;
+    margin-left: 200px;
 }
