@@ -178,11 +178,13 @@ export const sendFriendRequest = (user, friend) => dispatch => {
             isFirstRequest = true
             return {firstReq: {
                 from: user.email,
+                userKey: user.key,
+                name: user.name
             }}
         }
     })
     if (!isFirstRequest) {
-        requestRef.push({from: user.email})
+        requestRef.push({from: user.email, userKey: user.key, name: user.name})
     }
 }
 
@@ -237,7 +239,8 @@ export const getCurrentUser = () => dispatch => {
                         email: users[key].email,
                         friends: users[key].friends,
                         image: users[key].image,
-                        name: users[key].name
+                        name: users[key].name,
+                        requests: users[key].requests
                     }}
                 }
                 console.log('LOGGED IN USER: ', loggedInUser)
@@ -261,7 +264,8 @@ export const onUserListener = (user) => dispatch => {
                 email: users[key].email,
                 friends: users[key].friends,
                 image: users[key].image,
-                name: users[key].name
+                name: users[key].name,
+                requests: users[key].requests
             }}
         }
         console.log('LOGGED IN USER: ', loggedInUser)
