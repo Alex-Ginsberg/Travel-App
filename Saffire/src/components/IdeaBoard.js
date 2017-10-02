@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import LinkPreview from './LinkPreview'
-import { addEvent, fetchEvents } from '../actions';
+import { addEvent, fetchEvents, addToItinerary } from '../actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
@@ -12,12 +12,14 @@ class IdeaBoard extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             newURL: '',
-            
+            currentFriend: ''
         }
+        this.addToGroup = this.addToGroup.bind(this)
     }
 
     componentDidMount() {
         this.props.getItineraryEvents(this.props.itineraryName)
+        
     }
 
     handleChange(e) {
@@ -31,17 +33,39 @@ class IdeaBoard extends Component {
         e.preventDefault()
         this.props.sendUrl(this.state.newURL, this.props.itineraryName)
     }
+
+    addToGroup(e) {
+        e.preventDefault()
+        this.props.addMember(this.props.itineraryName.key, this.state.currentFriend)
+    }
     
 
     render() {
         console.log('CURRENT ITIN: ', this.props.itineraryName)
         console.log('EVENTS: ', this.props.currentEvents)
+        console.log('CURRENT USER***** ', this.props.currentUser)
+        console.log('CURRENT FRIEND: ', this.state.currentFriend)
         let handleSubmit = this.handleSubmit;
         let handleChange = this.handleChange;
         let itineraryName = this.props.itineraryName
+        let friends = this.props.currentUser.friends
+        let friendsArr = []
+        for (var key in friends) {
+            friendsArr.push(friends[key])
+        }
+        
         return (
         <div>
             <h2>{itineraryName.name}</h2>
+            <form className="form-control" onSubmit={this.addToGroup}>
+                <select className="form-control" name="friends" onChange={(e) => this.setState({currentFriend: e.target.value})}>
+                    <option value="" defaultValue>Select a friend to add</option>
+                    {friendsArr.map(friend => (
+                        <option key={friend.key} value={friend.key}>{friend.name}</option>
+                    ))}
+                </select>
+                <button type="submit" className="btn btn-primary">Add</button>
+            </form>
             <h3>Put your ideas here!</h3>
             <div className="form-group">
                 {/* Form for adding a link preview by putting in a URL */}
@@ -84,7 +108,8 @@ class IdeaBoard extends Component {
 const mapStateToProps = (state) => {
     return {
         itineraryName: state.currentItinerary,
-        currentEvents: state.currentEvents
+        currentEvents: state.currentEvents,
+        currentUser: state.currentUser
     }
 }
 
@@ -96,6 +121,9 @@ const mapDispatchToProps = (dispatch) => {
         sendUrl(url, itin) {
             dispatch(addEvent(url, itin))
         },
+        addMember(itin, user) {
+            dispatch(addToItinerary(itin, user))
+        }
     }
 }
 
