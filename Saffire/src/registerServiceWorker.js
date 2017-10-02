@@ -35,7 +35,7 @@ export default function register() {
 
     window.addEventListener('load', () => {
       //${process.env.PUBLIC_URL}/ to add to swUrl when deploying. then move service-worker.js to public folder 
-      const swUrl = `./service-worker.js`;
+      const swUrl = `../service-worker.js`;
       console.log('swurl', swUrl);
 
       if (!isLocalhost) {
