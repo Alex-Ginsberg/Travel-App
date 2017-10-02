@@ -103,7 +103,6 @@ class AllItineraries extends React.Component {
                 }}>{itin.name}</button>
             ))}
           </div>
-
     )
   }
 }
