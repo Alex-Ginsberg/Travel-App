@@ -16,7 +16,7 @@ class WhereTo extends Component {
     }
 
     componentDidMount() {
-        this.props.getCurrentUser() 
+        // this.props.getCurrentUser() 
     }
 
     handleSubmit(e) {
