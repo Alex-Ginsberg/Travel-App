@@ -19,7 +19,7 @@ class FriendRequests extends Component {
                 {requestsArr.map(request => (
                     <div key={request.key}>
                         <h3>You have a friend request from {request.email}</h3>
-                        <button onClick={() => {this.props.addFriend(request)}}>Accept</button>
+                        <button onClick={() => {this.props.addFriend(this.props.currentUser, request)}}>Accept</button>
                     </div>
                 ))}
             </div>
@@ -36,8 +36,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addFriend(friend) {
-            dispatch(addFriend(friend))
+        addFriend(user, friend) {
+            dispatch(addFriend(user, friend))
         } ,
     }
 }
