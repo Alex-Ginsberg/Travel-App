@@ -160,12 +160,30 @@ export const fetchUsers = () => dispatch => {
                 const toAdd = {
                     key: key,
                     email: users[key].email,
-                    name: users[key].name
+                    name: users[key].name,
+                    image: users[key].image
                 }
                 usersArr.push(toAdd)
             }
             return dispatch(setUsers(usersArr))
         })
+}
+
+export const sendFriendRequest = (user, friend) => dispatch => {
+    console.log('INSIDE SEND FRIEND REQUEST: USER: ', user, ' FRIEND: ', friend)
+    const requestRef = firebase.database().ref().child('users').child(friend.key).child('requests')
+    let isFirstRequest = false
+    requestRef.transaction(requests => {
+        if (requests === null) {
+            isFirstRequest = true
+            return {firstReq: {
+                from: user.email,
+            }}
+        }
+    })
+    if (!isFirstRequest) {
+        requestRef.push({from: user.email})
+    }
 }
 
 export const addFriend = (friend) => dispatch => {
