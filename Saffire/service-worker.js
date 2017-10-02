@@ -37,13 +37,16 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["CapstoneFabulous Norms.txt","5b7ab26d03b81d598a05a7c0f4fd433c"],["build/assets/silence-wallpaper.jpg","e526f3d2f065860f1bcac34bacfa3757"]];
-
-
+var precacheConfig = [  
+'/public/style.css',
+'/public/index.html',
+'/public/assets' 
+];
 var cacheName = 'sw-precache-v3-sw-precache-' + (self.registration ? self.registration.scope : '');
 
 
 var ignoreUrlParametersMatching = [/^utm_/];
+
 
 
 var addDirectoryIndex = function (originalUrl, index) {
@@ -152,7 +155,6 @@ function setOfCachedUrls(cache) {
 }
 
 self.addEventListener('install', function(event) {
-  console.log('service worker install')
   event.waitUntil(
     caches.open(cacheName).then(function(cache) {
       return setOfCachedUrls(cache).then(function(cachedUrls) {
@@ -187,7 +189,6 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
-  console.log('service worker activate')
   var setOfExpectedUrls = new Set(urlsToCacheKeys.values());
 
   event.waitUntil(
@@ -211,7 +212,6 @@ self.addEventListener('activate', function(event) {
 
 
 self.addEventListener('fetch', function(event) {
-  console.log('service worker fetch')
   if (event.request.method === 'GET') {
     // Should we call event.respondWith() inside this fetch event handler?
     // This needs to be determined synchronously, which will give other fetch
