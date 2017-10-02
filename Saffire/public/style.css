@@ -342,7 +342,7 @@ font-size: 1.2em;
 
 #dash-title {
     font-family: "Helvetica Neue";
-    font-size: 150px;
+    font-size: 8.5em;
     position: absolute;
     margin-left: 525px;
     margin-top: 200px;
@@ -424,4 +424,11 @@ ITINERARY
 
 .menu-item {
     font: Helvetica;
+}
+
+@media (min-width: 600px) and (max-width: 1200px) {
+    #dash-title {
+        font-size: 3.5em;
+        
+    }
 }
