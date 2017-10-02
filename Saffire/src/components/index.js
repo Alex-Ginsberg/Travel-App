@@ -4,7 +4,7 @@
  * having to figure out which file they belong to!
  */
  
-export { Main} from './main'
+export {default as Main} from './main'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
 export {default as UserSignup} from './userSignup'
@@ -13,4 +13,5 @@ export {default as AllItineraries} from './AllItineraries'
 export {default as WhereTo} from './WhereTo'
 export {default as IdeaBoard} from './IdeaBoard'
 export {default as LinkPreview} from './LinkPreview'
+export {default as FindFriends} from './FindFriends'
 
