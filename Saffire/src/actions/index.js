@@ -189,7 +189,7 @@ export const sendFriendRequest = (user, friend) => dispatch => {
 }
 
 export const addFriend = (user, friend) => dispatch => {
-        console.log('INSIDE ADD FRIEND: ', friend, user)
+        console.log('INSIDE ADD FRIEND: ', friend, user, friend.reqKey)
             const currentUserRef = firebase.database().ref().child('users').child(user.key).child('friends')
             console.log(currentUserRef)
             let isFirst = false
@@ -229,7 +229,8 @@ export const addFriend = (user, friend) => dispatch => {
                     key: user.key
                 })
             }
-        
+        firebase.database().ref().child('users').child(user.key).child('requests').child(friend.reqKey).remove()
+        return dispatch(getCurrentUser())
 }
 
 export const getCurrentUser = () => dispatch => {
