@@ -12,6 +12,8 @@ export const UserHome = (props) => {
   console.log('currentuser firebase', firebase.auth().currentUser)
   console.log('firebase', firebase.auth())
 
+  console.log('token from localstorage', window.localStorage.getItem('localUserToken'));
+  
   return (
 
     <div>

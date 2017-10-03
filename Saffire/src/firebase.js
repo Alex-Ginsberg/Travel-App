@@ -2,6 +2,7 @@ import * as firebase from 'firebase';
 import {firebase_pw} from './secrets.js';
 import {onUserListener} from './actions'
 import store from './store'
+
 var config = {
     apiKey: firebase_pw,
     authDomain: 'deets-76612.firebaseapp.com',
@@ -49,7 +50,7 @@ function sendTokenToServer(currentToken) {
   if (!isTokenSentToServer()) {
     console.log('Sending token to server...');
     // TODO(developer): Send the current token to your server.
-    setTokenSentToServer(true);
+    setTokenSentToServer(currentToken);
   } else {
     console.log('Token already sent to server so won\'t send it again ' +
         'unless it changes');
@@ -57,11 +58,11 @@ function sendTokenToServer(currentToken) {
 }
 
 function isTokenSentToServer() {
-  return window.localStorage.getItem('sentToServer') == 1;
+  return window.localStorage.getItem('localUserToken') == 1;
 }
 
-function setTokenSentToServer(sent) {
-  window.localStorage.setItem('sentToServer', sent ? 1 : 0);
+function setTokenSentToServer(token) {
+  window.localStorage.setItem('localUserToken', token ? token : 0);
 }
 
 
