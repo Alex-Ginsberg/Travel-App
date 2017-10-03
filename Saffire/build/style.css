@@ -1,0 +1,432 @@
+/*
+    ==================================
+               Box-Sizing
+    ==================================
+*/
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+/*
+    ==================================
+                Body
+    ==================================
+*/
+
+
+/*
+    ==================================
+                Home Page
+    ==================================
+*/
+
+.bg-main {
+    background-image: url("https://images.pexels.com/photos/297755/pexels-photo-297755.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    /* width:70%; */
+}
+
+.sapphire-app {
+    text-align: center;
+}
+
+.app-title {
+    font-size: 2.5em;
+    font-family: "Helvetica";
+    color: white;
+    /* letter-spacing: .1em; */
+    font-weight: 100;
+    /* text-shadow: 3px 3px black; */
+    /* padding-bottom: 5px; */
+    /* margin-top: 200px; */
+    /* margin-bottom: 0; */
+}
+
+.sapphire-itinerary-div {
+    display: flex;
+    margin-top: 25%;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.sapphire-itinerary-form label{
+    color: azure;
+    display: block;
+    text-shadow: 3px 3px black;
+    letter-spacing: .1em;
+}
+
+.sapphire-itinerary-form input{
+    /* width: 700px; */
+    font-size: 20px;
+    border-radius: 5px;
+    /* margin-top: 10px; */
+
+}
+
+
+.sapphire-itinerary-form button{
+    font-size: 20px;
+    background-color: lightgreen;
+    color: azure;
+    border-radius: 5px;
+    border: 1px solid azure;
+    font-weight: 600;
+    margin: 5%;
+}
+
+.sapphire-auth-div {
+    padding-top: 40px;
+    text-align: right;
+    margin-right: 25px;
+    font-size: .8em;
+}
+
+.sapphire-app-login {
+    font-size: 1.2em;
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    padding: 0 10px;
+    font-weight: 100;
+
+}
+
+.border {
+    background-color: black;
+    opacity: .85;
+    height: 25%;
+    width: 100%;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* flex-wrap: wrap; */
+    /* margin-top: 100px; */
+    /* padding: 130px; */
+}
+
+.appp {
+    /* opacity: 1; */
+}
+
+.form-control {
+    text-align: center;
+    /* margin-top: 15%; */
+    position: relative;
+    /* text-size: .8em; */
+}
+
+/*
+
+    ==================================
+                Login
+    ==================================
+*/
+
+.bg-login {
+    background-image: url("https://static.pexels.com/photos/239520/pexels-photo-239520.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    /* width:70%; */
+}
+
+.box-login {
+    /* display: inline-block; */
+    background-color: #7C7A7A;
+    opacity: .90;
+    box-shadow: 15%;
+    width: 400px;
+    height: 250px;
+    /* text-align: center; */
+    display:flex;
+    /* justify-content:center; */
+    align-items:center;
+    margin: auto;
+    /* margin-top: 200px; */
+    /* margin-left: 800px; */
+    
+}
+
+.login-title {
+
+/*     font-family: "Helvetica Neue";
+    font-size: 2.5em;
+    margin: 50px 145px;
+    position: fixed; */
+
+    font-style: "Helvetica";
+    font-size: 1.2em;
+    text-align: center;
+    /* padding-top: 5%; */
+    
+    /* position: center; */
+
+}
+
+
+
+.login-form {
+    margin: auto;
+    align-content: center;
+}
+.login-label-email {
+
+/* font-family: "Helvetica Neue";
+font-size: 2.5em;
+padding: 10px;
+margin-left: 120px;
+}
+
+.login-label-password {
+font-family: "Helvetica Neue";
+font-size: 2.5em;
+padding: 10px;
+margin-left: 90px; */
+
+font-style: "Helvetica";
+font-size: 1.2em;
+/* padding: 5%; */
+/* margin-left: 120px; */
+}
+
+.login-label-password {
+font-style: "Helvetica";
+font-size: 1.2em;
+/* padding: 5%; */
+/* margin-left: 90px; */
+
+}
+
+.login-input {
+    width: 90%;
+    height: 25px;
+    font-style: "Helvetica";
+    font-size: .8em;
+    border-radius: 5%;
+    /* margin: 5px 30px; */
+    margin: 3%;
+    border: 1px solid black
+}
+
+.login-submit-button {
+    font-size: .8em;
+    font-style: "Helvetica";
+    margin: 4%;
+    border-radius: 5%;
+    width: 90%;
+    height: 25px;
+    /* margin-top: 25px; */
+    /* margin-left: 130px; */
+    background-color: white;
+    color: black;
+    border: 1px solid black
+}
+/*
+    ==================================
+                Idea Board
+    ==================================
+*/
+.event-node {
+    display: flex;
+    height: 300px;
+    width: 300px;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-color: white;
+    border-radius: 20%;
+}
+
+.event-image {
+    height: 250px;
+    width: 250px;
+}
+
+.event-title {
+    position: relative;
+    bottom: 100px;
+}
+
+.event-node > h2 {
+    color: black;
+    font-size: 20px;
+    font-family: sans-serif;
+    opacity: 0.7;
+}
+/*
+    ===========================================
+                User Sign-Up
+    ===========================================
+*/
+
+.sapphire-user-signup-div {
+    background-image: url("https://images.pexels.com/photos/196666/pexels-photo-196666.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb");
+    background-size: cover;
+    height: 100vh;
+}
+
+.sapphire-user-signup-box {
+    text-align: center;
+}
+
+.sapphire-user-signup-form {
+    display: inline-block;
+    border: 5px solid lightgrey;
+    background-color: white;
+    padding: 30px;
+    margin-top: 200px;
+    opacity: .75;
+}
+
+.sapphire-user-signup-form h1 {
+    font-size: 3em;
+    text-shadow: 2px 2px black;
+    font-weight: 600;
+    color: lightgrey;
+}
+
+.sapphire-user-signup-input label {
+    display: block;
+    font-size: 1.7em;
+    padding-bottom: 2px;
+    font-weight: 600;
+    color: black;
+}
+
+.sapphire-user-signup-input input {
+    width: 300px;
+    font-size: 28px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.sapphire-user-signup-form button {
+    font-size: 30px;
+    border-radius: 10px;
+    background-color: lightgreen;
+    color: azure;
+    font-weight: 600;
+    padding: 4px 9px;
+}
+
+/*
+    ===========================================
+                Dashboard/User-Home
+    ===========================================
+*/
+
+.dash-div-image {
+    background-image: url("https://static.pexels.com/photos/210200/pexels-photo-210200.jpeg");
+    background-size: cover;
+    display: flex;
+    height: 700px;
+    
+}
+
+#dash-title-border {
+    background-color: #7C7A7A;
+    height: 400px;
+    width: 1200px;
+    margin-left: 350px;
+    margin-top: 100px;
+    opacity: .6;
+    
+}
+
+#dash-title {
+    font-family: "Helvetica Neue";
+    font-size: 8.5em;
+    position: absolute;
+    margin-left: 525px;
+    margin-top: 200px;
+    color: white;
+
+}
+
+#dash-welcome {
+    font-size: 25px;
+    font-family: "Helvetica Neue";
+    margin-top: 35px;
+    color: white;
+}
+
+#dash-logout {
+    font-size: 25px;
+    font-family: "Helvetica Neue";
+    margin-top: 35px;
+    margin-left: 30px;
+    color: white;
+}
+
+.dash-itinerary {
+    width: auto;
+    height: 1500px;
+}
+
+.dash-groups {
+    width: auto;
+    height: 500px;
+    background-color: #F09903;
+}
+
+#dash-myItinerary-header {
+    display: absolute;
+    font-family: "Helvetica Neue";
+    font-size: 50px;
+    margin-left: 800px;
+    color: black;
+}
+
+#dash-header-line {
+    width: 500px;
+    height: 1px;
+    border-bottom: 5px solid black;
+    margin-left: 670px;
+    margin-top: 100px;
+
+}
+
+#dash-myBuddies-header {
+    float: left;
+    font-family: "Helvetica Neue";
+    font-size: 50px;
+    margin-left: 800px;
+    color: black;
+}
+
+
+
+
+
+
+
+
+/* =========================================
+ITINERARY 
+========================================= */
+
+.itin-main {
+    background-image: url("https://static.pexels.com/photos/239520/pexels-photo-239520.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    /* width:70%; */
+}
+
+
+
+.menu-item {
+    font: Helvetica;
+}
+
+@media (min-width: 600px) and (max-width: 1200px) {
+    #dash-title {
+        font-size: 3.5em;
+        
+    }
+}

@@ -2,13 +2,18 @@ import React, {Component} from 'react'
 import {Route, Router} from 'react-router'
 import {Switch} from 'react-router-dom'
 import history from './history'
-import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindFriends } from './components'
+import {connect} from 'react-redux'
+import {fetchUsers} from './actions'
+import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindFriends, SingleItinerary, FriendRequests} from './components'
 
 
 /**
  * COMPONENT
  */
-export default class Routes extends Component {
+class Routes extends Component {
+  componentDidMount () {
+    this.props.loadInitialData()
+  }
   render () {
 
     return (
@@ -22,6 +27,8 @@ export default class Routes extends Component {
           <Route path="/money" component={IdeaBoard} />
           <Route path="/mypassport" component={UserHome} />
           <Route path="/find" component={FindFriends} />
+          <Route path="/itinerary/:id" component={SingleItinerary} />
+          <Route path="/requests" component={FriendRequests} />
         </Switch>
       
       </Router>
@@ -29,4 +36,18 @@ export default class Routes extends Component {
   }
 }
 
+const mapState = state => {
+  return {
+    users: state.users
+  }
+}
 
+const mapDispatch = dispatch => {
+  return {
+    loadInitialData () {
+      dispatch(fetchUsers())
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Routes)
