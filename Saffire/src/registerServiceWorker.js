@@ -36,16 +36,22 @@ export default function register() {
     window.addEventListener('load', () => {
       //${process.env.PUBLIC_URL}/ to add to swUrl when deploying. then move service-worker.js to public folder 
       const swUrl = `../service-worker.js`;
-      console.log('swurl', swUrl);
+      const messagingswUrl = `./firebase-messaging-sw.js`;
 
-      if (!isLocalhost) {
+      //register root service worker 
+      // if (isLocalhost) {
+
+        // console.log('here');
         // Is not local host. Just register service worker
         registerValidSW(swUrl);
-      } else {
-        // This is running on localhost. Lets check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl);
-      }
+        // registerValidSW(messagingswUrl);   
+      // } else {
+      //   // This is running on localhost. Lets check if a service worker still exists or not.
+      //   checkValidServiceWorker(swUrl);
+      // }
     });
+
+
   }
 }
 

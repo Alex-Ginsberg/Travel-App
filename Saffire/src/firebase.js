@@ -9,18 +9,34 @@ var config = {
     projectId: 'deets-76612',
     storageBucket: 'deets-76612.appspot.com',
     messagingSenderId: '1050650539302'
-  };
-  firebase.initializeApp(config);
+};
 
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      store.dispatch(onUserListener(user))
-    } else {
-      // store.dispatch(setCurrentUser({}))
-    }
+
+firebase.initializeApp(config);
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    store.dispatch(onUserListener(user))
+  } else {
+    // store.dispatch(setCurrentUser({}))
+  }
+});
+
+const messaging = firebase.messaging();
+
+messaging.requestPermission()
+  .then(() => {
+    console.log('have permission');
+    return messaging.getToken()
+  })
+  .then(token => console.log('token', token))
+  .catch((err) => {
+    console.log('no permission')
+    console.log(err)
   });
 
-  
 
+
+  
 
 export default firebase

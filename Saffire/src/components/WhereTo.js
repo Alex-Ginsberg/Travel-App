@@ -29,7 +29,7 @@ class WhereTo extends Component {
     
 
     render() {
-        console.log('USER: ', this.props.currentUser)
+        // console.log('USER: ', this.props.currentUser)
         let handleSubmit = this.handleSubmit;
         return (
 
