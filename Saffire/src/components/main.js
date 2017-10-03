@@ -63,7 +63,7 @@ class Main extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      currentUser: state.currentUser
+      currentUser: state.currentUser,
   }
 }
 
@@ -71,7 +71,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
       getCurrentUser() {
           dispatch(getCurrentUser())
-  }
+  }, 
+
 }
 }
 
