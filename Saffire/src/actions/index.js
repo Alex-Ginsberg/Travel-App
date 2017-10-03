@@ -160,8 +160,8 @@ export const fetchUsers = () => dispatch => {
                 const toAdd = {
                     key: key,
                     email: users[key].email,
-                    name: users[key].name,
-                    image: users[key].image
+                    name: users[key].name, 
+                    image: users[key].image,
                 }
                 usersArr.push(toAdd)
             }
@@ -298,6 +298,11 @@ export const addToItinerary = (itin, user) => dispatch => {
     }
 
 }
+
+    
+
+
+      
 
 //action creator
 
