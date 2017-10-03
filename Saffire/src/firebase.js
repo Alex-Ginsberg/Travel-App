@@ -22,18 +22,18 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-// const messaging = firebase.messaging();
+const messaging = firebase.messaging();
 
-// messaging.requestPermission()
-//   .then(() => {
-//     console.log('have permission');
-//     return messaging.getToken()
-//   })
-//   .then(token => console.log('token', token))
-//   .catch((err) => {
-//     console.log('no permission')
-//     console.log(err)
-//   });
+messaging.requestPermission()
+  .then(() => {
+    console.log('have permission');
+    return messaging.getToken()
+  })
+  .then(token => console.log('token', token))
+  .catch((err) => {
+    console.log('no permission')
+    console.log(err)
+  });
 
 
 
