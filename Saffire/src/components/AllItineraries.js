@@ -84,9 +84,9 @@ class AllItineraries extends React.Component {
     console.log('TO RENDER: ', toRenderItins)
     return (
       <div className="itin-main">
-        <div id="burger">
+        {/* <div id="burger">
           <BurgerMenu />
-        </div>
+        </div> */}
 
         <div className = "sapphire-auth-div">
         <h1 className="app-title">Saffire</h1>
@@ -99,13 +99,10 @@ class AllItineraries extends React.Component {
                   .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
                   .then(() => this.props.history.push('/money'))
                 }}>{itin.name}</button>
-            ))}
-          
-            </div>
+            ))}  
+        </div>
     )
-    
   }
-  
 }
 
 const mapStateToProps = (state) => {

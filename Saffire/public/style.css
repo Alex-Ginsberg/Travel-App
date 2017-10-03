@@ -413,7 +413,7 @@ ITINERARY
 ========================================= */
 
 .itin-main {
-    background-image: url("https://static.pexels.com/photos/239520/pexels-photo-239520.jpeg");
+    background-image: url("/assets/car-map.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;

@@ -10,6 +10,12 @@ class BurgerMenu extends React.Component {
     
   }
 
+  signout() {
+    firebase.auth().signOut()
+    .then(history.push('/'))
+    .catch(err => console.log(err))
+  }
+  
   render () {
     return (
       <Menu styles={styles}>
@@ -18,7 +24,7 @@ class BurgerMenu extends React.Component {
         {/* <a onClick={ this.showSettings } className="menu-item--small" href="">Settings</a> */}
         <a id="Itineraries" className="menu-item" href="/itineraries">Itineraries</a> 
         <a id="MyFriends" className="menu-item" href="/myfriends">My Friends</a>
-        <a className="menu-item" onClick={() => (firebase.auth().signOut()).then(history.push('/')).catch(err => console.log(err))} href=''>Logout</a>
+        <a className="menu-item" onClick={this.signout} href=''>Logout</a>
       </Menu>
     );
   }
