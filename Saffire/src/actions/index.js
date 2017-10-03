@@ -189,24 +189,13 @@ export const sendFriendRequest = (user, friend) => dispatch => {
 }
 
 export const addFriend = (user, friend) => dispatch => {
-    // console.log('INSIDE ADD FRIEND: ', friend)
-    // const usersRef = firebase.database().ref().child('users')
-    // usersRef.once('value')
-    //     .then(snapshot => {
-    //         const users = snapshot.val()
-    //         let loggedInUser = null
-    //         for (var key in users) {
-    //             if (users[key].email === firebase.auth().currentUser.email){loggedInUser = key}
-    //         }
-    //         console.log('LOGGED IN USER: ', loggedInUser)
-    //         return loggedInUser
-    //     })
-    //     .then(loggedIn => {
         console.log('INSIDE ADD FRIEND: ', friend, user)
             const currentUserRef = firebase.database().ref().child('users').child(user.key).child('friends')
             console.log(currentUserRef)
+            let isFirst = false
             currentUserRef.transaction(friends => {
                 if (friends === null) {
+                    isFirst = true
                     return {firstFriend: {
                         name: friend.name,
                         email: friend.email,
@@ -214,15 +203,18 @@ export const addFriend = (user, friend) => dispatch => {
                     }}
                 }
             })
-                console.log('ADDING ANOTHER FRIEND')
+            if (!isFirst) {
                 currentUserRef.push({
                     name: friend.name,
                     email: friend.email,
                     key: friend.key
                 })
+            }
             const friendRef = firebase.database().ref().child('users').child(friend.key).child('friends')
+            isFirst = false
             friendRef.transaction(friends => {
                 if (friends === null) {
+                    isFirst = true
                     return {firstFriend: {
                         name: user.name,
                         email: user.email,
@@ -230,12 +222,13 @@ export const addFriend = (user, friend) => dispatch => {
                     }}
                 }
             })
-                console.log('ADDING ANOTHER FRIEND')
+            if (!isFirst) {
                 friendRef.push({
                     name: user.name,
                     email: user.email,
                     key: user.key
                 })
+            }
         
 }
 
