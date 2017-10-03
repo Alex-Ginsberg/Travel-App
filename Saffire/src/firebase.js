@@ -15,6 +15,11 @@ var config = {
 
 firebase.initializeApp(config);
 
+/*
+  Firebase Event Listenets
+*/
+
+// Checks to see when the auth state changes
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     store.dispatch(onUserListener(user))
@@ -22,6 +27,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     // store.dispatch(setCurrentUser({}))
   }
 });
+
 
 const messaging = firebase.messaging();
 

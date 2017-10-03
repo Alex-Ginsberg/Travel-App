@@ -24,6 +24,8 @@ class BurgerMenu extends React.Component {
         {/* <a onClick={ this.showSettings } className="menu-item--small" href="">Settings</a> */}
         <a id="Itineraries" className="menu-item" href="/itineraries">Itineraries</a> 
         <a id="MyFriends" className="menu-item" href="/myfriends">My Friends</a>
+        <a id="FindFreidns" className="menu-item" href="/find">Find Friends</a>
+        <a id="FriendRequests" className="menu-item" href="/requests">Friend Requests</a>
         <a className="menu-item" onClick={this.signout} href=''>Logout</a>
       </Menu>
     );
