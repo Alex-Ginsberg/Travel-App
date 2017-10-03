@@ -19,19 +19,12 @@ export const UserHome = (props) => {
   console.log('user home', props.currentUser);
   const {email, user, users, getGroup} = props
 
-
   console.log('token from localstorage', window.localStorage.getItem('localUserToken'));
   
-
-
-
-
-  
-
-  //database reference
-
   const ref = firebase.database().ref()
   let itinArray = []
+  //database reference
+
   ref.on('value', snapshot => {
     let allItins = snapshot.val().itineraries
     
@@ -41,9 +34,6 @@ export const UserHome = (props) => {
       itinArray.push(toAdd)      
     }
   })  
-
-    console.log('user', user)
-    console.log('userslist', users)
 
     //get all itineraries owned by the user
 
@@ -56,13 +46,11 @@ export const UserHome = (props) => {
   //get itineraries associated with user
 
     let itins = itinArray.filter(itin => {
-      
       for(let key in itin.members){
         return  user.email === itin.owner || itin.members[key] === user.key
       }
     })
 
-    console.log('otherItin', itins)
 
   //go through each itin and find members === itin.members
 
