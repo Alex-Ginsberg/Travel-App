@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import LinkPreview from './LinkPreview'
-import { addEvent, fetchEvents, addToItinerary } from '../actions';
+import { addEvent, fetchEvents, addToItinerary, confirmEvent } from '../actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
@@ -19,7 +19,6 @@ class IdeaBoard extends Component {
 
     componentDidMount() {
         this.props.getItineraryEvents(this.props.itineraryName)
-        
     }
 
     handleChange(e) {
@@ -38,13 +37,8 @@ class IdeaBoard extends Component {
         e.preventDefault()
         this.props.addMember(this.props.itineraryName.key, this.state.currentFriend)
     }
-    
 
     render() {
-        console.log('CURRENT ITIN: ', this.props.itineraryName)
-        console.log('EVENTS: ', this.props.currentEvents)
-        console.log('CURRENT USER***** ', this.props.currentUser)
-        console.log('CURRENT FRIEND: ', this.state.currentFriend)
         let handleSubmit = this.handleSubmit;
         let handleChange = this.handleChange;
         let itineraryName = this.props.itineraryName
@@ -53,6 +47,30 @@ class IdeaBoard extends Component {
         for (var key in friends) {
             friendsArr.push(friends[key])
         }
+      
+          function drag(event, eventId, itineraryKey) {
+            var obj = {
+                id: event.target.id,
+                eventId: eventId,
+                itineraryKey: itineraryKey
+            }
+            var finalObj = JSON.stringify(obj);
+            event.dataTransfer.setData("text", finalObj);
+          }
+          
+          function drop(event, props) {
+            event.preventDefault();
+            
+            var data = JSON.parse(event.dataTransfer.getData("text")).id;
+            var eventId = JSON.parse(event.dataTransfer.getData("text")).eventId;
+            var itineraryKey = JSON.parse(event.dataTransfer.getData("text")).itineraryKey;
+            props.confirmEvent(eventId, itineraryKey);
+            event.target.appendChild(document.getElementById(data));
+          }
+      
+          function allowDrop(event, props) {
+            event.preventDefault();
+          }
         
         return (
         <div>
@@ -83,7 +101,7 @@ class IdeaBoard extends Component {
                 {/* Will render out all events that have not been added yet */}
                 {this.props.currentEvents.map(event => (
                     <MuiThemeProvider>
-                        {!event.added  && <LinkPreview eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/>}
+                        {!event.added  && <div id ={event.key} onDragStart = {(ev) => drag(ev, event.key, itineraryName.key)} draggable = "true"><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/></div>}
                     </MuiThemeProvider>
                 ))}
             </div>
@@ -92,7 +110,7 @@ class IdeaBoard extends Component {
                 {/* Will render all events that HAVE been added */}
                 {this.props.currentEvents.map(event => (
                     <MuiThemeProvider>
-                        {event.added && <LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/>}
+                        {event.added && <div><LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/></div>}
                     </MuiThemeProvider>
                 ))}
             </div>
@@ -100,6 +118,10 @@ class IdeaBoard extends Component {
             </div>
             <p>Left arrow: <i className="arrow left"></i></p>
             <p>Right arrow: <i className="arrow right"></i></p>
+
+            <div onDragOver= {(event) => {allowDrop(event)}} className = "sapphire-event-box" onDrop={(event) => drop(event,this.props)}>
+
+            </div>
         </div>
         )
     }
@@ -123,7 +145,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         addMember(itin, user) {
             dispatch(addToItinerary(itin, user))
-        }
+        },
+        confirmEvent(eventId, itinKey) {
+            dispatch(confirmEvent(eventId, itinKey))
+        },
     }
 }
 
