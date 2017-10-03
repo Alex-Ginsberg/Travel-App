@@ -43,7 +43,7 @@ class WhereTo extends Component {
                     
                     {(this.state.dirtyItinerary && !this.state.newItinerary.length) && <p className="errorItinerary alert alert-danger" >please enter an itinerary name</p>}
 
-                    <button type="submit" className="btn btn-primary">Start</button>
+                    <button type="submit" className="btn btn-primary">></button>
                 </form>
                 {/* <span>{this.props.itineraryName}</span> */}
 

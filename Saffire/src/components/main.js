@@ -7,6 +7,7 @@ import { getCurrentUser } from '../actions';
 import firebase from '../firebase'
 
 
+
 /**
  * COMPONENT
  *  The Main component is our 'picture frame' - it displays the navbar and anything
@@ -28,9 +29,7 @@ class Main extends Component {
   return (
     <div className="sapphire-app">
       <BurgerMenu />
-      
-      <h1 className="sapphire-app-title">Sapphire</h1>
-
+        <h1 className="sapphire-app-title">Sapphire</h1>
       <div className = "sapphire-auth-div clearfix">
         <Link to='/login' className = "sapphire-app-login">Login</Link>
         <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
