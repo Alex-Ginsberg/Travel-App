@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { fetchUsers, addFriend } from '../actions';
+import { fetchUsers, addFriend, sendFriendRequest } from '../actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
@@ -16,7 +16,11 @@ class FindFriends extends Component {
         <div>
             <h1>Find Friends!</h1>
             {this.props.users.map(user => (
-                <h3 onClick={() => this.props.addFriend(user)}>{user.name}</h3>
+                <div key={user.key}>
+                    <img src={user.image} style={{height: 50, width: 50}}/>
+                    <h3>{user.name}</h3>
+                    <button onClick={() => this.props.sendFriendRequest(this.props.currentUser, user)}>Send Friend Request</button>
+                </div>
             ))}
         </div>
         )
@@ -25,7 +29,8 @@ class FindFriends extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: state.users
+        users: state.users,
+        currentUser: state.currentUser
     }
 }
 
@@ -36,7 +41,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         addFriend(friend) {
             dispatch(addFriend(friend))
-        } 
+        } ,
+        sendFriendRequest(user, friend) {
+            dispatch(sendFriendRequest(user, friend))
+        }
     }
 }
 

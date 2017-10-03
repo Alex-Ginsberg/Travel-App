@@ -169,21 +169,41 @@ export const fetchUsers = () => dispatch => {
         })
 }
 
-export const addFriend = (friend) => dispatch => {
-    console.log('INSIDE ADD FRIEND: ', friend)
-    const usersRef = firebase.database().ref().child('users')
-    usersRef.once('value')
-        .then(snapshot => {
-            const users = snapshot.val()
-            let loggedInUser = null
-            for (var key in users) {
-                if (users[key].email === firebase.auth().currentUser.email){loggedInUser = key}
-            }
-            console.log('LOGGED IN USER: ', loggedInUser)
-            return loggedInUser
-        })
-        .then(loggedIn => {
-            const currentUserRef = firebase.database().ref().child('users').child(loggedIn).child('friends')
+export const sendFriendRequest = (user, friend) => dispatch => {
+    console.log('INSIDE SEND FRIEND REQUEST: USER: ', user, ' FRIEND: ', friend)
+    const requestRef = firebase.database().ref().child('users').child(friend.key).child('requests')
+    let isFirstRequest = false
+    requestRef.transaction(requests => {
+        if (requests === null) {
+            isFirstRequest = true
+            return {firstReq: {
+                from: user.email,
+                userKey: user.key,
+                name: user.name
+            }}
+        }
+    })
+    if (!isFirstRequest) {
+        requestRef.push({from: user.email, userKey: user.key, name: user.name})
+    }
+}
+
+export const addFriend = (user, friend) => dispatch => {
+    // console.log('INSIDE ADD FRIEND: ', friend)
+    // const usersRef = firebase.database().ref().child('users')
+    // usersRef.once('value')
+    //     .then(snapshot => {
+    //         const users = snapshot.val()
+    //         let loggedInUser = null
+    //         for (var key in users) {
+    //             if (users[key].email === firebase.auth().currentUser.email){loggedInUser = key}
+    //         }
+    //         console.log('LOGGED IN USER: ', loggedInUser)
+    //         return loggedInUser
+    //     })
+    //     .then(loggedIn => {
+        console.log('INSIDE ADD FRIEND: ', friend, user)
+            const currentUserRef = firebase.database().ref().child('users').child(user.key).child('friends')
             console.log(currentUserRef)
             currentUserRef.transaction(friends => {
                 if (friends === null) {
@@ -200,8 +220,22 @@ export const addFriend = (friend) => dispatch => {
                     email: friend.email,
                     key: friend.key
                 })
-
-        })
+            const friendRef = firebase.database().ref().child('users').child(friend.key).child('friends')
+            friendRef.transaction(friends => {
+                if (friends === null) {
+                    return {firstFriend: {
+                        name: user.name,
+                        email: user.email,
+                        key: user.key
+                    }}
+                }
+            })
+                console.log('ADDING ANOTHER FRIEND')
+                friendRef.push({
+                    name: user.name,
+                    email: user.email,
+                    key: user.key
+                })
         
 }
 
@@ -220,7 +254,8 @@ export const getCurrentUser = () => dispatch => {
                         email: users[key].email,
                         friends: users[key].friends,
                         image: users[key].image,
-                        name: users[key].name
+                        name: users[key].name,
+                        requests: users[key].requests
                     }}
                 }
                 console.log('LOGGED IN USER: ', loggedInUser)
@@ -244,7 +279,8 @@ export const onUserListener = (user) => dispatch => {
                 email: users[key].email,
                 friends: users[key].friends,
                 image: users[key].image,
-                name: users[key].name
+                name: users[key].name,
+                requests: users[key].requests
             }}
         }
         console.log('LOGGED IN USER: ', loggedInUser)

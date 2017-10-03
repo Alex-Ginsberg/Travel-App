@@ -89,7 +89,7 @@ class AllItineraries extends React.Component {
         </div>
 
         <div className = "sapphire-auth-div">
-        <h1 className="app-title">Sapphire</h1>
+        <h1 className="app-title">Saffire</h1>
         </div>
             {toRenderItins.map(itin => (
               <button key={itin.key} onClick={() => {

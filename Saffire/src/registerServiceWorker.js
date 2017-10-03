@@ -8,6 +8,9 @@
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
 
+
+
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -19,7 +22,8 @@ const isLocalhost = Boolean(
 );
 
 export default function register() {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  // process.env.NODE_ENV === 'production' &&
+  if ( 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location);
     if (publicUrl.origin !== window.location.origin) {
@@ -30,7 +34,8 @@ export default function register() {
     }
 
     window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+      //${process.env.PUBLIC_URL}/ to add to swUrl when deploying. then move service-worker.js to public folder 
+      const swUrl = `../service-worker.js`;
       console.log('swurl', swUrl);
 
       if (!isLocalhost) {
@@ -48,6 +53,7 @@ function registerValidSW(swUrl) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
+      console.log('registration', registration)
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         installingWorker.onstatechange = () => {
