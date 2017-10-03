@@ -27,6 +27,7 @@ class Main extends Component {
   }
 
   render() {
+    console.log('main currentUser', this.props.currentUser.name)
     
   return (
 
@@ -37,8 +38,19 @@ class Main extends Component {
       </div>
       <div className = "sapphire-auth-div">
         <h1 className="app-title">Saffire</h1>
-        <Link to='/login' className = "sapphire-app-login">Login</Link>
-        <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
+
+        { !this.props.currentUser.name &&  (
+            <div id="login-signup">
+              <Link to='/login' className = "sapphire-app-login">Login</Link>
+              <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
+            </div>
+          ) 
+          
+
+        }
+
+
+
       </div>
 
       <div className="border">
