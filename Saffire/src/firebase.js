@@ -27,11 +27,6 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-// Checks to see when a request is deleted
-const databaseRef = firebase.database().ref().child('users')
-databaseRef.on('value', snapshot => {
-  console.log('SOMETHING CHANGED: ', snapshot.val())
-})
 
 const messaging = firebase.messaging();
 
