@@ -42,7 +42,7 @@ class Main extends Component {
 
         }
 
-      </div>
+
       <div className="sapphire-home-page-border">
         <WhereTo />
       </div>
