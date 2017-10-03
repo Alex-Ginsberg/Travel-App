@@ -20,6 +20,11 @@ export const UserHome = (props) => {
   const {email, user, users, getGroup} = props
 
 
+  console.log('token from localstorage', window.localStorage.getItem('localUserToken'));
+  
+  return (
+
+
 
   
 

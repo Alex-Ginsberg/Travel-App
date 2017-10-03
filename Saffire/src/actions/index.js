@@ -265,18 +265,29 @@ export const onUserListener = (user) => dispatch => {
     usersRef.once('value')
     .then(snapshot => {
         const users = snapshot.val()
+        const localToken = window.localStorage.getItem('localUserToken');
         let loggedInUser = null
+
         for (var key in users) {
-            if (users[key].email === user.email){loggedInUser = {
+            if (users[key].email === user.email){
+                const usersRefChild = firebase.database().ref().child('users').child(key).child('localToken')
+                usersRefChild.transaction((tokenKey) => {
+                    return localToken
+                })
+    
+                loggedInUser = {
                 key: key,
                 email: users[key].email,
                 friends: users[key].friends,
                 image: users[key].image,
+
                 name: users[key].name,
                 requests: users[key].requests
             }}
+
         }
         console.log('LOGGED IN USER: ', loggedInUser)
+
         return dispatch(setCurrentUser(loggedInUser))
     })
 }
