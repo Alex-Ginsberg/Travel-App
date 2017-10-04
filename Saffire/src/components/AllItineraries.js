@@ -12,6 +12,7 @@ class AllItineraries extends React.Component {
     this.state = {
       itinArray: []
     }
+
   }
 
   componentDidMount () {
@@ -64,8 +65,6 @@ class AllItineraries extends React.Component {
     
   }
   render () {
-    console.log('CURRENT USER: ', this.props.currentUser)
-    console.log('ITIN STATE: ', this.state.itinArray)
     let toRenderItins = []
     if (this.props.currentUser.key) {
       for (var i = 0; i < this.state.itinArray.length; i++) {
@@ -81,7 +80,25 @@ class AllItineraries extends React.Component {
         }
       }
     }
-    console.log('TO RENDER: ', toRenderItins)
+    
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+    
+      event.dataTransfer.setData("text", event.target.id);
+    }
+    
+    function drop(event) {
+      event.preventDefault();
+      var data = event.dataTransfer.getData("text");
+      event.target.appendChild(document.getElementById(data))
+    }
+
+    function allowDrop(event) {
+      event.preventDefault();
+    }
     return (
       <div className="itin-main">
         {/* <div id="burger">
@@ -91,16 +108,21 @@ class AllItineraries extends React.Component {
         <div className = "sapphire-auth-div">
         <h1 className="app-title">Saffire</h1>
         </div>
+          <div className = "sapphire-idea-board">
             {toRenderItins.map(itin => (
-              <button key={itin.key} onClick={() => {
-
-                console.log('BEFORE DISPATCH: ', itin)
+              <button onDragStart = {(event) => drag(event)} draggable = "true" id={itin.key} key={itin.key} onClick={() => {
                 firebase.database().ref(`/itineraries/${itin.key}`).once('value')
                   .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
                   .then(() => this.props.history.push('/money'))
                 }}>{itin.name}</button>
-            ))}  
-        </div>
+
+            ))}
+          </div>
+
+          <div onDragOver= {(event) => {allowDrop(event)}} className = "sapphire-event-board" onDrop={(event) => drop(event)}>
+          </div>
+     </div>
+
     )
   }
 }

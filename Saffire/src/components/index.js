@@ -16,4 +16,7 @@ export {default as LinkPreview} from './LinkPreview'
 export {default as FindFriends} from './FindFriends'
 export {default as SingleItinerary} from './SingleItinerary'
 export {default as FriendRequests} from './FriendRequests'
+export {default as StatusUpdate} from './StatusUpdate'
+export {MapComp} from './Map'
+
 

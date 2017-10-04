@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter } from 'react-router-dom'
+import BurgerMenu from './Menu';
 import firebase from '../firebase'
 
 /**
@@ -24,28 +25,33 @@ class UserSignup extends React.Component {
   render () {
     return (
       <div className = "sapphire-user-signup-div">
+        <BurgerMenu />
+        
+        <h1>SAFFIRE</h1>
+        
         <div className = "sapphire-user-signup-box">
           <form onSubmit={this.handleSubmit} className = "sapphire-user-signup-form">
-          
-            <h1>Create an Account</h1>
+            
+            <h1>SIGN UP</h1>
+            
             <div className = "sapphire-user-signup-input">
-              <label htmlFor='name'><small>Name</small></label>
-              <input name='name' type='text' onChange={(e) => { this.setState({name: e.target.value}) }} placeholder="Enter name"/>
+              <input name='name' type='text' onChange={(e) => { this.setState({name: e.target.value}) }} placeholder="name"/>
             </div>
 
             <div className = "sapphire-user-signup-input">
-              <label htmlFor='email'><small>Email</small></label>
-              <input name='email' type='email' onChange={(e) => this.setState({email: e.target.value})} placeholder="Enter email"/>
+              <input name='email' type='email' onChange={(e) => this.setState({email: e.target.value})} placeholder="email"/>
             </div>
 
             <div className = "sapphire-user-signup-input">
-              <label htmlFor='password'><small>Password</small></label>
-              <input name='password' type='password' onChange={(e) => this.setState({password: e.target.value})} placeholder="Enter password"/>
+              <input name='password' type='password' onChange={(e) => this.setState({password: e.target.value})} placeholder="password"/>
             </div>
-            <button type='submit'>Submit</button>
+            
+            <div className = "sapphire-user-signup-button-div">
+              <button type='submit'>Get Started</button>
+            </div>
           </form>
-
         </div>
+
       </div>
     )
   }
