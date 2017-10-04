@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import BurgerMenu from './Menu'
-import firebase from 'firebase';
-import history from '../history';
-import AllItineraries from './AllItineraries';
+import firebase from 'firebase'
+import history from '../history'
+import AllItineraries from './AllItineraries'
+import {MapComp} from '../components'
+import {googServerKey} from '../secrets.js'
 
 /**
  * COMPONENT
@@ -15,11 +17,9 @@ function signout() {
   .catch(err => console.log(err))
 }
 
-export const UserHome = (props) => {
-  console.log('user home', props.currentUser);
+
+const UserHome = (props) => {
   const {email, user, users, getGroup} = props
-
-
 
   
 
@@ -37,18 +37,8 @@ export const UserHome = (props) => {
     }
   })  
 
-    console.log('user', user)
-    console.log('userslist', users)
 
-    //get all itineraries owned by the user
-
-    // let ownerItins = itinArray.filter(itin=> {
-    //         return user.email === itin.owner
-    //       })
-      
-    //console.log('ownerItin', ownerItins)
-
-  //get itineraries associated with user
+    //get itineraries user owns and is associated with
 
     let itins = itinArray.filter(itin => {
       
@@ -57,16 +47,6 @@ export const UserHome = (props) => {
       }
     })
 
-    console.log('otherItin', itins)
-
-  //go through each itin and find members === itin.members
-
-  // let membersArr = ownerItins.map(itin => {
-  //   return itin.members
-  // })
-
-  // console.log('memArr', membersArr)
-    
   return (
     
     <div>
@@ -79,35 +59,11 @@ export const UserHome = (props) => {
       <p id="dash-title">{user.name}'s Passport</p>
       <a id="dash-logout" href="" onClick={signout} style={{color: 'white'}}>Logout</a>
       </div>
-      
+      <div id="dash-map">
+      </div>
       <div className="dash-itinerary">
       <div id="dash-header-line">
       </div>
-
-      <p id="dash-myItinerary-header">My Itineraries</p>
-      <ul>
-        {itins.map(itin => {
-          return (
-            <div key={itin.key}>
-              <p></p>
-            <li
-            data-name={itin.name}
-            >{itin.name}
-            </li>
-            
-            <p>My Buddies on this trip:</p>
-            <ul>
-            {Object.keys(itin.members).map(objItin => {
-              return (
-                <li key={objItin}>{itin.members[objItin]}</li>
-                
-              )
-            })}
-            </ul>
-            </div>
-          )
-        })}
-      </ul>
       <p id="dash-myItinerary-header">My Itinerary</p>
       <AllItineraries />
       </div>
@@ -129,21 +85,13 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = (dispatch, ownProps) => {
-  return ({
-    getGroup (e) {
-      console.log('e', e.target)
-      return e.target.dataset.name;
-      
-    }
-  })
-}
 
 
 
 
 
-export default connect(mapState, mapDispatch)(UserHome)
+
+export default connect(mapState)(UserHome)
 
 
 //SMART COMPONENT
