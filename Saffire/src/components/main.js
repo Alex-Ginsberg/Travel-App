@@ -31,8 +31,9 @@ class Main extends Component {
     <div className="sapphire-app">
       <BurgerMenu />
 
-        <h1 className="sapphire-app-title">SAPPHIRE</h1>
-         { !this.props.currentUser.name &&  (
+        <h1 className="sapphire-app-title">SAFFIRE</h1>
+      <div className = "sapphire-auth-div clearfix">
+        { !this.props.currentUser.name &&  (
             <div className="sapphire-auth-div clearfix">
               <Link to='/login' className = "sapphire-app-login">Login</Link>
               <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
@@ -41,7 +42,7 @@ class Main extends Component {
           
 
         }
-
+      </div>
 
       <div className="sapphire-home-page-border">
         <WhereTo />

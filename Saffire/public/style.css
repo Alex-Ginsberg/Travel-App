@@ -4,7 +4,6 @@
     ==================================
 */
 
-
 *,
 *:before,
 *:after {
@@ -13,7 +12,7 @@
 
 /*
     ==================================
-                Body
+                  Body
     ==================================
 */
 
@@ -23,10 +22,9 @@ body {
 
 /*
     ==================================
-                Home Page
+                 Home Page 
     ==================================
 */
-
 
 .sapphire-app {
     text-align: center;
@@ -84,6 +82,10 @@ body {
     padding: 10px 10px;
 }
 
+.sapphire-app-login:hover {
+    text-decoration: none;
+}
+
 .sapphire-home-page-border {
     background-color: white;
     background: rgba(255, 255, 255, 0.5);
@@ -92,7 +94,6 @@ body {
 }
 
 .sapphire-itinerary-div {
-    display: inline-block;
     padding: 100px;
 }
 
@@ -328,58 +329,122 @@ font-size: 1.2em;
 
 /*
     ===========================================
-                User Sign-Up
+                   User Sign-Up
     ===========================================
 */
 
 .sapphire-user-signup-div {
-    background-image: url("https://images.pexels.com/photos/196666/pexels-photo-196666.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb");
+    background-image: url("https://image.shutterstock.com/z/stock-photo-landscapes-on-denali-highway-alaska-instagram-filter-309705941.jpg");
     background-size: cover;
     height: 100vh;
 }
 
+.sapphire-user-signup-div h1 {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: .2em;
+    font-weight: 100;
+    text-align: center;
+    font-size: 5em;
+    padding-top: 60px;
+}
+
 .sapphire-user-signup-box {
     text-align: center;
+    margin-top: 80px;
 }
 
 .sapphire-user-signup-form {
     display: inline-block;
-    border: 5px solid lightgrey;
-    background-color: white;
-    padding: 30px;
-    margin-top: 200px;
-    opacity: .75;
+    background: rgba(255,255,255, 0.7);
+    padding: 60px;
 }
 
 .sapphire-user-signup-form h1 {
-    font-size: 3em;
-    text-shadow: 2px 2px black;
-    font-weight: 600;
-    color: lightgrey;
-}
-
-.sapphire-user-signup-input label {
-    display: block;
-    font-size: 1.7em;
-    padding-bottom: 2px;
-    font-weight: 600;
-    color: black;
+    font-size: 2em;
+    color: white;
+    text-align: right;
+    margin-bottom: 30px;
 }
 
 .sapphire-user-signup-input input {
-    width: 300px;
-    font-size: 28px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    width: 400px;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+    border-radius: 5px;
+    margin-bottom: 50px;
+}
+
+.sapphire-user-signup-button-div {
+    text-align: right;
 }
 
 .sapphire-user-signup-form button {
-    font-size: 30px;
-    border-radius: 10px;
-    background-color: lightgreen;
-    color: azure;
-    font-weight: 600;
-    padding: 4px 9px;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: #D2691E;
+    color: white;
+    letter-spacing: .1em;
+    padding: 4px 20px;
+}
+
+@media(min-width: 400px) and (max-width: 700px) {
+    .sapphire-user-signup-div h1 {
+        font-size: 2.5em;
+    }
+}
+
+@media(min-width: 750px) and (max-width: 900px) {
+    .sapphire-user-signup-form {
+        padding: 40px;
+    }
+
+    .sapphire-user-signup-input input {
+        width: 300px;
+    }
+
+}
+
+@media(min-width: 560px) and (max-width: 750px) {
+    .sapphire-user-signup-form {
+        padding: 40px;
+    }
+
+    .sapphire-user-signup-input input {
+        width: 200px;
+    }
+
+    .sapphire-user-signup-form button {
+        font-size: 13px;
+    }
+
+    .sapphire-user-signup-form h1 {
+        font-size: 1.2em;
+    }
+}
+
+@media(min-width: 400px) and (max-width: 560px) {
+
+    .sapphire-user-signup-div h1 {
+        font-size: 2.4em;
+    }
+
+    .sapphire-user-signup-form {
+        padding: 70px;
+    }
+
+    .sapphire-user-signup-input input {
+        width: 130px;
+    }
+
+    .sapphire-user-signup-form button {
+        font-size: 8px;
+    }
+
+    .sapphire-user-signup-form h1 {
+        font-size: .9em;
+    }
 }
 
 /*
