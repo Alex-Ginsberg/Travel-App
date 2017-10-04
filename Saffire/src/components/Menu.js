@@ -35,6 +35,7 @@ class BurgerMenu extends React.Component {
   
   render () {
     return (
+      
       <Menu styles={styles}>
         <li><a className="menu-item" id="home" href="/">HOME</a></li>
         <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li>
