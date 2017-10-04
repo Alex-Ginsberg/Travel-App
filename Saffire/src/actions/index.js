@@ -186,12 +186,46 @@ export const sendFriendRequest = (user, friend) => dispatch => {
     if (!isFirstRequest) {
         requestRef.push({from: user.email, userKey: user.key, name: user.name})
     }
+
+    const recipient = firebase.database().ref().child('users').child(friend.key);
+
+    //push notifications for send friend request to itinerary
+    recipient.once('value')
+    .then(snapshot => {
+        return snapshot.val().localToken
+    })
+    .then(userToken => {
+        console.log('userToken ******', userToken);
+        axios({ url: 'https://fcm.googleapis.com/fcm/send',
+                method: 'post',
+                headers: {
+                    'Authorization': 'key=AAAA9J-m9SY:APA91bHXe_r13MYn-BY6iWZwXQ6tOmUZZv9UeMC7LfQdgGbxXKhbnoBWNQifh-2E-t9gVGFfaiKR_ivv1OtuBufWboAhJ5SeWNdrkWiQg6WNHY5b2DXSM4Sp4_rZO60y4Nq6BNjYUsk8',
+                    'Content-Type': 'application/json',
+                },
+                data: {
+                        "notification": {
+                        "title": "Saffire",
+                        "body": `${user.name} added you as a friend!`,
+                        "icon": "firebase-logo.png",
+                        "click_action": "https://deets-76612.firebaseapp.com/requests"
+                        },
+                        "to": userToken
+                    }
+        })
+        .then(response => console.log('post sent', response.data))
+    })
+    .catch(err => console.log(err))
+
+
+
+
+
 }
 
 export const addFriend = (user, friend) => dispatch => {
-        console.log('INSIDE ADD FRIEND: ', friend, user, friend.reqKey)
+        // console.log('INSIDE ADD FRIEND: ', friend, user, friend.reqKey)
             const currentUserRef = firebase.database().ref().child('users').child(user.key).child('friends')
-            console.log(currentUserRef)
+            // console.log(currentUserRef)
             let isFirst = false
             currentUserRef.transaction(friends => {
                 if (friends === null) {
@@ -230,6 +264,41 @@ export const addFriend = (user, friend) => dispatch => {
                 })
             }
         firebase.database().ref().child('users').child(user.key).child('requests').child(friend.reqKey).remove()
+
+
+        const recipient = firebase.database().ref().child('users').child(friend.key);
+        
+            //push notifications for send friend request to itinerary
+            recipient.once('value')
+            .then(snapshot => {
+                return snapshot.val().localToken
+            })
+            .then(userToken => {
+                console.log('userToken ******', userToken);
+                axios({ url: 'https://fcm.googleapis.com/fcm/send',
+                        method: 'post',
+                        headers: {
+                            'Authorization': 'key=AAAA9J-m9SY:APA91bHXe_r13MYn-BY6iWZwXQ6tOmUZZv9UeMC7LfQdgGbxXKhbnoBWNQifh-2E-t9gVGFfaiKR_ivv1OtuBufWboAhJ5SeWNdrkWiQg6WNHY5b2DXSM4Sp4_rZO60y4Nq6BNjYUsk8',
+                            'Content-Type': 'application/json',
+                        },
+                        data: {
+                                "notification": {
+                                "title": "Saffire",
+                                "body": `${user.name} accepted you as a friend!`,
+                                "icon": "firebase-logo.png",
+                                "click_action": "https://deets-76612.firebaseapp.com/requests"
+                                },
+                                "to": userToken
+                            }
+                })
+                .then(response => console.log('post sent', response.data))
+            })
+            .catch(err => console.log(err))
+
+
+
+
+
         return dispatch(getCurrentUser())
 }
 
