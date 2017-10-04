@@ -424,6 +424,21 @@ export const updateStatus = (user, status) => dispatch => {
 
 }
 
+export const setDateAndTime = (itinId, event, date, time) => dispatch => {
+    const eventRef = firebase.database().ref().child('itineraries').child(itinId).child('events')
+    eventRef.once('value')
+        .then(snapshot => {
+            const events = snapshot.val()
+            for (let key in events) {
+                if (events[key].url === event.url){return key}
+            }
+        })
+        .then(theKey => {
+            console.log(time)
+            const evRef = firebase.database().ref().child('itineraries').child(itinId).child('events').child(theKey).child('schedule').update({date: date + '', time: time + ''})
+        })
+}
+
     
 
 
