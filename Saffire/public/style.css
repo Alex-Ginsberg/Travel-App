@@ -551,6 +551,7 @@ ITINERARY
     height: 100vh;
 }
 
+/* burger menu iteam */
 .menu-item {
     font-family: 'Montserrat', sans-serif;
     padding: 15px;
@@ -599,11 +600,65 @@ ITINERARY
     width: 500px;
     height: 1000px;
     margin-left: 200px;
+}
 
 @media (min-width: 600px) and (max-width: 1200px) {
     #dash-title {
         font-size: 3.5em;
-        
+    
     }
+}
 
+
+
+/* =========================================
+IDEABOARD
+========================================= */
+
+
+.idea-board-div {
+    background-image: url('/assets/spain_home_featured_01.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 70vh;
+    
+}
+
+
+.idea-board-title {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    letter-spacing: .3em;
+    padding-top: 70px;
+    font-size: 2.5em;
+    
+}
+
+.idea-board-url {
+    padding: 10px;
+    text-align: center;
+}
+
+.idea-board-inviteFriend {
+    padding: 10px;
+    text-align: center;
+}
+
+.idea-board-vote {
+    padding: 50px;
+}
+
+.idea-board-added {
+    padding: 50px;
+}
+
+.idea-board-words {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.col-6 {
+    padding: 15px;
+    width: 30%;
 }
