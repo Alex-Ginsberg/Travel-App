@@ -18,9 +18,6 @@ var config = {
 
 console.log('firebase message service worker')
 
-
-
-
 firebase.initializeApp(config);
 const messaging = firebase.messaging();
 
