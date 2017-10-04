@@ -36,7 +36,7 @@ export default function register() {
     window.addEventListener('load', () => {
       //${process.env.PUBLIC_URL}/ to add to swUrl when deploying. then move service-worker.js to public folder 
       const swUrl = `../service-worker.js`;
-      const messagingswUrl = `./firebase-messaging-sw.js`;
+      // const messagingswUrl = `./firebase-messaging-sw.js`;
 
       //register root service worker 
       // if (isLocalhost) {

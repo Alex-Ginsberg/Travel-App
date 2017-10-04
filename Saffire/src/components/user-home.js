@@ -18,15 +18,15 @@ function signout() {
 }
 
 
+
 const UserHome = (props) => {
   const {email, user, users, getGroup} = props
 
-  
-
-  //database reference
 
   const ref = firebase.database().ref()
   let itinArray = []
+  //database reference
+
   ref.on('value', snapshot => {
     let allItins = snapshot.val().itineraries
     
@@ -38,14 +38,13 @@ const UserHome = (props) => {
   })  
 
 
-    //get itineraries user owns and is associated with
 
     let itins = itinArray.filter(itin => {
-      
       for(let key in itin.members){
         return  user.email === itin.owner || itin.members[key] === user.key
       }
     })
+
 
   return (
     

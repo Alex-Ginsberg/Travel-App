@@ -11,7 +11,7 @@ class FriendRequests extends Component {
         let requests = this.props.currentUser.requests
         let requestsArr = []
         for (var key in requests) {
-            requestsArr.push({email: requests[key].from, key: requests[key].userKey, name: requests[key].name})
+            requestsArr.push({email: requests[key].from, key: requests[key].userKey, name: requests[key].name, reqKey: key})
         }
         console.log('REQ ARR: ', requestsArr)
         return (
