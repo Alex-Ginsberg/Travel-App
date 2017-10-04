@@ -4,7 +4,7 @@ import {Switch} from 'react-router-dom'
 import history from './history'
 import {connect} from 'react-redux'
 import {fetchUsers} from './actions'
-import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindFriends, SingleItinerary, FriendRequests} from './components'
+import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindFriends, SingleItinerary, FriendRequests, StatusUpdate} from './components'
 
 
 /**
@@ -29,6 +29,7 @@ class Routes extends Component {
           <Route path="/find" component={FindFriends} />
           <Route path="/itinerary/:id" component={SingleItinerary} />
           <Route path="/requests" component={FriendRequests} />
+          <Route path="/update" component={StatusUpdate} />
         </Switch>
       
       </Router>

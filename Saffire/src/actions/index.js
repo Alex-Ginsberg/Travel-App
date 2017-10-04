@@ -414,6 +414,14 @@ export const addToItinerary = (itin, user) => dispatch => {
 
 }
 
+export const updateStatus = (user, status) => dispatch => {
+    const statusRef = firebase.database().ref().child('users').child(user.key).child('status')
+    statusRef.transaction(oldStatus => {
+        return status
+    })
+
+}
+
     
 
 
