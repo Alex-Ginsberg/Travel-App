@@ -22,28 +22,33 @@ class UserLogin extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  render () {
+  render () { 
     return (
-      <div className="bg-login">
+      <div className= "sapphire-user-signup-div">
          <BurgerMenu />
-        <div className="box-login">
-        <form className="login-form" onSubmit={this.handleSubmit}>
-          <p className="login-title">Welcome back!</p>
-          <div >
-          <div className="login-email">
-            {/* <label className="login-label-email" htmlFor='email' placeholder="Email"><small></small></label> */}
-            <input className="email login-input" type='text' placeholder="Email" onChange={(e) => this.setState({email: e.target.value})}/>
-          </div>
-          <div>
-            <div className="login-password">
-              {/* <label className="login-label-password" htmlFor='password'><small>Password</small></label> */}
-              <input className="password login-input" placeholder="Password" type='password' onChange={(e) => this.setState({password: e.target.value})}/>
+        
+         <h1>SAFFIRE</h1>
+
+
+        <div className = "sapphire-user-signup-box">
+          <form className = "sapphire-user-signup-form" onSubmit={this.handleSubmit}>
+
+            <h1>LOG IN</h1>
+
+            <div className = "sapphire-user-signup-input">
+              <input type='text' placeholder="Email" onChange={(e) => this.setState({email: e.target.value})}/>
             </div>
-            <button className="login-submit-button" type='submit'>Log In</button>
-            </div>
-          </div>
-        </form>
+
+              <div className="sapphire-user-signup-input">
+                <input placeholder="Password" type='password' onChange={(e) => this.setState({password: e.target.value})}/>
+              </div>
+
+              <div className = "sapphire-user-signup-button-div">
+                <button type='submit'>Log In</button>
+              </div>
+          </form>
         </div>
+
       </div>
 
     )

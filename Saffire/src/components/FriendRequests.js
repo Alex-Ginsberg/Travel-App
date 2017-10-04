@@ -16,12 +16,15 @@ class FriendRequests extends Component {
         console.log('REQ ARR: ', requestsArr)
         return (
             <div>
-                {requestsArr.map(request => (
-                    <div key={request.key}>
-                        <h3>You have a friend request from {request.email}</h3>
-                        <button onClick={() => {this.props.addFriend(this.props.currentUser, request)}}>Accept</button>
-                    </div>
-                ))}
+                <h2>Respond to your friend requests</h2>
+                <div>
+                    {requestsArr.map(request => (
+                        <div key={request.key}>
+                            <h3>You have a friend request from {request.email}</h3>
+                            <button onClick={() => {this.props.addFriend(this.props.currentUser, request)}}>Accept</button>
+                        </div>
+                    ))}
+                </div>
             </div>
         )
     }
