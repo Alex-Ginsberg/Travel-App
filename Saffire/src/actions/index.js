@@ -426,6 +426,10 @@ export const updateStatus = (user, status) => dispatch => {
 
 export const setDateAndTime = (itinId, event, date, time) => dispatch => {
     const eventRef = firebase.database().ref().child('itineraries').child(itinId).child('events')
+    let dateToAdd = date + ''
+    dateToAdd = dateToAdd.substr(0, dateToAdd.indexOf('2017'))
+    let timeToAdd = time + ''
+    timeToAdd = timeToAdd.substr(timeToAdd.indexOf(":") - 2, timeToAdd.length)
     eventRef.once('value')
         .then(snapshot => {
             const events = snapshot.val()
@@ -435,7 +439,7 @@ export const setDateAndTime = (itinId, event, date, time) => dispatch => {
         })
         .then(theKey => {
             console.log(time)
-            const evRef = firebase.database().ref().child('itineraries').child(itinId).child('events').child(theKey).child('schedule').update({date: date + '', time: time + ''})
+            const evRef = firebase.database().ref().child('itineraries').child(itinId).child('events').child(theKey).child('schedule').update({date: dateToAdd, time: timeToAdd})
         })
 }
 
