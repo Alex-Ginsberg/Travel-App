@@ -295,7 +295,40 @@ export const onUserListener = (user) => dispatch => {
 
 
 export const addToItinerary = (itin, user) => dispatch => {
+
+
     const itinRef = firebase.database().ref().child('itineraries').child(itin).child('members')
+    const recipient = firebase.database().ref().child('users').child(user)
+
+
+    //push notifications for add friend to itinerary
+    recipient.once('value')
+    .then(snapshot => {
+        console.log('ahhhhhhhhh token', snapshot.val().localToken);
+        return snapshot.val().localToken
+    })
+    .then(userToken => {
+        console.log('userToken ******', userToken);
+        axios({ url: 'https://fcm.googleapis.com/fcm/send',
+                method: 'post',
+                headers: {
+                    'Authorization': 'key=AAAA9J-m9SY:APA91bHXe_r13MYn-BY6iWZwXQ6tOmUZZv9UeMC7LfQdgGbxXKhbnoBWNQifh-2E-t9gVGFfaiKR_ivv1OtuBufWboAhJ5SeWNdrkWiQg6WNHY5b2DXSM4Sp4_rZO60y4Nq6BNjYUsk8',
+                    'Content-Type': 'application/json',
+                },
+                data: {
+                        "notification": {
+                        "title": "Saffire",
+                        "body": "You've been added to a new itinerary! Click to view.",
+                        "icon": "firebase-logo.png",
+                        "click_action": "https://deets-76612.firebaseapp.com/mypassport"
+                        },
+                        "to": userToken
+                    }
+        })
+        .then(response => console.log('post sent', response.data))
+    })
+    .catch(err => console.log(err))
+
     let isFirst = false
     itinRef.transaction(members => {
         if (members === null){
@@ -305,6 +338,7 @@ export const addToItinerary = (itin, user) => dispatch => {
             }}
         }
     })
+
     if (!isFirst) {
         itinRef.push({key: user})
     }
