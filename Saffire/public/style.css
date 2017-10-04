@@ -572,6 +572,32 @@ ITINERARY
     text-decoration: none;
 }
 
+.menu-item-status {
+    font-family: 'Montserrat', sans-serif;
+    padding: 5px;
+    display: block;
+    /* width: 60px; */
+    color: #493716;
+    text-decoration: none;
+    font-size: 5;
+}
+
+.menu-item-current-status {
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px;
+    display: block;
+    /* width: 60px; */
+    color: #493716;
+    text-decoration: none;
+    font-size: 5;
+}
+
+.menu-item-status:hover {
+    background-color: #f4b642;
+    color: white;
+    text-decoration: none;
+}
+
 .sapphire-idea-board {
     border: 7px solid;
     display: inline-block;

@@ -162,6 +162,7 @@ export const fetchUsers = () => dispatch => {
                     email: users[key].email,
                     name: users[key].name, 
                     image: users[key].image,
+                    status: users[key].status
                 }
                 usersArr.push(toAdd)
             }
@@ -318,7 +319,8 @@ export const getCurrentUser = () => dispatch => {
                         friends: users[key].friends,
                         image: users[key].image,
                         name: users[key].name,
-                        requests: users[key].requests
+                        requests: users[key].requests,
+                        status: users[key].status
                     }}
                 }
                 console.log('LOGGED IN USER: ', loggedInUser)
@@ -350,7 +352,7 @@ export const onUserListener = (user) => dispatch => {
                 email: users[key].email,
                 friends: users[key].friends,
                 image: users[key].image,
-
+                status: users[key].status,
                 name: users[key].name,
                 requests: users[key].requests
             }}
