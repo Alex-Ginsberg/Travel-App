@@ -16,6 +16,7 @@ class StatusUpdate extends Component {
     handleUpdate(status) {
         console.log('CALLING HANDLE UPDATE: ', status)
         this.props.updateStatus(this.props.currentUser, status)
+        this.setState({showButtons: false})
     }
 
     render() {
