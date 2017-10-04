@@ -25,15 +25,25 @@ class Main extends Component {
   }
 
   render() {
+    console.log('main currentUser', this.props.currentUser.name)
     
   return (
     <div className="sapphire-app">
       <BurgerMenu />
+
         <h1 className="sapphire-app-title">SAFFIRE</h1>
       <div className = "sapphire-auth-div clearfix">
-        <Link to='/login' className = "sapphire-app-login">Login</Link>
-        <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
+        { !this.props.currentUser.name &&  (
+            <div className="sapphire-auth-div clearfix">
+              <Link to='/login' className = "sapphire-app-login">Login</Link>
+              <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
+            </div>
+          ) 
+          
+
+        }
       </div>
+
       <div className="sapphire-home-page-border">
         <WhereTo />
       </div>
@@ -47,7 +57,7 @@ class Main extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      currentUser: state.currentUser
+      currentUser: state.currentUser,
   }
 }
 
@@ -55,7 +65,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
       getCurrentUser() {
           dispatch(getCurrentUser())
-  }
+  }, 
+
 }
 }
 

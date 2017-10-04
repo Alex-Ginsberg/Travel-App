@@ -473,7 +473,7 @@ font-size: 1.2em;
 
 #dash-title {
     font-family: "Helvetica Neue";
-    font-size: 150px;
+    font-size: 8.5em;
     position: absolute;
     margin-left: 525px;
     margin-top: 200px;
@@ -544,7 +544,7 @@ ITINERARY
 ========================================= */
 
 .itin-main {
-    background-image: url("https://static.pexels.com/photos/239520/pexels-photo-239520.jpeg");
+    background-image: url("/assets/car-map.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -553,6 +553,7 @@ ITINERARY
 .menu-item {
     font: Helvetica;
 }
+
 
 .sapphire-idea-board {
     border: 7px solid;
@@ -587,4 +588,11 @@ ITINERARY
     width: 500px;
     height: 1000px;
     margin-left: 200px;
+
+@media (min-width: 600px) and (max-width: 1200px) {
+    #dash-title {
+        font-size: 3.5em;
+        
+    }
+
 }

@@ -160,7 +160,8 @@ export const fetchUsers = () => dispatch => {
                 const toAdd = {
                     key: key,
                     email: users[key].email,
-                    name: users[key].name
+                    name: users[key].name, 
+                    image: users[key].image,
                 }
                 usersArr.push(toAdd)
             }
@@ -168,24 +169,33 @@ export const fetchUsers = () => dispatch => {
         })
 }
 
-export const addFriend = (friend) => dispatch => {
-    console.log('INSIDE ADD FRIEND: ', friend)
-    const usersRef = firebase.database().ref().child('users')
-    usersRef.once('value')
-        .then(snapshot => {
-            const users = snapshot.val()
-            let loggedInUser = null
-            for (var key in users) {
-                if (users[key].email === firebase.auth().currentUser.email){loggedInUser = key}
-            }
-            console.log('LOGGED IN USER: ', loggedInUser)
-            return loggedInUser
-        })
-        .then(loggedIn => {
-            const currentUserRef = firebase.database().ref().child('users').child(loggedIn).child('friends')
+export const sendFriendRequest = (user, friend) => dispatch => {
+    console.log('INSIDE SEND FRIEND REQUEST: USER: ', user, ' FRIEND: ', friend)
+    const requestRef = firebase.database().ref().child('users').child(friend.key).child('requests')
+    let isFirstRequest = false
+    requestRef.transaction(requests => {
+        if (requests === null) {
+            isFirstRequest = true
+            return {firstReq: {
+                from: user.email,
+                userKey: user.key,
+                name: user.name
+            }}
+        }
+    })
+    if (!isFirstRequest) {
+        requestRef.push({from: user.email, userKey: user.key, name: user.name})
+    }
+}
+
+export const addFriend = (user, friend) => dispatch => {
+        console.log('INSIDE ADD FRIEND: ', friend, user, friend.reqKey)
+            const currentUserRef = firebase.database().ref().child('users').child(user.key).child('friends')
             console.log(currentUserRef)
+            let isFirst = false
             currentUserRef.transaction(friends => {
                 if (friends === null) {
+                    isFirst = true
                     return {firstFriend: {
                         name: friend.name,
                         email: friend.email,
@@ -193,15 +203,34 @@ export const addFriend = (friend) => dispatch => {
                     }}
                 }
             })
-                console.log('ADDING ANOTHER FRIEND')
+            if (!isFirst) {
                 currentUserRef.push({
                     name: friend.name,
                     email: friend.email,
                     key: friend.key
                 })
-
-        })
-        
+            }
+            const friendRef = firebase.database().ref().child('users').child(friend.key).child('friends')
+            isFirst = false
+            friendRef.transaction(friends => {
+                if (friends === null) {
+                    isFirst = true
+                    return {firstFriend: {
+                        name: user.name,
+                        email: user.email,
+                        key: user.key
+                    }}
+                }
+            })
+            if (!isFirst) {
+                friendRef.push({
+                    name: user.name,
+                    email: user.email,
+                    key: user.key
+                })
+            }
+        firebase.database().ref().child('users').child(user.key).child('requests').child(friend.reqKey).remove()
+        return dispatch(getCurrentUser())
 }
 
 export const getCurrentUser = () => dispatch => {
@@ -219,7 +248,8 @@ export const getCurrentUser = () => dispatch => {
                         email: users[key].email,
                         friends: users[key].friends,
                         image: users[key].image,
-                        name: users[key].name
+                        name: users[key].name,
+                        requests: users[key].requests
                     }}
                 }
                 console.log('LOGGED IN USER: ', loggedInUser)
@@ -236,17 +266,29 @@ export const onUserListener = (user) => dispatch => {
     usersRef.once('value')
     .then(snapshot => {
         const users = snapshot.val()
+        const localToken = window.localStorage.getItem('localUserToken');
         let loggedInUser = null
+
         for (var key in users) {
-            if (users[key].email === user.email){loggedInUser = {
+            if (users[key].email === user.email){
+                const usersRefChild = firebase.database().ref().child('users').child(key).child('localToken')
+                usersRefChild.transaction((tokenKey) => {
+                    return localToken
+                })
+    
+                loggedInUser = {
                 key: key,
                 email: users[key].email,
                 friends: users[key].friends,
                 image: users[key].image,
-                name: users[key].name
+
+                name: users[key].name,
+                requests: users[key].requests
             }}
+
         }
         console.log('LOGGED IN USER: ', loggedInUser)
+
         return dispatch(setCurrentUser(loggedInUser))
     })
 }
@@ -268,6 +310,11 @@ export const addToItinerary = (itin, user) => dispatch => {
     }
 
 }
+
+    
+
+
+      
 
 //action creator
 
