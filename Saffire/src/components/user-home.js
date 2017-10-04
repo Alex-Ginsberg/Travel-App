@@ -23,7 +23,7 @@ export const UserHome = (props) => {
   
   const ref = firebase.database().ref()
   let itinArray = []
-  //database reference
+
 
   ref.on('value', snapshot => {
     let allItins = snapshot.val().itineraries
@@ -35,30 +35,23 @@ export const UserHome = (props) => {
     }
   })  
 
-    //get all itineraries owned by the user
 
-    // let ownerItins = itinArray.filter(itin=> {
-    //         return user.email === itin.owner
-    //       })
-      
-    //console.log('ownerItin', ownerItins)
-
-  //get itineraries associated with user
-
-    let itins = itinArray.filter(itin => {
-      for(let key in itin.members){
-        return  user.email === itin.owner || itin.members[key] === user.key
-      }
+    let itinsOwned = itinArray.filter(itin => {
+      // for(let key in itin.members){
+        // console.log('USER EMAIL: ', user.email, " OWNER: ", itin.owner)
+        return  user.email === itin.owner 
+      // }
     })
 
+    let itinsBelongTo = itinArray.filter(itin => {
+      for (let key in itin.members) {
+        if (itin.members[key] === user.key) {return true}
+      }
+      return false
+    })
+    let itins = itinsOwned.concat(itinsBelongTo)
+    console.log('ITINS: ', itins)
 
-  //go through each itin and find members === itin.members
-
-  // let membersArr = ownerItins.map(itin => {
-  //   return itin.members
-  // })
-
-  // console.log('memArr', membersArr)
     
   return (
     
@@ -79,7 +72,7 @@ export const UserHome = (props) => {
 
       <p id="dash-myItinerary-header">My Itineraries</p>
       <ul>
-        {itins.map(itin => {
+        {Array.isArray(itins) && itins.map(itin => {
           return (
             <div key={itin.key}>
               <p></p>
@@ -87,16 +80,18 @@ export const UserHome = (props) => {
             data-name={itin.name}
             >{itin.name}
             </li>
-            
-            <p>My Buddies on this trip:</p>
-            <ul>
-            {Object.keys(itin.members).map(objItin => {
-              return (
-                <li key={objItin}>{itin.members[objItin]}</li>
-                
-              )
-            })}
-            </ul>
+            {itin.members && 
+            <div key={itin.key}>
+              <p>My Buddies on this trip:</p>
+              <ul>
+              {Object.keys(itin.members).map(objItin => {
+                return (
+                  <li key={itin.members[objItin].key}>{itin.members[objItin].key}</li>                 
+                )
+              })}
+              </ul>
+            </div>
+            }
             </div>
           )
         })}
