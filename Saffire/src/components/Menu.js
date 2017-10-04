@@ -19,14 +19,11 @@ class BurgerMenu extends React.Component {
   render () {
     return (
       <Menu styles={styles}>
-        <a id="home" className="menu-item" href="/">Home</a>
-        <a id="mypassport" className="menu-item" href="/mypassport">My Passport</a>
-        {/* <a onClick={ this.showSettings } className="menu-item--small" href="">Settings</a> */}
-        <a id="Itineraries" className="menu-item" href="/itineraries">Itineraries</a> 
-        <a id="MyFriends" className="menu-item" href="/myfriends">My Friends</a>
-        <a id="FindFreidns" className="menu-item" href="/find">Find Friends</a>
-        <a id="FriendRequests" className="menu-item" href="/requests">Friend Requests</a>
-        <a className="menu-item" onClick={this.signout} href=''>Logout</a>
+        <li><a className="menu-item" id="home" href="/">HOME</a></li>
+        <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li>
+        <li><a className="menu-item" id="Itineraries"  href="/itineraries">ITINERARIES</a></li> 
+        <li><a className="menu-item" id="MyFriends"  href="/myfriends">FRIENDS</a></li>
+        <li><a className="menu-item" onClick={this.signout} href=''>LOGOUT</a></li>
       </Menu>
     );
   }
