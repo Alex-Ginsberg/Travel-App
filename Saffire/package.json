@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@google/maps": "^0.4.3",
     "axios": "^0.16.2",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -13,10 +14,11 @@
     "body-parser": "^1.18.2",
     "es6-promise": "^4.1.1",
     "firebase": "^4.4.0",
+    "geofire": "^4.1.2",
+    "google-maps-react": "^1.1.0",
     "history": "^4.7.2",
-
+    "mapbox-gl": "^0.40.1",
     "material-ui": "^0.19.3",
-
     "morgan": "^1.9.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
@@ -24,6 +26,8 @@
     "react-dnd": "^2.5.3",
     "react-dnd-html5-backend": "^2.5.3",
     "react-dom": "^16.0.0",
+    "react-google-maps": "^8.3.4",
+    "react-mapbox-gl": "^2.6.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
