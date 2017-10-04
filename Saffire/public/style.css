@@ -28,7 +28,7 @@ body {
 
 .sapphire-app {
     text-align: center;
-    background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg");
+    background-image: url("/assets/main-page-saffire.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -74,10 +74,11 @@ body {
 }
 
 .sapphire-app-login {
-    font-size: 2.5em;
+    font-size: 2em;
     display: inline-block;
+    font-family: 'Montserrat', sans-serif;
     text-decoration: none;
-    text-shadow: 2px 2px black;
+    /* text-shadow: 2px 2px black; */
     color: white;
     padding: 10px 10px;
 }
@@ -532,6 +533,12 @@ font-size: 1.2em;
     color: black;
 }
 
+#dash-map {
+    height: 100%;
+}
+
+
+
 
 
 
@@ -551,9 +558,19 @@ ITINERARY
 }
 
 .menu-item {
-    font: Helvetica;
+    font-family: 'Montserrat', sans-serif;
+    padding: 15px;
+    display: block;
+    /* width: 60px; */
+    color: #493716;
+    text-decoration: none;
 }
 
+.menu-item:hover {
+    background-color: #f4b642;
+    color: white;
+    text-decoration: none;
+}
 
 .sapphire-idea-board {
     border: 7px solid;
