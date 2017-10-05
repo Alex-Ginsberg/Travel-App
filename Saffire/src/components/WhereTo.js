@@ -4,13 +4,16 @@ import {connect} from 'react-redux';
 import { postItinerary, getCurrentUser } from '../actions';
 
 
+
 class WhereTo extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getDestination = this.getDestination.bind(this);
         this.state = {
             newItinerary: '',
-            dirtyItinerary: false
+            dirtyItinerary: false,
+            imageURL: '',
         }
 
     }
@@ -22,17 +25,75 @@ class WhereTo extends Component {
     handleSubmit(e) {
         e.preventDefault()
         let newItinerary = this.state.newItinerary
-        this.props.setItineraryName(newItinerary) 
+
+        const itineraryImageURL = this.getDestination(newItinerary);
+        console.log('yes******', itineraryImageURL)
+        this.setState({imageURL: itineraryImageURL})
+
+        // this.props.setItineraryName(newItinerary) 
+    }
+
+    
+    
+    
+    
+    
+    
+    getDestination(userInputDesination) {
+        const destinationImages = {
+            'australia': '/assets/destination-images/australia.jpg',
+            'california': '/assets/destination-images/california.jpg',
+            'carribean': '/assets/destination-images/carribean.jpg',
+            'hawaii': '/assets/destination-images/hawaii.jpg',
+            'iceland': '/assets/destination-images/iceland.jpg',
+            'japan': '/assets/destination-images/japan.jpg',
+            'kyoto': '/assets/destination-images/kyoto.jpg',
+            'london': '/assets/destination-images/london.jpg',
+            'los angeles': '/assets/destination-images/los-angeles.jpg',
+            'melbourne': '/assets/destination-images/melbourne.jpg',
+            'osaka': '/assets/destination-images/osaka.jpg',
+            'paris': '/assets/destination-images/paris.jpg',
+            'san-francisco': '/assets/destination-images/san-francisco.jpg',
+            'sydney': '/assets/destination-images/sydney.jpg',
+            'tokyo': '/assets/destination-images/tokyo.jpg',
+            // 'new york': ,
+            // 'chicago': ,
+            'spain': '/assets/destination-images/spain.jpg',
+            // 'madrid': ,
+            // 'italy': ,
+            // 'argentina': ,
+            // 'camping':,
+            // 'hiking':,
+            // 'skiing',
+            // 'ski trip',
+            // 'snowboarding',
+            // 'beach',
+            // 'wedding',
+        
+        }
+
+        //user input: 
+        const dest = userInputDesination.toLowerCase();
+        if (destinationImages[dest] !== undefined) {
+            return destinationImages[dest]
+        } else {
+            //pick and return random general travel photo 
+        }
     }
 
     
 
     render() {
-
         let handleSubmit = this.handleSubmit;
+        const imageStr = this.state.imageURL;
+
         return (
 
             <div className="sapphire-itinerary-div">
+
+                
+            {/* <img src={require(`${imageStr}`)} style={{width: 300, height: 250}}> */}
+
                 <form onSubmit={handleSubmit} className="sapphire-itinerary-form">
                     
                     <label id = "home-page-label">Start Your Adventure</label>
