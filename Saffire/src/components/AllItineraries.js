@@ -8,11 +8,9 @@ import BurgerMenu from './Menu'
 class AllItineraries extends React.Component {
   constructor () {
     super()
-    console.log('INSIDE ALL Itineraires')
     this.state = {
       itinArray: []
     }
-
   }
 
   componentDidMount () {
@@ -59,10 +57,6 @@ class AllItineraries extends React.Component {
       console.log('ALL ITINS: ', itinArray)
       this.setState({itinArray: itinArray})
     })
-    
-    
-      
-    
   }
   render () {
     let toRenderItins = []
@@ -80,49 +74,40 @@ class AllItineraries extends React.Component {
         }
       }
     }
-    
-    function allowDrop(event) {
-      event.preventDefault();
-    }
 
-    function drag(event) {
-    
-      event.dataTransfer.setData("text", event.target.id);
-    }
-    
-    function drop(event) {
-      event.preventDefault();
-      var data = event.dataTransfer.getData("text");
-      event.target.appendChild(document.getElementById(data))
-    }
-
-    function allowDrop(event) {
-      event.preventDefault();
-    }
+    console.log('toRender******', toRenderItins);
     return (
-      <div className="itin-main">
-        {/* <div id="burger">
-          <BurgerMenu />
-        </div> */}
+      <div className="saffire-all-itineraries-div">
+        
+        <BurgerMenu />
+        
+        <h1>SAFFIRE</h1>
 
-        <div className = "sapphire-auth-div">
-        <h1 className="app-title">Saffire</h1>
-        </div>
-          <div className = "sapphire-idea-board">
-            {toRenderItins.map(itin => (
-              <button onDragStart = {(event) => drag(event)} draggable = "true" id={itin.key} key={itin.key} onClick={() => {
+        <h3>MY ITINERARIES</h3>
+
+        <div className = "saffire-all-itineraries-container">
+
+          {
+            toRenderItins.map(itin => (
+            
+            <div className = "saffire-col-4 saffire-all-itineraries-item">
+              {/* <img src = '' /> */}
+              <div className = "little-saffire-item" key={itin.key} onClick={() => { 
                 firebase.database().ref(`/itineraries/${itin.key}`).once('value')
-                  .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
-                  .then(() => this.props.history.push('/money'))
-                }}>{itin.name}</button>
-
-            ))}
+                .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
+                .then(() => this.props.history.push('/money'))
+                }}>
+                
+                <span className = "sapphire-itin-name-x">{itin.name}</span>
+                <span className = "sapphire-itin-name-y">10 Aug 2017 - 15 Aug 2017</span>
+                <span className = "sapphire-itin-name-z"> 8 Friends</span>
+                
+                </div>
+            </div>
+            ))
+          }
           </div>
-
-          <div onDragOver= {(event) => {allowDrop(event)}} className = "sapphire-event-board" onDrop={(event) => drop(event)}>
-          </div>
-     </div>
-
+      </div>
     )
   }
 }

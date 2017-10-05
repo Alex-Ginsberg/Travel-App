@@ -1,3 +1,4 @@
+
 /*
     ==================================
                Box-Sizing
@@ -28,7 +29,7 @@ body {
 
 .sapphire-app {
     text-align: center;
-    background-image: url("/assets/main-page-saffire.jpg");
+    background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -74,11 +75,10 @@ body {
 }
 
 .sapphire-app-login {
+    font-family: 'Montserrat', sans-serif;
     font-size: 2em;
     display: inline-block;
-    font-family: 'Montserrat', sans-serif;
     text-decoration: none;
-    /* text-shadow: 2px 2px black; */
     color: white;
     padding: 10px 10px;
 }
@@ -187,6 +187,7 @@ body {
     }
 }
  
+
 /*
 
     ==================================
@@ -293,6 +294,8 @@ font-size: 1.2em;
     color: black;
     border: 1px solid black
 }
+
+
 
 /*
     ==================================
@@ -538,14 +541,6 @@ font-size: 1.2em;
 }
 
 
-
-
-
-
-
-
-
-
 /* =========================================
 ITINERARY 
 ========================================= */
@@ -557,7 +552,6 @@ ITINERARY
     height: 100vh;
 }
 
-/* burger menu iteam */
 .menu-item {
     font-family: 'Montserrat', sans-serif;
     padding: 15px;
@@ -633,27 +627,69 @@ ITINERARY
     height: 1000px;
     margin-left: 200px;
 }
-
 @media (min-width: 600px) and (max-width: 1200px) {
     #dash-title {
         font-size: 3.5em;
-    
+        
     }
+
 }
 
 
 
-/* =========================================
-IDEABOARD
-========================================= */
 
+/*
+ =========================================
+             All Itineraries
+ ========================================= 
+*/
 
-.idea-board-div {
-    background-image: url('/assets/spain_home_featured_01.jpg');
+.saffire-all-itineraries-div{
+    background-image: url("https://static.pexels.com/photos/239520/pexels-photo-239520.jpeg");
     background-size: cover;
-    background-repeat: no-repeat;
-    height: 70vh;
+    height: 100vh;
+}
+
+.saffire-all-itineraries-div h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    letter-spacing: .2em;
+    text-align: center;
+    font-size: 3.5em;
+    padding-top: 30px;
+    font-weight: 100;
+}
+
+.saffire-all-itineraries-div h3 {
+    font-size: 2.5em;
+    color: white;
+    text-decoration: underline;
+    text-align: center;
+    letter-spacing: .15em;
+    margin-top: 50px;
+    font-weight: 100;
+}
+
+.saffire-all-itineraries-container {
+    text-align: center;
     
+}
+
+.saffire-all-itineraries-container img {
+    max-width: 100%;
+}
+.saffire-col-4 {
+    width: 30%;
+    display: inline-block;
+}
+
+.saffire-all-itineraries-item {
+    padding: 40px;
+}
+
+
+.little-saffire-item {
+
 }
 
 
@@ -661,36 +697,95 @@ IDEABOARD
     text-align: center;
     font-family: 'Montserrat', sans-serif;
     color: white;
-    letter-spacing: .3em;
-    padding-top: 70px;
-    font-size: 2.5em;
-    
-}
-
-.idea-board-url {
-    padding: 10px;
-    text-align: center;
-}
-
-.idea-board-inviteFriend {
-    padding: 10px;
-    text-align: center;
-}
-
-.idea-board-vote {
-    padding: 50px;
-}
-
-.idea-board-added {
-    padding: 50px;
-}
-
-.idea-board-words {
-    text-align: center;
+    background: rgba(190, 190, 190, 0.7);
     font-family: 'Montserrat', sans-serif;
+}
+
+.little-saffire-item span{
+    display: block;
+    padding: 10px;
+}
+
+.sapphire-itin-name-x {
+    font-size: 2.2em;
+    font-weight: 100;
+}
+
+.sapphire-itin-name-y {
+    font-size: 1em;
+}
+
+.sapphire-itin-name-z {
+    font-size: 1.4em;
 }
 
 .col-6 {
     padding: 15px;
     width: 30%;
+}
+
+
+
+
+
+/*
+ =========================================
+             All Itineraries
+ ========================================= 
+*/
+.saffire-all-itineraries-div{
+    background-image: url("https://static.pexels.com/photos/239520/pexels-photo-239520.jpeg");
+    background-size: cover;
+    height: 100vh;
+}
+.saffire-all-itineraries-div h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    letter-spacing: .2em;
+    text-align: center;
+    font-size: 3.5em;
+    padding-top: 30px;
+    font-weight: 100;
+}
+.saffire-all-itineraries-div h3 {
+    font-size: 2.5em;
+    color: white;
+    text-decoration: underline;
+    text-align: center;
+    letter-spacing: .15em;
+    margin-top: 50px;
+    font-weight: 100;
+}
+.saffire-all-itineraries-container {
+    text-align: center;
+    
+}
+.saffire-all-itineraries-container img {
+    max-width: 100%;
+}
+.saffire-col-4 {
+    width: 30%;
+    display: inline-block;
+}
+.saffire-all-itineraries-item {
+    padding: 40px;
+}
+.little-saffire-item {
+    color: white;
+    background: rgba(190, 190, 190, 0.7);
+    font-family: 'Montserrat', sans-serif;
+}
+.little-saffire-item span{
+    display: block;
+    padding: 10px;
+}
+.sapphire-itin-name-x {
+    font-size: 2.2em;
+    font-weight: 100;
+}
+.sapphire-itin-name-y {
+    font-size: 1em;
+}
+.sapphire-itin-name-z {
+    font-size: 1.4em;
 }
