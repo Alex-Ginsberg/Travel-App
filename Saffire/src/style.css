@@ -1,3 +1,4 @@
+
 /*
     ==================================
                Box-Sizing
@@ -46,9 +47,6 @@ body {
     margin-right: -200px;
 }
 
-.check {
-    color: green;
-}
 
 .sapphire-itinerary-form input{
     width: 400px;
@@ -544,7 +542,6 @@ font-size: 1.2em;
 }
 
 
-
 /* =========================================
 ITINERARY 
 ========================================= */
@@ -642,11 +639,10 @@ ITINERARY
 
 
 
-
 /*
- ===============================================
-                All Itineraries
- ===============================================
+ =========================================
+             All Itineraries
+ ========================================= 
 */
 
 .saffire-all-itineraries-div{
@@ -660,8 +656,9 @@ ITINERARY
     color: white;
     letter-spacing: .2em;
     text-align: center;
-    font-size: 6em;
+    font-size: 3.5em;
     padding-top: 30px;
+    font-weight: 100;
 }
 
 .saffire-all-itineraries-div h3 {
@@ -669,24 +666,26 @@ ITINERARY
     color: white;
     text-decoration: underline;
     text-align: center;
-    letter-spacing: .2em;
+    letter-spacing: .15em;
     margin-top: 50px;
     font-weight: 100;
 }
 
 .saffire-all-itineraries-container {
     text-align: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    
+}
+
+.saffire-all-itineraries-container img {
+    max-width: 100%;
+}
+.saffire-col-4 {
+    width: 30%;
+    display: inline-block;
 }
 
 .saffire-all-itineraries-item {
     padding: 40px;
-}
-
-
-.saffire-all-itineraries-item img {
-    border-radius: 5px;
 }
 
 
@@ -701,9 +700,6 @@ ITINERARY
     color: white;
     background: rgba(190, 190, 190, 0.7);
     font-family: 'Montserrat', sans-serif;
-    width: 450px;
-    height: 200px;
-    margin: 0 auto;
 }
 
 .little-saffire-item span{
@@ -712,11 +708,12 @@ ITINERARY
 }
 
 .sapphire-itin-name-x {
-    font-size: 2.3em;
+    font-size: 2.2em;
+    font-weight: 100;
 }
 
 .sapphire-itin-name-y {
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 .sapphire-itin-name-z {
@@ -792,4 +789,31 @@ ITINERARY
 }
 .sapphire-itin-name-z {
     font-size: 1.4em;
+}
+
+/*
+    ==================================
+                 Single Itinerary
+    ==================================
+*/
+
+.single-itin-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 5em;
+    font-weight: 300;
+    margin-top: 0;
+    color: black;
+    letter-spacing: .3em;
+    padding-top: 30px;
+    display: inline-block;
+    margin-right: -200px;
+    text-align: center;
+}
+
+.single-itin-header {
+    text-align: center;
+    background-image: url("http://www.australia.com/content/australia/en_us/facts/_jcr_content/mainParsys/hero/image.adapt.1663.medium.jpg");
+    background-size: 10;
+    background-repeat: no-repeat;
+    height: 100vh;
 }

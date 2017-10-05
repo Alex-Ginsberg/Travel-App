@@ -5,6 +5,20 @@ import TimePicker from 'material-ui/TimePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import DatePicker from 'material-ui/DatePicker';
 import {setDateAndTime} from '../actions'
+import BurgerMenu from './Menu';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
+import Avatar from 'material-ui/Avatar';
+
+import {
+    blue300,
+    indigo900,
+    orange200,
+    deepOrange300,
+    pink400,
+    purple500,
+  } from 'material-ui/styles/colors';
+
 
 
 
@@ -31,7 +45,10 @@ class SingleItinerary extends Component{
     }
 
     renderForm(event) {
-        this.setState({showForm: event})
+        if(!this.state.showForm.title){this.setState({showForm: event})}
+        else {this.setState({showForm: {}})}
+            
+
     }
 
     submitEvent() {
@@ -46,44 +63,87 @@ class SingleItinerary extends Component{
             if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){events.push(this.state.itin.events[key])}
             else if (this.state.itin.events[key].schedule){eventScheduled.push(this.state.itin.events[key])}
         }
-        console.log(events)
+
+        // First sorts the array by the date
+        eventScheduled.sort((a,b) => {
+            return new Date(a.schedule.date) - new Date(b.schedule.date);
+          });
+        
+        // Then sorts it on time
+        eventScheduled.sort((a,b) => {
+            return new Date(a.schedule.time) - new Date(b.schedule.time);
+        });
+        console.log(eventScheduled)
+        let scheduledDates = []
+        for (let i = 0; i < eventScheduled.length; i++) {
+            if (scheduledDates.indexOf(eventScheduled[i].schedule.date) === -1){scheduledDates.push(eventScheduled[i].schedule.date)}   
+        }
+        console.log(scheduledDates)
         return (
             <div>
+            <div className="single-itin-header">
+            <  BurgerMenu />
+        
+                <h1 className="single-itin-title">{this.state.itin.name}</h1>
+                <h1>PUT MEMBERS+STATUSES HERE</h1>
+                </div>
+                <h1>PUT MAP HERE</h1>
                 <h4>Events to be added to timeline: </h4>
-                {events.map(event => (
-                    <div key={event.url}>
-                        <h5 onClick={() => {this.renderForm(event)}}>{event.title}</h5>
-                        <p>People going to this event: </p>
-                        {event.likedBy && Object.keys(event.likedBy).map(likeByKey => (
-                            <p key={likeByKey}>{event.likedBy[likeByKey].name}</p>
+                <div class="container">
+                    <div class="row">
+                        <div className="col-lg-4">
+                        {events.map(event => (
+                            <div key={event.url}>
+                                <h5>{event.title}</h5>
+                                <p>People going to this event: </p>
+                                {event.likedBy && Object.keys(event.likedBy).map(likeByKey => (
+                                    <p key={likeByKey}>{event.likedBy[likeByKey].name}</p>
+                                ))}
+                                <button onClick={() => {this.renderForm(event)}}>Set Schedule</button>
+                            </div>
                         ))}
+                        {this.state.showForm.title && 
+                            <div>
+                                <p>Schedule when to go to {this.state.showForm.title}</p>
+                                <MuiThemeProvider>
+                                    <DatePicker 
+                                    hintText="Select a Date" 
+                                    value={this.state.currentDate}
+                                    onChange={(nade, data) => this.setState({currentDate: data})}/>
+                                    <TimePicker 
+                                    hintText="Select a Time" 
+                                    value={this.state.currentTime}
+                                    onChange={(nada, data) => this.setState({currentTime: data})}/>
+                                </MuiThemeProvider>
+                                <button onClick={this.submitEvent}>Submit event</button>
+                            </div>
+                        }
+                        </div>
+                        <div className="col-lg-8">
+                        {scheduledDates.map(date => (
+                            <div key={date}>
+                            <MuiThemeProvider>
+                                
+                                <h1>{date}</h1>
+                                {eventScheduled.map(event => (
+                                    <div key={event.url}>
+                                    {event.schedule.date === date && 
+                                        <div>
+                                        <List>
+                                            <ListItem disabled={true} leftAvatar={<Avatar backgroundColor={blue300} />}>
+                                                {event.title} @ {event.schedule.time}
+                                            </ListItem>
+                                        </List>
+                                        </div>
+                                    }
+                                    </div>
+                                ))}
+                                </MuiThemeProvider>
+                            </div>
+                        ))}
+                        </div>
                     </div>
-                ))}
-                <h4>Events scheduled:</h4>
-                {eventScheduled.map(event => (
-                    <div key={event.url}>
-                        <h3>{event.title}</h3>
-                        <h5>{event.schedule.date}</h5>
-                        <h5>{event.schedule.time}</h5>
-                    </div>
-                ))}
-                {this.state.showForm.title && 
-                    <div>
-                        <p>Form</p>
-                        <p>{this.state.showForm.title}</p>
-                        <MuiThemeProvider>
-                            <DatePicker 
-                            hintText="Select a Date" 
-                            value={this.state.currentDate}
-                            onChange={(nade, data) => this.setState({currentDate: data})}/>
-                            <TimePicker 
-                            hintText="Select a Time" 
-                            value={this.state.currentTime}
-                            onChange={(nada, data) => this.setState({currentTime: data})}/>
-                        </MuiThemeProvider>
-                        <button onClick={this.submitEvent}>Submit event</button>
-                    </div>
-                }
+                </div>
             </div>
         )
     }
