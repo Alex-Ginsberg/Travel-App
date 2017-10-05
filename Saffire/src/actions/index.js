@@ -34,15 +34,17 @@ export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         return dispatch(setItinerary(itinObj))
 }
                                                                                             // Used for getting all events for a certain itinerary from the database
-export const fetchEvents = (itinerary, fromLike) => dispatch => {
-    let itinKey
-    if (fromLike) {itinKey = itinerary}                                                     // If we are fetching events because there has been a new like, itinerary passed in will already be the key
-    else {itinKey = itinerary.key}
+export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
+    const itinKey = itineraryKey;
+    // if (fromLike) {itinKey = itineraryKey}                                                     // If we are fetching events because there has been a new like, itinerary passed in will already be the key
+    // else {itinKey = itinerary.key}
     console.log('INSIDE FETH: ', itinKey)
-    const itinerariesRef = firebase.database().ref(`/itineraries/${itinKey}`)               // Gets a reference to the particular itinerary we are getting the events from
+    const itinerariesRef = firebase.database().ref(`/itineraries/${itinKey}`) 
+                                                                                            // Gets a reference to the particular itinerary we are getting the events from
     itinerariesRef.once('value')                                                            // 'once' is used to read data from the reference             
         .then(snapshot => {
-            const events = snapshot.val().events                                            // Get the events object from the reference
+            console.log('ITIN:', snapshot.val());
+            const events = snapshot.val().events                                          // Get the events object from the reference
             console.log('ITIN: ', events)
             let eventsArr = []
             for (var key in events) {                                                       // Loop adds an object to state array

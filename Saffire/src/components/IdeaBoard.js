@@ -4,6 +4,7 @@ import LinkPreview from './LinkPreview'
 import { addEvent, fetchEvents, addToItinerary, confirmEvent } from '../actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Container} from './DragContainer';
+import firebase from 'firebase';
 
 
 class IdeaBoard extends Component {
@@ -13,13 +14,21 @@ class IdeaBoard extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             newURL: '',
-            currentFriend: ''
+            currentFriend: '',
+            itin: {},
         }
         this.addToGroup = this.addToGroup.bind(this)
     }
     
     componentDidMount() {
-        this.props.getItineraryEvents(this.props.itineraryName)
+        const currentItinKey = this.props.match.params.id;
+        const itinRef = firebase.database().ref().child('itineraries').child(currentItinKey)
+        itinRef.once('value')
+            .then(snapshot => {
+                this.setState({itin: snapshot.val()})
+            })
+        
+        this.props.getItineraryEvents(currentItinKey)
     }
     
     handleChange(e) {
@@ -40,6 +49,11 @@ class IdeaBoard extends Component {
     }
     
     render() {
+        console.log('idea board', this.props);
+        let itinerary = this.state.itin;
+        let itinImage = itinerary.image;
+    
+
         let handleSubmit = this.handleSubmit;
         let handleChange = this.handleChange;
         let itineraryName = this.props.itineraryName
@@ -69,9 +83,6 @@ class IdeaBoard extends Component {
             event.target.appendChild(document.getElementById(data));
         }
         
-        const style = {
-            'background-image' : this.props.itineraryImage
-        }
         
         function allowDrop(event, props) {
             event.preventDefault();
@@ -81,14 +92,12 @@ class IdeaBoard extends Component {
         // window.scrollTo(0,0);
        
 
-        console.log('*********current itin', this.props.itineraryImage )
-
         return (
-        <div>
+        <div className="idea-board-container">
             
             <div className="idea-board-div" >
-                <img src={this.props.itineraryImage} />
-                <h2 className="idea-board-title" >{itineraryName.name.toUpperCase()}</h2>
+                <img src={this.state.itin.imageURL} style={{'justify-content': 'center', 'align-items': 'center', width: '80%', height: '70%'}}/>
+                <h2 className="idea-board-title" >{this.state.itin.name}</h2>
             </div>
 
 
@@ -137,11 +146,11 @@ class IdeaBoard extends Component {
                 <div className="col-6">
                     <h4 className="idea-board-words">ITINERARY</h4>
                     {/* Will render all events that HAVE been added */}
-                    {this.props.currentEvents.map(event => (
+                    {/* {this.props.currentEvents.map(event => (
                         <MuiThemeProvider>
                             {event.added && <div><LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/></div>}
                         </MuiThemeProvider>
-                    ))}
+                    ))} */}
                 </div>
             </div>
 
@@ -151,6 +160,8 @@ class IdeaBoard extends Component {
                 <p>Right arrow: <i className="arrow right"></i></p>
                 <div onDragOver= {(event) => {allowDrop(event)}} className = "sapphire-event-box" onDrop={(event) => drop(event,this.props)}></div> */}
             </div>
+
+                    
 
         </div>
         )
@@ -168,8 +179,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getItineraryEvents(itin) {
-            dispatch(fetchEvents(itin))
+        getItineraryEvents(itinKey) {
+            dispatch(fetchEvents(itinKey))
         },
         sendUrl(url, itin) {
             dispatch(addEvent(url, itin))

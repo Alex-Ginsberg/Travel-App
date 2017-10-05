@@ -58,7 +58,7 @@ class SingleItinerary extends Component{
     }
 
     render() {
-        console.log('USERS: ', this.props.users)
+        // console.log('USERS: ', this.props.users) 
         const eventRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('events')
         eventRef.on('child_changed', (data) => {
             const val = data.val()
@@ -73,7 +73,7 @@ class SingleItinerary extends Component{
 
         let events = []
         let eventScheduled = []
-        console.log(this.state)
+        // console.log(this.state)
         for (let key in this.state.itin.events) {
             if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){events.push(this.state.itin.events[key])}
             else if (this.state.itin.events[key].schedule){eventScheduled.push(this.state.itin.events[key])}
@@ -99,7 +99,9 @@ class SingleItinerary extends Component{
             // memberArray.push(this.props.user[this.props.user.indexOf(this.state.itin.members[i].key]))
             memberArray.push(toAdd[0])
         }
-        console.log('MEMBERS: ', memberArray)
+        // console.log('MEMBERS: ', memberArray)
+        
+        const currentItinKey = this.props.match.params.id;
 
         return (
             <div>
@@ -177,19 +179,19 @@ class SingleItinerary extends Component{
                         </div>
                     </div>
                 </div>
-                <button onClick={() => this.props.history.push('/ideaboard')}>IdeaBoard</button>
+                <button onClick={() => this.props.history.push(`/ideaboard/${currentItinKey}`)}>IdeaBoard</button>
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log('state', state)
+
     return {
         itineraryName: state.currentItinerary,
         refresh: state.refresh,
         users: state.users,
-        user: state.currentUser
+        user: state.currentUser,
 
     }
 }
