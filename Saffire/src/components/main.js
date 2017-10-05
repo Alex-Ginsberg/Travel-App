@@ -35,8 +35,8 @@ class Main extends Component {
       <div className = "sapphire-auth-div clearfix">
         { !this.props.currentUser.name &&  (
             <div className="sapphire-auth-div clearfix">
-              <Link to='/login' className = "sapphire-app-login">Login</Link>
-              <Link to='/signup' className = "sapphire-app-login">Sign Up</Link>
+              <Link to='/login' className = "sapphire-app-login">LOGIN</Link>
+              <Link to='/signup' className = "sapphire-app-login">SIGN UP</Link>
             </div>
           ) 
           
