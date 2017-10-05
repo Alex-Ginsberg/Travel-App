@@ -38,7 +38,6 @@ class SingleItinerary extends Component{
         this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime)
     }
 
-
     render() {
         let events = []
         let eventScheduled = []
@@ -60,7 +59,7 @@ class SingleItinerary extends Component{
                         ))}
                     </div>
                 ))}
-                <h4>Events scheduled</h4>
+                <h4>Events scheduled:</h4>
                 {eventScheduled.map(event => (
                     <div key={event.url}>
                         <h3>{event.title}</h3>
@@ -74,11 +73,11 @@ class SingleItinerary extends Component{
                         <p>{this.state.showForm.title}</p>
                         <MuiThemeProvider>
                             <DatePicker 
-                            hintText="Portrait Dialog" 
+                            hintText="Select a Date" 
                             value={this.state.currentDate}
                             onChange={(nade, data) => this.setState({currentDate: data})}/>
                             <TimePicker 
-                            hintText="12hr Format" 
+                            hintText="Select a Time" 
                             value={this.state.currentTime}
                             onChange={(nada, data) => this.setState({currentTime: data})}/>
                         </MuiThemeProvider>
