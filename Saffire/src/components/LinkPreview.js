@@ -52,7 +52,7 @@ class LinkPreview extends Component {
           showExpandableButton={true}
         />
         <CardMedia
-          overlay={<CardTitle title={this.props.title} />}
+          overlay={<CardTitle title={this.props.title}/>}
           mediaStyle={{width: 300, height: 300}}
           style={{width: 300}}
         >

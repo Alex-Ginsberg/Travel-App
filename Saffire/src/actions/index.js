@@ -9,15 +9,17 @@ export const SELECT_ITINERARY = 'SELECT_ITINERARY'
 export const ADD_EVENT = 'ADD_EVENT'
 export const SET_USERS = 'SET_USERS'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
+export const REFRESH = 'REFRESH'
 
 
                                                                                             // Used for adding a new itinerary to the database
-export const postItinerary = itinerary => dispatch => {
+export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const itinerariesRef = firebase.database().ref('itineraries')                       // Gets a reference to the 'itineraries' table in firebase
         console.log('INSIDE THuNK, CURRENT USER: ', firebase.auth().currentUser.email)
         const newRef = itinerariesRef.push({                                                // Pushes the new itinerary to firebase
             name: itinerary,
-            owner: firebase.auth().currentUser.email
+            owner: firebase.auth().currentUser.email,
+            imageURL: itineraryImageURL,
         })
         var newId = newRef.key;                                                             // Gets the PK from the newly created instance
                                                                                             // Creates a new object that resembles the one added to the database
@@ -115,7 +117,8 @@ export const setCurrentItinerary = (itinerary, itin) => dispatch => {
     const newRef = {
         name: itinerary.name,
         owner: itinerary.owner,
-        key: itin
+        key: itin,
+        imageURL: itinerary.imageURL,
     }
     return dispatch(setItinerary(newRef))
 }
@@ -163,6 +166,7 @@ export const fetchUsers = () => dispatch => {
                     email: users[key].email,
                     name: users[key].name, 
                     image: users[key].image,
+                    status: users[key].status
                 }
                 usersArr.push(toAdd)
             }
@@ -319,7 +323,8 @@ export const getCurrentUser = () => dispatch => {
                         friends: users[key].friends,
                         image: users[key].image,
                         name: users[key].name,
-                        requests: users[key].requests
+                        requests: users[key].requests,
+                        status: users[key].status
                     }}
                 }
                 console.log('LOGGED IN USER: ', loggedInUser)
@@ -351,7 +356,7 @@ export const onUserListener = (user) => dispatch => {
                 email: users[key].email,
                 friends: users[key].friends,
                 image: users[key].image,
-
+                status: users[key].status,
                 name: users[key].name,
                 requests: users[key].requests
             }}
@@ -415,6 +420,39 @@ export const addToItinerary = (itin, user) => dispatch => {
 
 }
 
+export const updateStatus = (user, status) => dispatch => {
+    const statusRef = firebase.database().ref().child('users').child(user.key).child('status')
+    statusRef.transaction(oldStatus => {
+        return status
+    })
+
+}
+
+export const setDateAndTime = (itinId, event, date, time) => dispatch => {
+    const eventRef = firebase.database().ref().child('itineraries').child(itinId).child('events')
+    let dateToAdd = date + ''
+    dateToAdd = dateToAdd.substr(0, dateToAdd.indexOf('2017'))
+    let timeToAdd = time + ''
+    timeToAdd = timeToAdd.substr(timeToAdd.indexOf(":") - 2, timeToAdd.length)
+    eventRef.once('value')
+        .then(snapshot => {
+            const events = snapshot.val()
+            for (let key in events) {
+                if (events[key].url === event.url){return key}
+            }
+        })
+        .then(theKey => {
+            console.log(time)
+            const evRef = firebase.database().ref().child('itineraries').child(itinId).child('events').child(theKey).child('schedule').update({date: dateToAdd, time: timeToAdd})
+            console.log('updated')
+        })
+        .then(() => {
+            dispatch(causeRefresh('setDateAndTime'))
+            console.log('refresh')
+        })
+        
+}
+
     
 
 export const geoFindMe = () => dispatch => {
@@ -475,6 +513,7 @@ export const setEvents = events => ({type: GET_CURRENT_EVENTS, events})
 export const newEvent = event => ({type: ADD_EVENT, event})
 export const setUsers = users => ({type: SET_USERS, users})
 export const setCurrentUser = user => ({type: SET_CURRENT_USER, user})
+export const causeRefresh = message => ({type: REFRESH, message})
 // export const selectItinerary = itinerary => ({type: SELECT_ITINERARY, itinerary})
 
 

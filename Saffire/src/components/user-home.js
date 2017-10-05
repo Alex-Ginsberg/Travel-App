@@ -97,7 +97,6 @@ const UserHome = (props) => {
           )
         })}
       </ul>
-      <p id="dash-myItinerary-header">My Itinerary</p>
       <AllItineraries />
       </div>
       <div className="dash-groups">

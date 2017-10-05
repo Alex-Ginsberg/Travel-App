@@ -3,8 +3,18 @@ import { bubble as Menu } from 'react-burger-menu'
 import {styles } from '../styles/styles_burgerMenu';
 import firebase from 'firebase';
 import history from '../history';
+import { updateStatus, onUserListener } from '../actions';
+import {connect} from 'react-redux';
 
 class BurgerMenu extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      showButtons: false
+    }
+    this.handleUpdate = this.handleUpdate.bind(this)
+  }
+
   showSettings (event) {
     event.preventDefault();
     
@@ -15,22 +25,54 @@ class BurgerMenu extends React.Component {
     .then(history.push('/'))
     .catch(err => console.log(err))
   }
+
+  handleUpdate(status) {
+    console.log('CALLING HANDLE UPDATE: ', status)
+    this.props.updateStatus(this.props.currentUser, status)
+    this.setState({showButtons: false})
+    this.props.getCurrentUser(this.props.currentUser)
+}
   
   render () {
     return (
+      
       <Menu styles={styles}>
-        <a id="home" className="menu-item" href="/">Home</a>
-        <a id="mypassport" className="menu-item" href="/mypassport">My Passport</a>
-        {/* <a onClick={ this.showSettings } className="menu-item--small" href="">Settings</a> */}
-        <a id="Itineraries" className="menu-item" href="/itineraries">Itineraries</a> 
-        <a id="MyFriends" className="menu-item" href="/myfriends">My Friends</a>
-        <a id="FindFreidns" className="menu-item" href="/find">Find Friends</a>
-        <a id="FriendRequests" className="menu-item" href="/requests">Friend Requests</a>
-        <a className="menu-item" onClick={this.signout} href=''>Logout</a>
+        <li><a className="menu-item" id="home" href="/">HOME</a></li>
+        <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li>
+        <li><a className="menu-item" id="Itineraries"  href="/itineraries">ITINERARIES</a></li> 
+        <li><a className="menu-item" id="MyFriends"  href="/myfriends">FRIENDS</a></li>
+        <li><a className="menu-item" onClick={this.signout} href=''>LOGOUT</a></li>
+        <li><p className="menu-item" onClick={() => this.setState({showButtons: !this.state.showButtons})}>UPDATE STATUS</p></li>
+        
+        {this.state.showButtons &&  <li><p className="menu-item-current-status">CURRENT STATUS: {this.props.currentUser.status}</p></li>}
+        {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('Just landed!')}>Just landed!</p></li>}
+        {this.state.showButtons &&   <li><p className="menu-item-status" onClick={() => this.handleUpdate('At the hotel')}>At the hotel</p></li>}
+        {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('Leaving for my next event')}>Leaving for my next event</p></li>}
+        {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('Just finished my event')}>Just finished my event</p></li>}
+        {this.state.showButtons && <li><p className="menu-item-status" onClick={() => this.handleUpdate('Getting food')}>Getting food</p></li>}
+        {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('Heading home')}>Heading home</p></li>}
+        
       </Menu>
     );
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+      currentUser: state.currentUser
+  }
+}
 
-export default BurgerMenu;
+const mapDispatchToProps = (dispatch) => {
+  return {
+      updateStatus(user, status) {
+          dispatch(updateStatus(user, status))
+      },
+      getCurrentUser(user) {
+        dispatch(onUserListener(user))
+      }
+  }
+}
+
+const BurgerMenuContainer = connect(mapStateToProps, mapDispatchToProps)(BurgerMenu);
+export default BurgerMenuContainer;
