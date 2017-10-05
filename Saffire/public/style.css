@@ -75,7 +75,8 @@ body {
 }
 
 .sapphire-app-login {
-    font-size: 2.5em;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
     display: inline-block;
     text-decoration: none;
     color: white;
