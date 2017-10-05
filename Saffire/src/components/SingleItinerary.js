@@ -6,6 +6,19 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import DatePicker from 'material-ui/DatePicker';
 import {setDateAndTime} from '../actions'
 import BurgerMenu from './Menu';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
+import Avatar from 'material-ui/Avatar';
+
+import {
+    blue300,
+    indigo900,
+    orange200,
+    deepOrange300,
+    pink400,
+    purple500,
+  } from 'material-ui/styles/colors';
+
 
 
 
@@ -109,17 +122,23 @@ class SingleItinerary extends Component{
                         <div className="col-lg-8">
                         {scheduledDates.map(date => (
                             <div key={date}>
+                            <MuiThemeProvider>
+                                
                                 <h1>{date}</h1>
                                 {eventScheduled.map(event => (
                                     <div key={event.url}>
                                     {event.schedule.date === date && 
                                         <div>
-                                        <h3>{event.title}</h3>
-                                        <h5>{event.schedule.time}</h5>
+                                        <List>
+                                            <ListItem disabled={true} leftAvatar={<Avatar backgroundColor={blue300} />}>
+                                                {event.title} @ {event.schedule.time}
+                                            </ListItem>
+                                        </List>
                                         </div>
                                     }
                                     </div>
                                 ))}
+                                </MuiThemeProvider>
                             </div>
                         ))}
                         </div>
