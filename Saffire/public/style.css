@@ -681,12 +681,13 @@ ITINERARY
 }
 
 .saffire-all-itineraries-item {
-    padding: 40px;
+    /* padding: 40px; */
 }
 
 
 .saffire-all-itineraries-item img {
     border-radius: 5px;
+
 }
 
 
