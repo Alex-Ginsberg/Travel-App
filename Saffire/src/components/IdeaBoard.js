@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import LinkPreview from './LinkPreview'
 import { addEvent, fetchEvents, addToItinerary, confirmEvent } from '../actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {Container} from './DragContainer';
+
 
 
 class IdeaBoard extends Component {
@@ -73,7 +75,7 @@ class IdeaBoard extends Component {
           }
         
         //starts at top of page
-        window.scrollTo(0,0);
+        // window.scrollTo(0,0);
 
         return (
         <div>
@@ -113,17 +115,28 @@ class IdeaBoard extends Component {
             
 
             <div className="row">
-                <div className="col-6">
+                <div className="col-4">
                     <h4 className="idea-board-words">PLAN</h4>
                     {/* Will render out all events that have not been added yet */}
                     {this.props.currentEvents.map(event => (
                         <MuiThemeProvider>
-                            {!event.added  && <div id ={event.key} onDragStart = {(ev) => drag(ev, event.key, itineraryName.key)} draggable = "true"><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/></div>}
+                            {!event.added  && <div id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/></div>}
                         </MuiThemeProvider>
                     ))}
                 </div>
 
-                <div className="col-6">
+                <div className="col-4">
+                    <h4 className="idea-board-words">DRAG</h4>
+                    <Container props={this.props.currentEvents}/>
+                    {/* Will render out all events that have not been added yet */}
+                    {/* {this.props.currentEvents.map(event => (
+                        <MuiThemeProvider>
+                            {!event.added  && <div id ={event.key} onDragStart = {(ev) => drag(ev, event.key, itineraryName.key)} draggable = "true"><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/></div>}
+                        </MuiThemeProvider>
+                    ))} */}
+                </div>
+
+                <div className="col-4">
                     <h4 className="idea-board-words">ITINERARY</h4>
                     {/* Will render all events that HAVE been added */}
                     {this.props.currentEvents.map(event => (
@@ -136,9 +149,9 @@ class IdeaBoard extends Component {
 
 
             <div>
-                <p>Left arrow: <i className="arrow left"></i></p>
+                {/* <p>Left arrow: <i className="arrow left"></i></p>
                 <p>Right arrow: <i className="arrow right"></i></p>
-                <div onDragOver= {(event) => {allowDrop(event)}} className = "sapphire-event-box" onDrop={(event) => drop(event,this.props)}></div>
+                <div onDragOver= {(event) => {allowDrop(event)}} className = "sapphire-event-box" onDrop={(event) => drop(event,this.props)}></div> */}
             </div>
 
         </div>
