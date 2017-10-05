@@ -568,10 +568,6 @@ font-size: 1.2em;
     color: black;
 }
 
-#dash-map {
-    height: 100%;
-}
-
 
 
 /* =========================================
@@ -664,7 +660,10 @@ MENU ITEM
     width: 500px;
     height: 1000px;
     margin-left: 200px;
-}
+
+ }
+
+
 @media (min-width: 600px) and (max-width: 1200px) {
     #dash-title {
         font-size: 3.5em;
@@ -819,3 +818,4 @@ MENU ITEM
 .sapphire-itin-name-z {
     font-size: 1.4em;
 }
+

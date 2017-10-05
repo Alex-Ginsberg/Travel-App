@@ -1,6 +1,7 @@
 //actions
 import firebase from '../firebase'
 import axios from 'axios'
+import googServerKey from '../secrets.js'
 
 export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
@@ -453,6 +454,54 @@ export const setDateAndTime = (itinId, event, date, time) => dispatch => {
 }
 
     
+
+export const geoFindMe = () => dispatch => {
+    
+    console.log('handleClick thunk')
+
+    var output = document.getElementById("out");
+
+    //if no geolocation on browser
+    if (!navigator.geolocation){
+      output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+      return;
+    }
+    
+    //success function triggers when allowed
+    function success(position) {
+      let latitude  = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      
+      let userCoor = [];
+      userCoor.push(longitude, latitude)
+
+      // this.setState({
+      //   userCoordinates: userCoor,
+      //   onClickDirty: true,
+      // })
+
+      console.log('userCoor', userCoor)
+      return userCoor;
+      
+    }
+    
+    //error handler
+    function error() {
+      output.innerHTML = "Unable to retrieve your location";
+    }
+  
+    output.innerHTML = "<p>Locating…</p>";
+
+    navigator.geolocation.getCurrentPosition(success, error);
+  
+}
+
+export const postCoordinates = (itin, user) => {
+    //const coorRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
+    console.log('currentUser***', firebase.auth().currentUser)
+    console.log('itineraries', firebase.database().ref().child('itineraries').child('itin').child('coordinates'))
+
+}
 
 
       

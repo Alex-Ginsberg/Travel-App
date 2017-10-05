@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import firebase from '../firebase'
@@ -9,6 +10,7 @@ import BurgerMenu from './Menu';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
 import Avatar from 'material-ui/Avatar';
+import {MapComp} from '../components'
 
 import {
     blue300,
@@ -106,7 +108,7 @@ class SingleItinerary extends Component{
         
                 <h1 className="single-itin-title">{this.state.itin.name}</h1>
                 </div>
-                <h1>PUT MAP HERE</h1>
+                <MapComp itinKey = {this.props.match.params}/>
                 <MuiThemeProvider>
                 <div className="single-itin-status">    
                     {memberArray.map(member => (
@@ -181,10 +183,13 @@ class SingleItinerary extends Component{
 }
 
 const mapStateToProps = (state) => {
+    console.log('state', state)
     return {
         itineraryName: state.currentItinerary,
         refresh: state.refresh,
-        users: state.users
+        users: state.users,
+        user: state.currentUser
+
     }
 }
 
