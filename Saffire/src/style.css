@@ -47,9 +47,6 @@ body {
     margin-right: -200px;
 }
 
-.check {
-    color: green;
-}
 
 .sapphire-itinerary-form input{
     width: 400px;
@@ -792,4 +789,31 @@ ITINERARY
 }
 .sapphire-itin-name-z {
     font-size: 1.4em;
+}
+
+/*
+    ==================================
+                 Single Itinerary
+    ==================================
+*/
+
+.single-itin-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 5em;
+    font-weight: 300;
+    margin-top: 0;
+    color: black;
+    letter-spacing: .3em;
+    padding-top: 30px;
+    display: inline-block;
+    margin-right: -200px;
+    text-align: center;
+}
+
+.single-itin-header {
+    text-align: center;
+    background-image: url("http://www.australia.com/content/australia/en_us/facts/_jcr_content/mainParsys/hero/image.adapt.1663.medium.jpg");
+    background-size: 10;
+    background-repeat: no-repeat;
+    height: 100vh;
 }
