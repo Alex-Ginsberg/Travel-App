@@ -532,10 +532,6 @@ font-size: 1.2em;
     color: black;
 }
 
-#dash-map {
-    height: 100%;
-}
-
 
 
 
@@ -594,6 +590,7 @@ ITINERARY
     width: 500px;
     height: 1000px;
     margin-left: 200px;
+ }
 
 @media (min-width: 600px) and (max-width: 1200px) {
     #dash-title {
@@ -601,4 +598,12 @@ ITINERARY
         
     }
 
+}
+
+/* =========================================
+MAP
+========================================= */
+
+.map-marker {
+    width: 20px;
 }

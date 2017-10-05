@@ -1,18 +1,24 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {MapComp} from '../components'
+import firebase from '../firebase'
 //import Navbar from './navbar';
 //import { postIdea } from '../actions';
 
 const SingleItinerary = (props) => {
-    
+    console.log('params', props.match.params)
+
     return (
-        <h1>SingleItinerary component here</h1>
+        <MapComp itinKey = {props.match.params}/>
     )
 }
 
 const mapStateToProps = (state) => {
+    console.log('state', state)
     return {
-        itineraryName: state.currentItinerary
+        user: state.currentUser,
+        currentItin: state.currentItinerary
+
     }
 }
 
