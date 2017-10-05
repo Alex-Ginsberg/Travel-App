@@ -61,8 +61,6 @@ class AllItineraries extends React.Component {
         <h3>MY ITINERARIES</h3>
 
         <div className = "saffire-all-itineraries-container">
-
-
           {
             toRenderItins.map(itin => (
             
@@ -80,7 +78,7 @@ class AllItineraries extends React.Component {
                 
                 <span className = "sapphire-itin-name-x">{itin.name}</span>
                 <span className = "sapphire-itin-name-y">10 Aug 2017 - 15 Aug 2017</span>
-                <span className = "sapphire-itin-name-z"> <span className="glyphicon glyphicon-user"></span>{this.props.currentUser.friends !== undefined ? Object.keys(this.props.currentUser.friends).length + " Friends" : "0 Friends"}</span>
+                <span className = "sapphire-itin-name-z"> <i className="fa fa-user" aria-hidden="true"></i>{this.props.currentUser.friends !== undefined ? Object.keys(this.props.currentUser.friends).length + " Friends" : "0 Friends"}</span>
                 
                 </div>
             </div>
