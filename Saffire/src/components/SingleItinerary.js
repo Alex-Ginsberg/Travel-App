@@ -177,6 +177,7 @@ class SingleItinerary extends Component{
                         </div>
                     </div>
                 </div>
+                <button onClick={() => this.props.history.push('/ideaboard')}>IdeaBoard</button>
             </div>
         )
     }
