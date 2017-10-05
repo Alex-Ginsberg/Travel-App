@@ -24,7 +24,7 @@ class Routes extends Component {
           <Route path="/login" component={UserLogin} />
           <Route path="/signup" component={UserSignup} />
           <Route path="/itineraries" component={AllItineraries}/>
-          <Route path="/money" component={IdeaBoard} />
+          <Route path="/ideaboard" component={IdeaBoard} />
           <Route path="/mypassport" component={UserHome} />
           <Route path="/find" component={FindFriends} />
           <Route path="/itinerary/:id" component={SingleItinerary} />
