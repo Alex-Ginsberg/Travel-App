@@ -30,7 +30,7 @@ class SingleItinerary extends Component{
             itin: {},
             showForm: {},
             currentTime: '',
-            currentDate: ''
+            currentDate: '',
         }
         this.renderForm = this.renderForm.bind(this)
         this.submitEvent = this.submitEvent.bind(this)
@@ -47,15 +47,28 @@ class SingleItinerary extends Component{
     renderForm(event) {
         if(!this.state.showForm.title){this.setState({showForm: event})}
         else {this.setState({showForm: {}})}
-            
-
     }
 
-    submitEvent() {
+    submitEvent(e) {
+        e.preventDefault()
         this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime)
+        this.setState({showForm: {}})
     }
 
     render() {
+        console.log('USERS: ', this.props.users)
+        const eventRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('events')
+        eventRef.on('child_changed', (data) => {
+            const val = data.val()
+            const itin = this.state.itin
+            for (let key in this.state.itin.events) {
+                if (this.state.itin.events[key].url === val.url) {
+                    this.state.itin.events[key].schedule = val.schedule
+                }
+            }
+            this.setState({itin: itin})
+        })
+
         let events = []
         let eventScheduled = []
         console.log(this.state)
@@ -73,21 +86,39 @@ class SingleItinerary extends Component{
         eventScheduled.sort((a,b) => {
             return new Date(a.schedule.time) - new Date(b.schedule.time);
         });
-        console.log(eventScheduled)
         let scheduledDates = []
         for (let i = 0; i < eventScheduled.length; i++) {
             if (scheduledDates.indexOf(eventScheduled[i].schedule.date) === -1){scheduledDates.push(eventScheduled[i].schedule.date)}   
         }
-        console.log(scheduledDates)
+
+        const memberArray = []
+        for (let i in this.state.itin.members) {
+            let toAdd = this.props.users.filter(currentUser => currentUser.key === this.state.itin.members[i].key)
+            // memberArray.push(this.props.user[this.props.user.indexOf(this.state.itin.members[i].key]))
+            memberArray.push(toAdd[0])
+        }
+        console.log('MEMBERS: ', memberArray)
+
         return (
             <div>
             <div className="single-itin-header">
             <  BurgerMenu />
         
                 <h1 className="single-itin-title">{this.state.itin.name}</h1>
-                <h1>PUT MEMBERS+STATUSES HERE</h1>
                 </div>
                 <h1>PUT MAP HERE</h1>
+                <MuiThemeProvider>
+                <div className="single-itin-status">    
+                    {memberArray.map(member => (
+                        <List >
+                        {member && <ListItem disabled={true}  leftAvatar={<Avatar backgroundColor={blue300} src={member.image} />}>
+                            {member.name}: {member.status}
+                        </ListItem>}
+                        
+                        </List>
+                    ))}
+                    </div>
+                </MuiThemeProvider>
                 <h4>Events to be added to timeline: </h4>
                 <div class="container">
                     <div class="row">
@@ -151,7 +182,9 @@ class SingleItinerary extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        itineraryName: state.currentItinerary
+        itineraryName: state.currentItinerary,
+        refresh: state.refresh,
+        users: state.users
     }
 }
 
