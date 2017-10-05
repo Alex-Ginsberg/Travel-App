@@ -11,12 +11,13 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 
 
                                                                                             // Used for adding a new itinerary to the database
-export const postItinerary = itinerary => dispatch => {
+export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const itinerariesRef = firebase.database().ref('itineraries')                       // Gets a reference to the 'itineraries' table in firebase
         console.log('INSIDE THuNK, CURRENT USER: ', firebase.auth().currentUser.email)
         const newRef = itinerariesRef.push({                                                // Pushes the new itinerary to firebase
             name: itinerary,
-            owner: firebase.auth().currentUser.email
+            owner: firebase.auth().currentUser.email,
+            imageURL: itineraryImageURL,
         })
         var newId = newRef.key;                                                             // Gets the PK from the newly created instance
                                                                                             // Creates a new object that resembles the one added to the database
@@ -422,6 +423,25 @@ export const updateStatus = (user, status) => dispatch => {
         return status
     })
 
+}
+
+export const setDateAndTime = (itinId, event, date, time) => dispatch => {
+    const eventRef = firebase.database().ref().child('itineraries').child(itinId).child('events')
+    let dateToAdd = date + ''
+    dateToAdd = dateToAdd.substr(0, dateToAdd.indexOf('2017'))
+    let timeToAdd = time + ''
+    timeToAdd = timeToAdd.substr(timeToAdd.indexOf(":") - 2, timeToAdd.length)
+    eventRef.once('value')
+        .then(snapshot => {
+            const events = snapshot.val()
+            for (let key in events) {
+                if (events[key].url === event.url){return key}
+            }
+        })
+        .then(theKey => {
+            console.log(time)
+            const evRef = firebase.database().ref().child('itineraries').child(itinId).child('events').child(theKey).child('schedule').update({date: dateToAdd, time: timeToAdd})
+        })
 }
 
     
