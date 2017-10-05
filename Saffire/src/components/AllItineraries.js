@@ -64,11 +64,9 @@ class AllItineraries extends React.Component {
           {
             toRenderItins.map(itin => (
             
-            <div className = "saffire-col-4 saffire-all-itineraries-item">
-              <img src={itin.imageURL} style={{width: 300, height: 200}} />
-             {/* {
-               itin.imageURL && 
-               <img src ={`${itin.imageURL}`} /> } */}
+            <div className = "saffire-all-itineraries-item">
+              <img src={itin.imageURL} />
+            
 
               <div className = "little-saffire-item" key={itin.key} onClick={() => { 
                 firebase.database().ref(`/itineraries/${itin.key}`).once('value')
