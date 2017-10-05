@@ -11,12 +11,13 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 
 
                                                                                             // Used for adding a new itinerary to the database
-export const postItinerary = itinerary => dispatch => {
+export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const itinerariesRef = firebase.database().ref('itineraries')                       // Gets a reference to the 'itineraries' table in firebase
         console.log('INSIDE THuNK, CURRENT USER: ', firebase.auth().currentUser.email)
         const newRef = itinerariesRef.push({                                                // Pushes the new itinerary to firebase
             name: itinerary,
-            owner: firebase.auth().currentUser.email
+            owner: firebase.auth().currentUser.email,
+            imageURL: itineraryImageURL,
         })
         var newId = newRef.key;                                                             // Gets the PK from the newly created instance
                                                                                             // Creates a new object that resembles the one added to the database
