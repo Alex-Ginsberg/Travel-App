@@ -8,6 +8,7 @@ export const SELECT_ITINERARY = 'SELECT_ITINERARY'
 export const ADD_EVENT = 'ADD_EVENT'
 export const SET_USERS = 'SET_USERS'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
+export const REFRESH = 'REFRESH'
 
 
                                                                                             // Used for adding a new itinerary to the database
@@ -115,7 +116,8 @@ export const setCurrentItinerary = (itinerary, itin) => dispatch => {
     const newRef = {
         name: itinerary.name,
         owner: itinerary.owner,
-        key: itin
+        key: itin,
+        imageURL: itinerary.imageURL,
     }
     return dispatch(setItinerary(newRef))
 }
@@ -441,7 +443,13 @@ export const setDateAndTime = (itinId, event, date, time) => dispatch => {
         .then(theKey => {
             console.log(time)
             const evRef = firebase.database().ref().child('itineraries').child(itinId).child('events').child(theKey).child('schedule').update({date: dateToAdd, time: timeToAdd})
+            console.log('updated')
         })
+        .then(() => {
+            dispatch(causeRefresh('setDateAndTime'))
+            console.log('refresh')
+        })
+        
 }
 
     
@@ -456,6 +464,7 @@ export const setEvents = events => ({type: GET_CURRENT_EVENTS, events})
 export const newEvent = event => ({type: ADD_EVENT, event})
 export const setUsers = users => ({type: SET_USERS, users})
 export const setCurrentUser = user => ({type: SET_CURRENT_USER, user})
+export const causeRefresh = message => ({type: REFRESH, message})
 // export const selectItinerary = itinerary => ({type: SELECT_ITINERARY, itinerary})
 
 

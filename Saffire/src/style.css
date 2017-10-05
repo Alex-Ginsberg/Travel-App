@@ -817,3 +817,10 @@ ITINERARY
     background-repeat: no-repeat;
     height: 100vh;
 }
+
+.single-itin-status {
+    position: absolute;
+    bottom: 0;
+}
+
+
