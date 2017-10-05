@@ -12,6 +12,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
     "body-parser": "^1.18.2",
+    "bootstrap": "^4.0.0-beta",
     "es6-promise": "^4.1.1",
     "firebase": "^4.4.0",
     "geofire": "^4.1.2",
