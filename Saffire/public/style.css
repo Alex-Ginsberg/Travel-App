@@ -595,7 +595,15 @@ font-size: 1.2em;
     padding: 40px;
 }
 
+
 .little-saffire-item {
+
+}
+
+
+.idea-board-title {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
     color: white;
     background: rgba(190, 190, 190, 0.7);
     font-family: 'Montserrat', sans-serif;
@@ -618,4 +626,10 @@ font-size: 1.2em;
 .sapphire-itin-name-z {
     font-size: 1.4em;
 }
+
+.col-6 {
+    padding: 15px;
+    width: 30%;
+}
+
 
