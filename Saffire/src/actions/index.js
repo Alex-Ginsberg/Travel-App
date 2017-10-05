@@ -115,7 +115,8 @@ export const setCurrentItinerary = (itinerary, itin) => dispatch => {
     const newRef = {
         name: itinerary.name,
         owner: itinerary.owner,
-        key: itin
+        key: itin,
+        imageURL: itinerary.imageURL,
     }
     return dispatch(setItinerary(newRef))
 }

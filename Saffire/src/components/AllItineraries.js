@@ -71,7 +71,7 @@ class AllItineraries extends React.Component {
               <div className = "little-saffire-item" key={itin.key} onClick={() => { 
                 firebase.database().ref(`/itineraries/${itin.key}`).once('value')
                 .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
-                .then(() => this.props.history.push('/money'))
+                .then(() => this.props.history.push(`/itinerary/${itin.key}`))
                 }}>
                 
                 <span className = "sapphire-itin-name-x">{itin.name}</span>

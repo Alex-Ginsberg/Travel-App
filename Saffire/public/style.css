@@ -334,6 +334,35 @@ font-size: 1.2em;
     opacity: 0.7;
 }
 
+.idea-board-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.idea-board-url {
+    text-align: center;
+}
+
+.idea-board-words {
+    text-align: center;
+}
+
+.idea-board-title {
+    color: #63401d;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    z-index: 3;
+}
+
+.idea-board-div > img {
+    padding: 10px;
+    width: 85%;
+    height: 85%;
+}
+
+
 /*
     ===========================================
                    User Sign-Up
@@ -556,6 +585,11 @@ ITINERARY
     height: 100vh;
 }
 
+/* =========================================
+MENU ITEM
+========================================= */
+
+
 .menu-item {
     font-family: 'Montserrat', sans-serif;
     padding: 15px;
@@ -696,16 +730,7 @@ ITINERARY
 }
 
 
-.idea-board-title {
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-    color: white;
-    background: rgba(190, 190, 190, 0.7);
-    font-family: 'Montserrat', sans-serif;
-    width: 450px;
-    height: 200px;
-    margin: 0 auto;
-}
+
 
 .little-saffire-item span{
     display: block;

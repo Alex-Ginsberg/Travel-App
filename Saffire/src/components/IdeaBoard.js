@@ -6,7 +6,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Container} from './DragContainer';
 
 
-
 class IdeaBoard extends Component {
     constructor(props) {
         super(props);
@@ -18,28 +17,28 @@ class IdeaBoard extends Component {
         }
         this.addToGroup = this.addToGroup.bind(this)
     }
-
+    
     componentDidMount() {
         this.props.getItineraryEvents(this.props.itineraryName)
     }
-
+    
     handleChange(e) {
         let url = e.target.value
         this.setState({
             newURL: url
         })
     }
-
+    
     handleSubmit(e) {
         e.preventDefault()
         this.props.sendUrl(this.state.newURL, this.props.itineraryName)
     }
-
+    
     addToGroup(e) {
         e.preventDefault()
         this.props.addMember(this.props.itineraryName.key, this.state.currentFriend)
     }
-
+    
     render() {
         let handleSubmit = this.handleSubmit;
         let handleChange = this.handleChange;
@@ -49,8 +48,8 @@ class IdeaBoard extends Component {
         for (var key in friends) {
             friendsArr.push(friends[key])
         }
-      
-          function drag(event, eventId, itineraryKey) {
+        
+        function drag(event, eventId, itineraryKey) {
             var obj = {
                 id: event.target.id,
                 eventId: eventId,
@@ -58,9 +57,9 @@ class IdeaBoard extends Component {
             }
             var finalObj = JSON.stringify(obj);
             event.dataTransfer.setData("text", finalObj);
-          }
-          
-          function drop(event, props) {
+        }
+        
+        function drop(event, props) {
             event.preventDefault();
             
             var data = JSON.parse(event.dataTransfer.getData("text")).id;
@@ -68,20 +67,28 @@ class IdeaBoard extends Component {
             var itineraryKey = JSON.parse(event.dataTransfer.getData("text")).itineraryKey;
             props.confirmEvent(eventId, itineraryKey);
             event.target.appendChild(document.getElementById(data));
-          }
-      
-          function allowDrop(event, props) {
+        }
+        
+        const style = {
+            'background-image' : this.props.itineraryImage
+        }
+        
+        function allowDrop(event, props) {
             event.preventDefault();
-          }
+        }
         
         //starts at top of page
         // window.scrollTo(0,0);
+       
+
+        console.log('*********current itin', this.props.itineraryImage )
 
         return (
         <div>
             
-            <div className="idea-board-div">
-                <h2 className="idea-board-title">{itineraryName.name.toUpperCase()}</h2>
+            <div className="idea-board-div" >
+                <img src={this.props.itineraryImage} />
+                <h2 className="idea-board-title" >{itineraryName.name.toUpperCase()}</h2>
             </div>
 
 
@@ -101,7 +108,7 @@ class IdeaBoard extends Component {
             </div>
 
 
-            <div className = "idea-board-inviteFriend">
+            <div className = "idea-board-url">
                 <form onSubmit={this.addToGroup}>
                     <select name="friends" onChange={(e) => this.setState({currentFriend: e.target.value})}>
                         <option value="" defaultValue>Invite a friend</option>
@@ -115,7 +122,7 @@ class IdeaBoard extends Component {
             
 
             <div className="row">
-                <div className="col-4">
+                <div className="col-6">
                     <h4 className="idea-board-words">PLAN</h4>
                     {/* Will render out all events that have not been added yet */}
                     {this.props.currentEvents.map(event => (
@@ -125,18 +132,9 @@ class IdeaBoard extends Component {
                     ))}
                 </div>
 
-                <div className="col-4">
-                    <h4 className="idea-board-words">DRAG</h4>
-                    <Container props={this.props.currentEvents}/>
-                    {/* Will render out all events that have not been added yet */}
-                    {/* {this.props.currentEvents.map(event => (
-                        <MuiThemeProvider>
-                            {!event.added  && <div id ={event.key} onDragStart = {(ev) => drag(ev, event.key, itineraryName.key)} draggable = "true"><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/></div>}
-                        </MuiThemeProvider>
-                    ))} */}
-                </div>
+             
 
-                <div className="col-4">
+                <div className="col-6">
                     <h4 className="idea-board-words">ITINERARY</h4>
                     {/* Will render all events that HAVE been added */}
                     {this.props.currentEvents.map(event => (
@@ -162,6 +160,7 @@ class IdeaBoard extends Component {
 const mapStateToProps = (state) => {
     return {
         itineraryName: state.currentItinerary,
+        itineraryImage: state.currentItinerary.imageURL,
         currentEvents: state.currentEvents,
         currentUser: state.currentUser
     }
