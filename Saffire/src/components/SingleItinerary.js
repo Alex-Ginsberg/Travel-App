@@ -46,7 +46,17 @@ class SingleItinerary extends Component{
             if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){events.push(this.state.itin.events[key])}
             else if (this.state.itin.events[key].schedule){eventScheduled.push(this.state.itin.events[key])}
         }
-        console.log(events)
+
+        // First sorts the array by the date
+        eventScheduled.sort((a,b) => {
+            return new Date(a.schedule.date) - new Date(b.schedule.date);
+          });
+        
+        // Then sorts it on time
+        eventScheduled.sort((a,b) => {
+            return new Date(a.schedule.time) - new Date(b.schedule.time);
+        });
+        console.log(eventScheduled)
         return (
             <div>
                 <h4>Events to be added to timeline: </h4>
