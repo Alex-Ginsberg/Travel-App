@@ -157,21 +157,24 @@ export const newLike = (eventId, itinKey) => dispatch => {
     console.log('INSIDE LIKE: ', eventId, itinKey)
     const likedByRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('likedBy')
     const likesRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('likes')
+    
     likesRef.transaction(likes => {                                                         // Updates the like counter in firebase
         return likes + 1
     })
-    let isFirstLike = false
-    likedByRef.transaction(likedBy => {                                                     // Will add the currently logged in user to the 'likedBy' group
-        if(likedBy === null) {                                                              // This makes sure each event can only be liked by each user once
-            isFirstLike = true                                                              // Will also allow for seeing who is going to an event
-            return {firstLiker : {
-                name: firebase.auth().currentUser.email
-            }}
-    }})
-    if (!isFirstLike) {
-        likedByRef.push({name: firebase.auth().currentUser.email})
-    }
+    
+    // likedByRef.transaction(likedBy => {                                                     // Will add the currently logged in user to the 'likedBy' group
+    //     if(likedBy === null) {                                                              // This makes sure each event can only be liked by each user once
+    //         isFirstLike = true                                                              // Will also allow for seeing who is going to an event
+    //         return {firstLiker : {
+    //             name: firebase.auth().currentUser.email
+    //         }}
+    // }})
+
+    likedByRef.push({name: firebase.auth().currentUser.email})
+
     return dispatch(fetchEvents(itinKey, true))
+
+
 }
                                                                                             // Used for moving an item from 'vote' to 'added
 export const confirmEvent = (eventId, itinKey) => dispatch => {

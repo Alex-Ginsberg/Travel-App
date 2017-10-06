@@ -59,7 +59,7 @@ class LinkPreview extends Component {
           <img src={this.props.image} alt="" />
         </CardMedia>
         <CardActions>
-          <FlatButton label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={likedByArray.includes(firebase.auth().currentUser.email)}/>
+          {!this.props.hasBeenAdded && <FlatButton label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={likedByArray.includes(firebase.auth().currentUser.email)}/> }
           {!this.props.hasBeenAdded && <FlatButton label="Add To Itinerary" onClick={() => this.props.confirmEvent(this.props.eventKey, this.props.itinKey) }/>}
         </CardActions>
         <CardText expandable={true}>
