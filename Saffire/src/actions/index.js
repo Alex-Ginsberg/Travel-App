@@ -58,7 +58,9 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
                     title: events[key].title,
                     url: events[key].url,
                     likes: events[key].likes,
-                    likedBy: events[key].likedBy
+                    likedBy: events[key].likedBy,
+                    location: events[key].location,
+                    // address: events[key].gmaps.formatted_address,
                 }
                 eventsArr.push(toAdd)
             }
@@ -89,57 +91,44 @@ export const addEvent = (url, itinID) => dispatch => {
                 url: preview.url,
                 added: false, 
                 key: newId,
-                likes: 0
+                likes: 0,
             }
-            // currentItinRef.transaction(currentEvents => {
-            //     curre
-
-
-            // console.log('current events', currentEvents);
-            //     if (currentEvents === null){
-            //         console.log('HIT NULL');
-            //         isFirstEvent = true
-            //         return {event1: {
-            //             title: preview.title,
-            //             description: preview.description,
-            //             image: preview.image,
-            //             url: preview.url,
-            //             added: false,
-            //             likes: 0,
-            //             key: 'event1'
-            //         }}
-            //     }
-            // })
-
-            // if (!isFirstEvent) {
-            //     const newRef = currentItinRef.push({
-            //         title: preview.title,
-            //         description: preview.description,
-            //         image: preview.image,
-            //         url: preview.url,
-            //         added: false,
-            //         likes: 0
-            //     })
-            //     newId = newRef.key
-            //     console.log('newRef', newRef)
-            //     console.log('NEWID: ', newId)
-            // }
-            // const eventNode = {
-            //     title: preview.title,
-            //     description: preview.description,
-            //     image: preview.image,
-            //     url: preview.url,
-            //     added: false, 
-            //     key: newId,
-            //     likes: 0
-            // }
-            
-            console.log('event node', eventNode);
-
+        
             return dispatch(newEvent(eventNode))
         })
-
 }
+
+export const googlePlace = (suggest, itinID) => dispatch => {
+    const currentItinRef = firebase.database().ref().child('itineraries').child(itinID).child('events')
+            // console.log('currentItinRef addevent Action', currentItinRef)
+            const newRef = currentItinRef.push({
+                title: suggest.label,
+                description: suggest.description,
+                added: false,
+                likes: 0,
+                location: suggest.location,
+                address: suggest.gmaps.formatted_address,
+                })
+
+            const newId = newRef.key
+
+          
+        const eventNode = {
+            title: suggest.label,
+            description: suggest.description,
+            location: suggest.location,
+            added: false, 
+            key: newId,
+            likes: 0,
+            types: suggest.types,
+            address: suggest.gmaps.formatted_address,
+        }
+
+        return dispatch(newEvent(eventNode))
+} 
+
+
+
 
 export const setCurrentItinerary = (itinerary, itin) => dispatch => {
     console.log('INSIDE CURRENT: ', itinerary, itin)
