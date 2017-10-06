@@ -109,11 +109,11 @@ class IdeaBoard extends Component {
        console.log('*******', this.props.currentEvents);
 
         return (
-        <div className="idea-board-container">
+        <div className="idea-board-div" >
             
-            <div className="idea-board-div" >
-                <img src={this.state.itin.imageURL} style={{'justify-content': 'center', 'align-items': 'center', width: '80%', height: '70%'}}/>
-                <h2 className="idea-board-title" >{this.state.itin.name}</h2>
+            <div className="single-itin-header">
+                {/* <img className="single-itin-image" src={this.state.itin.imageURL} /> */}
+                <h2 className="single-itin-title" >{this.state.itin.name}</h2>
             </div>
 
 
