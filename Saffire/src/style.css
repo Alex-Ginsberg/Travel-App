@@ -694,13 +694,42 @@ ITINERARY
 }
 
 
-.idea-board-title {
+/* .idea-board-title {
     text-align: center;
     font-family: 'Montserrat', sans-serif;
     color: white;
     background: rgba(190, 190, 190, 0.7);
     font-family: 'Montserrat', sans-serif;
+} */
+
+.idea-board-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
+.idea-board-url {
+    text-align: center;
+}
+
+.idea-board-words {
+    text-align: center;
+}
+
+.idea-board-title {
+    color: #63401d;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    z-index: 3;
+}
+
+.idea-board-img {
+    padding: 10px;
+    width: 60%;
+    height: 60%;
+}
+
 
 .little-saffire-item span{
     display: block;

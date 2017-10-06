@@ -4,6 +4,7 @@ import LinkPreview from './LinkPreview'
 import { addEvent, fetchEvents, addToItinerary, confirmEvent } from '../actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Container} from './DragContainer';
+import firebase from 'firebase';
 
 
 class IdeaBoard extends Component {
@@ -13,13 +14,21 @@ class IdeaBoard extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             newURL: '',
-            currentFriend: ''
+            currentFriend: '',
+            itin: {},
         }
         this.addToGroup = this.addToGroup.bind(this)
     }
     
     componentDidMount() {
-        this.props.getItineraryEvents(this.props.itineraryName)
+        const currentItinKey = this.props.match.params.id;
+        const itinRef = firebase.database().ref().child('itineraries').child(currentItinKey)
+        itinRef.once('value')
+            .then(snapshot => {
+                this.setState({itin: snapshot.val()})
+            })
+        
+        this.props.getItineraryEvents(currentItinKey)
     }
     
     handleChange(e) {
@@ -31,15 +40,20 @@ class IdeaBoard extends Component {
     
     handleSubmit(e) {
         e.preventDefault()
-        this.props.sendUrl(this.state.newURL, this.props.itineraryName)
+        this.props.sendUrl(this.state.newURL, this.props.match.params.id)
     }
     
     addToGroup(e) {
         e.preventDefault()
-        this.props.addMember(this.props.itineraryName.key, this.state.currentFriend)
+        this.props.addMember(this.props.match.params.id, this.state.currentFriend)
     }
     
     render() {
+        console.log('idea board', this.props.currentEvents);
+        let itinerary = this.state.itin;
+        let itinImage = itinerary.image;
+    
+
         let handleSubmit = this.handleSubmit;
         let handleChange = this.handleChange;
         let itineraryName = this.props.itineraryName
@@ -49,46 +63,41 @@ class IdeaBoard extends Component {
             friendsArr.push(friends[key])
         }
         
-        function drag(event, eventId, itineraryKey) {
-            var obj = {
-                id: event.target.id,
-                eventId: eventId,
-                itineraryKey: itineraryKey
-            }
-            var finalObj = JSON.stringify(obj);
-            event.dataTransfer.setData("text", finalObj);
-        }
+        // function drag(event, eventId, itineraryKey) {
+        //     var obj = {
+        //         id: event.target.id,
+        //         eventId: eventId,
+        //         itineraryKey: itineraryKey
+        //     }
+        //     var finalObj = JSON.stringify(obj);
+        //     event.dataTransfer.setData("text", finalObj);
+        // }
         
-        function drop(event, props) {
-            event.preventDefault();
+        // function drop(event, props) {
+        //     event.preventDefault();
             
-            var data = JSON.parse(event.dataTransfer.getData("text")).id;
-            var eventId = JSON.parse(event.dataTransfer.getData("text")).eventId;
-            var itineraryKey = JSON.parse(event.dataTransfer.getData("text")).itineraryKey;
-            props.confirmEvent(eventId, itineraryKey);
-            event.target.appendChild(document.getElementById(data));
-        }
+        //     var data = JSON.parse(event.dataTransfer.getData("text")).id;
+        //     var eventId = JSON.parse(event.dataTransfer.getData("text")).eventId;
+        //     var itineraryKey = JSON.parse(event.dataTransfer.getData("text")).itineraryKey;
+        //     props.confirmEvent(eventId, itineraryKey);
+        //     event.target.appendChild(document.getElementById(data));
+        // }
         
-        const style = {
-            'background-image' : this.props.itineraryImage
-        }
         
-        function allowDrop(event, props) {
-            event.preventDefault();
-        }
+        // function allowDrop(event, props) {
+        //     event.preventDefault();
+        // }
         
         //starts at top of page
         // window.scrollTo(0,0);
-       
-
-        console.log('*********current itin', this.props.itineraryImage )
+       console.log('*******', this.props.currentEvents);
 
         return (
-        <div>
+        <div className="idea-board-container">
             
             <div className="idea-board-div" >
-                <img src={this.props.itineraryImage} />
-                <h2 className="idea-board-title" >{itineraryName.name.toUpperCase()}</h2>
+                <img src={this.state.itin.imageURL} style={{'justify-content': 'center', 'align-items': 'center', width: '80%', height: '70%'}}/>
+                <h2 className="idea-board-title" >{this.state.itin.name}</h2>
             </div>
 
 
@@ -127,7 +136,7 @@ class IdeaBoard extends Component {
                     {/* Will render out all events that have not been added yet */}
                     {this.props.currentEvents.map(event => (
                         <MuiThemeProvider>
-                            {!event.added  && <div id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/></div>}
+                            {!event.added  && <div id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} likes={event.likes} likedBy={event.likedBy}/></div>}
                         </MuiThemeProvider>
                     ))}
                 </div>
@@ -152,6 +161,8 @@ class IdeaBoard extends Component {
                 <div onDragOver= {(event) => {allowDrop(event)}} className = "sapphire-event-box" onDrop={(event) => drop(event,this.props)}></div> */}
             </div>
 
+                    
+
         </div>
         )
     }
@@ -168,8 +179,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getItineraryEvents(itin) {
-            dispatch(fetchEvents(itin))
+        getItineraryEvents(itinKey) {
+            dispatch(fetchEvents(itinKey))
         },
         sendUrl(url, itin) {
             dispatch(addEvent(url, itin))

@@ -115,6 +115,12 @@ body {
     content: "";
 }
 
+/*
+    ========================================
+            Home Page Web Responsive
+    ========================================
+*/
+
 @media (min-width: 870px) and (max-width: 1050px) {
     .sapphire-app-title {
         font-size: 3.0em;
@@ -190,6 +196,47 @@ body {
     }
 }
  
+/*
+    ======================================
+         Iphone Home Page Responsive
+    ======================================
+*/
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width: 667px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) 
+{
+    .sapphire-app-title {
+        position: fixed;
+        font-size: 2em;
+        left: 100px;
+    }
+
+    .sapphire-auth-div { 
+        float: none;
+        margin: 0 auto;
+        padding-top: 40px;
+    }
+
+    .sapphire-home-page-border {
+        margin: 0;
+        padding: 0;
+    }
+    
+    #home-page-label {
+        font-size: 1.4em;
+    }
+
+    .sapphire-itinerary-form input {
+        width: 180px;
+    }
+
+    .sapphire-itinerary-form button {
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+}
 
 /*
 
@@ -199,11 +246,9 @@ body {
 */
 
 .bg-login {
-    background-image: url("https://static.pexels.com/photos/239520/pexels-photo-239520.jpeg");
+    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/KPMRVAREV0.jpg");
     background-size: cover;
-    background-repeat: no-repeat;
     height: 100vh;
-    /* width:70%; */
 }
 
 .box-login {
@@ -334,34 +379,6 @@ font-size: 1.2em;
     opacity: 0.7;
 }
 
-.idea-board-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.idea-board-url {
-    text-align: center;
-}
-
-.idea-board-words {
-    text-align: center;
-}
-
-.idea-board-title {
-    color: #63401d;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2em;
-    z-index: 3;
-}
-
-.idea-board-div > img {
-    padding: 10px;
-    width: 85%;
-    height: 85%;
-}
-
 
 /*
     ===========================================
@@ -370,7 +387,7 @@ font-size: 1.2em;
 */
 
 .sapphire-user-signup-div {
-    background-image: url("https://image.shutterstock.com/z/stock-photo-landscapes-on-denali-highway-alaska-instagram-filter-309705941.jpg");
+    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/UG76JFIIHZ.jpg");
     background-size: cover;
     height: 100vh;
 }
@@ -480,6 +497,42 @@ font-size: 1.2em;
 
     .sapphire-user-signup-form h1 {
         font-size: .9em;
+    }
+}
+
+
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width: 667px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
+    .sapphire-user-signup-div h1  {
+        font-size: 2em;
+        margin-top: -27px;
+        margin-right: -20px;
+    }
+
+    .sapphire-user-signup-box {
+        margin: 0;
+        padding-top: 30px;
+    }
+
+    .sapphire-user-signup-form {
+        padding: 40px;
+    }
+
+    .sapphire-user-signup-form h1 {
+        font-size: 1.3em;
+    }
+
+    .sapphire-user-signup-input input{
+        width: 220px;
+    }
+
+    .sapphire-user-signup-button-div button {
+        width: 120px;
+        font-size: 15px;
+        padding: 4px 9px;
     }
 }
 
