@@ -5,7 +5,7 @@ import firebase from '../firebase'
 import TimePicker from 'material-ui/TimePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import DatePicker from 'material-ui/DatePicker';
-import {setDateAndTime} from '../actions'
+import {setDateAndTime, sendMessage} from '../actions'
 import BurgerMenu from './Menu';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
@@ -33,9 +33,12 @@ class SingleItinerary extends Component{
             showForm: {},
             currentTime: '',
             currentDate: '',
+            showChat: false,
+            chatMessage: ''
         }
         this.renderForm = this.renderForm.bind(this)
         this.submitEvent = this.submitEvent.bind(this)
+        this.sendChat = this.sendChat.bind(this)
     }
 
     componentDidMount() {
@@ -57,8 +60,19 @@ class SingleItinerary extends Component{
         this.setState({showForm: {}})
     }
 
+    sendChat(e) {
+        e.preventDefault()
+        this.props.sendMessage(this.props.user, this.props.match.params.id, this.state.chatMessage)
+        // const itin = this.state.itin
+        // itin.messages.newMessage = {sender: this.props.user.name, content: this.state.chatMessage}
+        this.setState({chatMessage: ''})
+    }
+
     render() {
         console.log('USERS: ', this.props.users)
+        /*
+        FIREBASE EVENT LISTENERS
+        */
         const eventRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('events')
         eventRef.on('child_changed', (data) => {
             const val = data.val()
@@ -69,6 +83,14 @@ class SingleItinerary extends Component{
                 }
             }
             this.setState({itin: itin})
+        })
+
+        const messageRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('newMessage')
+        const chatMessages = []
+        messageRef.on('child_changed', (data) => {
+            const val = data.val()
+            console.log('***************', val)
+            const itin = this.state.itin  
         })
 
         let events = []
@@ -100,6 +122,11 @@ class SingleItinerary extends Component{
             memberArray.push(toAdd[0])
         }
         console.log('MEMBERS: ', memberArray)
+
+        
+        for (let i in this.state.itin.messages) {
+            chatMessages.push(this.state.itin.messages[i])
+        }
 
         return (
             <div>
@@ -178,6 +205,23 @@ class SingleItinerary extends Component{
                     </div>
                 </div>
                 <button onClick={() => this.props.history.push('/ideaboard')}>IdeaBoard</button>
+                <button onClick={() => this.setState({showChat: !this.state.showChat})}>Chat</button>
+                {this.state.showChat && 
+                <div>
+                    {chatMessages.map(message => (
+                        <p>{message.sender}: {message.content}</p>
+                    ))}
+                    <form onSubmit={this.sendChat}> 
+                        <input name="chatMessage" 
+                            type="text" 
+                            value={this.state.chatMessage}
+                            className="form-control" 
+                            placeholder="Send message..."
+                            onChange={(e) => {this.setState({chatMessage: e.target.value})}}/>
+                        <button type="submit" className="btn btn-primary">Send</button>
+                    </form>
+                </div>
+                }
             </div>
         )
     }
@@ -198,6 +242,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setDateAndTime(itinId, event, date, time) {
             dispatch(setDateAndTime(itinId, event, date, time))
+        },
+        sendMessage(user, itin, message) {
+            sendMessage(user, itin, message)
         }
     }
 }
