@@ -533,6 +533,18 @@ export const postCoordinates = (itin, user) => {
 
 }
 
+export const sendMessage = (user, itinKey, message) => {
+    const messageRef = firebase.database().ref().child('itineraries').child(itinKey).child('messages')
+    messageRef.push({
+        sender: user.name,
+        content: message,
+    })
+    const newMessageRef = firebase.database().ref().child('itineraries').child(itinKey).child('newMessage').child('currentMessage')
+    newMessageRef.transaction(newMessageRef => {
+        return message
+    })
+}
+
 
       
 
