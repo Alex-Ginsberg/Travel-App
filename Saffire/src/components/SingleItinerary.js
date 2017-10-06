@@ -39,7 +39,7 @@ class SingleItinerary extends Component{
         this.renderForm = this.renderForm.bind(this)
         this.submitEvent = this.submitEvent.bind(this)
         this.sendChat = this.sendChat.bind(this)
-    }
+}
 
     componentDidMount() {
         const itinRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id)

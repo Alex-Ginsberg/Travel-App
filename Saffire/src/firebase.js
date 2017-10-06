@@ -3,10 +3,6 @@ import {firebase_pw} from './secrets.js';
 import {onUserListener, connectionChange} from './actions'
 import store from './store'
 
-console.log('store defined?', store)
-setTimeout(() => {
-  console.log('store defined?', store)
-}, 3000)
 
 console.log('CONECTIOM: ', connectionChange)
 var config = {
@@ -42,7 +38,7 @@ connectedRef.on("value", snap => {
   }
   else {
     console.log('DISCONNECTED: ', connectionChange)
-    store.dispatch(connectionChange(false))
+    if(typeof store !== 'undefined') {store.dispatch(connectionChange(false))}
   }
 })
 
