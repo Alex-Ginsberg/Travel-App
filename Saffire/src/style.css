@@ -1,4 +1,3 @@
-
 /*
     ==================================
                Box-Sizing
@@ -47,7 +46,6 @@ body {
     margin-right: -200px;
 }
 
-
 .sapphire-itinerary-form input{
     width: 400px;
     height: 50px;
@@ -71,17 +69,16 @@ body {
 .sapphire-auth-div {
     font-size: .8em;
     float: right;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-right: 50px;
 }
 
 .sapphire-app-login {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2em;
+    font-size: 3em;
     display: inline-block;
     text-decoration: none;
     color: white;
-    padding: 10px 10px;
+    padding: 0 15px;
 }
 
 .sapphire-app-login:hover {
@@ -112,6 +109,12 @@ body {
     display: table;
     content: "";
 }
+
+/*
+    ========================================
+            Home Page Web Responsive
+    ========================================
+*/
 
 @media (min-width: 870px) and (max-width: 1050px) {
     .sapphire-app-title {
@@ -188,6 +191,47 @@ body {
     }
 }
  
+/*
+    ======================================
+         Iphone Home Page Responsive
+    ======================================
+*/
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width: 667px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) 
+{
+    .sapphire-app-title {
+        position: fixed;
+        font-size: 2em;
+        left: 100px;
+    }
+
+    .sapphire-auth-div { 
+        float: none;
+        margin: 0 auto;
+        padding-top: 40px;
+    }
+
+    .sapphire-home-page-border {
+        margin: 0;
+        padding: 0;
+    }
+    
+    #home-page-label {
+        font-size: 1.4em;
+    }
+
+    .sapphire-itinerary-form input {
+        width: 180px;
+    }
+
+    .sapphire-itinerary-form button {
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+}
 
 /*
 
@@ -197,11 +241,9 @@ body {
 */
 
 .bg-login {
-    background-image: url("https://static.pexels.com/photos/239520/pexels-photo-239520.jpeg");
+    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/KPMRVAREV0.jpg");
     background-size: cover;
-    background-repeat: no-repeat;
     height: 100vh;
-    /* width:70%; */
 }
 
 .box-login {
@@ -332,6 +374,7 @@ font-size: 1.2em;
     opacity: 0.7;
 }
 
+
 /*
     ===========================================
                    User Sign-Up
@@ -339,7 +382,7 @@ font-size: 1.2em;
 */
 
 .sapphire-user-signup-div {
-    background-image: url("https://image.shutterstock.com/z/stock-photo-landscapes-on-denali-highway-alaska-instagram-filter-309705941.jpg");
+    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/UG76JFIIHZ.jpg");
     background-size: cover;
     height: 100vh;
 }
@@ -452,6 +495,42 @@ font-size: 1.2em;
     }
 }
 
+
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width: 667px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
+    .sapphire-user-signup-div h1  {
+        font-size: 2em;
+        margin-top: -27px;
+        margin-right: -20px;
+    }
+
+    .sapphire-user-signup-box {
+        margin: 0;
+        padding-top: 30px;
+    }
+
+    .sapphire-user-signup-form {
+        padding: 40px;
+    }
+
+    .sapphire-user-signup-form h1 {
+        font-size: 1.3em;
+    }
+
+    .sapphire-user-signup-input input{
+        width: 220px;
+    }
+
+    .sapphire-user-signup-button-div button {
+        width: 120px;
+        font-size: 15px;
+        padding: 4px 9px;
+    }
+}
+
 /*
     ===========================================
                 Dashboard/User-Home
@@ -537,9 +616,6 @@ font-size: 1.2em;
     color: black;
 }
 
-#dash-map {
-    height: 100%;
-}
 
 
 /* =========================================
@@ -552,6 +628,11 @@ ITINERARY
     background-repeat: no-repeat;
     height: 100vh;
 }
+
+/* =========================================
+MENU ITEM
+========================================= */
+
 
 .menu-item {
     font-family: 'Montserrat', sans-serif;
@@ -627,26 +708,25 @@ ITINERARY
     width: 500px;
     height: 1000px;
     margin-left: 200px;
-}
+
+ }
+
+
 @media (min-width: 600px) and (max-width: 1200px) {
     #dash-title {
         font-size: 3.5em;
-        
     }
 
 }
 
-
-
-
 /*
- =========================================
-             All Itineraries
- ========================================= 
+ ===============================================
+                All Itineraries
+ ===============================================
 */
 
 .saffire-all-itineraries-div{
-    background-image: url("https://static.pexels.com/photos/239520/pexels-photo-239520.jpeg");
+    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/75PYASX6U1.jpg");
     background-size: cover;
     height: 100vh;
 }
@@ -656,9 +736,8 @@ ITINERARY
     color: white;
     letter-spacing: .2em;
     text-align: center;
-    font-size: 3.5em;
+    font-size: 6em;
     padding-top: 30px;
-    font-weight: 100;
 }
 
 .saffire-all-itineraries-div h3 {
@@ -666,190 +745,58 @@ ITINERARY
     color: white;
     text-decoration: underline;
     text-align: center;
-    letter-spacing: .15em;
-    margin-top: 50px;
-    font-weight: 100;
-}
-
-.saffire-all-itineraries-container {
-    text-align: center;
-    
-}
-
-.saffire-all-itineraries-container img {
-    max-width: 100%;
-}
-.saffire-col-4 {
-    width: 30%;
-    display: inline-block;
-}
-
-.saffire-all-itineraries-item {
-    padding: 40px;
-}
-
-
-.little-saffire-item {
-
-}
-
-
-/* .idea-board-title {
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-    color: white;
-    background: rgba(190, 190, 190, 0.7);
-    font-family: 'Montserrat', sans-serif;
-} */
-
-.idea-board-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.idea-board-url {
-    text-align: center;
-}
-
-.idea-board-words {
-    text-align: center;
-}
-
-.idea-board-title {
-    color: #63401d;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2em;
-    z-index: 3;
-}
-
-.idea-board-img {
-    padding: 10px;
-    width: 60%;
-    height: 60%;
-}
-
-
-.little-saffire-item span{
-    display: block;
-    padding: 10px;
-}
-
-.sapphire-itin-name-x {
-    font-size: 2.2em;
-    font-weight: 100;
-}
-
-.sapphire-itin-name-y {
-    font-size: 1em;
-}
-
-.sapphire-itin-name-z {
-    font-size: 1.4em;
-}
-
-.col-6 {
-    padding: 15px;
-    width: 30%;
-}
-
-
-
-
-
-/*
- =========================================
-             All Itineraries
- ========================================= 
-*/
-.saffire-all-itineraries-div{
-    background-image: url("https://static.pexels.com/photos/239520/pexels-photo-239520.jpeg");
-    background-size: cover;
-    height: 100vh;
-}
-.saffire-all-itineraries-div h1 {
-    font-family: 'Montserrat', sans-serif;
-    color: white;
     letter-spacing: .2em;
-    text-align: center;
-    font-size: 3.5em;
-    padding-top: 30px;
-    font-weight: 100;
-}
-.saffire-all-itineraries-div h3 {
-    font-size: 2.5em;
-    color: white;
-    text-decoration: underline;
-    text-align: center;
-    letter-spacing: .15em;
     margin-top: 50px;
     font-weight: 100;
 }
+
 .saffire-all-itineraries-container {
     text-align: center;
-    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
 }
-.saffire-all-itineraries-container img {
-    max-width: 100%;
-}
-.saffire-col-4 {
-    width: 30%;
-    display: inline-block;
-}
+
 .saffire-all-itineraries-item {
     padding: 40px;
 }
+
+.saffire-all-itineraries-item img {
+    border-radius: 5px;
+    width: 450px;
+}
+
 .little-saffire-item {
     color: white;
     background: rgba(190, 190, 190, 0.7);
     font-family: 'Montserrat', sans-serif;
+    width: 450px;
+    height: 200px;
+    margin: 0 auto;
 }
+
 .little-saffire-item span{
     display: block;
     padding: 10px;
 }
+
 .sapphire-itin-name-x {
-    font-size: 2.2em;
-    font-weight: 100;
+    font-size: 2.3em;
 }
+
 .sapphire-itin-name-y {
-    font-size: 1em;
+    font-size: 1.2em;
 }
+
 .sapphire-itin-name-z {
     font-size: 1.4em;
 }
 
-/*
-    ==================================
-                 Single Itinerary
-    ==================================
-*/
-
-.single-itin-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 5em;
-    font-weight: 300;
-    margin-top: 0;
-    color: black;
-    letter-spacing: .3em;
-    padding-top: 30px;
-    display: inline-block;
-    margin-right: -200px;
-    text-align: center;
+.sapphire-itin-name-z img {
+    width: 45px;
+    padding-right: 6px;
 }
 
-.single-itin-header {
-    text-align: center;
-    background-image: url("http://www.australia.com/content/australia/en_us/facts/_jcr_content/mainParsys/hero/image.adapt.1663.medium.jpg");
-    background-size: 10;
-    background-repeat: no-repeat;
-    height: 100vh;
-}
 
-.single-itin-status {
-    position: absolute;
-    bottom: 0;
-}
+
 
 
