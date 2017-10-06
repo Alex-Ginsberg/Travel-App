@@ -1,8 +1,9 @@
 //actions
 import firebase from '../firebase'
 import axios from 'axios'
-import googServerKey from '../secrets.js'
+import {googServerKey} from '../secrets.js'
 import history from '../history';
+
 
 export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
@@ -575,6 +576,24 @@ export const postUserCoordinates =  itin => dispatch => {
     })
 }
 
+
+export const postGeoLocation = itin => dispatch => {
+    console.log('itinpost', itin)
+    const userRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
+    axios.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${googServerKey}`)
+    .then(result => {
+        let locationArr = Object.keys(result.data.location)
+        let locationObj = result.data.location
+        console.log('location***', result.data.location)
+        let resultArr =[]
+        resultArr.push(Number(locationObj[locationArr[1]]), Number(locationObj[locationArr[0]]))
+        console.log('resultArr', resultArr)
+        return resultArr
+    })
+    .then(resultArray => {
+        console.log('resultArraythen', resultArray )
+        userRef.push({lat: resultArray[0], long: resultArray[1]})
+
 export const sendMessage = (user, itinKey, message) => {
     const messageRef = firebase.database().ref().child('itineraries').child(itinKey).child('messages')
     messageRef.push({
@@ -584,6 +603,7 @@ export const sendMessage = (user, itinKey, message) => {
     const newMessageRef = firebase.database().ref().child('itineraries').child(itinKey).child('newMessage').child('currentMessage')
     newMessageRef.transaction(newMessageRef => {
         return message
+
     })
 }
 
