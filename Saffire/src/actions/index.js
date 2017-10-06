@@ -10,6 +10,7 @@ export const ADD_EVENT = 'ADD_EVENT'
 export const SET_USERS = 'SET_USERS'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const REFRESH = 'REFRESH'
+export const FETCH_USER_COOR = 'FETCH_USER_COOR'
 
 
                                                                                             // Used for adding a new itinerary to the database
@@ -20,6 +21,8 @@ export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
             name: itinerary,
             owner: firebase.auth().currentUser.email,
             imageURL: itineraryImageURL,
+            coordinates: {defaultCoor: {lat: 0, long: 0}},
+            placeCoor: {defaultCoor: {lat: 0, long: 0}},
         })
         var newId = newRef.key;                                                             // Gets the PK from the newly created instance
                                                                                             // Creates a new object that resembles the one added to the database
@@ -455,53 +458,91 @@ export const setDateAndTime = (itinId, event, date, time) => dispatch => {
 
     
 
-export const geoFindMe = () => dispatch => {
+// export const geoFindMe = () => dispatch => {
     
-    console.log('handleClick thunk')
+//     console.log('handleClick thunk')
 
-    var output = document.getElementById("out");
+//     var output = document.getElementById("out");
 
-    //if no geolocation on browser
-    if (!navigator.geolocation){
-      output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-      return;
-    }
+//     //if no geolocation on browser
+//     if (!navigator.geolocation){
+//       output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+//       return;
+//     }
     
-    //success function triggers when allowed
-    function success(position) {
-      let latitude  = position.coords.latitude;
-      let longitude = position.coords.longitude;
+//     //success function triggers when allowed
+//     function success(position) {
+//       let latitude  = position.coords.latitude;
+//       let longitude = position.coords.longitude;
       
-      let userCoor = [];
-      userCoor.push(longitude, latitude)
+//       let userCoor = [];
+//       userCoor.push(longitude, latitude)
 
-      // this.setState({
-      //   userCoordinates: userCoor,
-      //   onClickDirty: true,
-      // })
+//       // this.setState({
+//       //   userCoordinates: userCoor,
+//       //   onClickDirty: true,
+//       // })
 
-      console.log('userCoor', userCoor)
-      return userCoor;
+//       console.log('userCoor', userCoor)
+//       return userCoor;
       
-    }
+//     }
     
-    //error handler
-    function error() {
-      output.innerHTML = "Unable to retrieve your location";
-    }
+//     //error handler
+//     function error() {
+//       output.innerHTML = "Unable to retrieve your location";
+//     }
   
-    output.innerHTML = "<p>Locating…</p>";
+//     output.innerHTML = "<p>Locating…</p>";
 
-    navigator.geolocation.getCurrentPosition(success, error);
+//     navigator.geolocation.getCurrentPosition(success, error);
   
+// }
+
+
+// *******************
+
+export const postUserCoordinates =  itin => dispatch => {
+    console.log('post coor hit')
+    
+    const coorRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
+    const noCoorRef = firebase.database().ref().child('itineraries').child(itin)
+    noCoorRef.once('value')
+    .then(result => {
+        let payload = [];
+
+        if (!navigator.geolocation){
+            console.log('not supported')
+            //output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+            return;
+          }
+
+        function success(position) {
+            console.log('success hit')
+            let latitude = position.coords.latitude
+            let longitude = position.coords.longitude
+            payload.push(longitude, latitude)
+            console.log('payload', payload)
+
+            let fireRef = firebase.database().ref().child('itineraries').child(itin)
+            fireRef.child('coordinates').push({lat: payload[0], long: payload[1]})
+
+            }
+        
+          function error() {
+            console.log('sorry no geolocator')
+            //output.innerHTML = "Unable to retrieve your location";
+          }
+        
+          //output.innerHTML = "<p>Locating…</p>";
+          navigator.geolocation.getCurrentPosition(success, error)
+
+         })
+    .catch(err => {
+        console.log(err)
+    })
 }
 
-export const postCoordinates = (itin, user) => {
-    //const coorRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
-    console.log('currentUser***', firebase.auth().currentUser)
-    console.log('itineraries', firebase.database().ref().child('itineraries').child('itin').child('coordinates'))
-
-}
 
 
       
@@ -514,6 +555,7 @@ export const newEvent = event => ({type: ADD_EVENT, event})
 export const setUsers = users => ({type: SET_USERS, users})
 export const setCurrentUser = user => ({type: SET_CURRENT_USER, user})
 export const causeRefresh = message => ({type: REFRESH, message})
+export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
 // export const selectItinerary = itinerary => ({type: SELECT_ITINERARY, itinerary})
 
 
