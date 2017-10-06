@@ -39,7 +39,7 @@ class BurgerMenu extends React.Component {
       <Menu styles={styles}>
         <div>
           <li><a className="menu-item" id="home" href="/">START YOUR ADVENTURE</a></li>
-          <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li>
+          {/* <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li> */}
           <li><a className="menu-item" id="Itineraries"  href="/itineraries">MY ITINERARIES</a></li> 
           <li><a className="menu-item" id="MyFriends"  href="/myfriends">FRIENDS</a></li>
           <li><p className="menu-item" onClick={() => this.setState({showButtons: !this.state.showButtons})}>UPDATE STATUS</p></li>
