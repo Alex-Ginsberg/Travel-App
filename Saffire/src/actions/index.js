@@ -50,7 +50,6 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
             console.log('ITIN: ', events)
             let eventsArr = []
             for (var key in events) {                                                       // Loop adds an object to state array
-                console.log('IN LOOP: ', key, events[key])                                  // Object is similar to event in database; difference is that it contains PK
                 const toAdd = {
                     key: key,
                     added: events[key].added,
