@@ -65,7 +65,7 @@ class AllItineraries extends React.Component {
             toRenderItins.map(itin => (
             
             <div className = "saffire-all-itineraries-item">
-              <img src={itin.imageURL} />
+            <img src={itin.imageURL} />
             
 
               <div className = "little-saffire-item" key={itin.key}>
