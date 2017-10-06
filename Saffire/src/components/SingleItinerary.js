@@ -69,10 +69,12 @@ class SingleItinerary extends Component{
     render() {
         const memberArray = []
         for (let i in this.state.itin.members) {
-            let toAdd = this.props.users.filter(currentUser => currentUser.key === this.state.itin.members[i].key)
+            let toAdd = this.props.users.filter(currentUser => (currentUser.key === this.state.itin.members[i].key))
             // memberArray.push(this.props.user[this.props.user.indexOf(this.state.itin.members[i].key]))
             memberArray.push(toAdd[0])
         }
+        const ownerAdd = this.props.users.filter(currentUser => currentUser.email === this.state.itin.owner)
+        memberArray.push(ownerAdd[0])
         console.log('MEMBERS: ', memberArray)
         /*
             FIREBASE EVENT LISTENERS
@@ -156,7 +158,7 @@ class SingleItinerary extends Component{
         for (let i in this.state.itin.messages) {
             chatMessages.push(this.state.itin.messages[i])
         }
-
+        console.log('IIITTTIIINNNN ', this.state.itin)
         return (
             <div>
                 <div className="single-itin-header">
