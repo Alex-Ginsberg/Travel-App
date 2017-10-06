@@ -51,19 +51,28 @@ class IdeaBoard extends Component {
     render() {
         /*
             FIREBASE EVENT LISTENERS
+         =========================================================================================================================================================
         */
         //Sets up an event listener that checks for anytime the amount of likes changes 
+        //Uses a conditional to also update when an event is added to the 'itinerary' side 
         this.props.currentEvents.map(event => {
             const eventRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('events').child(event.key)
             eventRef.on('child_changed', (data) => {
                 console.log('CHILD CHANGED: ', data.val())
                 const newLikes = data.val()
                 if (typeof newLikes === 'number') {
-                    console.log('LLLIIIESSS')
+                    this.props.getItineraryEvents(this.props.match.params.id)
+                }
+                else if (newLikes === true) {
                     this.props.getItineraryEvents(this.props.match.params.id)
                 }
             })
         })
+
+        /*
+        =========================================================================================================================================================
+            END FIREBASE EVENT LISTNERS
+        */
 
         console.log('idea board', this.props.currentEvents);
         let itinerary = this.state.itin;

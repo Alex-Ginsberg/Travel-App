@@ -12,7 +12,9 @@ export const ADD_EVENT = 'ADD_EVENT'
 export const SET_USERS = 'SET_USERS'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const REFRESH = 'REFRESH'
+export const CONNECT = 'CONNECT'
 export const FETCH_USER_COOR = 'FETCH_USER_COOR'
+
 
 
                                                                                             // Used for adding a new itinerary to the database
@@ -619,8 +621,11 @@ export const newEvent = event => ({type: ADD_EVENT, event})
 export const setUsers = users => ({type: SET_USERS, users})
 export const setCurrentUser = user => ({type: SET_CURRENT_USER, user})
 export const causeRefresh = message => ({type: REFRESH, message})
+export const connectionChange = status => ({type: CONNECT, status})
 export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
 // export const selectItinerary = itinerary => ({type: SELECT_ITINERARY, itinerary})
+
+console.log('SO HAPPPPYYYYY')
 
 
 

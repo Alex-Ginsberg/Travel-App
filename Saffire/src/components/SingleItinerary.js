@@ -5,7 +5,7 @@ import firebase from '../firebase'
 import TimePicker from 'material-ui/TimePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import DatePicker from 'material-ui/DatePicker';
-import {setDateAndTime, sendMessage} from '../actions'
+import {setDateAndTime, sendMessage, fetchUsers} from '../actions'
 import BurgerMenu from './Menu';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
@@ -39,7 +39,7 @@ class SingleItinerary extends Component{
         this.renderForm = this.renderForm.bind(this)
         this.submitEvent = this.submitEvent.bind(this)
         this.sendChat = this.sendChat.bind(this)
-    }
+}
 
     componentDidMount() {
         const itinRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id)
@@ -67,9 +67,18 @@ class SingleItinerary extends Component{
     }
 
     render() {
-        console.log('USERS: ', this.props.users)
+        const memberArray = []
+        for (let i in this.state.itin.members) {
+            let toAdd = this.props.users.filter(currentUser => (currentUser.key === this.state.itin.members[i].key))
+            // memberArray.push(this.props.user[this.props.user.indexOf(this.state.itin.members[i].key]))
+            memberArray.push(toAdd[0])
+        }
+        const ownerAdd = this.props.users.filter(currentUser => currentUser.email === this.state.itin.owner)
+        memberArray.push(ownerAdd[0])
+        console.log('MEMBERS: ', memberArray)
         /*
-        FIREBASE EVENT LISTENERS
+            FIREBASE EVENT LISTENERS
+         =========================================================================================================================================================
         */
         const eventRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('events')
         eventRef.on('child_changed', (data) => {
@@ -82,6 +91,23 @@ class SingleItinerary extends Component{
             }
             this.setState({itin: itin})
         })
+
+            memberArray.map(member => {
+                if (member) {
+                const userRef = firebase.database().ref().child('users').child(member.key)
+                userRef.on('child_changed', data => {
+                    if(typeof data.val() === 'string') {
+                        this.props.loadInitialData()
+                    }
+                })
+            }
+            })
+
+
+        /*
+        =========================================================================================================================================================
+            END FIREBASE EVENT LISTNERS
+        */
 
         const messageRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('messages')
         const chatMessages = []
@@ -126,19 +152,13 @@ class SingleItinerary extends Component{
             if (scheduledDates.indexOf(eventScheduled[i].schedule.date) === -1){scheduledDates.push(eventScheduled[i].schedule.date)}   
         }
 
-        const memberArray = []
-        for (let i in this.state.itin.members) {
-            let toAdd = this.props.users.filter(currentUser => currentUser.key === this.state.itin.members[i].key)
-            // memberArray.push(this.props.user[this.props.user.indexOf(this.state.itin.members[i].key]))
-            memberArray.push(toAdd[0])
-        }
-        console.log('MEMBERS: ', memberArray)
+        
 
         
         for (let i in this.state.itin.messages) {
             chatMessages.push(this.state.itin.messages[i])
         }
-
+        console.log('IIITTTIIINNNN ', this.state.itin)
         return (
             <div>
                 <div className="single-itin-header">
@@ -258,6 +278,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         sendMessage(user, itin, message) {
             sendMessage(user, itin, message)
+        },
+        loadInitialData () {
+            dispatch(fetchUsers())
         }
     }
 }
