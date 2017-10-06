@@ -2,6 +2,7 @@
 import firebase from '../firebase'
 import axios from 'axios'
 import googServerKey from '../secrets.js'
+import history from '../history';
 
 export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
@@ -31,7 +32,8 @@ export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         }
         console.log('NEW ID: ', newId)
         console.log('SETITIN: ', setItinerary(itinObj))
-        return dispatch(setItinerary(itinObj))
+        dispatch(setItinerary(itinObj))
+        history.push(`/ideaboard/${newId}`);
 }
                                                                                             // Used for getting all events for a certain itinerary from the database
 export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
@@ -65,41 +67,22 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
         })
 }
                                                                                             // Used when a new event is added to the itinerary's idea board
-export const addEvent = (url, itin) => dispatch => {
-    axios.get(`http://api.linkpreview.net/?key=59ceb254e639805e71e929ab347575465baaf5072e1b1&q=${url}`)
+export const addEvent = (url, itinID) => dispatch => {
+    axios.get(`https://api.linkpreview.net/?key=59ceb254e639805e71e929ab347575465baaf5072e1b1&q=${url}`)
         .then(res => res.data)
         .then(preview => {
-            let isFirstEvent = false
-            const itinKey = itin.key
-            let newId
-            const currentItinRef = firebase.database().ref().child('itineraries').child(itin.key).child('events')
-            console.log(currentItinRef)
-            currentItinRef.transaction(currentEvents => {
-                if (currentEvents === null){
-                    isFirstEvent = true
-                    return {event1: {
-                        title: preview.title,
-                        description: preview.description,
-                        image: preview.image,
-                        url: preview.url,
-                        added: false,
-                        likes: 0,
-                        key: 'event1'
-                    }}
-                }
-            })
-            if (!isFirstEvent) {
-                const newRef = currentItinRef.push({
-                    title: preview.title,
-                    description: preview.description,
-                    image: preview.image,
-                    url: preview.url,
-                    added: false,
-                    likes: 0
-                })
-                newId = newRef.key
-                console.log('NEWID: ', newId)
-            }
+            // let isFirstEvent = false
+            // con newId
+            console.log('itinID', itinID);
+            const currentItinRef = firebase.database().ref().child('itineraries').child(itinID).child('events')
+            // console.log('currentItinRef addevent Action', currentItinRef)
+            const newRef = currentItinRef.push({title: preview.title,
+                description: preview.description,
+                image: preview.image,
+                url: preview.url,
+                added: false,
+                likes: 0})
+            const newId = newRef.key
             const eventNode = {
                 title: preview.title,
                 description: preview.description,
@@ -109,6 +92,51 @@ export const addEvent = (url, itin) => dispatch => {
                 key: newId,
                 likes: 0
             }
+            // currentItinRef.transaction(currentEvents => {
+            //     curre
+
+
+            // console.log('current events', currentEvents);
+            //     if (currentEvents === null){
+            //         console.log('HIT NULL');
+            //         isFirstEvent = true
+            //         return {event1: {
+            //             title: preview.title,
+            //             description: preview.description,
+            //             image: preview.image,
+            //             url: preview.url,
+            //             added: false,
+            //             likes: 0,
+            //             key: 'event1'
+            //         }}
+            //     }
+            // })
+
+            // if (!isFirstEvent) {
+            //     const newRef = currentItinRef.push({
+            //         title: preview.title,
+            //         description: preview.description,
+            //         image: preview.image,
+            //         url: preview.url,
+            //         added: false,
+            //         likes: 0
+            //     })
+            //     newId = newRef.key
+            //     console.log('newRef', newRef)
+            //     console.log('NEWID: ', newId)
+            // }
+            // const eventNode = {
+            //     title: preview.title,
+            //     description: preview.description,
+            //     image: preview.image,
+            //     url: preview.url,
+            //     added: false, 
+            //     key: newId,
+            //     likes: 0
+            // }
+            
+            console.log('event node', eventNode);
+
             return dispatch(newEvent(eventNode))
         })
 
@@ -371,10 +399,10 @@ export const onUserListener = (user) => dispatch => {
 }
 
 
-export const addToItinerary = (itin, user) => dispatch => {
+export const addToItinerary = (itinID, user) => dispatch => {
 
 
-    const itinRef = firebase.database().ref().child('itineraries').child(itin).child('members')
+    const itinRef = firebase.database().ref().child('itineraries').child(itinID).child('members')
     const recipient = firebase.database().ref().child('users').child(user)
 
 
@@ -397,7 +425,7 @@ export const addToItinerary = (itin, user) => dispatch => {
                         "title": "Saffire",
                         "body": "You've been added to a new itinerary! Click to view.",
                         "icon": "firebase-logo.png",
-                        "click_action": "https://deets-76612.firebaseapp.com/mypassport"
+                        "click_action": "https://deets-76612.firebaseapp.com/"
                         },
                         "to": userToken
                     }

@@ -23,12 +23,12 @@ class WhereTo extends Component {
         // this.props.getCurrentUser() 
     }
 
-    handleSubmit(e) {
+   async handleSubmit(e) {
         e.preventDefault()
         let newItinerary = this.state.newItinerary
         const itineraryImageURL = this.getDestination(newItinerary);
-        this.props.setItineraryName(newItinerary, itineraryImageURL) 
-        history.push('/itineraries');
+        this.props.setItineraryName(newItinerary, itineraryImageURL)
+   
     }
     
     
@@ -48,7 +48,7 @@ class WhereTo extends Component {
             'melbourne': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/melbourne.jpg?alt=media&token=194f12a5-53ca-4868-a568-7f1fda1247c7',
             'osaka': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/melbourne.jpg?alt=media&token=194f12a5-53ca-4868-a568-7f1fda1247c7',
             'paris': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/paris.JPG?alt=media&token=22b38ce7-1465-4e23-a65c-fe787e6ac809',
-            'san-francisco': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/san-francisco.jpg?alt=media&token=ec1b5c56-776b-4fc9-8b83-051cae0f8c38',
+            'san francisco': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/san-francisco.jpg?alt=media&token=ec1b5c56-776b-4fc9-8b83-051cae0f8c38',
             'sydney': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/sydney.jpg?alt=media&token=0f360a1a-89c4-405c-a3e0-d060eb01568e',
             'tokyo': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/tokyo.jpg?alt=media&token=b2af930b-99c3-4bc7-8e4f-653d38d85bbd',
             // 'new york': ,
