@@ -30,62 +30,16 @@ export class MapComp extends Component {
     }
   }
 
-    // componentDidMount () {
-    //   console.log('post coor hit')
-
-    //   const coorRef = firebase.database().ref().child('itineraries').child(this.props.itinKey.id).child('coordinates')
-    //   const noCoorRef = firebase.database().ref().child('itineraries').child(this.props.itinKey.id)
-    //   let payload = [];
-
-
-
-    //   function success(position) {
-    //     console.log('success hit')
-    //     let latitude = position.coords.latitude
-    //     let longitude = position.coords.longitude
-    //     payload.push(longitude, latitude)
-    //     console.log('payload', payload)
-        
-    //     noCoorRef.child('coordinates').push({lat: payload[0], long: payload[1]})
-    //     }
-      
-    //   noCoorRef.once('value')
-
-      
-    //   .then(result => {
-          
-  
-    //       if (!navigator.geolocation){
-    //           console.log('not supported')
-    //           //output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-    //           return;
-    //         }
-  
-          
-          
-    //         function error() {
-    //           console.log('sorry no geolocator')
-    //           //output.innerHTML = "Unable to retrieve your location";
-    //         }
-          
-    //         //output.innerHTML = "<p>Locating…</p>";
-    //         navigator.geolocation.getCurrentPosition(success, error)
-            
-    //        })
-    //   .catch(err => {
-    //       console.log(err)
-    //   })
-    // }
+    
 
     componentDidMount() {
       console.log('component mount hit')
       // this.setState({userCoordinates: this.props.handleClick(this.props.itinKey.id)})
-      this.props.handleClick(this.props.itinKey.id)
+     this.props.handleClick(this.props.itinKey)
     }
 
     handleClickLocal (e) {
       let itinKey = this.props.itinKey
-      console.log('itinkeylocal', this.props.itinKey)
       this.props.handleClick(itinKey)
       //let result = this.props.handleClick(key.id)
       // this.setState({
@@ -96,13 +50,17 @@ export class MapComp extends Component {
 
     render() {
       let {handleClick, user, itineraryName, itinKey} = this.props
-        //console.log('itinKey', itinKey) //object with id
+      let userCoordinates = this.state.userCoordinates
+      let userLocation = []
+      let userCoor = firebase.database().ref().child('itineraries').child(itinKey.id).child('coordinates')
 
-      // let userCoor = firebase.database().ref().child('itineraries').child(itinKey)
-      // userCoor.once('value')
-      // .then(result => {
-      //   console.log('resultval', result.val())
-      // })
+      //get user coordinate
+      userCoor.once('value')
+      .then(result => {
+        let objResult = Object.keys(result.val())
+        userLocation.push(result.val()[objResult[0]].lat, result.val()[objResult[0]].long )
+        console.log('userlocation', userLocation)
+      })
       return (
           <div>
             <Map
@@ -121,10 +79,10 @@ export class MapComp extends Component {
               </Layer>
               <div className="map-marker">
             <Marker 
-              coordinates={[-74.0091638, 40.7049151]}
+              coordinates={userLocation}
               anchor="bottom">
               <img  style = {{width: "64px", height: "64px"}} src="/assets/user-marker.png"/>
-              </Marker>
+            </Marker>
               {/* this.state.userCoordinates.length && <Marker
               coordinates={this.state.userCoordinates}
               anchor="bottom">
