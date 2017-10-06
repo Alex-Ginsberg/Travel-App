@@ -15,6 +15,7 @@ class IdeaBoard extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onSuggestSelect = this.onSuggestSelect.bind(this);
+        this.handleChange = this.handleChange.bind(this)
 
         this.state = {
             newURL: '',
