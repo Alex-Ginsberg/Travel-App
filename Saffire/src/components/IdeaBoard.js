@@ -62,6 +62,9 @@ class IdeaBoard extends Component {
                     console.log('LLLIIIESSS')
                     this.props.getItineraryEvents(this.props.match.params.id)
                 }
+                else if (newLikes === true) {
+                    this.props.getItineraryEvents(this.props.match.params.id)
+                }
             })
         })
 
