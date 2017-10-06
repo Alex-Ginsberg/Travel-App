@@ -63,13 +63,14 @@ class SingleItinerary extends Component{
     sendChat(e) {
         e.preventDefault()
         this.props.sendMessage(this.props.user, this.props.match.params.id, this.state.chatMessage)
-        // const itin = this.state.itin
-        // itin.messages.newMessage = {sender: this.props.user.name, content: this.state.chatMessage}
         this.setState({chatMessage: ''})
     }
 
     render() {
-
+        console.log('USERS: ', this.props.users)
+        /*
+        FIREBASE EVENT LISTENERS
+        */
         const eventRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('events')
         eventRef.on('child_changed', (data) => {
             const val = data.val()
@@ -82,17 +83,30 @@ class SingleItinerary extends Component{
             this.setState({itin: itin})
         })
 
-        const messageRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('newMessage')
+        const messageRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('messages')
         const chatMessages = []
-        messageRef.on('child_changed', (data) => {
+        messageRef.limitToLast(1).on('child_added', (data) => {
             const val = data.val()
             console.log('***************', val)
-            const itin = this.state.itin  
+            // // chatMessages.push(val)
+            // // this.forceUpdate()
+            // const itin = this.state.itin
+            // const tmp = []
+            // for (let i in this.state.itin.messages) {
+            //     tmp.push(this.state.itin.messages[i])
+            // }
+            // // if (!tmp.includes(data) && this.state.itin.messages) {
+            // //     itin.messages.newMessage = val
+            // //     this.setState({itin: itin})
+            // // }
+
+
+            
         })
 
         let events = []
         let eventScheduled = []
-        // console.log(this.state)
+        console.log(this.state)
         for (let key in this.state.itin.events) {
             if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){events.push(this.state.itin.events[key])}
             else if (this.state.itin.events[key].schedule){eventScheduled.push(this.state.itin.events[key])}
@@ -118,9 +132,7 @@ class SingleItinerary extends Component{
             // memberArray.push(this.props.user[this.props.user.indexOf(this.state.itin.members[i].key]))
             memberArray.push(toAdd[0])
         }
-        // console.log('MEMBERS: ', memberArray)
-        
-        const currentItinKey = this.props.match.params.id;
+        console.log('MEMBERS: ', memberArray)
 
         
         for (let i in this.state.itin.messages) {
@@ -203,7 +215,6 @@ class SingleItinerary extends Component{
                         </div>
                     </div>
                 </div>
-
                 <button onClick={() => this.props.history.push('/ideaboard')}>IdeaBoard</button>
                 <button onClick={() => this.setState({showChat: !this.state.showChat})}>Chat</button>
                 {this.state.showChat && 
@@ -222,21 +233,18 @@ class SingleItinerary extends Component{
                     </form>
                 </div>
                 }
-
-                <button onClick={() => this.props.history.push(`/ideaboard/${currentItinKey}`)}>IdeaBoard</button>
-
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-
+    console.log('state', state)
     return {
         itineraryName: state.currentItinerary,
         refresh: state.refresh,
         users: state.users,
-        user: state.currentUser,
+        user: state.currentUser
 
     }
 }
