@@ -2,6 +2,8 @@
 import firebase from '../firebase'
 import axios from 'axios'
 import {googServerKey} from '../secrets.js'
+import history from '../history';
+
 
 export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
@@ -34,22 +36,24 @@ export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         }
         console.log('NEW ID: ', newId)
         console.log('SETITIN: ', setItinerary(itinObj))
-        return dispatch(setItinerary(itinObj))
+        dispatch(setItinerary(itinObj))
+        history.push(`/ideaboard/${newId}`);
 }
                                                                                             // Used for getting all events for a certain itinerary from the database
-export const fetchEvents = (itinerary, fromLike) => dispatch => {
-    let itinKey
-    if (fromLike) {itinKey = itinerary}                                                     // If we are fetching events because there has been a new like, itinerary passed in will already be the key
-    else {itinKey = itinerary.key}
+export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
+    const itinKey = itineraryKey;
+    // if (fromLike) {itinKey = itineraryKey}                                                     // If we are fetching events because there has been a new like, itinerary passed in will already be the key
+    // else {itinKey = itinerary.key}
     console.log('INSIDE FETH: ', itinKey)
-    const itinerariesRef = firebase.database().ref(`/itineraries/${itinKey}`)               // Gets a reference to the particular itinerary we are getting the events from
+    const itinerariesRef = firebase.database().ref(`/itineraries/${itinKey}`) 
+                                                                                            // Gets a reference to the particular itinerary we are getting the events from
     itinerariesRef.once('value')                                                            // 'once' is used to read data from the reference             
         .then(snapshot => {
-            const events = snapshot.val().events                                            // Get the events object from the reference
+            console.log('ITIN:', snapshot.val());
+            const events = snapshot.val().events                                          // Get the events object from the reference
             console.log('ITIN: ', events)
             let eventsArr = []
             for (var key in events) {                                                       // Loop adds an object to state array
-                console.log('IN LOOP: ', key, events[key])                                  // Object is similar to event in database; difference is that it contains PK
                 const toAdd = {
                     key: key,
                     added: events[key].added,
@@ -66,41 +70,22 @@ export const fetchEvents = (itinerary, fromLike) => dispatch => {
         })
 }
                                                                                             // Used when a new event is added to the itinerary's idea board
-export const addEvent = (url, itin) => dispatch => {
-    axios.get(`http://api.linkpreview.net/?key=59ceb254e639805e71e929ab347575465baaf5072e1b1&q=${url}`)
+export const addEvent = (url, itinID) => dispatch => {
+    axios.get(`https://api.linkpreview.net/?key=59ceb254e639805e71e929ab347575465baaf5072e1b1&q=${url}`)
         .then(res => res.data)
         .then(preview => {
-            let isFirstEvent = false
-            const itinKey = itin.key
-            let newId
-            const currentItinRef = firebase.database().ref().child('itineraries').child(itin.key).child('events')
-            console.log(currentItinRef)
-            currentItinRef.transaction(currentEvents => {
-                if (currentEvents === null){
-                    isFirstEvent = true
-                    return {event1: {
-                        title: preview.title,
-                        description: preview.description,
-                        image: preview.image,
-                        url: preview.url,
-                        added: false,
-                        likes: 0,
-                        key: 'event1'
-                    }}
-                }
-            })
-            if (!isFirstEvent) {
-                const newRef = currentItinRef.push({
-                    title: preview.title,
-                    description: preview.description,
-                    image: preview.image,
-                    url: preview.url,
-                    added: false,
-                    likes: 0
-                })
-                newId = newRef.key
-                console.log('NEWID: ', newId)
-            }
+            // let isFirstEvent = false
+            // con newId
+            console.log('itinID', itinID);
+            const currentItinRef = firebase.database().ref().child('itineraries').child(itinID).child('events')
+            // console.log('currentItinRef addevent Action', currentItinRef)
+            const newRef = currentItinRef.push({title: preview.title,
+                description: preview.description,
+                image: preview.image,
+                url: preview.url,
+                added: false,
+                likes: 0})
+            const newId = newRef.key
             const eventNode = {
                 title: preview.title,
                 description: preview.description,
@@ -110,6 +95,51 @@ export const addEvent = (url, itin) => dispatch => {
                 key: newId,
                 likes: 0
             }
+            // currentItinRef.transaction(currentEvents => {
+            //     curre
+
+
+            // console.log('current events', currentEvents);
+            //     if (currentEvents === null){
+            //         console.log('HIT NULL');
+            //         isFirstEvent = true
+            //         return {event1: {
+            //             title: preview.title,
+            //             description: preview.description,
+            //             image: preview.image,
+            //             url: preview.url,
+            //             added: false,
+            //             likes: 0,
+            //             key: 'event1'
+            //         }}
+            //     }
+            // })
+
+            // if (!isFirstEvent) {
+            //     const newRef = currentItinRef.push({
+            //         title: preview.title,
+            //         description: preview.description,
+            //         image: preview.image,
+            //         url: preview.url,
+            //         added: false,
+            //         likes: 0
+            //     })
+            //     newId = newRef.key
+            //     console.log('newRef', newRef)
+            //     console.log('NEWID: ', newId)
+            // }
+            // const eventNode = {
+            //     title: preview.title,
+            //     description: preview.description,
+            //     image: preview.image,
+            //     url: preview.url,
+            //     added: false, 
+            //     key: newId,
+            //     likes: 0
+            // }
+            
+            console.log('event node', eventNode);
+
             return dispatch(newEvent(eventNode))
         })
 
@@ -130,21 +160,24 @@ export const newLike = (eventId, itinKey) => dispatch => {
     console.log('INSIDE LIKE: ', eventId, itinKey)
     const likedByRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('likedBy')
     const likesRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('likes')
+    
     likesRef.transaction(likes => {                                                         // Updates the like counter in firebase
         return likes + 1
     })
-    let isFirstLike = false
-    likedByRef.transaction(likedBy => {                                                     // Will add the currently logged in user to the 'likedBy' group
-        if(likedBy === null) {                                                              // This makes sure each event can only be liked by each user once
-            isFirstLike = true                                                              // Will also allow for seeing who is going to an event
-            return {firstLiker : {
-                name: firebase.auth().currentUser.email
-            }}
-    }})
-    if (!isFirstLike) {
-        likedByRef.push({name: firebase.auth().currentUser.email})
-    }
+    
+    // likedByRef.transaction(likedBy => {                                                     // Will add the currently logged in user to the 'likedBy' group
+    //     if(likedBy === null) {                                                              // This makes sure each event can only be liked by each user once
+    //         isFirstLike = true                                                              // Will also allow for seeing who is going to an event
+    //         return {firstLiker : {
+    //             name: firebase.auth().currentUser.email
+    //         }}
+    // }})
+
+    likedByRef.push({name: firebase.auth().currentUser.email})
+
     return dispatch(fetchEvents(itinKey, true))
+
+
 }
                                                                                             // Used for moving an item from 'vote' to 'added
 export const confirmEvent = (eventId, itinKey) => dispatch => {
@@ -372,10 +405,10 @@ export const onUserListener = (user) => dispatch => {
 }
 
 
-export const addToItinerary = (itin, user) => dispatch => {
+export const addToItinerary = (itinID, user) => dispatch => {
 
 
-    const itinRef = firebase.database().ref().child('itineraries').child(itin).child('members')
+    const itinRef = firebase.database().ref().child('itineraries').child(itinID).child('members')
     const recipient = firebase.database().ref().child('users').child(user)
 
 
@@ -398,7 +431,7 @@ export const addToItinerary = (itin, user) => dispatch => {
                         "title": "Saffire",
                         "body": "You've been added to a new itinerary! Click to view.",
                         "icon": "firebase-logo.png",
-                        "click_action": "https://deets-76612.firebaseapp.com/mypassport"
+                        "click_action": "https://deets-76612.firebaseapp.com/"
                         },
                         "to": userToken
                     }
@@ -543,6 +576,7 @@ export const postUserCoordinates =  itin => dispatch => {
     })
 }
 
+
 export const postGeoLocation = itin => dispatch => {
     console.log('itinpost', itin)
     const userRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
@@ -559,6 +593,17 @@ export const postGeoLocation = itin => dispatch => {
     .then(resultArray => {
         console.log('resultArraythen', resultArray )
         userRef.push({lat: resultArray[0], long: resultArray[1]})
+
+export const sendMessage = (user, itinKey, message) => {
+    const messageRef = firebase.database().ref().child('itineraries').child(itinKey).child('messages')
+    messageRef.push({
+        sender: user.name,
+        content: message,
+    })
+    const newMessageRef = firebase.database().ref().child('itineraries').child(itinKey).child('newMessage').child('currentMessage')
+    newMessageRef.transaction(newMessageRef => {
+        return message
+
     })
 }
 

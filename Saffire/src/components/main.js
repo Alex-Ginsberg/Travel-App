@@ -39,8 +39,6 @@ class Main extends Component {
               <Link to='/signup' className = "sapphire-app-login">SIGN UP</Link>
             </div>
           ) 
-          
-
         }
       </div>
 

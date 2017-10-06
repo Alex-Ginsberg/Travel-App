@@ -43,7 +43,7 @@ class LinkPreview extends Component {
     // Will create an array with the emails of everybody who has already liked this event
     // Used to make sure an event can only be liked once
     for (var key in this.props.likedBy) {
-      likedByArray.push(this.props.likedBy[key].name)
+      likedByArray.push(this.props.likedBy[key].name + ' ')
     }
     return(
       <Card>
@@ -59,7 +59,7 @@ class LinkPreview extends Component {
           <img src={this.props.image} alt="" />
         </CardMedia>
         <CardActions>
-          <FlatButton label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={likedByArray.includes(firebase.auth().currentUser.email)}/>
+          {!this.props.hasBeenAdded && <FlatButton label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={likedByArray.includes(firebase.auth().currentUser.email)}/> }
           {!this.props.hasBeenAdded && <FlatButton label="Add To Itinerary" onClick={() => this.props.confirmEvent(this.props.eventKey, this.props.itinKey) }/>}
         </CardActions>
         <CardText expandable={true}>
