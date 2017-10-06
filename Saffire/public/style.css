@@ -69,16 +69,16 @@ body {
 .sapphire-auth-div {
     font-size: .8em;
     float: right;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-right: 50px;
 }
 
 .sapphire-app-login {
-    font-size: 2.5em;
+    font-size: 3em;
     display: inline-block;
     text-decoration: none;
     color: white;
-    padding: 10px 10px;
+    padding: 0 15px;
 }
 
 .sapphire-app-login:hover {
@@ -627,7 +627,7 @@ and (orientation: portrait) {
 */
 
 .saffire-all-itineraries-div{
-    background-image: url("https://static.pexels.com/photos/239520/pexels-photo-239520.jpeg");
+    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/75PYASX6U1.jpg");
     background-size: cover;
     height: 100vh;
 }
@@ -654,7 +654,7 @@ and (orientation: portrait) {
 .saffire-all-itineraries-container {
     text-align: center;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
 }
 
 .saffire-all-itineraries-item {
@@ -663,6 +663,7 @@ and (orientation: portrait) {
 
 .saffire-all-itineraries-item img {
     border-radius: 5px;
+    width: 450px;
 }
 
 .little-saffire-item {
@@ -689,5 +690,10 @@ and (orientation: portrait) {
 
 .sapphire-itin-name-z {
     font-size: 1.4em;
+}
+
+.sapphire-itin-name-z img {
+    width: 45px;
+    padding-right: 6px;
 }
 
