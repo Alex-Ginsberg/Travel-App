@@ -5,6 +5,8 @@ import firebase from '../firebase'
 import { postItinerary, setCurrentItinerary, getCurrentUser } from '../actions'
 import BurgerMenu from './Menu'
 
+// const losAngeles = "../destination-images/los-angeles.jpeg";
+
 class AllItineraries extends React.Component {
   constructor () {
     super()
@@ -28,17 +30,17 @@ class AllItineraries extends React.Component {
   }
 
   render () {
- 
+
     let toRenderItins = []
     if (this.props.currentUser.key) {
       for (var i = 0; i < this.state.itinArray.length; i++) {
         if (this.state.itinArray[i].owner === this.props.currentUser.email){ 
-          toRenderItins.push(this.state.itinArray[i])
+          toRenderItins.unshift(this.state.itinArray[i])
         }
         else if (this.state.itinArray[i].members) {
           for (var key in this.state.itinArray[i].members) {
             if (this.state.itinArray[i].members[key].key === this.props.currentUser.key){
-              toRenderItins.push(this.state.itinArray[i])
+              toRenderItins.unshift(this.state.itinArray[i])
             }
           }
         }
@@ -46,7 +48,9 @@ class AllItineraries extends React.Component {
     }
     
 
-    console.log(this.props.currentUser, "(((((")
+
+    console.log('toRender******', toRenderItins);
+
     return (
       <div className="saffire-all-itineraries-div">
         
@@ -57,22 +61,28 @@ class AllItineraries extends React.Component {
         <h3>MY ITINERARIES</h3>
 
         <div className = "saffire-all-itineraries-container">
-          {toRenderItins.map(itin => (
+          {
+            toRenderItins.map(itin => (
+            
             <div className = "saffire-all-itineraries-item">
-              <img src = "https://cdn.stocksnap.io/img-thumbs/960w/3SOTA2KHAI.jpg" />
-              <div className = "little-saffire-item" key={itin.key} onClick={() => { 
+            <img src={itin.imageURL} />
+            
+
+              <div className = "little-saffire-item" key={itin.key}>
+                <span className = "sapphire-itin-name-x" onClick={() => { 
                 firebase.database().ref(`/itineraries/${itin.key}`).once('value')
                 .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
-                .then(() => this.props.history.push('/money'))
-                }}>
-                
-                <span className = "sapphire-itin-name-x">{itin.name}</span>
-                <span className = "sapphire-itin-name-y">10 Aug 2017 - 15 Aug 2017</span>
-                <span className = "sapphire-itin-name-z"> <img src ="assets/person-icon.png"></img>{this.props.currentUser.friends !== undefined ? Object.keys(this.props.currentUser.friends).length + " Friends" : "0 Friends"}</span>
-                
-                </div>
+                .then(() => this.props.history.push(`/itinerary/${itin.key}`))
+                }}>{itin.name}</span>
+
+                {/* <span className = "sapphire-itin-name-y">10 Aug 2017 - 15 Aug 2017</span> */}
+                <span className = "sapphire-itin-name-z"> <i className="fa fa-user" aria-hidden="true"></i>{this.props.currentUser.friends !== undefined ? Object.keys(this.props.currentUser.friends).length + " Friend" : "0 Friend"}</span>
+                <span className = "little-saffire-item" onClick={() => this.props.history.push(`/ideaboard/${itin.key}`)}>IDEA BOARD</span>
+              </div>
+
             </div>
-          ))}
+            ))
+          }
           </div>
       </div>
     )

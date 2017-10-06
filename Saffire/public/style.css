@@ -46,6 +46,10 @@ body {
     margin-right: -200px;
 }
 
+.check {
+    color: green;
+}
+
 .sapphire-itinerary-form input{
     width: 400px;
     height: 50px;
@@ -74,7 +78,12 @@ body {
 }
 
 .sapphire-app-login {
+
     font-size: 3em;
+
+    font-family: 'Montserrat', sans-serif;
+  
+
     display: inline-block;
     text-decoration: none;
     color: white;
@@ -374,6 +383,7 @@ font-size: 1.2em;
     opacity: 0.7;
 }
 
+
 /*
     ===========================================
                    User Sign-Up
@@ -615,9 +625,112 @@ and (orientation: portrait) {
     color: black;
 }
 
-#dash-map {
-    height: 100%;
+
+
+/* =========================================
+ITINERARY 
+========================================= */
+
+.itin-main {
+    background-image: url("/assets/car-map.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
 }
+
+/* =========================================
+MENU ITEM
+========================================= */
+
+
+.menu-item {
+    font-family: 'Montserrat', sans-serif;
+    padding: 15px;
+    display: block;
+    /* width: 60px; */
+    color: #493716;
+    text-decoration: none;
+}
+
+.menu-item:hover {
+    background-color: #f4b642;
+    color: white;
+    text-decoration: none;
+}
+
+.menu-item-status {
+    font-family: 'Montserrat', sans-serif;
+    padding: 5px;
+    display: block;
+    /* width: 60px; */
+    color: #493716;
+    text-decoration: none;
+    font-size: 5;
+}
+
+.menu-item-current-status {
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px;
+    display: block;
+    /* width: 60px; */
+    color: #493716;
+    text-decoration: none;
+    font-size: 5;
+}
+
+.menu-item-status:hover {
+    background-color: #f4b642;
+    color: white;
+    text-decoration: none;
+}
+
+.sapphire-idea-board {
+    border: 7px solid;
+    display: inline-block;
+    padding: 20px;
+    background-color: white;
+}
+
+.sapphire-idea-board button{
+    display: block;
+    font-size: 30px;
+    color: azure;
+    background-color: lightgreen;
+    border-radius: 10px;
+    padding: 5px 9px;
+    margin: 20px 0;
+}
+
+.sapphire-event-board {
+    border: 10px solid black;
+    display: inline-block;
+    margin: 0 auto;
+    width: 500px;
+    height: 500px;
+    margin-left: 200px;
+}
+
+.sapphire-event-box{
+    border: 10px solid black;
+    display: inline-block;
+    margin: 0 auto;
+    width: 500px;
+    height: 1000px;
+    margin-left: 200px;
+
+ }
+
+
+@media (min-width: 600px) and (max-width: 1200px) {
+    #dash-title {
+        font-size: 3.5em;
+        
+    }
+
+}
+
+
+
 
 
 /*
@@ -658,22 +771,22 @@ and (orientation: portrait) {
 }
 
 .saffire-all-itineraries-item {
-    padding: 40px;
+    /* padding: 40px; */
 }
+
 
 .saffire-all-itineraries-item img {
     border-radius: 5px;
     width: 450px;
 }
 
+
 .little-saffire-item {
-    color: white;
-    background: rgba(190, 190, 190, 0.7);
-    font-family: 'Montserrat', sans-serif;
-    width: 450px;
-    height: 200px;
-    margin: 0 auto;
+
 }
+
+
+
 
 .little-saffire-item span{
     display: block;
@@ -695,5 +808,4 @@ and (orientation: portrait) {
 .sapphire-itin-name-z img {
     width: 45px;
     padding-right: 6px;
-}
 

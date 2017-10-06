@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import './index.css';
+import './style.css';
 
 import Routes from './routes'
 import registerServiceWorker, {unregister} from './registerServiceWorker'

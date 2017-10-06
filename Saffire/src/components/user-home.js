@@ -4,7 +4,6 @@ import BurgerMenu from './Menu'
 import firebase from 'firebase'
 import history from '../history'
 import AllItineraries from './AllItineraries'
-import {MapComp} from '../components'
 import {googServerKey} from '../secrets.js'
 
 /**

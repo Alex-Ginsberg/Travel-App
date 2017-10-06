@@ -1,6 +1,8 @@
 //actions
 import firebase from '../firebase'
 import axios from 'axios'
+import googServerKey from '../secrets.js'
+import history from '../history';
 
 export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
@@ -8,15 +10,17 @@ export const SELECT_ITINERARY = 'SELECT_ITINERARY'
 export const ADD_EVENT = 'ADD_EVENT'
 export const SET_USERS = 'SET_USERS'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
+export const REFRESH = 'REFRESH'
 
 
                                                                                             // Used for adding a new itinerary to the database
-export const postItinerary = itinerary => dispatch => {
+export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const itinerariesRef = firebase.database().ref('itineraries')                       // Gets a reference to the 'itineraries' table in firebase
         console.log('INSIDE THuNK, CURRENT USER: ', firebase.auth().currentUser.email)
         const newRef = itinerariesRef.push({                                                // Pushes the new itinerary to firebase
             name: itinerary,
-            owner: firebase.auth().currentUser.email
+            owner: firebase.auth().currentUser.email,
+            imageURL: itineraryImageURL,
         })
         var newId = newRef.key;                                                             // Gets the PK from the newly created instance
                                                                                             // Creates a new object that resembles the one added to the database
@@ -28,18 +32,21 @@ export const postItinerary = itinerary => dispatch => {
         }
         console.log('NEW ID: ', newId)
         console.log('SETITIN: ', setItinerary(itinObj))
-        return dispatch(setItinerary(itinObj))
+        dispatch(setItinerary(itinObj))
+        history.push(`/ideaboard/${newId}`);
 }
                                                                                             // Used for getting all events for a certain itinerary from the database
-export const fetchEvents = (itinerary, fromLike) => dispatch => {
-    let itinKey
-    if (fromLike) {itinKey = itinerary}                                                     // If we are fetching events because there has been a new like, itinerary passed in will already be the key
-    else {itinKey = itinerary.key}
+export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
+    const itinKey = itineraryKey;
+    // if (fromLike) {itinKey = itineraryKey}                                                     // If we are fetching events because there has been a new like, itinerary passed in will already be the key
+    // else {itinKey = itinerary.key}
     console.log('INSIDE FETH: ', itinKey)
-    const itinerariesRef = firebase.database().ref(`/itineraries/${itinKey}`)               // Gets a reference to the particular itinerary we are getting the events from
+    const itinerariesRef = firebase.database().ref(`/itineraries/${itinKey}`) 
+                                                                                            // Gets a reference to the particular itinerary we are getting the events from
     itinerariesRef.once('value')                                                            // 'once' is used to read data from the reference             
         .then(snapshot => {
-            const events = snapshot.val().events                                            // Get the events object from the reference
+            console.log('ITIN:', snapshot.val());
+            const events = snapshot.val().events                                          // Get the events object from the reference
             console.log('ITIN: ', events)
             let eventsArr = []
             for (var key in events) {                                                       // Loop adds an object to state array
@@ -60,41 +67,22 @@ export const fetchEvents = (itinerary, fromLike) => dispatch => {
         })
 }
                                                                                             // Used when a new event is added to the itinerary's idea board
-export const addEvent = (url, itin) => dispatch => {
-    axios.get(`http://api.linkpreview.net/?key=59ceb254e639805e71e929ab347575465baaf5072e1b1&q=${url}`)
+export const addEvent = (url, itinID) => dispatch => {
+    axios.get(`https://api.linkpreview.net/?key=59ceb254e639805e71e929ab347575465baaf5072e1b1&q=${url}`)
         .then(res => res.data)
         .then(preview => {
-            let isFirstEvent = false
-            const itinKey = itin.key
-            let newId
-            const currentItinRef = firebase.database().ref().child('itineraries').child(itin.key).child('events')
-            console.log(currentItinRef)
-            currentItinRef.transaction(currentEvents => {
-                if (currentEvents === null){
-                    isFirstEvent = true
-                    return {event1: {
-                        title: preview.title,
-                        description: preview.description,
-                        image: preview.image,
-                        url: preview.url,
-                        added: false,
-                        likes: 0,
-                        key: 'event1'
-                    }}
-                }
-            })
-            if (!isFirstEvent) {
-                const newRef = currentItinRef.push({
-                    title: preview.title,
-                    description: preview.description,
-                    image: preview.image,
-                    url: preview.url,
-                    added: false,
-                    likes: 0
-                })
-                newId = newRef.key
-                console.log('NEWID: ', newId)
-            }
+            // let isFirstEvent = false
+            // con newId
+            console.log('itinID', itinID);
+            const currentItinRef = firebase.database().ref().child('itineraries').child(itinID).child('events')
+            // console.log('currentItinRef addevent Action', currentItinRef)
+            const newRef = currentItinRef.push({title: preview.title,
+                description: preview.description,
+                image: preview.image,
+                url: preview.url,
+                added: false,
+                likes: 0})
+            const newId = newRef.key
             const eventNode = {
                 title: preview.title,
                 description: preview.description,
@@ -104,6 +92,51 @@ export const addEvent = (url, itin) => dispatch => {
                 key: newId,
                 likes: 0
             }
+            // currentItinRef.transaction(currentEvents => {
+            //     curre
+
+
+            // console.log('current events', currentEvents);
+            //     if (currentEvents === null){
+            //         console.log('HIT NULL');
+            //         isFirstEvent = true
+            //         return {event1: {
+            //             title: preview.title,
+            //             description: preview.description,
+            //             image: preview.image,
+            //             url: preview.url,
+            //             added: false,
+            //             likes: 0,
+            //             key: 'event1'
+            //         }}
+            //     }
+            // })
+
+            // if (!isFirstEvent) {
+            //     const newRef = currentItinRef.push({
+            //         title: preview.title,
+            //         description: preview.description,
+            //         image: preview.image,
+            //         url: preview.url,
+            //         added: false,
+            //         likes: 0
+            //     })
+            //     newId = newRef.key
+            //     console.log('newRef', newRef)
+            //     console.log('NEWID: ', newId)
+            // }
+            // const eventNode = {
+            //     title: preview.title,
+            //     description: preview.description,
+            //     image: preview.image,
+            //     url: preview.url,
+            //     added: false, 
+            //     key: newId,
+            //     likes: 0
+            // }
+            
+            console.log('event node', eventNode);
+
             return dispatch(newEvent(eventNode))
         })
 
@@ -114,7 +147,8 @@ export const setCurrentItinerary = (itinerary, itin) => dispatch => {
     const newRef = {
         name: itinerary.name,
         owner: itinerary.owner,
-        key: itin
+        key: itin,
+        imageURL: itinerary.imageURL,
     }
     return dispatch(setItinerary(newRef))
 }
@@ -365,10 +399,10 @@ export const onUserListener = (user) => dispatch => {
 }
 
 
-export const addToItinerary = (itin, user) => dispatch => {
+export const addToItinerary = (itinID, user) => dispatch => {
 
 
-    const itinRef = firebase.database().ref().child('itineraries').child(itin).child('members')
+    const itinRef = firebase.database().ref().child('itineraries').child(itinID).child('members')
     const recipient = firebase.database().ref().child('users').child(user)
 
 
@@ -391,7 +425,7 @@ export const addToItinerary = (itin, user) => dispatch => {
                         "title": "Saffire",
                         "body": "You've been added to a new itinerary! Click to view.",
                         "icon": "firebase-logo.png",
-                        "click_action": "https://deets-76612.firebaseapp.com/mypassport"
+                        "click_action": "https://deets-76612.firebaseapp.com/"
                         },
                         "to": userToken
                     }
@@ -424,7 +458,80 @@ export const updateStatus = (user, status) => dispatch => {
 
 }
 
+export const setDateAndTime = (itinId, event, date, time) => dispatch => {
+    const eventRef = firebase.database().ref().child('itineraries').child(itinId).child('events')
+    let dateToAdd = date + ''
+    dateToAdd = dateToAdd.substr(0, dateToAdd.indexOf('2017'))
+    let timeToAdd = time + ''
+    timeToAdd = timeToAdd.substr(timeToAdd.indexOf(":") - 2, timeToAdd.length)
+    eventRef.once('value')
+        .then(snapshot => {
+            const events = snapshot.val()
+            for (let key in events) {
+                if (events[key].url === event.url){return key}
+            }
+        })
+        .then(theKey => {
+            console.log(time)
+            const evRef = firebase.database().ref().child('itineraries').child(itinId).child('events').child(theKey).child('schedule').update({date: dateToAdd, time: timeToAdd})
+            console.log('updated')
+        })
+        .then(() => {
+            dispatch(causeRefresh('setDateAndTime'))
+            console.log('refresh')
+        })
+        
+}
+
     
+
+export const geoFindMe = () => dispatch => {
+    
+    console.log('handleClick thunk')
+
+    var output = document.getElementById("out");
+
+    //if no geolocation on browser
+    if (!navigator.geolocation){
+      output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+      return;
+    }
+    
+    //success function triggers when allowed
+    function success(position) {
+      let latitude  = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      
+      let userCoor = [];
+      userCoor.push(longitude, latitude)
+
+      // this.setState({
+      //   userCoordinates: userCoor,
+      //   onClickDirty: true,
+      // })
+
+      console.log('userCoor', userCoor)
+      return userCoor;
+      
+    }
+    
+    //error handler
+    function error() {
+      output.innerHTML = "Unable to retrieve your location";
+    }
+  
+    output.innerHTML = "<p>Locating…</p>";
+
+    navigator.geolocation.getCurrentPosition(success, error);
+  
+}
+
+export const postCoordinates = (itin, user) => {
+    //const coorRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
+    console.log('currentUser***', firebase.auth().currentUser)
+    console.log('itineraries', firebase.database().ref().child('itineraries').child('itin').child('coordinates'))
+
+}
 
 
       
@@ -436,6 +543,7 @@ export const setEvents = events => ({type: GET_CURRENT_EVENTS, events})
 export const newEvent = event => ({type: ADD_EVENT, event})
 export const setUsers = users => ({type: SET_USERS, users})
 export const setCurrentUser = user => ({type: SET_CURRENT_USER, user})
+export const causeRefresh = message => ({type: REFRESH, message})
 // export const selectItinerary = itinerary => ({type: SELECT_ITINERARY, itinerary})
 
 
