@@ -1,8 +1,9 @@
 //actions
 import firebase from '../firebase'
 import axios from 'axios'
-import googServerKey from '../secrets.js'
+import {googServerKey} from '../secrets.js'
 import history from '../history';
+
 
 export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
@@ -11,6 +12,9 @@ export const ADD_EVENT = 'ADD_EVENT'
 export const SET_USERS = 'SET_USERS'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const REFRESH = 'REFRESH'
+export const CONNECT = 'CONNECT'
+export const FETCH_USER_COOR = 'FETCH_USER_COOR'
+
 
 
                                                                                             // Used for adding a new itinerary to the database
@@ -21,6 +25,8 @@ export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
             name: itinerary,
             owner: firebase.auth().currentUser.email,
             imageURL: itineraryImageURL,
+            coordinates: {defaultCoor: {lat: 0, long: 0}},
+            placeCoor: {defaultCoor: {lat: 0, long: 0}},
         })
         var newId = newRef.key;                                                             // Gets the PK from the newly created instance
                                                                                             // Creates a new object that resembles the one added to the database
@@ -50,7 +56,6 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
             console.log('ITIN: ', events)
             let eventsArr = []
             for (var key in events) {                                                       // Loop adds an object to state array
-                console.log('IN LOOP: ', key, events[key])                                  // Object is similar to event in database; difference is that it contains PK
                 const toAdd = {
                     key: key,
                     added: events[key].added,
@@ -59,7 +64,9 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
                     title: events[key].title,
                     url: events[key].url,
                     likes: events[key].likes,
-                    likedBy: events[key].likedBy
+                    likedBy: events[key].likedBy,
+                    location: events[key].location,
+                    // address: events[key].gmaps.formatted_address,
                 }
                 eventsArr.push(toAdd)
             }
@@ -90,57 +97,44 @@ export const addEvent = (url, itinID) => dispatch => {
                 url: preview.url,
                 added: false, 
                 key: newId,
-                likes: 0
+                likes: 0,
             }
-            // currentItinRef.transaction(currentEvents => {
-            //     curre
-
-
-            // console.log('current events', currentEvents);
-            //     if (currentEvents === null){
-            //         console.log('HIT NULL');
-            //         isFirstEvent = true
-            //         return {event1: {
-            //             title: preview.title,
-            //             description: preview.description,
-            //             image: preview.image,
-            //             url: preview.url,
-            //             added: false,
-            //             likes: 0,
-            //             key: 'event1'
-            //         }}
-            //     }
-            // })
-
-            // if (!isFirstEvent) {
-            //     const newRef = currentItinRef.push({
-            //         title: preview.title,
-            //         description: preview.description,
-            //         image: preview.image,
-            //         url: preview.url,
-            //         added: false,
-            //         likes: 0
-            //     })
-            //     newId = newRef.key
-            //     console.log('newRef', newRef)
-            //     console.log('NEWID: ', newId)
-            // }
-            // const eventNode = {
-            //     title: preview.title,
-            //     description: preview.description,
-            //     image: preview.image,
-            //     url: preview.url,
-            //     added: false, 
-            //     key: newId,
-            //     likes: 0
-            // }
-            
-            console.log('event node', eventNode);
-
+        
             return dispatch(newEvent(eventNode))
         })
-
 }
+
+export const googlePlace = (suggest, itinID) => dispatch => {
+    const currentItinRef = firebase.database().ref().child('itineraries').child(itinID).child('events')
+            // console.log('currentItinRef addevent Action', currentItinRef)
+            const newRef = currentItinRef.push({
+                title: suggest.label,
+                description: suggest.description,
+                added: false,
+                likes: 0,
+                location: suggest.location,
+                address: suggest.gmaps.formatted_address,
+                })
+
+            const newId = newRef.key
+
+          
+        const eventNode = {
+            title: suggest.label,
+            description: suggest.description,
+            location: suggest.location,
+            added: false, 
+            key: newId,
+            likes: 0,
+            types: suggest.types,
+            address: suggest.gmaps.formatted_address,
+        }
+
+        return dispatch(newEvent(eventNode))
+} 
+
+
+
 
 export const setCurrentItinerary = (itinerary, itin) => dispatch => {
     console.log('INSIDE CURRENT: ', itinerary, itin)
@@ -488,53 +482,109 @@ export const setDateAndTime = (itinId, event, date, time) => dispatch => {
 
     
 
-export const geoFindMe = () => dispatch => {
+// export const geoFindMe = () => dispatch => {
     
-    console.log('handleClick thunk')
+//     console.log('handleClick thunk')
 
-    var output = document.getElementById("out");
+//     var output = document.getElementById("out");
 
-    //if no geolocation on browser
-    if (!navigator.geolocation){
-      output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-      return;
-    }
+//     //if no geolocation on browser
+//     if (!navigator.geolocation){
+//       output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+//       return;
+//     }
     
-    //success function triggers when allowed
-    function success(position) {
-      let latitude  = position.coords.latitude;
-      let longitude = position.coords.longitude;
+//     //success function triggers when allowed
+//     function success(position) {
+//       let latitude  = position.coords.latitude;
+//       let longitude = position.coords.longitude;
       
-      let userCoor = [];
-      userCoor.push(longitude, latitude)
+//       let userCoor = [];
+//       userCoor.push(longitude, latitude)
 
-      // this.setState({
-      //   userCoordinates: userCoor,
-      //   onClickDirty: true,
-      // })
+//       // this.setState({
+//       //   userCoordinates: userCoor,
+//       //   onClickDirty: true,
+//       // })
 
-      console.log('userCoor', userCoor)
-      return userCoor;
+//       console.log('userCoor', userCoor)
+//       return userCoor;
       
-    }
+//     }
     
-    //error handler
-    function error() {
-      output.innerHTML = "Unable to retrieve your location";
-    }
+//     //error handler
+//     function error() {
+//       output.innerHTML = "Unable to retrieve your location";
+//     }
   
-    output.innerHTML = "<p>Locating…</p>";
+//     output.innerHTML = "<p>Locating…</p>";
 
-    navigator.geolocation.getCurrentPosition(success, error);
+//     navigator.geolocation.getCurrentPosition(success, error);
   
+// }
+
+
+// *******************
+
+export const postUserCoordinates =  itin => dispatch => {
+    console.log('post coor hit')
+    
+    const coorRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
+    const noCoorRef = firebase.database().ref().child('itineraries').child(itin)
+    noCoorRef.once('value')
+    .then(result => {
+        let payload = [];
+
+        if (!navigator.geolocation){
+            console.log('not supported')
+            //output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+            return;
+          }
+
+        function success(position) {
+            console.log('success hit')
+            let latitude = position.coords.latitude
+            let longitude = position.coords.longitude
+            payload.push(longitude, latitude)
+            console.log('payload', payload)
+
+            let fireRef = firebase.database().ref().child('itineraries').child(itin)
+            fireRef.child('coordinates').push({lat: payload[0], long: payload[1]})
+
+            }
+        
+          function error() {
+            console.log('sorry no geolocator')
+            //output.innerHTML = "Unable to retrieve your location";
+          }
+        
+          //output.innerHTML = "<p>Locating…</p>";
+          navigator.geolocation.getCurrentPosition(success, error)
+
+         })
+    .catch(err => {
+        console.log(err)
+    })
 }
 
-export const postCoordinates = (itin, user) => {
-    //const coorRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
-    console.log('currentUser***', firebase.auth().currentUser)
-    console.log('itineraries', firebase.database().ref().child('itineraries').child('itin').child('coordinates'))
 
-}
+export const postGeoLocation = itin => dispatch => {
+    console.log('itinpost', itin)
+    const userRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
+    axios.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${googServerKey}`)
+    .then(result => {
+        let locationArr = Object.keys(result.data.location)
+        let locationObj = result.data.location
+        console.log('location***', result.data.location)
+        let resultArr =[]
+        resultArr.push(Number(locationObj[locationArr[1]]), Number(locationObj[locationArr[0]]))
+        console.log('resultArr', resultArr)
+        return resultArr
+    })
+    .then(resultArray => {
+        console.log('resultArraythen', resultArray )
+        userRef.push({lat: resultArray[0], long: resultArray[1]})
+    })}
 
 export const sendMessage = (user, itinKey, message) => {
     const messageRef = firebase.database().ref().child('itineraries').child(itinKey).child('messages')
@@ -545,8 +595,10 @@ export const sendMessage = (user, itinKey, message) => {
     const newMessageRef = firebase.database().ref().child('itineraries').child(itinKey).child('newMessage').child('currentMessage')
     newMessageRef.transaction(newMessageRef => {
         return message
+
     })
 }
+
 
 
       
@@ -559,7 +611,11 @@ export const newEvent = event => ({type: ADD_EVENT, event})
 export const setUsers = users => ({type: SET_USERS, users})
 export const setCurrentUser = user => ({type: SET_CURRENT_USER, user})
 export const causeRefresh = message => ({type: REFRESH, message})
+export const connectionChange = status => ({type: CONNECT, status})
+export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
 // export const selectItinerary = itinerary => ({type: SELECT_ITINERARY, itinerary})
+
+console.log('SO HAPPPPYYYYY')
 
 
 

@@ -5,7 +5,7 @@ import firebase from '../firebase'
 import TimePicker from 'material-ui/TimePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import DatePicker from 'material-ui/DatePicker';
-import {setDateAndTime, sendMessage} from '../actions'
+import {setDateAndTime, sendMessage, fetchUsers} from '../actions'
 import BurgerMenu from './Menu';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
@@ -39,7 +39,7 @@ class SingleItinerary extends Component{
         this.renderForm = this.renderForm.bind(this)
         this.submitEvent = this.submitEvent.bind(this)
         this.sendChat = this.sendChat.bind(this)
-    }
+}
 
     componentDidMount() {
         const itinRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id)
@@ -63,13 +63,23 @@ class SingleItinerary extends Component{
     sendChat(e) {
         e.preventDefault()
         this.props.sendMessage(this.props.user, this.props.match.params.id, this.state.chatMessage)
-        // const itin = this.state.itin
-        // itin.messages.newMessage = {sender: this.props.user.name, content: this.state.chatMessage}
-        this.setState({chatMessage: ''})
+        // this.setState({chatMessage: ''})
     }
 
     render() {
-
+        const memberArray = []
+        for (let i in this.state.itin.members) {
+            let toAdd = this.props.users.filter(currentUser => (currentUser.key === this.state.itin.members[i].key))
+            // memberArray.push(this.props.user[this.props.user.indexOf(this.state.itin.members[i].key]))
+            memberArray.push(toAdd[0])
+        }
+        const ownerAdd = this.props.users.filter(currentUser => currentUser.email === this.state.itin.owner)
+        memberArray.push(ownerAdd[0])
+        console.log('MEMBERS: ', memberArray)
+        /*
+            FIREBASE EVENT LISTENERS
+         =========================================================================================================================================================
+        */
         const eventRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('events')
         eventRef.on('child_changed', (data) => {
             const val = data.val()
@@ -82,17 +92,39 @@ class SingleItinerary extends Component{
             this.setState({itin: itin})
         })
 
-        const messageRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('newMessage')
-        const chatMessages = []
-        messageRef.on('child_changed', (data) => {
-            const val = data.val()
-            console.log('***************', val)
-            const itin = this.state.itin  
+            memberArray.map(member => {
+                if (member) {
+                const userRef = firebase.database().ref().child('users').child(member.key)
+                userRef.on('child_changed', data => {
+                    if(typeof data.val() === 'string') {
+                        this.props.loadInitialData()
+                    }
+                })
+            }
+            })
+
+
+        /*
+        =========================================================================================================================================================
+            END FIREBASE EVENT LISTNERS
+        */
+
+        const messageRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('messages')
+        let initial = false
+        messageRef.once('value', snap => {
+            initial = true
         })
+        messageRef.on('child_added', data => {
+            if (!initial) return
+            console.log('THE CHILD OF NEWMESSAGE CHANGED:  ', data.val())
+        })
+        const chatMessages = []
+
+        
 
         let events = []
         let eventScheduled = []
-        // console.log(this.state)
+        console.log(this.state)
         for (let key in this.state.itin.events) {
             if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){events.push(this.state.itin.events[key])}
             else if (this.state.itin.events[key].schedule){eventScheduled.push(this.state.itin.events[key])}
@@ -112,32 +144,20 @@ class SingleItinerary extends Component{
             if (scheduledDates.indexOf(eventScheduled[i].schedule.date) === -1){scheduledDates.push(eventScheduled[i].schedule.date)}   
         }
 
-        const memberArray = []
-        for (let i in this.state.itin.members) {
-            let toAdd = this.props.users.filter(currentUser => currentUser.key === this.state.itin.members[i].key)
-            // memberArray.push(this.props.user[this.props.user.indexOf(this.state.itin.members[i].key]))
-            memberArray.push(toAdd[0])
-        }
-        // console.log('MEMBERS: ', memberArray)
-        
-        const currentItinKey = this.props.match.params.id;
-
-        
         for (let i in this.state.itin.messages) {
             chatMessages.push(this.state.itin.messages[i])
         }
-
+        console.log('IIITTTIIINNNN ', this.state.itin)
         return (
             <div>
-            <div className="single-itin-header">
-                <BurgerMenu />
-                <img className="single-itin-image" src={this.state.itin.imageURL}/>
-                <h1 className="single-itin-title">{this.state.itin.name}</h1>
-            </div>
+                <div className="single-itin-header">
+                    <BurgerMenu />
+                    <img className='single-itin-image' src={this.state.itin.imageURL}/>
+                    <h1 className="single-itin-title">{this.state.itin.name}</h1>
+                </div>
 
-            <div className="single-itin-status"> 
-            <MuiThemeProvider>
-                <div>    
+                <MuiThemeProvider>
+                <div className="single-itin-status">    
                     {memberArray.map(member => (
                         <List >
                         {member && <ListItem disabled={true}  leftAvatar={<Avatar backgroundColor={blue300} src={member.image} />}>
@@ -146,12 +166,10 @@ class SingleItinerary extends Component{
                         
                         </List>
                     ))}
-                    </div>
-            </MuiThemeProvider>
-            </div>
-            
-            <MapComp itinKey = {this.props.match.params}/>
-                
+                </div>
+                </MuiThemeProvider>
+
+                <MapComp itinKey = {this.props.match.params}/>
                 <h4>Events to be added to timeline: </h4>
                 <div class="container">
                     <div class="row">
@@ -208,7 +226,6 @@ class SingleItinerary extends Component{
                         </div>
                     </div>
                 </div>
-
                 <button onClick={() => this.props.history.push('/ideaboard')}>IdeaBoard</button>
                 <button onClick={() => this.setState({showChat: !this.state.showChat})}>Chat</button>
                 {this.state.showChat && 
@@ -227,21 +244,18 @@ class SingleItinerary extends Component{
                     </form>
                 </div>
                 }
-
-                <button onClick={() => this.props.history.push(`/ideaboard/${currentItinKey}`)}>IdeaBoard</button>
-
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-
+    console.log('state', state)
     return {
         itineraryName: state.currentItinerary,
         refresh: state.refresh,
         users: state.users,
-        user: state.currentUser,
+        user: state.currentUser
 
     }
 }
@@ -253,6 +267,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         sendMessage(user, itin, message) {
             sendMessage(user, itin, message)
+        },
+        loadInitialData () {
+            dispatch(fetchUsers())
         }
     }
 }
