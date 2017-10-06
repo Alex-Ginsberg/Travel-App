@@ -161,7 +161,7 @@ class IdeaBoard extends Component {
                     {/* Will render out all events that have not been added yet */}
                     {this.props.currentEvents.map(event => (
                         <MuiThemeProvider>
-                            {!event.added  && <div id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} likes={event.likes} likedBy={event.likedBy}/></div>}
+                            {!event.added  && <div id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} likes={event.likes} likedBy={event.likedBy} user={this.props.currentUser}/></div>}
                         </MuiThemeProvider>
                     ))}
                 </div>
@@ -173,7 +173,7 @@ class IdeaBoard extends Component {
                     {/* Will render all events that HAVE been added */}
                     {this.props.currentEvents.map(event => (
                         <MuiThemeProvider>
-                            {event.added && <div><LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/></div>}
+                            {event.added && <div><LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy} user={this.props.currentUser}/></div>}
                         </MuiThemeProvider>
                     ))}
                 </div>

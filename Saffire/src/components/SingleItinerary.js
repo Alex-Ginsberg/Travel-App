@@ -63,7 +63,7 @@ class SingleItinerary extends Component{
     sendChat(e) {
         e.preventDefault()
         this.props.sendMessage(this.props.user, this.props.match.params.id, this.state.chatMessage)
-        this.setState({chatMessage: ''})
+        // this.setState({chatMessage: ''})
     }
 
     render() {
@@ -110,25 +110,17 @@ class SingleItinerary extends Component{
         */
 
         const messageRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('messages')
-        const chatMessages = []
-        messageRef.limitToLast(1).on('child_added', (data) => {
-            const val = data.val()
-            console.log('***************', val)
-            // // chatMessages.push(val)
-            // // this.forceUpdate()
-            // const itin = this.state.itin
-            // const tmp = []
-            // for (let i in this.state.itin.messages) {
-            //     tmp.push(this.state.itin.messages[i])
-            // }
-            // // if (!tmp.includes(data) && this.state.itin.messages) {
-            // //     itin.messages.newMessage = val
-            // //     this.setState({itin: itin})
-            // // }
-
-
-            
+        let initial = false
+        messageRef.once('value', snap => {
+            initial = true
         })
+        messageRef.on('child_added', data => {
+            if (!initial) return
+            console.log('THE CHILD OF NEWMESSAGE CHANGED:  ', data.val())
+        })
+        const chatMessages = []
+
+        
 
         let events = []
         let eventScheduled = []
@@ -152,9 +144,6 @@ class SingleItinerary extends Component{
             if (scheduledDates.indexOf(eventScheduled[i].schedule.date) === -1){scheduledDates.push(eventScheduled[i].schedule.date)}   
         }
 
-        
-
-        
         for (let i in this.state.itin.messages) {
             chatMessages.push(this.state.itin.messages[i])
         }
