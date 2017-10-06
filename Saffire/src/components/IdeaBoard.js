@@ -75,20 +75,32 @@ class IdeaBoard extends Component {
     render() {
         /*
             FIREBASE EVENT LISTENERS
+         =========================================================================================================================================================
         */
         //Sets up an event listener that checks for anytime the amount of likes changes 
+        //Uses a conditional to also update when an event is added to the 'itinerary' side 
         this.props.currentEvents.map(event => {
             const eventRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('events').child(event.key)
             eventRef.on('child_changed', (data) => {
                 console.log('CHILD CHANGED: ', data.val())
                 const newLikes = data.val()
                 if (typeof newLikes === 'number') {
-                    console.log('LLLIIIESSS')
+                    this.props.getItineraryEvents(this.props.match.params.id)
+                }
+                else if (newLikes === true) {
                     this.props.getItineraryEvents(this.props.match.params.id)
                 }
             })
         })
 
+
+        /*
+        =========================================================================================================================================================
+            END FIREBASE EVENT LISTNERS
+        */
+
+        console.log('idea board', this.props.currentEvents);
+      
         let itinerary = this.state.itin;
         let itinImage = itinerary.image;
         let handleSubmit = this.handleSubmit;
@@ -191,8 +203,8 @@ class IdeaBoard extends Component {
                     <h4 className="idea-board-words">PLAN</h4>
                     {/* Will render out all events that have not been added yet */}
                     {this.props.currentEvents.map(event => (
-                        <MuiThemeProvider key={event.key}>
-                            {!event.added  && <div id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} key={this.props.match.params.id} likes={event.likes} likedBy={event.likedBy}/></div>}
+                        <MuiThemeProvider>
+                            {!event.added  && <div id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} key={this.props.match.params.id}  likes={event.likes} likedBy={event.likedBy} user={this.props.currentUser}/></div>}
                         </MuiThemeProvider>
                     ))}
                 </div>
@@ -204,7 +216,7 @@ class IdeaBoard extends Component {
                     {/* Will render all events that HAVE been added */}
                     {this.props.currentEvents.map(event => (
                         <MuiThemeProvider>
-                            {event.added && <div><LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy}/></div>}
+                            {event.added && <div><LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy} user={this.props.currentUser}/></div>}
                         </MuiThemeProvider>
                     ))}
                 </div>

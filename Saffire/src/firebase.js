@@ -1,8 +1,10 @@
 import * as firebase from 'firebase';
 import {firebase_pw} from './secrets.js';
-import {onUserListener} from './actions'
+import {onUserListener, connectionChange} from './actions'
 import store from './store'
 
+
+console.log('CONECTIOM: ', connectionChange)
 var config = {
     apiKey: firebase_pw,
     authDomain: 'deets-76612.firebaseapp.com',
@@ -27,6 +29,18 @@ firebase.auth().onAuthStateChanged(function(user) {
     // store.dispatch(setCurrentUser({}))
   }
 });
+
+const connectedRef = firebase.database().ref(".info/connected")
+connectedRef.on("value", snap => {
+  if (snap.val() === true) {
+    console.log('CONNECTED: ', connectionChange)
+    store.dispatch(connectionChange(true))
+  }
+  else {
+    console.log('DISCONNECTED: ', connectionChange)
+    if(typeof store !== 'undefined') {store.dispatch(connectionChange(false))}
+  }
+})
 
 
 const messaging = firebase.messaging();

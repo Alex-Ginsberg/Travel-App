@@ -2,11 +2,10 @@ import React, {Component} from 'react'
 import googleMaps from '@google/maps'
 import {googServerKey, mapboxKey} from '../secrets.js'
 import {connect} from 'react-redux'
-//import {withScriptjs, withGoogleMap, GoogleMap, Marker} from "react-google-maps"
-//import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react'
 import mapboxgl from 'mapbox-gl'
 import ReactMapboxGl, {Layer, Feature, Marker} from 'react-mapbox-gl'
-import {geoFindMe, postCoordinates} from '../actions'
+import {geoFindMe, postUserCoordinates, postGeoLocation} from '../actions'
+import firebase from '../firebase'
 
 
 
@@ -20,19 +19,10 @@ const Map = ReactMapboxGl({
     accessToken: mapboxKey
 })
 
-// Map.addControl(new mapboxgl.GeolocateControl({
-//   positionOptions: {
-//       enableHighAccuracy: true
-//   },
-//   trackUserLocation: true
-// }));
-
-//googleMaps
 
 export class MapComp extends Component {
   constructor(props){
     super(props)
-    this.handleClick1 = this.handleClick1.bind(this)
     this.handleClickLocal = this.handleClickLocal.bind(this)
     this.state = {
       userCoordinates: [],
@@ -40,69 +30,45 @@ export class MapComp extends Component {
     }
   }
 
-
-  handleClick1(e) {
-      e.preventDefault();
-      console.log('handleClick local')
-      
-      var output = document.getElementById("out");
-
-      //if no geolocation on browser
-      if (!navigator.geolocation){
-        output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-        return;
-      }
-      
-      //success function triggers when allowed
-      function success(position) {
-        let latitude  = position.coords.latitude;
-        let longitude = position.coords.longitude;
-        
-        let userCoor = [];
-        userCoor.push(latitude, longitude)
-
-        this.setState({
-          userCoordinates: userCoor,
-          onClickDirty: true,
-        })
-
-        console.log('userCoor', userCoor)
-
-        
-        
-      }
-
-      
-      //error handler
-      function error() {
-        output.innerHTML = "Unable to retrieve your location";
-      }
     
-      output.innerHTML = "<p>Locating…</p>";
 
-      navigator.geolocation.getCurrentPosition(success, error);
-    
-  }
+    componentDidMount() {
+      console.log('component mount hit')
+      // this.setState({userCoordinates: this.props.handleClick(this.props.itinKey.id)})
+     this.props.handleClick(this.props.itinKey)
+    }
 
     handleClickLocal (e) {
-      let result = this.props.handleClick()
-      this.setState({
-        userCoordinates: result,
-        onClickDirty: true,
-      })
+      let itinKey = this.props.itinKey
+      this.props.handleClick(itinKey)
+      //let result = this.props.handleClick(key.id)
+      // this.setState({
+      //   userCoordinates: result,
+      //   onClickDirty: true,
+      // })
     }
 
     render() {
-      let {handleClick} = this.props
-      
-        return (
+      let {handleClick, user, itineraryName, itinKey} = this.props
+      let userCoordinates = this.state.userCoordinates
+      let userLocation = []
+      let userCoor = firebase.database().ref().child('itineraries').child(itinKey.id).child('coordinates')
+
+      //get user coordinate
+      userCoor.once('value')
+      .then(result => {
+        let objResult = Object.keys(result.val())
+        userLocation.push(result.val()[objResult[0]].lat, result.val()[objResult[0]].long )
+        console.log('userlocation', userLocation)
+      })
+      return (
           <div>
             <Map
             zoom={[14]}
             center={[-74.0091638, 40.7049151]}
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
-              height: "900px",
+              height: "600px",
               width: "100%"
             }}>
               <Layer
@@ -113,10 +79,10 @@ export class MapComp extends Component {
               </Layer>
               <div className="map-marker">
             <Marker 
-              coordinates={[-74.0091638, 40.7049151]}
+              coordinates={userLocation}
               anchor="bottom">
               <img  style = {{width: "64px", height: "64px"}} src="/assets/user-marker.png"/>
-              </Marker>
+            </Marker>
               {/* this.state.userCoordinates.length && <Marker
               coordinates={this.state.userCoordinates}
               anchor="bottom">
@@ -124,6 +90,7 @@ export class MapComp extends Component {
               </Marker> */}
               </div>
               <div className="user-Marker">
+                {}
               </div>
           </Map>
           <div>
@@ -137,15 +104,20 @@ export class MapComp extends Component {
     }
 
 const mapState = state => {
-
+  return {
+  itineraryName: state.currentItinerary,
+  users: state.users,
+  user: state.currentUser
+  }
 }
 
 const mapDispatch = dispatch => {
    return {
-
-    handleClick () {
+    handleClick (key) {
       console.log('clicked***')
-      dispatch(postCoordinates)
+      console.log('itinKey******', key.id)
+      let keyID = key.id
+      dispatch(postGeoLocation(keyID))
     }, 
   }
 }
