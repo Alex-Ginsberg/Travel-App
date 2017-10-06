@@ -595,6 +595,7 @@ export const postGeoLocation = itin => dispatch => {
     .then(resultArray => {
         console.log('resultArraythen', resultArray )
         userRef.push({lat: resultArray[0], long: resultArray[1]})
+    })}
 
 export const sendMessage = (user, itinKey, message) => {
     const messageRef = firebase.database().ref().child('itineraries').child(itinKey).child('messages')
