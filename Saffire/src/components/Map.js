@@ -4,7 +4,7 @@ import {googServerKey, mapboxKey} from '../secrets.js'
 import {connect} from 'react-redux'
 import mapboxgl from 'mapbox-gl'
 import ReactMapboxGl, {Layer, Feature, Marker} from 'react-mapbox-gl'
-import {geoFindMe, postUserCoordinates} from '../actions'
+import {geoFindMe, postUserCoordinates, postGeoLocation} from '../actions'
 import firebase from '../firebase'
 
 
@@ -77,6 +77,11 @@ export class MapComp extends Component {
     //   })
     // }
 
+    componentDidMount() {
+      console.log('component mount hit')
+      // this.setState({userCoordinates: this.props.handleClick(this.props.itinKey.id)})
+      this.props.handleClick(this.props.itinKey.id)
+    }
 
     handleClickLocal (e) {
       let itinKey = this.props.itinKey
@@ -154,7 +159,7 @@ const mapDispatch = dispatch => {
       console.log('clicked***')
       console.log('itinKey******', key.id)
       let keyID = key.id
-      dispatch(postUserCoordinates(keyID))
+      dispatch(postGeoLocation(keyID))
     }, 
   }
 }

@@ -1,7 +1,7 @@
 //actions
 import firebase from '../firebase'
 import axios from 'axios'
-import googServerKey from '../secrets.js'
+//import googServerKey from '../secrets.js'
 
 export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
@@ -540,6 +540,16 @@ export const postUserCoordinates =  itin => dispatch => {
          })
     .catch(err => {
         console.log(err)
+    })
+}
+
+export const postGeoLocation = itin => dispatch => {
+    //console.log('serverKey', googServerKey)
+    axios.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAYvVyz67nWdf6NSGeD-cfKgqN7qFhhCLA")
+    .then(result => {
+        let locationArr = Object.keys(result.data.location)
+        console.log('location***', result.data.location)
+
     })
 }
 
