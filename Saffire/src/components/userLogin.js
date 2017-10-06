@@ -59,7 +59,7 @@ class UserLogin extends React.Component {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
       console.log(error.code)
       console.log(error.message)
-    }).then(() => this.props.history.push('/mypassport'))
+    }).then(() => this.props.history.push('/'))
     
   }
 
