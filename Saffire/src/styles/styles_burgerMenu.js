@@ -7,7 +7,7 @@ export const styles = {
       top: '36px'
     },
     bmBurgerBars: {
-      background: 'white',
+      background: '#b8b7ad',
     },
     bmCrossButton: {
       height: '24px',

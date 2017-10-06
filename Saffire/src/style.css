@@ -800,3 +800,46 @@ MENU ITEM
 
 
 
+
+
+/*
+    ==================================
+                 Single Itinerary
+    ==================================
+*/
+
+.single-itin-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 4em;
+    font-weight: 300;
+    color: black;
+    letter-spacing: .3em;
+    padding-top: 30px;
+    display: inline-block;
+    /* margin-right: -200px; */
+    text-align: center;
+}
+
+.single-itin-image {
+    padding: 15px;
+    justify-content: 'center';
+     align-items: 'center';
+     width: 70%; 
+     height: 70%;
+}
+
+.single-itin-header {
+    text-align: center;
+    /* background-image: url("http://www.australia.com/content/australia/en_us/facts/_jcr_content/mainParsys/hero/image.adapt.1663.medium.jpg"); */
+    /* background-size: 10; */
+    /* background-repeat: no-repeat; */
+    /* height: 100vh; */
+}
+
+.single-itin-status {
+    display: inline;
+    padding: 20px;
+    /* position: absolute; */
+    /* bottom: 0; */
+}
+

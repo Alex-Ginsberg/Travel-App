@@ -130,13 +130,14 @@ class SingleItinerary extends Component{
         return (
             <div>
             <div className="single-itin-header">
-            <  BurgerMenu />
-        
+                <BurgerMenu />
+                <img className="single-itin-image" src={this.state.itin.imageURL}/>
                 <h1 className="single-itin-title">{this.state.itin.name}</h1>
-                </div>
-                <MapComp itinKey = {this.props.match.params}/>
-                <MuiThemeProvider>
-                <div className="single-itin-status">    
+            </div>
+
+            <div className="single-itin-status"> 
+            <MuiThemeProvider>
+                <div>    
                     {memberArray.map(member => (
                         <List >
                         {member && <ListItem disabled={true}  leftAvatar={<Avatar backgroundColor={blue300} src={member.image} />}>
@@ -146,7 +147,11 @@ class SingleItinerary extends Component{
                         </List>
                     ))}
                     </div>
-                </MuiThemeProvider>
+            </MuiThemeProvider>
+            </div>
+            
+            <MapComp itinKey = {this.props.match.params}/>
+                
                 <h4>Events to be added to timeline: </h4>
                 <div class="container">
                     <div class="row">
