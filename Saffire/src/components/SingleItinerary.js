@@ -10,6 +10,7 @@ import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
 import Avatar from 'material-ui/Avatar';
 import {MapComp} from '../components'
+import schedule from 'node-schedule'
 
 import {
     blue300,
@@ -75,7 +76,18 @@ class SingleItinerary extends Component{
 
     submitEvent(e) {
         e.preventDefault()
-        console.log(this.state.currentDate, this.state.currentTime)
+        const toSchedule = new Date(
+            this.state.currentDate.getFullYear(),
+            this.state.currentDate.getMonth(),
+            this.state.currentDate.getDate(),
+            this.state.currentTime.getHours(),
+            this.state.currentTime.getMinutes(),
+            this.state.currentTime.getSeconds(),
+            this.state.currentTime.getMilliseconds()
+        )
+        schedule.scheduleJob(toSchedule, () => {
+            alert(`Time to leave for ${this.state.showForm.title}`)
+        })
         this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime)
         this.setState({showForm: {}})
     }
