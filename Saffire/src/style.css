@@ -738,7 +738,7 @@ MENU ITEM
     background: rgba(190, 190, 190, 0.7);
     font-family: 'Montserrat', sans-serif;
     width: 450px;
-    height: 200px;
+    height: 230px;
     margin: 0 auto;
 }
 
@@ -762,6 +762,12 @@ MENU ITEM
 .sapphire-itin-name-z img {
     width: 45px;
     padding-right: 6px;
+}
+
+.sapphire-itin-name-xx {
+    border: 1px solid black;
+    background-color: grey;
+    border-radius: 5px;
 }
 
 
@@ -812,6 +818,52 @@ MENU ITEM
 }
 
 
+
+
+/*
+    ==================================
+               My Friends 
+    ==================================
+*/
+
+.saffire-friends-container {
+    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/U3ESM8YMDM.jpg");
+    background-size: cover;
+    height: 100vh;
+}
+
+.saffire-friends-title {
+    font-size: 3.3em; 
+    text-align: center;
+    color: white;
+    padding-top: 100px;
+    text-decoration: underline;
+    letter-spacing: .1em;
+}
+
+.saffire-friends-little-wrapper {
+    padding-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    color: white;
+}
+
+.saffire-friend-item {
+    background-color: lightgrey;
+    margin: 0 auto;
+}
+
+.saffire-friend-item img {
+    border-radius: 10px;
+    width: 300px;
+}
+
+.friend-align {
+    text-align: center;
+    color: white;
+    font-size: 1.8em;
+    padding: 20px 0;
+
 /*
     ==================================
                 Idea Board
@@ -854,4 +906,24 @@ MENU ITEM
 .idea-board-words {
     text-align: center;
     padding: 10px;
+}
+
+
+
+
+/* ========== google place search 
+
+
+======== */
+
+.geosuggest__suggests--hidden {
+    max-height: 0;
+    overflow: hidden;
+    border-width: 0;
+  }
+
+.geosuggest__item--active {
+background: #267dc0;
+color: #fff;
+
 }

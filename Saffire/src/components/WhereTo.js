@@ -36,14 +36,14 @@ class WhereTo extends Component {
     
     getDestination(userInputDesination) {
         const destinationImages = {
-            'australia': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/australia%20.jpg?alt=media&token=242bfd34-a4a8-4f25-9522-b4caca748525',
-            'california': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/california.jpg?alt=media&token=cd543132-ea5e-4e4e-9f6b-de62dc245df5',
+            'australia': 'https://cdn.stocksnap.io/img-thumbs/960w/4P7RQ1W2CF.jpg',
+            'california': 'https://cdn.stocksnap.io/img-thumbs/960w/2DA5SJT6TT.jpg',
             'carribean': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/carribean.jpg?alt=media&token=60409994-f462-450f-a544-20a52246a20f',
             'hawaii': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/hawaii.jpg?alt=media&token=acd8b82e-248d-42f5-b3d2-517d9c25b7e2',
-            'iceland': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/iceland.jpg?alt=media&token=e7a88f00-6e66-4ca6-94ec-ce968487d382',
-            'japan': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/japan.jpg?alt=media&token=8266c108-69a3-4593-a1d4-2f3cb04f0693',
+            'iceland': 'https://cdn.stocksnap.io/img-thumbs/960w/FE2EFF7971.jpg',
+            'japan': 'https://cdn.stocksnap.io/img-thumbs/960w/UDG5I3DMUP.jpg',
             'kyoto': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/kyoto.jpg?alt=media&token=13591e26-83f6-4ae4-8527-7b963cd427b2',
-            'london': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/london.jpg?alt=media&token=ec5ee0e9-dbd9-4f3f-bc1f-1b2ce5669f67',
+            'london': 'https://cdn.stocksnap.io/img-thumbs/960w/Q5F4Y33RNK.jpg',
             'los angeles': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/los-angeles.jpeg?alt=media&token=3b813964-16ac-44f7-974c-0d15988f417e',
             'melbourne': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/melbourne.jpg?alt=media&token=194f12a5-53ca-4868-a568-7f1fda1247c7',
             'osaka': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/melbourne.jpg?alt=media&token=194f12a5-53ca-4868-a568-7f1fda1247c7',
@@ -53,7 +53,7 @@ class WhereTo extends Component {
             'tokyo': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/tokyo.jpg?alt=media&token=b2af930b-99c3-4bc7-8e4f-653d38d85bbd',
             // 'new york': ,
             // 'chicago': ,
-            'spain': 'https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/spain.jpg?alt=media&token=c95d8cca-6c90-4c7d-a122-be95772a1a4b',
+            'spain': 'https://cdn.stocksnap.io/img-thumbs/960w/3595469D4A.jpg',
             // 'madrid': ,
             // 'italy': ,
             // 'argentina': ,
