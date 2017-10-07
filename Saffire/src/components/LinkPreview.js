@@ -59,8 +59,8 @@ class LinkPreview extends Component {
           <img src={this.props.image} alt="" />
         </CardMedia>
         <CardActions>
-          {!this.props.hasBeenAdded && <FlatButton label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={likedByArray.indexOf(this.props.user.email) > -1}/> }
-          {!this.props.hasBeenAdded && <FlatButton label="Add To Itinerary" onClick={() => this.props.confirmEvent(this.props.eventKey, this.props.itinKey) }/>}
+          {!this.props.hasBeenAdded && <FlatButton label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={((likedByArray.indexOf(this.props.user.email )) > -1) || !this.props.connect}/> }
+          {!this.props.hasBeenAdded && <FlatButton label="Add To Itinerary" disabled={!this.props.connect} onClick={() => this.props.confirmEvent(this.props.eventKey, this.props.itinKey) }/>}
         </CardActions>
         <CardText expandable={true}>
           Liked by: {likedByArray} <br></br>
@@ -73,7 +73,7 @@ class LinkPreview extends Component {
 
 const mapStateToProps = (state) => {
   return {
-
+    connect: state.connect
   }
 }
 
