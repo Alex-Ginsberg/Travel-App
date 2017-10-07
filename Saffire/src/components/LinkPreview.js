@@ -45,9 +45,6 @@ class LinkPreview extends Component {
     for (var key in this.props.likedBy) {
       likedByArray.push(this.props.likedBy[key].name)
     }
-    console.log('LIKED BY ARRAY: ', likedByArray)
-    console.log('USER: ', this.props.user.email)
-    console.log('LOGIC: ', likedByArray.indexOf(this.props.user.email) > -1)
     return(
       <Card>
         <CardHeader
