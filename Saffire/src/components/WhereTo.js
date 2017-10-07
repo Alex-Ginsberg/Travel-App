@@ -100,11 +100,12 @@ class WhereTo extends Component {
                         type="text" 
                         className="form-control" 
                         placeholder="Itinerary Name"
+                        disabled={!this.props.connect}
                         onChange={(e) => {this.setState({newItinerary: e.target.value, dirtyItinerary: true})}}/>
                     
                     {(this.state.dirtyItinerary && !this.state.newItinerary.length) && <p className="errorItinerary alert alert-danger" >please enter an itinerary name</p>}
 
-                    <button type="submit" className="btn btn-primary">Go</button>
+                    <button type="submit" className="btn btn-primary" disabled={!this.props.connect}>Go</button>
                 </form>
                 {/* <span>{this.props.itineraryName}</span> */}
 
@@ -116,7 +117,8 @@ class WhereTo extends Component {
 const mapStateToProps = (state) => {
     return {
         itineraryName: state.currentItinerary,
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        connect: state.connect
     }
 }
 
