@@ -92,16 +92,16 @@ class SingleItinerary extends Component{
             this.setState({itin: itin})
         })
 
-            memberArray.map(member => {
-                if (member) {
-                const userRef = firebase.database().ref().child('users').child(member.key)
-                userRef.on('child_changed', data => {
-                    if(typeof data.val() === 'string') {
-                        this.props.loadInitialData()
-                    }
-                })
-            }
+        memberArray.map(member => {
+            if (member) {
+            const userRef = firebase.database().ref().child('users').child(member.key)
+            userRef.on('child_changed', data => {
+                if(typeof data.val() === 'string') {
+                    this.props.loadInitialData()
+                }
             })
+            }
+        })
 
 
         /*

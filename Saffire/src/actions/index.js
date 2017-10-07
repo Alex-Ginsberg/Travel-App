@@ -355,6 +355,7 @@ export const getCurrentUser = () => dispatch => {
                     }}
                 }
                 console.log('LOGGED IN USER: ', loggedInUser)
+            
                 return dispatch(setCurrentUser(loggedInUser))
             })
     }
