@@ -34,7 +34,8 @@ class SingleItinerary extends Component{
             currentTime: '',
             currentDate: '',
             showChat: false,
-            chatMessage: ''
+            chatMessage: '', 
+            events: []
         }
         this.renderForm = this.renderForm.bind(this)
         this.submitEvent = this.submitEvent.bind(this)
@@ -42,11 +43,33 @@ class SingleItinerary extends Component{
 }
 
     componentDidMount() {
-        const itinRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id)
-        itinRef.once('value')
-            .then(snapshot => {
-                this.setState({itin: snapshot.val()})
-            })
+        const currentItinKey = this.props.match.params.id;
+        // If the user is connected to the internet, find the current itinerary in firebase, set it on state, and dispatch to find the events associated with it
+        if (this.props.connect) {
+            const itinRef = firebase.database().ref().child('itineraries').child(currentItinKey)
+            itinRef.once('value')
+                .then(snapshot => {
+                    this.setState({itin: snapshot.val()})
+                })
+        }
+
+        // If the user is not connected to the internet, find the current itinerary in local storage, set it on state, and make an array with all of its events 
+        else {
+            const allItins = JSON.parse(localStorage.allItineraries)
+            let itinToAdd
+            let events = []
+            console.log('NOT CONNECTED: ', allItins)
+            for (let i = 0; i < allItins.length; i++) {
+                if (allItins[i].key === currentItinKey) {
+                    itinToAdd = allItins[i]
+                }
+            }
+            for (let key in itinToAdd.events) {
+                events.push(itinToAdd.events[key])
+            }
+            this.setState({itin: itinToAdd, events: events})
+
+        }
     }
 
     renderForm(event) {
@@ -109,22 +132,23 @@ class SingleItinerary extends Component{
             END FIREBASE EVENT LISTNERS
         */
 
-        const messageRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('messages')
-        let initial = false
-        messageRef.once('value', snap => {
-            initial = true
-        })
-        messageRef.on('child_added', data => {
-            if (!initial) return
-            console.log('THE CHILD OF NEWMESSAGE CHANGED:  ', data.val())
-        })
+        if (this.props.connect) {
+            const messageRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('messages')
+            let initial = false
+            messageRef.once('value', snap => {
+                initial = true
+            })
+            messageRef.on('child_added', data => {
+                if (!initial) return
+                console.log('THE CHILD OF NEWMESSAGE CHANGED:  ', data.val())
+            })
+        }
         const chatMessages = []
 
         
 
         let events = []
         let eventScheduled = []
-        console.log(this.state)
         for (let key in this.state.itin.events) {
             if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){events.push(this.state.itin.events[key])}
             else if (this.state.itin.events[key].schedule){eventScheduled.push(this.state.itin.events[key])}
@@ -169,7 +193,7 @@ class SingleItinerary extends Component{
                 </div>
                 </MuiThemeProvider>
 
-                <MapComp itinKey = {this.props.match.params}/>
+                {this.props.connect && <MapComp itinKey = {this.props.match.params}/>}
                 <h4>Events to be added to timeline: </h4>
                 <div class="container">
                     <div class="row">
@@ -181,7 +205,7 @@ class SingleItinerary extends Component{
                                 {event.likedBy && Object.keys(event.likedBy).map(likeByKey => (
                                     <p key={likeByKey}>{event.likedBy[likeByKey].name}</p>
                                 ))}
-                                <button onClick={() => {this.renderForm(event)}}>Set Schedule</button>
+                                <button disabled={!this.props.connect} onClick={() => {this.renderForm(event)}}>Set Schedule</button>
                             </div>
                         ))}
                         {this.state.showForm.title && 
@@ -227,7 +251,7 @@ class SingleItinerary extends Component{
                     </div>
                 </div>
                 <button onClick={() => this.props.history.push('/ideaboard')}>IdeaBoard</button>
-                <button onClick={() => this.setState({showChat: !this.state.showChat})}>Chat</button>
+                <button disabled={!this.props.conenct} onClick={() => this.setState({showChat: !this.state.showChat})}>Chat</button>
                 {this.state.showChat && 
                 <div>
                     {chatMessages.map(message => (
@@ -255,7 +279,8 @@ const mapStateToProps = (state) => {
         itineraryName: state.currentItinerary,
         refresh: state.refresh,
         users: state.users,
-        user: state.currentUser
+        user: state.currentUser,
+        connect: state.connect
 
     }
 }
