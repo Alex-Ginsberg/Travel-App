@@ -27,6 +27,7 @@ export class MapComp extends Component {
     this.state = {
       userCoordinates: [],
       onClickDirty: false,
+      locations: [],
     }
   }
 
@@ -36,6 +37,49 @@ export class MapComp extends Component {
       console.log('component mount hit')
       // this.setState({userCoordinates: this.props.handleClick(this.props.itinKey.id)})
      this.props.handleClick(this.props.itinKey)
+
+     let userCoordinates = this.state.userCoordinates
+     let userLocation = []
+     let userCoor = firebase.database().ref().child('itineraries').child(this.props.itinKey.id).child('coordinates')
+
+     //get user coordinate
+     userCoor.once('value')
+     .then(result => {
+       let objResult = Object.keys(result.val())
+       userLocation.push(result.val()[objResult[0]].lat, result.val()[objResult[0]].long )
+       console.log('userlocation', userLocation)
+       this.setState({userCoordinates: userLocation})
+     })
+
+     //get events locations
+     let fireLocationsRef = firebase.database().ref().child('itineraries').child(this.props.itinKey.id).child('events')
+     fireLocationsRef.once('value')
+     .then(result => result.val())
+     .then(payload => {
+     let added = Object.keys(payload).filter(itin => {
+         return payload[itin].added === true
+       })
+      let trueEvents = [];
+      for(let i = 0; i < added.length; i++){
+        trueEvents.push(payload[added[i]])
+      }
+      return trueEvents;
+     })
+     .then(events => {
+       console.log('events***', events)
+       return events.map(event => {
+         return event.location
+       })
+       
+     })
+     .then(locations => {
+       let locationState = [];
+       locations.forEach(location => {
+        locationState.push([location.lng, location.lat])
+       })
+       this.setState({locations: locationState})
+     })
+     
     }
 
     handleClickLocal (e) {
@@ -46,21 +90,23 @@ export class MapComp extends Component {
       //   userCoordinates: result,
       //   onClickDirty: true,
       // })
+
+
     }
 
     render() {
       let {handleClick, user, itineraryName, itinKey} = this.props
-      let userCoordinates = this.state.userCoordinates
-      let userLocation = []
-      let userCoor = firebase.database().ref().child('itineraries').child(itinKey.id).child('coordinates')
+      // let userCoordinates = this.state.userCoordinates
+      // let userLocation = []
+      // let userCoor = firebase.database().ref().child('itineraries').child(itinKey.id).child('coordinates')
 
-      //get user coordinate
-      userCoor.once('value')
-      .then(result => {
-        let objResult = Object.keys(result.val())
-        userLocation.push(result.val()[objResult[0]].lat, result.val()[objResult[0]].long )
-        console.log('userlocation', userLocation)
-      })
+      // //get user coordinate
+      // userCoor.once('value')
+      // .then(result => {
+      //   let objResult = Object.keys(result.val())
+      //   userLocation.push(result.val()[objResult[0]].lat, result.val()[objResult[0]].long )
+      //   console.log('userlocation', userLocation)
+      // })
       return (
           <div>
             <Map
@@ -68,7 +114,7 @@ export class MapComp extends Component {
             center={[-74.0091638, 40.7049151]}
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
-              height: "600px",
+              height: "25em",
               width: "100%"
             }}>
               <Layer
@@ -79,10 +125,21 @@ export class MapComp extends Component {
               </Layer>
               <div className="map-marker">
             <Marker 
-              coordinates={userLocation}
+              coordinates={this.state.userCoordinates}
               anchor="bottom">
               <img  style = {{width: "64px", height: "64px"}} src="/assets/user-marker.png"/>
             </Marker>
+            {this.state.locations.map(location => {
+              return (
+                <div>
+                <Marker
+                coordinates={location}
+                anchor="bottom">
+                <img style = {{width: "64px", height: "64px"}} src="/assets/map-marker.png"/>
+                </Marker>
+                </div>
+              )
+            })}
               {/* this.state.userCoordinates.length && <Marker
               coordinates={this.state.userCoordinates}
               anchor="bottom">
@@ -117,7 +174,7 @@ const mapDispatch = dispatch => {
       console.log('clicked***')
       console.log('itinKey******', key.id)
       let keyID = key.id
-      dispatch(postGeoLocation(keyID))
+      dispatch(postUserCoordinates(keyID))
     }, 
   }
 }
