@@ -98,7 +98,7 @@ class WhereTo extends Component {
                     <label id = "home-page-label">Start Your Adventure</label>
                     <input name="itineraryName" 
                         type="text" 
-                        className="form-control" 
+                        className="form-control"
                         placeholder="Itinerary Name"
                         disabled={!this.props.connect}
                         onChange={(e) => {this.setState({newItinerary: e.target.value, dirtyItinerary: true})}}/>

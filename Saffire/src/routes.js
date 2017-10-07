@@ -47,7 +47,7 @@ class Routes extends Component {
           <Route path="/itinerary/:id" component={SingleItinerary} />
           <Route path="/requests" component={FriendRequests} />
           <Route path="/update" component={StatusUpdate} />
-          <Route path = "/friends" component = {MyFriends} />
+          <Route path = "/myfriends" component = {MyFriends} />
         </Switch>    
       </Router>
     )
