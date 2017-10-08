@@ -32,10 +32,16 @@ class IdeaBoard extends Component {
         const currentItinKey = this.props.match.params.id;
         // If the user is connected to the internet, find the current itinerary in firebase, set it on state, and dispatch to find the events associated with it
         if (this.props.connect) {
+            console.log('CONNECTED IN IDEA BOARD')
             const itinRef = firebase.database().ref().child('itineraries').child(currentItinKey)
             itinRef.once('value')
                 .then(snapshot => {
-                    this.setState({itin: snapshot.val()})
+                    const itin = snapshot.val()
+                    let events = []
+                    for (let key in itin.events) {
+                        events.push(itin.events[key])
+                    }
+                    this.setState({itin: snapshot.val(), events: events})
                 })
         }
 
@@ -95,6 +101,7 @@ class IdeaBoard extends Component {
     }
         
     render() {
+        console.log("BEGINNING OF RENDER")
         /*
             FIREBASE EVENT LISTENERS
          =========================================================================================================================================================
@@ -124,9 +131,9 @@ class IdeaBoard extends Component {
         */
 
         console.log('idea board', this.state);
-        if (this.props.connect && !this.props.currentEvents.length) {
-            this.props.getItineraryEvents(this.props.match.params.id)
-        }
+        // if (this.props.connect && !this.props.currentEvents.length) {
+        //     this.props.getItineraryEvents(this.props.match.params.id)
+        // }
       
         let itinerary = this.state.itin;
         let itinImage = itinerary.image;
@@ -134,7 +141,7 @@ class IdeaBoard extends Component {
         let handleChange = this.handleChange;
         let itineraryName = this.props.connect ? this.props.itineraryName : this.state.itin
         let friends = this.props.connect ? this.props.currentUser.friends : JSON.parse(window.localStorage.currentUser).friends
-        const currentEvents = this.props.connect ? this.props.currentEvents : this.state.events
+        const currentEvents = this.state.events
         const currentUser = this.props.connect ? this.props.currentUser : JSON.parse(window.localStorage.currentUser)
         let friendsArr = []
         for (var key in friends) {

@@ -24,11 +24,11 @@ export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const newRef = itinerariesRef.push({                                                // Pushes the new itinerary to firebase
             name: itinerary,
             owner: firebase.auth().currentUser.email,
-            imageURL: itineraryImageURL,
+            // imageURL: itineraryImageURL,
             coordinates: {defaultCoor: {lat: 0, long: 0}},
             placeCoor: {defaultCoor: {lat: 0, long: 0}},
         })
-        var newId = newRef.key;                                                             // Gets the PK from the newly created instance
+        const newId = newRef.key;                                                             // Gets the PK from the newly created instance
                                                                                             // Creates a new object that resembles the one added to the database
                                                                                             // The only difference is that this object has the PK has a value; used in other functionality
         const itinObj = {
@@ -40,6 +40,7 @@ export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         console.log('SETITIN: ', setItinerary(itinObj))
         dispatch(setItinerary(itinObj))
         history.push(`/ideaboard/${newId}`);
+        
 }
                                                                                             // Used for getting all events for a certain itinerary from the database
 export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
@@ -55,7 +56,7 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
             const events = snapshot.val().events                                          // Get the events object from the reference
             console.log('ITIN: ', events)
             let eventsArr = []
-            for (var key in events) {                                                       // Loop adds an object to state array
+            for (let key in events) {                                                       // Loop adds an object to state array
                 const toAdd = {
                     key: key,
                     added: events[key].added,
@@ -187,13 +188,14 @@ export const fetchUsers = () => dispatch => {
         .then(snapshot => {
             const users = snapshot.val()
             let usersArr = []
-            for (var key in users) {
+            for (let key in users) {
                 const toAdd = {
                     key: key,
                     email: users[key].email,
                     name: users[key].name, 
                     image: users[key].image,
-                    status: users[key].status
+                    status: users[key].status,
+                    localToken: users[key].localToken
                 }
                 usersArr.push(toAdd)
             }
@@ -343,7 +345,7 @@ export const getCurrentUser = () => dispatch => {
             .then(snapshot => {
                 const users = snapshot.val()
                 let loggedInUser = null
-                for (var key in users) {
+                for (let key in users) {
                     if (users[key].email === firebase.auth().currentUser.email){loggedInUser = {
                         key: key,
                         email: users[key].email,
@@ -372,7 +374,7 @@ export const onUserListener = (user) => dispatch => {
         const localToken = window.localStorage.getItem('localUserToken');
         let loggedInUser = null
 
-        for (var key in users) {
+        for (let key in users) {
             if (users[key].email === user.email){
                 const usersRefChild = firebase.database().ref().child('users').child(key).child('localToken')
                 usersRefChild.transaction((tokenKey) => {
@@ -617,9 +619,6 @@ export const setCurrentUser = user => ({type: SET_CURRENT_USER, user})
 export const causeRefresh = message => ({type: REFRESH, message})
 export const connectionChange = status => ({type: CONNECT, status})
 export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
-// export const selectItinerary = itinerary => ({type: SELECT_ITINERARY, itinerary})
-
-console.log('SO HAPPPPYYYYY')
 
 
 
