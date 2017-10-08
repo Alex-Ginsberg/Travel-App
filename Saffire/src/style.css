@@ -911,29 +911,47 @@ MENU ITEM
 */
 
 .saffire-friends-container {
-    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/U3ESM8YMDM.jpg");
+    /*background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/U3ESM8YMDM.jpg");*/
     background-size: cover;
     height: 100vh;
 }
 
-.saffire-friends-title {
-    font-size: 3.3em; 
+.friends-header > h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
     text-align: center;
-    color: white;
+    font-size: 3em;
+    padding-top: 30px;
+}
+
+.my-friends-list {
+    text-align: center;
+}
+.saffire-friends-title {
+    font-size: 3em;
+    text-align: center;
+    color: #b8b7ad;
     padding-top: 100px;
     text-decoration: underline;
     letter-spacing: .1em;
 }
 
 .saffire-friends-little-wrapper {
-    padding-top: 80px;
+    /*padding-top: 80px;*/
+    width: 500px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /*grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));*/
     color: white;
+    margin-bottom: 30px;
+    /*overflow-y: auto;*/
+    /*max-width: 500px;*/
+    /*max-height: 500px;*/
 }
 
 .saffire-friend-item {
     background-color: lightgrey;
+    /*box-shadow: 5px 5px grey;*/
     margin: 0 auto;
 }
 
@@ -947,6 +965,37 @@ MENU ITEM
     color: white;
     font-size: 1.8em;
     padding: 20px 0;
+}
+
+.friends-header {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.find-friend {
+    width:300px;
+    height:300px;
+    background-color:white;
+    overflow-y: auto;
+    max-width:300px;
+    padding: 12px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 15px;
+
+}
+
+.friend-requests {
+    width:300px;
+    height:300px;
+    background-color:white;
+    overflow-y: auto;
+    max-width:300px;
+    padding: 12px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 200px;
+
 }
 
 /*
