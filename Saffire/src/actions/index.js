@@ -605,6 +605,20 @@ export const sendMessage = (user, itinKey, message) => {
     })
 }
 
+export const removeSchedule = (itin, event) => dispatch => {
+    const itinRef = firebase.database().ref().child('itineraries').child(itin)
+    itinRef.once('value')
+        .then(snapshot => {
+            const itinerary = snapshot.val()
+            for (let key in itinerary.events) {
+                if (itinerary.events[key].title === event.title){return key}
+            }
+        })
+        .then(eventKey => {
+            itinRef.child('events').child(eventKey).child('schedule').remove()
+        })
+}
+
 
 
       

@@ -4,7 +4,7 @@ import firebase from '../firebase'
 import TimePicker from 'material-ui/TimePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import DatePicker from 'material-ui/DatePicker';
-import {setDateAndTime, sendMessage, fetchUsers} from '../actions'
+import {setDateAndTime, sendMessage, fetchUsers, removeSchedule} from '../actions'
 import BurgerMenu from './Menu';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
@@ -145,6 +145,7 @@ class SingleItinerary extends Component{
             if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){events.push(this.state.itin.events[key])}
             else if (this.state.itin.events[key].schedule){eventScheduled.push(this.state.itin.events[key])}
         }
+        console.log('SCHED: ', eventScheduled)
 
         // First sorts the array by the date
         eventScheduled.sort((a,b) => {
@@ -213,9 +214,12 @@ class SingleItinerary extends Component{
                                     {event.schedule.date === date && 
                                         <div>
                                         <List>
-                                            <ListItem disabled={true} leftAvatar={<Avatar backgroundColor={blue300} />}>
+                                            <ListItem disabled={true} hoverColor={indigo900} leftAvatar={<Avatar backgroundColor={blue300} />}>
                                                 {event.title} @ {event.schedule.time}
                                             </ListItem>
+                                            <button className="btn btn-danger" onClick={() => {
+                                               this.props.removeSchedule(this.props.match.params.id, event)
+                                            }}>Cancel Schedule</button>
                                         </List>
                                         </div>
                                     }
@@ -348,6 +352,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         loadInitialData () {
             dispatch(fetchUsers())
+        },
+        removeSchedule(itin, event) {
+            dispatch(removeSchedule(itin, event))
         }
     }
 }
