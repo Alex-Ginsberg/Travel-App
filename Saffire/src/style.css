@@ -28,17 +28,17 @@ body {
 
 .sapphire-app {
     text-align: center;
-    background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
+    /*background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg");*/
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+    /*height: 100vh;*/
 }
 
 .sapphire-app-title {
     font-family: 'Montserrat', sans-serif;
     font-size: 3.5em;
     font-weight: 300;
-    color: white;
+    color: black;
     letter-spacing: .3em;
     padding-top: 1.5em;
     display: inline-block;
@@ -50,7 +50,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.2em;
     display: inline-block;
-    color: white;
+    color: black;
     padding: 0 15px;
     padding-bottom: .5em;
 }
@@ -257,105 +257,105 @@ and (orientation: portrait)
     ==================================
 */
 
-.bg-login {
-    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/KPMRVAREV0.jpg");
-    background-size: cover;
-    height: 100vh;
-}
+/*.bg-login {*/
+    /*background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/KPMRVAREV0.jpg");*/
+    /*background-size: cover;*/
+    /*height: 100vh;*/
+/*}*/
 
-.box-login {
-    /* display: inline-block; */
-    background-color: #7C7A7A;
-    opacity: .90;
-    box-shadow: 15%;
-    width: 400px;
-    height: 250px;
-    /* text-align: center; */
-    display:flex;
-    /* justify-content:center; */
-    align-items:center;
-    margin: auto;
-    /* margin-top: 200px; */
-    /* margin-left: 800px; */
-    
-}
+/*.box-login {*/
+    /*!* display: inline-block; *!*/
+    /*background-color: #7C7A7A;*/
+    /*opacity: .90;*/
+    /*box-shadow: 15%;*/
+    /*width: 400px;*/
+    /*height: 250px;*/
+    /*!* text-align: center; *!*/
+    /*display:flex;*/
+    /*!* justify-content:center; *!*/
+    /*align-items:center;*/
+    /*margin: auto;*/
+    /*!* margin-top: 200px; *!*/
+    /*!* margin-left: 800px; *!*/
+    /**/
+/*}*/
 
-.login-title {
+/*.login-title {*/
 
-/*     font-family: "Helvetica Neue";
-    font-size: 2.5em;
-    margin: 50px 145px;
-    position: fixed; */
+/*!*     font-family: "Helvetica Neue";*/
+    /*font-size: 2.5em;*/
+    /*margin: 50px 145px;*/
+    /*position: fixed; *!*/
 
-    font-style: "Helvetica";
-    font-size: 1.2em;
-    text-align: center;
-    /* padding-top: 5%; */
-    
-    /* position: center; */
+    /*font-style: "Helvetica";*/
+    /*font-size: 1.2em;*/
+    /*text-align: center;*/
+    /*!* padding-top: 5%; *!*/
+    /**/
+    /*!* position: center; *!*/
 
-}
-
-
-
-.login-form {
-    margin: auto;
-    align-content: center;
-}
+/*}*/
 
 
-.login-label-email {
 
-/* font-family: "Helvetica Neue";
-font-size: 2.5em;
-padding: 10px;
-margin-left: 120px;
-}
+/*.login-form {*/
+    /*margin: auto;*/
+    /*align-content: center;*/
+/*}*/
 
-.login-label-password {
-font-family: "Helvetica Neue";
-font-size: 2.5em;
-padding: 10px;
-margin-left: 90px; */
 
-font-style: "Helvetica";
-font-size: 1.2em;
-/* padding: 5%; */
-/* margin-left: 120px; */
-}
+/*.login-label-email {*/
 
-.login-label-password {
-font-style: "Helvetica";
-font-size: 1.2em;
-/* padding: 5%; */
-/* margin-left: 90px; */
+/*!* font-family: "Helvetica Neue";*/
+/*font-size: 2.5em;*/
+/*padding: 10px;*/
+/*margin-left: 120px;*/
+/*}*/
 
-}
+/*.login-label-password {*/
+/*font-family: "Helvetica Neue";*/
+/*font-size: 2.5em;*/
+/*padding: 10px;*/
+/*margin-left: 90px; *!*/
 
-.login-input {
-    width: 90%;
-    height: 25px;
-    font-style: "Helvetica";
-    font-size: .8em;
-    border-radius: 5%;
-    /* margin: 5px 30px; */
-    margin: 3%;
-    border: 1px solid black
-}
+/*font-style: "Helvetica";*/
+/*font-size: 1.2em;*/
+/*!* padding: 5%; *!*/
+/*!* margin-left: 120px; *!*/
+/*}*/
 
-.login-submit-button {
-    font-size: .8em;
-    font-style: "Helvetica";
-    margin: 4%;
-    border-radius: 5%;
-    width: 90%;
-    height: 25px;
-    /* margin-top: 25px; */
-    /* margin-left: 130px; */
-    background-color: white;
-    color: black;
-    border: 1px solid black
-}
+/*.login-label-password {*/
+/*font-style: "Helvetica";*/
+/*font-size: 1.2em;*/
+/*!* padding: 5%; *!*/
+/*!* margin-left: 90px; *!*/
+
+/*}*/
+
+/*.login-input {*/
+    /*width: 90%;*/
+    /*height: 25px;*/
+    /*font-style: "Helvetica";*/
+    /*font-size: .8em;*/
+    /*border-radius: 5%;*/
+    /*!* margin: 5px 30px; *!*/
+    /*margin: 3%;*/
+    /*border: 1px solid black*/
+/*}*/
+
+/*.login-submit-button {*/
+    /*font-size: .8em;*/
+    /*font-style: "Helvetica";*/
+    /*margin: 4%;*/
+    /*border-radius: 5%;*/
+    /*width: 90%;*/
+    /*height: 25px;*/
+    /*!* margin-top: 25px; *!*/
+    /*!* margin-left: 130px; *!*/
+    /*background-color: white;*/
+    /*color: black;*/
+    /*border: 1px solid black*/
+/*}*/
 
 
 
@@ -369,13 +369,13 @@ font-size: 1.2em;
 */
 
 .sapphire-user-signup-div {
-    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/UG76JFIIHZ.jpg");
+    /*background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/UG76JFIIHZ.jpg");*/
     background-size: cover;
     height: 100vh;
 }
 
 .sapphire-user-signup-div h1 {
-    color: white;
+    color: black;
     font-family: 'Montserrat', sans-serif;
     letter-spacing: .2em;
     font-weight: 100;
@@ -386,7 +386,7 @@ font-size: 1.2em;
 
 .sapphire-user-signup-box {
     text-align: center;
-    margin-top: 80px;
+    margin-top: 100px;
 }
 
 .sapphire-user-signup-form {
@@ -719,16 +719,16 @@ MENU ITEM
 */
 
 .saffire-all-itineraries-div{
-    background-image: url("/assets/all-itineraries.jpg");
+    /*background-image: url("/assets/all-itineraries.jpg");*/
     /*background-size: cover;*/
     /*height: 100vh;*/
     /*width: 100%;*/
-    background-attachment: scroll;
+    /*background-attachment: scroll;*/
 }
 
 .saffire-all-itineraries-div h1 {
     font-family: 'Montserrat', sans-serif;
-    color: white;
+    color: black;
     letter-spacing: .2em;
     text-align: center;
     font-size: 3em;
@@ -749,12 +749,13 @@ MENU ITEM
 .saffire-all-itineraries-container {
     text-align: center;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-    margin: 10%;
+    grid-template-columns: repeat(auto-fit, minmax(410px, 1fr));
+    /*margin: 10%;*/
 }
 
 .saffire-all-itineraries-item {
     margin: 20px;
+
 }
 
 .saffire-all-itineraries-img {
@@ -779,7 +780,8 @@ MENU ITEM
 }
 
 .sapphire-itin-name-x {
-    font-size: 1.8em;
+    font-size: 2em;
+    color: black;
 }
 
 .sapphire-itin-name-y {
@@ -815,42 +817,91 @@ MENU ITEM
     ==================================
 */
 
-.single-itin-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 4em;
-    font-weight: 300;
-    color: black;
-    letter-spacing: .3em;
-    padding-top: 20px;
-    display: inline-block;
-    /* margin-right: -200px; */
-    text-align: center;
-}
-
-.single-itin-image {
-    padding: 10px;
-    justify-content: 'center';
-     align-items: 'center';
-     width: 100%; 
-     height: 70%;
-}
-
 .single-itin-header {
-    text-align: center;
     /* background-image: url("http://www.australia.com/content/australia/en_us/facts/_jcr_content/mainParsys/hero/image.adapt.1663.medium.jpg"); */
     /* background-size: 10; */
     /* background-repeat: no-repeat; */
     /* height: 100vh; */
 }
 
-.single-itin-status {
-    display: inline;
-    padding: 20px;
-    /* position: absolute; */
-    /* bottom: 0; */
+
+.single-itin-image {
+    padding: 2%;
+    max-height: 530px;
+    max-width: 750px;
+    height: 80%;
+    width: 80%;
+}
+
+.single-itin-dash {
+    /*display: inline-block;*/
+    text-align: center;
 }
 
 
+.single-itin-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5em;
+    font-weight: 300;
+    color: black;
+    letter-spacing: .3em;
+    /*text-align: right;*/
+}
+
+.single-itin-event-title {
+    font-size: 1.5em;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    /*margin: 10px;*/
+    padding: 1.5em;
+}
+
+
+
+.single-itin-status {
+    display: inline-block;
+}
+
+.single-itin-map {
+    margin-top: 3%;
+}
+
+.single-itin-schedule {
+    background-image: url('/assets/single-itin-schedule.jpg');
+    background-size: cover;
+}
+
+
+
+.single-itin-event-scheduler-node {
+    background-color: white;
+    margin: 13px;
+    /*margin-top: 13px;*/
+    /*margin-bottom: 13px;*/
+    /*margin-left: 13px;*/
+    /*box-shadow: 3px 3px grey;*/
+}
+
+.single-itin-event-scheduler-info {
+    margin-left: 15px;
+    padding: 12px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+
+.single-itin-event-scheduler-button {
+    font-size: 10px;
+    border-radius: 10px;
+}
+
+.single-itin-schedule-list {
+    padding: 15px;
+}
+
+.schedule-list-title {
+    text-align: center;
+    font-size: 1.5em;
+}
 
 
 /*
