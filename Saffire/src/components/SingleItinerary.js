@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import firebase from '../firebase'
@@ -20,9 +19,6 @@ import {
     pink400,
     purple500,
   } from 'material-ui/styles/colors';
-
-
-
 
 
 class SingleItinerary extends Component{
@@ -79,6 +75,7 @@ class SingleItinerary extends Component{
 
     submitEvent(e) {
         e.preventDefault()
+        console.log(this.state.currentDate, this.state.currentTime)
         this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime)
         this.setState({showForm: {}})
     }
@@ -132,17 +129,17 @@ class SingleItinerary extends Component{
             END FIREBASE EVENT LISTNERS
         */
 
-        if (this.props.connect) {
-            const messageRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('messages')
-            let initial = false
-            messageRef.once('value', snap => {
-                initial = true
-            })
-            messageRef.on('child_added', data => {
-                if (!initial) return
-                console.log('THE CHILD OF NEWMESSAGE CHANGED:  ', data.val())
-            })
-        }
+        // if (this.props.connect) {
+        //     const messageRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('messages')
+        //     let initial = false
+        //     messageRef.once('value', snap => {
+        //         initial = true
+        //     })
+        //     messageRef.on('child_added', data => {
+        //         if (!initial) return
+        //         console.log('THE CHILD OF NEWMESSAGE CHANGED:  ', data.val())
+        //     })
+        // }
         const chatMessages = []
 
         
