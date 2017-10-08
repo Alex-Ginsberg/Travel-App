@@ -168,10 +168,10 @@ class SingleItinerary extends Component{
             return new Date(a.schedule.date) - new Date(b.schedule.date);
           });
         
-        // Then sorts it on time
-        eventScheduled.sort((a,b) => {
-            return new Date(a.schedule.time) - new Date(b.schedule.time);
-        });
+        // // Then sorts it on time
+        // eventScheduled.sort((a,b) => {
+        //     return new Date(a.schedule.time) - new Date(b.schedule.time);
+        // });
         let scheduledDates = []
         for (let i = 0; i < eventScheduled.length; i++) {
             if (scheduledDates.indexOf(eventScheduled[i].schedule.date) === -1){scheduledDates.push(eventScheduled[i].schedule.date)}   
