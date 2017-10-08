@@ -11,7 +11,6 @@ class FindFriends extends Component {
     }
 
     render() {
-        console.log('ALL USERS: ', this.props.users)
         return (
         <div>
             <h1>Find Friends!</h1>
