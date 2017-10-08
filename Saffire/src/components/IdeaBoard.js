@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Container} from './DragContainer';
 import firebase from 'firebase';
 import Geosuggest from 'react-geosuggest';
+import history from '../history';
 
 
 
@@ -213,6 +214,12 @@ class IdeaBoard extends Component {
                 <Geosuggest onSuggestSelect={this.onSuggestSelect} autoComplete="on"/>
             </div>}
 
+            {/*go to single itin view*/}
+
+            <div>
+                <div onClick={() => {history.push(`/itinerary/${this.props.match.params.id}`)}}>View Itinerary</div>
+            </div>
+
             {/* add friend  */}
             {this.props.connect && <div className = "idea-board-url">
                 <form onSubmit={this.addToGroup}>
@@ -228,7 +235,7 @@ class IdeaBoard extends Component {
             
 
             <div className="row">
-                <div className="col-6">
+                <div className="col-lg-6">
                     <h4 className="idea-board-words">PLAN</h4>
                     {/* Will render out all events that have not been added yet */}
                     {currentEvents.map(event => (
@@ -240,7 +247,7 @@ class IdeaBoard extends Component {
 
              
 
-                <div className="col-6">
+                <div className="col-lg-6">
                     <h4 className="idea-board-words">ITINERARY</h4>
                     {/* Will render all events that HAVE been added */}
                     {currentEvents.map(event => (
