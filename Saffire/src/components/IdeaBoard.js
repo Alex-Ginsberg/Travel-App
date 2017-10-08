@@ -30,10 +30,12 @@ class IdeaBoard extends Component {
     
     componentDidMount() {
         const currentItinKey = this.props.match.params.id;
+        this.props.getItineraryEvents(this.props.match.params.id)
         // If the user is connected to the internet, find the current itinerary in firebase, set it on state, and dispatch to find the events associated with it
         if (this.props.connect) {
             console.log('CONNECTED IN IDEA BOARD')
             const itinRef = firebase.database().ref().child('itineraries').child(currentItinKey)
+           
             itinRef.once('value')
                 .then(snapshot => {
                     const itin = snapshot.val()
@@ -141,7 +143,7 @@ class IdeaBoard extends Component {
         let handleChange = this.handleChange;
         let itineraryName = this.props.connect ? this.props.itineraryName : this.state.itin
         let friends = this.props.connect ? this.props.currentUser.friends : JSON.parse(window.localStorage.currentUser).friends
-        const currentEvents = this.state.events
+        const currentEvents = this.props.connect ? this.props.currentEvents : this.state.events
         const currentUser = this.props.connect ? this.props.currentUser : JSON.parse(window.localStorage.currentUser)
         let friendsArr = []
         for (var key in friends) {
