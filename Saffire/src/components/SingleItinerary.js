@@ -76,19 +76,20 @@ class SingleItinerary extends Component{
 
     submitEvent(e) {
         e.preventDefault()
+        console.log('HOURS: ', typeof(this.state.currentTime.getHours() - 1))
         const toSchedule = new Date(
             this.state.currentDate.getFullYear(),
             this.state.currentDate.getMonth(),
             this.state.currentDate.getDate(),
-            this.state.currentTime.getHours(),
+            this.state.currentTime.getHours() - 1,
             this.state.currentTime.getMinutes(),
             this.state.currentTime.getSeconds(),
             this.state.currentTime.getMilliseconds()
         )
         schedule.scheduleJob(toSchedule, () => {
-            alert(`Time to leave for ${this.state.showForm.title}`)
+            console.log('WORRRRRRKKKKKKIIIIIINNNNNGGGGGGG')
         })
-        this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime)
+        this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime, toSchedule)
         this.setState({showForm: {}})
     }
 
@@ -165,7 +166,7 @@ class SingleItinerary extends Component{
 
         // First sorts the array by the date
         eventScheduled.sort((a,b) => {
-            return new Date(a.schedule.date) - new Date(b.schedule.date);
+            return new Date(a.schedule.toSchedule) - new Date(b.schedule.toSchedule);
           });
         
         // // Then sorts it on time
@@ -296,8 +297,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setDateAndTime(itinId, event, date, time) {
-            dispatch(setDateAndTime(itinId, event, date, time))
+        setDateAndTime(itinId, event, date, time, toSchedule) {
+            dispatch(setDateAndTime(itinId, event, date, time, toSchedule))
         },
         sendMessage(user, itin, message) {
             sendMessage(user, itin, message)
