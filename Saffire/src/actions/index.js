@@ -24,7 +24,7 @@ export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const newRef = itinerariesRef.push({                                                // Pushes the new itinerary to firebase
             name: itinerary,
             owner: firebase.auth().currentUser.email,
-            // imageURL: itineraryImageURL,
+            imageURL: itineraryImageURL,
             coordinates: {defaultCoor: {lat: 0, long: 0}},
             placeCoor: {defaultCoor: {lat: 0, long: 0}},
         })

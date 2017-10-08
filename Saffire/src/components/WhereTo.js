@@ -88,7 +88,7 @@ class WhereTo extends Component {
         } else {
             //pick and return random general travel photo
             const objectLength = Object.entries(generalImages).length;
-            const randomNum = Math.random() * (objectLength - 0 ) + 0;
+            const randomNum = Math.floor((Math.random() * (objectLength - 0 ) + 0));
             return generalImages[randomNum];
         }
     }
