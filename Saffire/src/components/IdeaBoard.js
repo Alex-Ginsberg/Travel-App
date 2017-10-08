@@ -7,6 +7,7 @@ import {Container} from './DragContainer';
 import firebase from 'firebase';
 import Geosuggest from 'react-geosuggest';
 import history from '../history';
+import BurgerMenu from './Menu';
 
 
 
@@ -193,6 +194,7 @@ class IdeaBoard extends Component {
         // window.scrollTo(0,0);
         return (
         <div className="idea-board-div" >
+            <BurgerMenu />
             
             <div className="single-itin-header">
                 {/* <img className="single-itin-image" src={this.state.itin.imageURL} /> */}
