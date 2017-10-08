@@ -355,6 +355,7 @@ export const getCurrentUser = () => dispatch => {
                     }}
                 }
                 console.log('LOGGED IN USER: ', loggedInUser)
+            
                 return dispatch(setCurrentUser(loggedInUser))
             })
     }
@@ -465,11 +466,14 @@ export const setDateAndTime = (itinId, event, date, time) => dispatch => {
         .then(snapshot => {
             const events = snapshot.val()
             for (let key in events) {
-                if (events[key].url === event.url){return key}
+                if (events[key].title === event.title){
+                    return key
+                }
+
             }
         })
         .then(theKey => {
-            console.log(time)
+            console.log(time, itinId, theKey)
             const evRef = firebase.database().ref().child('itineraries').child(itinId).child('events').child(theKey).child('schedule').update({date: dateToAdd, time: timeToAdd})
             console.log('updated')
         })

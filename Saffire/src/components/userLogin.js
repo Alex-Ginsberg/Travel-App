@@ -33,7 +33,7 @@ class UserLogin extends React.Component {
         <div className = "sapphire-user-signup-box">
           <form className = "sapphire-user-signup-form" onSubmit={this.handleSubmit}>
 
-            <h1>LOG IN</h1>
+            <h2>USER LOGIN</h2>
 
             <div className = "sapphire-user-signup-input">
               <input type='text' placeholder="Email" onChange={(e) => this.setState({email: e.target.value})}/>
@@ -44,7 +44,7 @@ class UserLogin extends React.Component {
               </div>
 
               <div className = "sapphire-user-signup-button-div">
-                <button type='submit'>Log In</button>
+                <button type='submit' className="btn btn-primary" >SEND</button>
               </div>
           </form>
         </div>
