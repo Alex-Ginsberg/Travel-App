@@ -61,6 +61,7 @@ class LinkPreview extends Component {
         <CardActions>
           {!this.props.hasBeenAdded && <FlatButton label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={((likedByArray.indexOf(this.props.user.email )) > -1) || !this.props.connect}/> }
           {!this.props.hasBeenAdded && <FlatButton label="Add To Itinerary" disabled={!this.props.connect} onClick={() => this.props.confirmEvent(this.props.eventKey, this.props.itinKey) }/>}
+          <FlatButton label="Remove" />
         </CardActions>
         <CardText expandable={true}>
           Liked by: {likedByArray} <br></br>
