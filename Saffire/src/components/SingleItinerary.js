@@ -10,6 +10,8 @@ import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
 import Avatar from 'material-ui/Avatar';
 import {MapComp} from '../components'
+import cron from 'node-cron'
+import axios from 'axios'
 
 import {
     blue300,
@@ -34,7 +36,6 @@ class SingleItinerary extends Component{
             events: []
         }
         this.renderForm = this.renderForm.bind(this)
-        this.submitEvent = this.submitEvent.bind(this)
         this.sendChat = this.sendChat.bind(this)
 }
 
@@ -73,13 +74,6 @@ class SingleItinerary extends Component{
         else {this.setState({showForm: {}})}
     }
 
-    submitEvent(e) {
-        e.preventDefault()
-        console.log(this.state.currentDate, this.state.currentTime)
-        this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime)
-        this.setState({showForm: {}})
-    }
-
     sendChat(e) {
         e.preventDefault()
         this.props.sendMessage(this.props.user, this.props.match.params.id, this.state.chatMessage)
@@ -95,6 +89,7 @@ class SingleItinerary extends Component{
         }
         const ownerAdd = this.props.users.filter(currentUser => currentUser.email === this.state.itin.owner)
         memberArray.push(ownerAdd[0])
+        console.log('MEMBERS: ', memberArray)
 
         /*
             FIREBASE EVENT LISTENERS
@@ -153,13 +148,13 @@ class SingleItinerary extends Component{
 
         // First sorts the array by the date
         eventScheduled.sort((a,b) => {
-            return new Date(a.schedule.date) - new Date(b.schedule.date);
+            return new Date(a.schedule.toSchedule) - new Date(b.schedule.toSchedule);
           });
         
-        // Then sorts it on time
-        eventScheduled.sort((a,b) => {
-            return new Date(a.schedule.time) - new Date(b.schedule.time);
-        });
+        // // Then sorts it on time
+        // eventScheduled.sort((a,b) => {
+        //     return new Date(a.schedule.time) - new Date(b.schedule.time);
+        // });
         let scheduledDates = []
         for (let i = 0; i < eventScheduled.length; i++) {
             if (scheduledDates.indexOf(eventScheduled[i].schedule.date) === -1){scheduledDates.push(eventScheduled[i].schedule.date)}   
@@ -264,7 +259,45 @@ class SingleItinerary extends Component{
                                         value={this.state.currentTime}
                                         onChange={(nada, data) => this.setState({currentTime: data})}/>
                                 </MuiThemeProvider>
-                                <button onClick={this.submitEvent}>Submit event</button>
+                                <button onClick={(e) => {
+                                    e.preventDefault()
+                                    const toSchedule = new Date(
+                                        this.state.currentDate.getFullYear(),
+                                        this.state.currentDate.getMonth(),
+                                        this.state.currentDate.getDate(),
+                                        this.state.currentTime.getHours(),
+                                        this.state.currentTime.getMinutes(),
+                                        this.state.currentTime.getSeconds(),
+                                        this.state.currentTime.getMilliseconds()
+                                    )
+                                    memberArray.map(member => {
+                                        cron.schedule(`* * * * *`, () => {
+                                            axios({ url: 'https://fcm.googleapis.com/fcm/send',
+                                            method: 'post',
+                                            headers: {
+                                                'Authorization': 'key=AAAA9J-m9SY:APA91bHXe_r13MYn-BY6iWZwXQ6tOmUZZv9UeMC7LfQdgGbxXKhbnoBWNQifh-2E-t9gVGFfaiKR_ivv1OtuBufWboAhJ5SeWNdrkWiQg6WNHY5b2DXSM4Sp4_rZO60y4Nq6BNjYUsk8',
+                                                'Content-Type': 'application/json',
+                                            },
+                                            data: {
+                                                    "notification": {
+                                                    "title": "Saffire",
+                                                    "body": `You have an hour until ${this.state.showForm.title}`,
+                                                    "icon": "firebase-logo.png",
+                                                    "click_action": "https://deets-76612.firebaseapp.com/requests"
+                                                    },
+                                                    "to": member.localToken
+                                                }
+                                    })
+                                    .then(response => console.log('post sent', response.data))
+                                        })
+                                    })
+                                   
+                                    // schedule.scheduleJob(toSchedule, () => {
+                                    //     alert('hi')
+                                    // })
+                                    this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime, toSchedule)
+                                    this.setState({showForm: {}})
+                                }}>Submit event</button>
                             </div>
                             }
                         </div>
@@ -311,8 +344,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setDateAndTime(itinId, event, date, time) {
-            dispatch(setDateAndTime(itinId, event, date, time))
+        setDateAndTime(itinId, event, date, time, toSchedule) {
+            dispatch(setDateAndTime(itinId, event, date, time, toSchedule))
         },
         sendMessage(user, itin, message) {
             sendMessage(user, itin, message)

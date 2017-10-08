@@ -5,7 +5,7 @@ import history from './history'
 import {connect} from 'react-redux'
 import {fetchUsers} from './actions'
 import firebase from './firebase'
-import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindFriends, SingleItinerary, FriendRequests, StatusUpdate, MyFriends} from './components'
+import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindFriends, SingleItinerary, FriendRequests, StatusUpdate, MyFriends, WhereTo} from './components'
 
 
 /**
@@ -48,6 +48,7 @@ class Routes extends Component {
           <Route path="/requests" component={FriendRequests} />
           <Route path="/update" component={StatusUpdate} />
           <Route path = "/myfriends" component = {MyFriends} />
+          <Route path = "/whereto" component = {WhereTo} />
         </Switch>    
       </Router>
     )

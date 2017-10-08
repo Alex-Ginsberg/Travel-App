@@ -6,6 +6,7 @@ import { postItinerary, getCurrentUser } from '../actions';
 
 
 
+
 class WhereTo extends Component {
     constructor(props) {
         super(props);
