@@ -54,7 +54,7 @@ class SingleItinerary extends Component{
             const allItins = JSON.parse(localStorage.allItineraries)
             let itinToAdd
             let events = []
-            console.log('NOT CONNECTED: ', allItins)
+
             for (let i = 0; i < allItins.length; i++) {
                 if (allItins[i].key === currentItinKey) {
                     itinToAdd = allItins[i]
@@ -95,7 +95,7 @@ class SingleItinerary extends Component{
         }
         const ownerAdd = this.props.users.filter(currentUser => currentUser.email === this.state.itin.owner)
         memberArray.push(ownerAdd[0])
-        console.log('MEMBERS: ', memberArray)
+
         /*
             FIREBASE EVENT LISTENERS
          =========================================================================================================================================================
@@ -168,66 +168,55 @@ class SingleItinerary extends Component{
         for (let i in this.state.itin.messages) {
             chatMessages.push(this.state.itin.messages[i])
         }
-        console.log('IIITTTIIINNNN ', this.state.itin)
+
+
         return (
             <div>
                 <div className="single-itin-header">
                     <BurgerMenu />
-                    <img className='single-itin-image' src={this.state.itin.imageURL}/>
-                    <h1 className="single-itin-title">{this.state.itin.name}</h1>
-                </div>
 
-                <MuiThemeProvider>
-                <div className="single-itin-status">    
-                    {memberArray.map(member => (
-                        <List >
-                        {member && <ListItem disabled={true}  leftAvatar={<Avatar backgroundColor={blue300} src={member.image} />}>
-                            {member.name}: {member.status}
-                        </ListItem>}
-                        
-                        </List>
-                    ))}
-                </div>
-                </MuiThemeProvider>
+                    <div className="single-itin-dash">
+                        <img className='single-itin-image' src={this.state.itin.imageURL}/>
 
-                {this.props.connect && <MapComp itinKey = {this.props.match.params}/>}
-                <h4>Events to be added to timeline: </h4>
-                <div class="container">
-                    <div class="row">
-                        <div className="col-lg-4">
-                        {events.map(event => (
-                            <div key={event.url}>
-                                <h5>{event.title}</h5>
-                                <p>People going to this event: </p>
-                                {event.likedBy && Object.keys(event.likedBy).map(likeByKey => (
-                                    <p key={likeByKey}>{event.likedBy[likeByKey].name}</p>
-                                ))}
-                                <button disabled={!this.props.connect} onClick={() => {this.renderForm(event)}}>Set Schedule</button>
-                            </div>
-                        ))}
-                        {this.state.showForm.title && 
-                            <div>
-                                <p>Schedule when to go to {this.state.showForm.title}</p>
-                                <MuiThemeProvider>
-                                    <DatePicker 
-                                    hintText="Select a Date" 
-                                    value={this.state.currentDate}
-                                    onChange={(nade, data) => this.setState({currentDate: data})}/>
-                                    <TimePicker 
-                                    hintText="Select a Time" 
-                                    value={this.state.currentTime}
-                                    onChange={(nada, data) => this.setState({currentTime: data})}/>
-                                </MuiThemeProvider>
-                                <button onClick={this.submitEvent}>Submit event</button>
-                            </div>
-                        }
-                        </div>
-                        <div className="col-lg-8">
-                        {scheduledDates.map(date => (
-                            <div key={date}>
+
+                            <h1 className="single-itin-title">{this.state.itin.name}</h1>
                             <MuiThemeProvider>
-                                
-                                <h1>{date}</h1>
+                                <div className="single-itin-status">
+                                    {memberArray.map(member => (
+                                        <List >
+                                            {member && <ListItem disabled={true}  leftAvatar={<Avatar backgroundColor={blue300} src={member.image} />}>
+                                                {member.name}: {member.status}
+                                            </ListItem>}
+
+                                        </List>
+                                    ))}
+                                </div>
+                            </MuiThemeProvider>
+                    </div>
+                </div>
+
+
+                <div className="single-itin-map">
+                {this.props.connect &&
+                <MapComp itinKey = {this.props.match.params}/>
+                }
+                </div>
+
+
+
+
+                <div className="single-itin-schedule">
+                    <div className="row">
+
+                        <div className="col-lg-8">
+                            <h4 className="single-itin-event-title">Your Timeline:</h4>
+                         <div className="single-itin-schedule-list">
+                        {scheduledDates.map(date => (
+                            <div key={date} className="single-itin-event-scheduler-node" >
+                            <MuiThemeProvider>
+
+                                <div className="single-itin-event-scheduler-info">
+                                <h1 className="schedule-list-title">{date}</h1>
                                 {eventScheduled.map(event => (
                                     <div key={event.url}>
                                     {event.schedule.date === date && 
@@ -241,30 +230,68 @@ class SingleItinerary extends Component{
                                     }
                                     </div>
                                 ))}
+                                </div>
                                 </MuiThemeProvider>
                             </div>
                         ))}
                         </div>
+                        </div>
+
+                        <div className="col-lg-4">
+                            <h4 className="single-itin-event-title">Set Events: </h4>
+                            {events.map(event => (
+                                <div key={event.url} className="single-itin-event-scheduler-node">
+                                    <div className="single-itin-event-scheduler-info">
+                                        <h5>{event.title}</h5>
+                                        <p>People going to this event: </p>
+                                        {event.likedBy && Object.keys(event.likedBy).map(likeByKey => (
+                                            <p key={likeByKey}>{event.likedBy[likeByKey].name}</p>
+                                        ))}
+                                        <button className="single-itin-event-scheduler-button" disabled={!this.props.connect} onClick={() => {this.renderForm(event)}}>Set Schedule</button>
+                                    </div>
+                                </div>
+                            ))}
+                            {this.state.showForm.title &&
+                            <div>
+                                <p>Schedule when to go to {this.state.showForm.title}</p>
+                                <MuiThemeProvider>
+                                    <DatePicker
+                                        hintText="Select a Date"
+                                        value={this.state.currentDate}
+                                        onChange={(nade, data) => this.setState({currentDate: data})}/>
+                                    <TimePicker
+                                        hintText="Select a Time"
+                                        value={this.state.currentTime}
+                                        onChange={(nada, data) => this.setState({currentTime: data})}/>
+                                </MuiThemeProvider>
+                                <button onClick={this.submitEvent}>Submit event</button>
+                            </div>
+                            }
+                        </div>
+
                     </div>
                 </div>
-                <button onClick={() => this.props.history.push('/ideaboard')}>IdeaBoard</button>
-                <button disabled={!this.props.conenct} onClick={() => this.setState({showChat: !this.state.showChat})}>Chat</button>
-                {this.state.showChat && 
-                <div>
-                    {chatMessages.map(message => (
-                        <p>{message.sender}: {message.content}</p>
-                    ))}
-                    <form onSubmit={this.sendChat}> 
-                        <input name="chatMessage" 
-                            type="text" 
-                            value={this.state.chatMessage}
-                            className="form-control" 
-                            placeholder="Send message..."
-                            onChange={(e) => {this.setState({chatMessage: e.target.value})}}/>
-                        <button type="submit" className="btn btn-primary">Send</button>
-                    </form>
-                </div>
-                }
+
+
+
+                {/*<button onClick={() => this.props.history.push('/ideaboard')}>IdeaBoard</button>*/}
+                {/*<button disabled={!this.props.conenct} onClick={() => this.setState({showChat: !this.state.showChat})}>Chat</button>*/}
+                {/*{this.state.showChat && */}
+                {/*<div>*/}
+                    {/*{chatMessages.map(message => (*/}
+                        {/*<p>{message.sender}: {message.content}</p>*/}
+                    {/*))}*/}
+                    {/*<form onSubmit={this.sendChat}> */}
+                        {/*<input name="chatMessage" */}
+                            {/*type="text" */}
+                            {/*value={this.state.chatMessage}*/}
+                            {/*className="form-control" */}
+                            {/*placeholder="Send message..."*/}
+                            {/*onChange={(e) => {this.setState({chatMessage: e.target.value})}}/>*/}
+                        {/*<button type="submit" className="btn btn-primary">Send</button>*/}
+                    {/*</form>*/}
+                {/*</div>*/}
+                {/*}*/}
             </div>
         )
     }

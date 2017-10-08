@@ -32,7 +32,7 @@ class UserSignup extends React.Component {
         <div className = "sapphire-user-signup-box">
           <form onSubmit={this.handleSubmit} className = "sapphire-user-signup-form">
             
-            <h1>SIGN UP</h1>
+            <h2>SIGN UP</h2>
             
             <div className = "sapphire-user-signup-input">
               <input name='name' type='text' onChange={(e) => { this.setState({name: e.target.value}) }} placeholder="name"/>
@@ -47,7 +47,7 @@ class UserSignup extends React.Component {
             </div>
             
             <div className = "sapphire-user-signup-button-div">
-              <button type='submit'>Get Started</button>
+              <button type='submit' className="btn btn-primary" >Welcome</button>
             </div>
           </form>
         </div>

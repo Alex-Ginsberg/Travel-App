@@ -33,15 +33,16 @@ class Main extends Component {
       <BurgerMenu />
 
         <h1 className="sapphire-app-title">SAFFIRE</h1>
-      <div className = "sapphire-auth-div clearfix">
-        { !this.props.currentUser.name &&  (
-            <div className="sapphire-auth-div clearfix">
-              <Link to='/login' className = "sapphire-app-login">LOGIN</Link>
-              <Link to='/signup' className = "sapphire-app-login">SIGN UP</Link>
-            </div>
-          ) 
-        }
-      </div>
+
+        <div className = "sapphire-auth-div">
+            { !this.props.currentUser.name &&  (
+                <div>
+                  <Link to='/login' className = "sapphire-app-login">LOGIN</Link>
+                  <Link to='/signup' className = "sapphire-app-login">SIGN UP</Link>
+                </div>
+              )
+            }
+        </div>
 
       <div className="sapphire-home-page-border">
         <WhereTo />

@@ -32,7 +32,6 @@ class AllItineraries extends React.Component {
 
     //If the user is not connected to the internet, access all itineraries via what is kept on local storage 
     else {
-      console.log('RUNNING FOR NOT CONNECTED')
       this.setState({itinArray: JSON.parse(localStorage.allItineraries)})
     }
   }
@@ -60,9 +59,6 @@ class AllItineraries extends React.Component {
     }
     
 
-
-    console.log('toRender******', toRenderItins);
-
     return (
       <div className="saffire-all-itineraries-div">
         
@@ -72,12 +68,16 @@ class AllItineraries extends React.Component {
 
         <h3>MY ITINERARIES</h3>
 
-        <div className = "saffire-all-itineraries-container">
+        <div className = "saffire-all-itineraries-container" >
           {
             toRenderItins.map(itin => (
             
             <div className = "saffire-all-itineraries-item" key={itin.key}>
-            <img src={itin.imageURL} />
+             <img src={itin.imageURL} className = "saffire-all-itineraries-img" onClick={() => {
+                 firebase.database().ref(`/itineraries/${itin.key}`).once('value')
+                     .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
+                     .then(() => this.props.history.push(`/itinerary/${itin.key}`))
+             }}/>
             
 
               <div className = "little-saffire-item" key={itin.key}>
