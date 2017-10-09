@@ -668,6 +668,10 @@ MENU ITEM
     text-decoration: none;
 }
 
+.menu-list {
+    list-style-type: none;
+}
+
 .sapphire-idea-board {
     border: 7px solid;
     display: inline-block;
@@ -849,6 +853,11 @@ MENU ITEM
     text-align: center;
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+.single-itin-subheader {
+    text-align: center;
+    margin-bottom: 40px;
 }
 
 .single-itin-event-title {
@@ -1088,6 +1097,10 @@ MENU ITEM
 .idea-board-plan-event {
     margin: 20px;
 
+}
+
+.linkpreview-hover:hover{
+    background-color: yellow;
 }
 
 

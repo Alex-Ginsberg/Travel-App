@@ -43,13 +43,15 @@ class BurgerMenu extends React.Component {
       
       <Menu styles={styles}>
         <div>
-          <li><a className="menu-item" id="home" href="/">START YOUR ADVENTURE</a></li>
-          {/* <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li> */}
-          <li><a className="menu-item" id="Itineraries"  href={(this.props.currentUser.email || !this.props.connect) ? "/itineraries" : "/signup"}>MY ITINERARIES</a></li> 
-          <li><a className="menu-item" id="MyFriends"  href={(this.props.currentUser.email) ? "/myfriends" : "/signup"}>FRIENDS</a></li>
-          {this.props.currentUser.email && <li><a className="menu-item" onClick={this.signout} href=''>LOGOUT</a></li>}
-          {!this.props.currentUser.email && <li><a className="menu-item"  href='/login'>LOGIN</a></li>}
-          {this.props.connect && this.props.currentUser.email && <li><p className="menu-item" onClick={() => this.setState({showButtons: !this.state.showButtons})}>UPDATE STATUS</p></li>} 
+            <ul className="menu-list">
+            <li><a className="menu-item" id="home" href="/">START YOUR ADVENTURE</a></li>
+            {/* <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li> */}
+            <li><a className="menu-item" id="Itineraries"  href={(this.props.currentUser.email || !this.props.connect) ? "/itineraries" : "/signup"}>MY ITINERARIES</a></li> 
+            <li><a className="menu-item" id="MyFriends"  href={(this.props.currentUser.email) ? "/myfriends" : "/signup"}>FRIENDS</a></li>
+            {this.props.currentUser.email && <li><a className="menu-item" onClick={this.signout} href=''>LOGOUT</a></li>}
+            {!this.props.currentUser.email && <li><a className="menu-item"  href='/login'>LOGIN</a></li>}
+            {this.props.connect && this.props.currentUser.email && <li><p className="menu-item" onClick={() => this.setState({showButtons: !this.state.showButtons})}>UPDATE STATUS</p></li>} 
+          </ul>
         </div>
 
         
