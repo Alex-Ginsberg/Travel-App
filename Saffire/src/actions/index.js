@@ -575,6 +575,7 @@ export const fetchDistanceMatrix = (userCoor, locations) => dispatch => {
     .catch(err => {
         console.log(err)
     })
+}
 
 export const removeSchedule = (itin, event) => dispatch => {
     const itinRef = firebase.database().ref().child('itineraries').child(itin)
