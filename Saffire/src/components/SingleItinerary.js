@@ -4,7 +4,7 @@ import firebase from '../firebase'
 import TimePicker from 'material-ui/TimePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import DatePicker from 'material-ui/DatePicker';
-import {setDateAndTime, sendMessage, fetchUsers, removeSchedule} from '../actions'
+import {setDateAndTime, sendMessage, fetchUsers, removeSchedule, googlePlacesDetails} from '../actions'
 import BurgerMenu from './Menu';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
@@ -145,7 +145,6 @@ class SingleItinerary extends Component{
             if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){events.push(this.state.itin.events[key])}
             else if (this.state.itin.events[key].schedule){eventScheduled.push(this.state.itin.events[key])}
         }
-        console.log('SCHED: ', eventScheduled)
 
         // First sorts the array by the date
         eventScheduled.sort((a,b) => {
@@ -160,7 +159,7 @@ class SingleItinerary extends Component{
         for (let i in this.state.itin.messages) {
             chatMessages.push(this.state.itin.messages[i])
         }
-      
+
         return (
             <div>
                 <div className="single-itin-header">
@@ -206,32 +205,33 @@ class SingleItinerary extends Component{
 
 
 
-
+                {/*timeline*/}
                 <div className="single-itin-schedule">
                     <div className="row">
 
                         <div className="col-lg-8">
                             <h4 className="single-itin-event-title">Your Timeline:</h4>
                          <div className="single-itin-schedule-list">
+
                         {scheduledDates.map(date => (
                             <div key={date} className="single-itin-event-scheduler-node" >
-                            <MuiThemeProvider>
+                                <MuiThemeProvider>
 
                                 <div className="single-itin-event-scheduler-info">
                                 <h1 className="schedule-list-title">{date}</h1>
+
                                 {eventScheduled.map(event => (
-                                    <div key={event.url}>
+                                    <div key={event.url} onClick={() => this.props.getGoogleDeets(event.placeID)}>
                                     {event.schedule.date === date && 
-                                        <div>
+
                                         <List>
                                             <ListItem disabled={true} hoverColor={indigo900} leftAvatar={<Avatar backgroundColor={blue300} />}>
-                                                {event.title} @ {event.schedule.time}
+                                                {event.title.split(',')[0]} @ {event.schedule.time}
                                             </ListItem>
                                             <button className="btn btn-danger" onClick={() => {
                                                this.props.removeSchedule(this.props.match.params.id, event)
-                                            }}>Cancel Schedule</button>
+                                            }}>REMOVE</button>
                                         </List>
-                                        </div>
                                     }
                                     </div>
                                 ))}
@@ -242,6 +242,9 @@ class SingleItinerary extends Component{
                         </div>
                         </div>
 
+
+
+                        {/*set events*/}
                         <div className="col-lg-4">
                             <h4 className="single-itin-event-title">Set Events: </h4>
                             {events.map(event => (
@@ -368,6 +371,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         removeSchedule(itin, event) {
             dispatch(removeSchedule(itin, event))
+        },
+        getGoogleDeets (placeID) {
+            dispatch(googlePlacesDetails(placeID))
         }
     }
 }
