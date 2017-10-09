@@ -100,7 +100,7 @@ class SingleItinerary extends Component{
             const val = data.val()
             const itin = this.state.itin
             for (let key in this.state.itin.events) {
-                if (this.state.itin.events[key].url === val.url) {
+                if (this.state.itin.events[key].address === val.address) {
                     this.state.itin.events[key].schedule = val.schedule
                 }
             }
@@ -141,9 +141,10 @@ class SingleItinerary extends Component{
 
         let events = []
         let eventScheduled = []
+        console.log('THE CURRENT STATE: ', this.state)
         for (let key in this.state.itin.events) {
-            if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){events.push(this.state.itin.events[key])}
-            else if (this.state.itin.events[key].schedule){eventScheduled.push(this.state.itin.events[key])}
+            if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){ console.log('not scheduled'); events.push(this.state.itin.events[key])}
+            else if (this.state.itin.events[key].schedule){console.log('scheduled'); eventScheduled.push(this.state.itin.events[key])}
         }
         console.log('SCHED: ', eventScheduled)
 
@@ -269,8 +270,7 @@ class SingleItinerary extends Component{
                                         value={this.state.currentTime}
                                         onChange={(nada, data) => this.setState({currentTime: data})}/>
                                 </MuiThemeProvider>
-                                <button onClick={(e) => {
-                                    e.preventDefault()
+                                <button onClick={() => {
                                     const toSchedule = new Date(
                                         this.state.currentDate.getFullYear(),
                                         this.state.currentDate.getMonth(),
@@ -280,6 +280,9 @@ class SingleItinerary extends Component{
                                         this.state.currentTime.getSeconds(),
                                         this.state.currentTime.getMilliseconds()
                                     )
+                                    this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime, toSchedule)
+                                    this.setState({showForm: {}})
+                                    
                                     console.log('MONTH: ', toSchedule.getMonth())
                                     const schedString = `${toSchedule.getSeconds()} ${toSchedule.getMinutes()} ${toSchedule.getHours() - 1} ${toSchedule.getDate()} ${toSchedule.getMonth() + 1} ${toSchedule.getDay()}`
                                     console.log('TO BE SCHEDULED: ', schedString)
@@ -308,8 +311,7 @@ class SingleItinerary extends Component{
                                     // schedule.scheduleJob(toSchedule, () => {
                                     //     alert('hi')
                                     // })
-                                    this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime, toSchedule)
-                                    this.setState({showForm: {}})
+                                    
                                 }}>Submit event</button>
                             </div>
                             }
