@@ -28,10 +28,10 @@ body {
 
 .sapphire-app {
     text-align: center;
-    background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
+    /*background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg");*/
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+    /*height: 100vh;*/
 }
 
 .sapphire-app-title {
@@ -637,7 +637,7 @@ MENU ITEM
 }
 
 .menu-item:hover {
-    background-color: #054dc1;
+    background-color: #f4b642;
     color: white;
     text-decoration: none;
 }
@@ -755,7 +755,6 @@ MENU ITEM
 
 .saffire-all-itineraries-item {
     margin: 20px;
-
 }
 
 .saffire-all-itineraries-img {
@@ -803,7 +802,6 @@ MENU ITEM
     text-align: left;
     border-radius: 5px;
     font-size: .6em;
-    color: #054dc1;
 }
 
 
@@ -819,6 +817,8 @@ MENU ITEM
 */
 
 .single-itin-header {
+    /*display: inline-block;*/
+    text-align: left;
     /* background-image: url("http://www.australia.com/content/australia/en_us/facts/_jcr_content/mainParsys/hero/image.adapt.1663.medium.jpg"); */
     /* background-size: 10; */
     /* background-repeat: no-repeat; */
@@ -827,28 +827,23 @@ MENU ITEM
 
 
 .single-itin-image {
-    padding: 2%;
-    max-height: 530px;
-    max-width: 750px;
-    height: 80%;
-    width: 80%;
+    padding: 10px;
+    max-height: 400px;
+    height: 70%;
 }
 
 .single-itin-dash {
-    /*display: inline-block;*/
-    text-align: center;
+    display: inline-block;
 }
 
 
 .single-itin-title {
     font-family: 'Montserrat', sans-serif;
-    font-size: 2.5em;
+    font-size: 3em;
     font-weight: 300;
     color: black;
     letter-spacing: .3em;
-    text-align: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    text-align: right;
 }
 
 .single-itin-event-title {
@@ -856,17 +851,20 @@ MENU ITEM
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     /*margin: 10px;*/
-    padding: 1.5em;
+    padding: 15px;
 }
 
 
 
 .single-itin-status {
     display: inline-block;
+
 }
 
 .single-itin-map {
-    margin-top: 3%;
+    margin-top: 4%;
+    margin-bottom: 4%;
+
 }
 
 .single-itin-schedule {
@@ -878,11 +876,9 @@ MENU ITEM
 
 .single-itin-event-scheduler-node {
     background-color: white;
-    margin: 13px;
-    /*margin-top: 13px;*/
-    /*margin-bottom: 13px;*/
-    /*margin-left: 13px;*/
-    /*box-shadow: 3px 3px grey;*/
+    margin-top: 13px;
+    margin-bottom: 13px;
+    box-shadow: 3px 3px grey;
 }
 
 .single-itin-event-scheduler-info {
@@ -893,20 +889,8 @@ MENU ITEM
 }
 
 .single-itin-event-scheduler-button {
-    font-size: 10px;
-    border-radius: 10px;
+    font-size: 12px;
 }
-
-.single-itin-schedule-list {
-    padding: 15px;
-}
-
-.schedule-list-title {
-    text-align: center;
-    font-size: 1.5em;
-}
-
-
 /*
     ==================================
                My Friends 
@@ -914,47 +898,29 @@ MENU ITEM
 */
 
 .saffire-friends-container {
-    /*background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/U3ESM8YMDM.jpg");*/
+    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/U3ESM8YMDM.jpg");
     background-size: cover;
     height: 100vh;
 }
 
-.friends-header > h1 {
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    letter-spacing: .2em;
-    text-align: center;
-    font-size: 3em;
-    padding-top: 30px;
-}
-
-.my-friends-list {
-    text-align: center;
-}
 .saffire-friends-title {
-    font-size: 3em;
+    font-size: 3.3em; 
     text-align: center;
-    color: #b8b7ad;
+    color: white;
     padding-top: 100px;
     text-decoration: underline;
     letter-spacing: .1em;
 }
 
 .saffire-friends-little-wrapper {
-    /*padding-top: 80px;*/
-    width: 500px;
+    padding-top: 80px;
     display: grid;
-    /*grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));*/
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     color: white;
-    margin-bottom: 30px;
-    /*overflow-y: auto;*/
-    /*max-width: 500px;*/
-    /*max-height: 500px;*/
 }
 
 .saffire-friend-item {
     background-color: lightgrey;
-    /*box-shadow: 5px 5px grey;*/
     margin: 0 auto;
 }
 
@@ -968,37 +934,6 @@ MENU ITEM
     color: white;
     font-size: 1.8em;
     padding: 20px 0;
-}
-
-.friends-header {
-    text-align: center;
-    padding-top: 30px;
-}
-
-.find-friend {
-    width:300px;
-    height:300px;
-    background-color:white;
-    overflow-y: auto;
-    max-width:300px;
-    padding: 12px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 15px;
-
-}
-
-.friend-requests {
-    width:300px;
-    height:300px;
-    background-color:white;
-    overflow-y: auto;
-    max-width:300px;
-    padding: 12px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 200px;
-
 }
 
 /*
@@ -1040,55 +975,11 @@ MENU ITEM
     padding: 10px;
 }
 
-
-
 .idea-board-words {
     text-align: center;
     padding: 10px;
-    font-size: 1em;
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    letter-spacing: .2em;
-    text-align: center;
 }
 
-.idea-form-control {
-    width: 250px;
-    border-radius: 5px;
-}
-
-.idea-itinerary-form {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: center;
-}
-
-.idea-button {
-    height: 27px;
-    border-radius: 5px;
-    background-color: #054dc1;
-    color: white;
-}
-
-.idea-to-itin {
-    font-size: 1em;
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    letter-spacing: .2em;
-    margin-top: 15px;
-    margin-bottom: 40px;
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: center;
-}
-
-.idea-board-plan-event {
-    margin: 20px;
-
-}
 
 
 
@@ -1107,117 +998,4 @@ MENU ITEM
 background: #267dc0;
 color: #fff;
 
-}
-
-
-
-
-
-
-.find-friends.container {
-    padding: 15px;
-    text-align: center;
-}
-
-.find-friend-form {
-    text-align: center;
-}
-
-.find-friend-form button {
-    margin-top: 10px;
-}
-
-
-.found-friend {
-    text-align: center;
-    margin-top: 15px;
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    letter-spacing: .2em;
-    text-align: center;
-    font-size: 1.5em;
-    padding-top: 30px;
-    display: flex;
-    flex-direction: row;
-    width: 100px;
-    justify-content: space-between;
-
-}
-
-.found-friend h3 {
-    padding-right: 10px;
-}
-
-
-
-.find-friends-container h1{
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    letter-spacing: .2em;
-    text-align: center;
-    font-size: 1.5em;
-    padding-top: 30px;
-
-}
-
-
-
-.link-container {
-    background-color: #054dc1;
-    text-align: center;
-    margin-bottom: 15px;
-    padding: 5px;
-}
-
-.link-all-info {
-    background-color: white;
-}
-
-
-.link-title {
-    font-size: .8em;
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    letter-spacing: .2em;
-    margin-bottom: 15px;
-    text-align: center;
-    padding: 10px;
-}
-
-.link-info {
-    font-size: .9em;
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    letter-spacing: .2em;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    text-align: center;
-    padding: 10px;
-}
-
-.link-likedby {
-    font-size: .8em;
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    letter-spacing: .2em;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    text-align: center;
-    padding: 10px;
-}
-
-.link-buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    font-size: .8em;
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    letter-spacing: .2em;
-    width: 100%;
-
-}
-
-.link-buttons > div {
-    margin: 15px;
 }
