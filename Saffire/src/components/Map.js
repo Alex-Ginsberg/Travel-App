@@ -68,7 +68,7 @@ export class MapComp extends Component {
             center={[-74.0091638, 40.7049151]}
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
-              height: "600px",
+              height: "300px",
               width: "100%"
             }}>
               <Layer
@@ -81,7 +81,7 @@ export class MapComp extends Component {
             <Marker 
               coordinates={userLocation}
               anchor="bottom">
-              <img  style = {{width: "64px", height: "64px"}} src="/assets/user-marker.png"/>
+              <img  style = {{width: "54px", height: "54px"}} src="/assets/user-marker.png"/>
             </Marker>
               {/* this.state.userCoordinates.length && <Marker
               coordinates={this.state.userCoordinates}
@@ -94,7 +94,7 @@ export class MapComp extends Component {
               </div>
           </Map>
           <div>
-            <p><button onClick={this.handleClickLocal}>Show my location</button></p>
+            {/*<p><button onClick={this.handleClickLocal}>Show my location</button></p>*/}
             <div id="out"></div>
           </div>
           </div>

@@ -1,10 +1,11 @@
 import React from 'react';
 import { bubble as Menu } from 'react-burger-menu'
-import {styles } from '../styles/styles_burgerMenu';
+import { styles } from '../styles/styles_burgerMenu';
 import firebase from 'firebase';
 import history from '../history';
 import { updateStatus, onUserListener } from '../actions';
 import {connect} from 'react-redux';
+
 
 class BurgerMenu extends React.Component {
   constructor() {
@@ -42,11 +43,12 @@ class BurgerMenu extends React.Component {
           {/* <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li> */}
           <li><a className="menu-item" id="Itineraries"  href="/itineraries">MY ITINERARIES</a></li> 
           <li><a className="menu-item" id="MyFriends"  href="/myfriends">FRIENDS</a></li>
-          <li><p className="menu-item" onClick={() => this.setState({showButtons: !this.state.showButtons})}>UPDATE STATUS</p></li>
+          {this.props.connect && <li><p className="menu-item" onClick={() => this.setState({showButtons: !this.state.showButtons})}>UPDATE STATUS</p></li>}
         </div>
         
         
-        {this.state.showButtons &&  <li><p className="menu-item-current-status">CURRENT STATUS: {this.props.currentUser.status}</p></li>}
+        {this.state.showButtons &&  <li><p className="menu-item-current-status">CURRENT STATUS: {this.props.currentUser.status.length > 1 ? this.props.currentUser.status : 'No selected status'}</p></li>}
+        {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('')}>NO STATUS</p></li>}
         {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('Just landed!')}>Just landed!</p></li>}
         {this.state.showButtons &&   <li><p className="menu-item-status" onClick={() => this.handleUpdate('At the hotel')}>At the hotel</p></li>}
         {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('Leaving for my next event')}>Leaving for my next event</p></li>}
@@ -64,7 +66,8 @@ class BurgerMenu extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-      currentUser: state.currentUser
+      currentUser: state.currentUser,
+      connect: state.connect
   }
 }
 

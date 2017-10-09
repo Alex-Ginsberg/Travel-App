@@ -4,7 +4,8 @@ import {Switch} from 'react-router-dom'
 import history from './history'
 import {connect} from 'react-redux'
 import {fetchUsers} from './actions'
-import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindFriends, SingleItinerary, FriendRequests, StatusUpdate, MyFriends} from './components'
+import firebase from './firebase'
+import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindFriends, SingleItinerary, FriendRequests, StatusUpdate, MyFriends, WhereTo} from './components'
 
 
 /**
@@ -13,12 +14,27 @@ import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindF
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
+
+    /*
+      LOADING ALL ITINERARIES ONTO LOCAL STORAGE SO THE USER CAN ACCESS THEM OFFLINE
+    */
+    const ref = firebase.database().ref()
+    let itinArray = []
+    ref.on('value', snapshot => {
+      let allItins = snapshot.val().itineraries
+      for (var key in allItins) {
+        let toAdd = allItins[key]
+        toAdd.key = key
+        itinArray.push(toAdd)      
+      }
+      // Calling JSON.stringify before storing the array because local storage does not support arrays
+      // If you need to access it, user JSON.parse(localStorage.allItineraries) 
+      window.localStorage.allItineraries = JSON.stringify(itinArray)                                
+    })
   }
   render () {
-
     return (
       <Router history={history}>
-
         <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/login" component={UserLogin} />
@@ -30,9 +46,9 @@ class Routes extends Component {
           <Route path="/itinerary/:id" component={SingleItinerary} />
           <Route path="/requests" component={FriendRequests} />
           <Route path="/update" component={StatusUpdate} />
-          <Route path = "/friends" component = {MyFriends} />
-        </Switch>
-      
+          <Route path = "/myfriends" component = {MyFriends} />
+          <Route path = "/whereto" component = {WhereTo} />
+        </Switch>    
       </Router>
     )
   }

@@ -7,7 +7,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 class FriendRequests extends Component {
 
     render() {
-        console.log('CURRENT USER: ', this.props.currentUser)
         let requests = this.props.currentUser.requests
         let requestsArr = []
         for (var key in requests) {
