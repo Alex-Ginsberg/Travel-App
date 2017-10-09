@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import LinkPreview from './LinkPreview'
 import { addEvent, fetchEvents, addToItinerary, confirmEvent, googlePlace } from '../actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {Container} from './DragContainer';
 import firebase from 'firebase';
 import Geosuggest from 'react-geosuggest';
 import history from '../history';
@@ -37,7 +36,6 @@ class IdeaBoard extends Component {
         this.props.getItineraryEvents(this.props.match.params.id)
         // If the user is connected to the internet, find the current itinerary in firebase, set it on state, and dispatch to find the events associated with it
         if (this.props.connect) {
-            console.log('CONNECTED IN IDEA BOARD')
             const itinRef = firebase.database().ref().child('itineraries').child(currentItinKey)
            
             itinRef.once('value')
@@ -56,7 +54,6 @@ class IdeaBoard extends Component {
             const allItins = JSON.parse(localStorage.allItineraries)
             let itinToAdd
             let events = []
-            console.log('NOT CONNECTED: ', allItins)
             for (let i = 0; i < allItins.length; i++) {
                 if (allItins[i].key === currentItinKey) {
                     itinToAdd = allItins[i]
@@ -94,17 +91,9 @@ class IdeaBoard extends Component {
 
      
     onSuggestSelect(suggest) {
-        console.log('*********', suggest); // eslint-disable-line
         this.props.googleSelect(suggest, this.props.match.params.id)
     }
 
-    /**
-     * When there are no suggest results
-     * @param {String} userInput The user input
-     */
-    onSuggestNoResults(userInput) {
-        console.log('onSuggestNoResults for :' + userInput); // eslint-disable-line
-    }
         
     render() {
         /*
@@ -117,7 +106,6 @@ class IdeaBoard extends Component {
             this.props.currentEvents.map(event => {
                 const eventRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('events').child(event.key)
                 eventRef.on('child_changed', (data) => {
-                    console.log('CHILD CHANGED: ', data.val())
                     const newLikes = data.val()
                     if (typeof newLikes === 'number') {
                         this.props.getItineraryEvents(this.props.match.params.id)

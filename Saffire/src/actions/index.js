@@ -1,7 +1,7 @@
 //actions
 import firebase from '../firebase'
 import axios from 'axios'
-import {googServerKey} from '../secrets.js'
+import {googServerKey, googlePlacesKey} from '../secrets.js'
 import history from '../history';
 
 
@@ -107,6 +107,7 @@ export const googlePlace = (suggest, itinID) => dispatch => {
                 likes: 0,
                 location: suggest.location,
                 address: suggest.gmaps.formatted_address,
+                placeID: suggest.placeId,
                 })
 
             const newId = newRef.key
@@ -121,10 +122,13 @@ export const googlePlace = (suggest, itinID) => dispatch => {
             likes: 0,
             types: suggest.types,
             address: suggest.gmaps.formatted_address,
+            placeID: suggest.placeId,
         }
 
         return dispatch(newEvent(eventNode))
-} 
+}
+
+
 
 
 
@@ -627,6 +631,20 @@ export const removeNotification = (user, body) => dispatch => {
 }
 
 
+
+
+export const googlePlacesDetails = (placeID) => dispatch => {
+
+    const placesDetails = axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeID}&key=${googlePlacesKey}`);
+    placesDetails
+        .then(res => res.data)
+        .then(result => {
+            console.log('googleplacesthunk', result.result)
+            const simplifiedResult = Object.assign({}, {name: result.result.name, openingHours: result.result.opening_hours, photos: result.result.photos, placeID: result.result.place_id, priceLevel: result.result.price_level, rating: result.result.rating, vicinity: result.result.vicinity, website: result.result.website, reviews: result.result.reviews})
+            console.log('googleplacesthunk', simplifiedResult);
+        })
+        .catch(err => console.log(err));
+}
 
       
 
