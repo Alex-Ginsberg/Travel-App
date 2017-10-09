@@ -622,6 +622,7 @@ export const removeNotification = (user, body) => dispatch => {
             console.log('KEY: ', reqKey)
             console.log('USER: ', user.key)
             firebase.database().ref().child('users').child(user.key).child('notifications').child(reqKey).remove()
+            dispatch(getCurrentUser())
         })
 }
 

@@ -16,7 +16,6 @@ class BurgerMenu extends React.Component {
     super()
     this.state = {
       showButtons: false,
-      showNotifications: false
     }
     this.handleUpdate = this.handleUpdate.bind(this)
   }
@@ -40,10 +39,6 @@ class BurgerMenu extends React.Component {
 }
   
   render () {
-    const notificationsArray = []
-    for (let key in this.props.currentUser.notifications) {
-      notificationsArray.push(this.props.currentUser.notifications[key].body)
-    }
     return (
       
       <Menu styles={styles}>
@@ -52,13 +47,6 @@ class BurgerMenu extends React.Component {
           {/* <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li> */}
           <li><a className="menu-item" id="Itineraries"  href="/itineraries">MY ITINERARIES</a></li> 
           <li><a className="menu-item" id="MyFriends"  href="/myfriends">FRIENDS</a></li>
-          <MuiThemeProvider>
-          <li><p className="menu-item" onClick={() => this.setState({showNotifications: !this.state.showNotifications})} >NOTIFICATIONS<Badge badgeContent={notificationsArray.length} primary={true}></Badge></p></li>
-          </MuiThemeProvider>
-          {this.state.showNotifications && notificationsArray.map(notification => (
-            <li key={notification}><a className="menu-item" href="/myfriends">{notification}</a></li>
-          ))}
-
           {this.props.connect && <li><p className="menu-item" onClick={() => this.setState({showButtons: !this.state.showButtons})}>UPDATE STATUS</p></li>}
         </div>
 
@@ -96,9 +84,6 @@ const mapDispatchToProps = (dispatch) => {
       getCurrentUser(user) {
         dispatch(onUserListener(user))
       },
-      removeNotification(user, body) {
-        dispatch(removeNotification(user, body))
-      }
   }
 }
 
