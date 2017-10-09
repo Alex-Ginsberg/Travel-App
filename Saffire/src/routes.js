@@ -33,7 +33,6 @@ class Routes extends Component {
     })
   }
   render () {
-    console.log('LOCAL STORAGE: ', window.localStorage)
     return (
       <Router history={history}>
         <Switch>

@@ -1,26 +1,67 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { fetchUsers, addFriend, sendFriendRequest } from '../actions';
+import { fetchUsers, addFriend, sendFriendRequest, searchForUser } from '../actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 class FindFriends extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            search: '',
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+
 
     componentDidMount() {
         this.props.fetchUsers()
     }
 
+    handleChange(event) {
+        let search = event.target.value;
+        this.setState({search: search});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        const searchEmail = this.state.search;
+        this.props.search(searchEmail);
+
+        //search for user email
+
+        //display notice if user not found
+    }
+
+
     render() {
+        // const users = this.props.users;
+        console.log('friend', this.props.searchUser.email);
         return (
-        <div>
+        <div className="find-friends-container">
             <h1>Find Friends!</h1>
-            {this.props.users.map(user => (
-                <div key={user.key}>
-                    <img src={user.image} style={{height: 50, width: 50}}/>
-                    <h3>{user.name}</h3>
-                    <button onClick={() => this.props.sendFriendRequest(this.props.currentUser, user)}>Send Friend Request</button>
-                </div>
-            ))}
+
+            <div className="find-friend-form">
+                <form onSubmit={this.handleSubmit}>
+                    <input type="email" placeholder="enter email" className="form-control" onChange={this.handleChange}/>
+                    <button type="submit" className="btn btn-primary">SEARCH</button>
+                </form>
+            </div>
+
+            {this.props.searchUser.email &&
+
+            <div className="found-friend">
+                    <h3>{this.props.searchUser.name}</h3>
+                    <button type="submit" className="btn btn-primary" onClick={() => this.props.sendFriendRequest(this.props.currentUser, this.props.searchUser)}>SEND REQUEST</button>
+
+            </div>
+            }
+
+
+
+
         </div>
         )
     }
@@ -29,7 +70,8 @@ class FindFriends extends Component {
 const mapStateToProps = (state) => {
     return {
         users: state.users,
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        searchUser: state.searchUser,
     }
 }
 
@@ -43,7 +85,11 @@ const mapDispatchToProps = (dispatch) => {
         } ,
         sendFriendRequest(user, friend) {
             dispatch(sendFriendRequest(user, friend))
-        }
+        },
+
+        search(searchEmail) {
+            dispatch(searchForUser(searchEmail))
+        },
     }
 }
 
