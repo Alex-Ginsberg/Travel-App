@@ -14,13 +14,13 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const REFRESH = 'REFRESH'
 export const CONNECT = 'CONNECT'
 export const FETCH_USER_COOR = 'FETCH_USER_COOR'
+export const SEARCH_USER = 'SEARCH_USER'
 
 
 
                                                                                             // Used for adding a new itinerary to the database
 export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const itinerariesRef = firebase.database().ref('itineraries')                       // Gets a reference to the 'itineraries' table in firebase
-        console.log('INSIDE THuNK, CURRENT USER: ', firebase.auth().currentUser.email)
         const newRef = itinerariesRef.push({                                                // Pushes the new itinerary to firebase
             name: itinerary,
             owner: firebase.auth().currentUser.email,
@@ -36,8 +36,6 @@ export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
             name: itinerary,
             owner: firebase.auth().currentUser.email
         }
-        console.log('NEW ID: ', newId)
-        console.log('SETITIN: ', setItinerary(itinObj))
         dispatch(setItinerary(itinObj))
         history.push(`/ideaboard/${newId}`);
         
@@ -47,14 +45,11 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
     const itinKey = itineraryKey;
     // if (fromLike) {itinKey = itineraryKey}                                                     // If we are fetching events because there has been a new like, itinerary passed in will already be the key
     // else {itinKey = itinerary.key}
-    console.log('INSIDE FETH: ', itinKey)
-    const itinerariesRef = firebase.database().ref(`/itineraries/${itinKey}`) 
+    const itinerariesRef = firebase.database().ref(`/itineraries/${itinKey}`)
                                                                                             // Gets a reference to the particular itinerary we are getting the events from
     itinerariesRef.once('value')                                                            // 'once' is used to read data from the reference             
         .then(snapshot => {
-            console.log('ITIN:', snapshot.val());
             const events = snapshot.val().events                                          // Get the events object from the reference
-            console.log('ITIN: ', events)
             let eventsArr = []
             for (let key in events) {                                                       // Loop adds an object to state array
                 const toAdd = {
@@ -81,9 +76,7 @@ export const addEvent = (url, itinID) => dispatch => {
         .then(preview => {
             // let isFirstEvent = false
             // con newId
-            console.log('itinID', itinID);
             const currentItinRef = firebase.database().ref().child('itineraries').child(itinID).child('events')
-            // console.log('currentItinRef addevent Action', currentItinRef)
             const newRef = currentItinRef.push({title: preview.title,
                 description: preview.description,
                 image: preview.image,
@@ -107,7 +100,6 @@ export const addEvent = (url, itinID) => dispatch => {
 
 export const googlePlace = (suggest, itinID) => dispatch => {
     const currentItinRef = firebase.database().ref().child('itineraries').child(itinID).child('events')
-            // console.log('currentItinRef addevent Action', currentItinRef)
             const newRef = currentItinRef.push({
                 title: suggest.label,
                 description: suggest.description,
@@ -138,7 +130,6 @@ export const googlePlace = (suggest, itinID) => dispatch => {
 
 
 export const setCurrentItinerary = (itinerary, itin) => dispatch => {
-    console.log('INSIDE CURRENT: ', itinerary, itin)
     const newRef = {
         name: itinerary.name,
         owner: itinerary.owner,
@@ -149,7 +140,6 @@ export const setCurrentItinerary = (itinerary, itin) => dispatch => {
 }
                                                                                             // Used when someone likes an event
 export const newLike = (eventId, itinKey) => dispatch => {
-    console.log('INSIDE LIKE: ', eventId, itinKey)
     const likedByRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('likedBy')
     const likesRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('likes')
     
@@ -157,13 +147,7 @@ export const newLike = (eventId, itinKey) => dispatch => {
         return likes + 1
     })
     
-    // likedByRef.transaction(likedBy => {                                                     // Will add the currently logged in user to the 'likedBy' group
-    //     if(likedBy === null) {                                                              // This makes sure each event can only be liked by each user once
-    //         isFirstLike = true                                                              // Will also allow for seeing who is going to an event
-    //         return {firstLiker : {
-    //             name: firebase.auth().currentUser.email
-    //         }}
-    // }})
+
 
     likedByRef.push({name: firebase.auth().currentUser.email})
 
@@ -173,7 +157,6 @@ export const newLike = (eventId, itinKey) => dispatch => {
 }
                                                                                             // Used for moving an item from 'vote' to 'added
 export const confirmEvent = (eventId, itinKey) => dispatch => {
-    console.log('INSIDE ADD EVENT: ', eventId)
     const addedRef = firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventId).child('added')
     addedRef.transaction(added => {                                                         // Updates its 'added' field to be true
         return true
@@ -182,7 +165,6 @@ export const confirmEvent = (eventId, itinKey) => dispatch => {
 }
 
 export const fetchUsers = () => dispatch => {
-    console.log('INSIDE FETCH USERS')
     const usersRef = firebase.database().ref().child('users')
     usersRef.once('value')
         .then(snapshot => {
@@ -204,7 +186,6 @@ export const fetchUsers = () => dispatch => {
 }
 
 export const sendFriendRequest = (user, friend) => dispatch => {
-    console.log('INSIDE SEND FRIEND REQUEST: USER: ', user, ' FRIEND: ', friend)
     const requestRef = firebase.database().ref().child('users').child(friend.key).child('requests')
     let isFirstRequest = false
     requestRef.transaction(requests => {
@@ -229,7 +210,6 @@ export const sendFriendRequest = (user, friend) => dispatch => {
         return snapshot.val().localToken
     })
     .then(userToken => {
-        console.log('userToken ******', userToken);
         axios({ url: 'https://fcm.googleapis.com/fcm/send',
                 method: 'post',
                 headers: {
@@ -257,9 +237,7 @@ export const sendFriendRequest = (user, friend) => dispatch => {
 }
 
 export const addFriend = (user, friend) => dispatch => {
-        // console.log('INSIDE ADD FRIEND: ', friend, user, friend.reqKey)
             const currentUserRef = firebase.database().ref().child('users').child(user.key).child('friends')
-            // console.log(currentUserRef)
             let isFirst = false
             currentUserRef.transaction(friends => {
                 if (friends === null) {
@@ -308,7 +286,6 @@ export const addFriend = (user, friend) => dispatch => {
                 return snapshot.val().localToken
             })
             .then(userToken => {
-                console.log('userToken ******', userToken);
                 axios({ url: 'https://fcm.googleapis.com/fcm/send',
                         method: 'post',
                         headers: {
@@ -337,7 +314,6 @@ export const addFriend = (user, friend) => dispatch => {
 }
 
 export const getCurrentUser = () => dispatch => {
-    console.log('IN GET: ', firebase.auth().currentUser)
     if (firebase.auth().currentUser) {
         
         const usersRef = firebase.database().ref().child('users')
@@ -356,8 +332,7 @@ export const getCurrentUser = () => dispatch => {
                         status: users[key].status
                     }}
                 }
-                console.log('LOGGED IN USER: ', loggedInUser)
-            
+
                 return dispatch(setCurrentUser(loggedInUser))
             })
     }
@@ -365,6 +340,35 @@ export const getCurrentUser = () => dispatch => {
         return dispatch(setCurrentUser({}))
     }
 }
+
+
+export const searchForUser = (searchEmail) => dispatch => {
+        const usersRef = firebase.database().ref().child('users')
+        usersRef.once('value')
+            .then(snapshot => {
+                const users = snapshot.val()
+                let foundUser = null;
+                let foundUserID = '';
+                for (let key in users) {
+                    if (users[key].email === searchEmail) {
+                        foundUser = users[key];
+                        foundUserID = key;
+                    }
+                }
+
+                const userCred = {
+                    name: foundUser.name,
+                    email: foundUser.email,
+                    key: foundUserID,
+                }
+                console.log('found user', foundUser);
+                console.log('userCred', userCred);
+
+                return dispatch(searchedUser(userCred))
+            })
+}
+
+
 
 export const onUserListener = (user) => dispatch => {
     const usersRef = firebase.database().ref().child('users')
@@ -392,7 +396,6 @@ export const onUserListener = (user) => dispatch => {
             }}
 
         }
-        console.log('LOGGED IN USER: ', loggedInUser)
 
         return dispatch(setCurrentUser(loggedInUser))
     })
@@ -409,11 +412,9 @@ export const addToItinerary = (itinID, user) => dispatch => {
     //push notifications for add friend to itinerary
     recipient.once('value')
     .then(snapshot => {
-        console.log('ahhhhhhhhh token', snapshot.val().localToken);
         return snapshot.val().localToken
     })
     .then(userToken => {
-        console.log('userToken ******', userToken);
         axios({ url: 'https://fcm.googleapis.com/fcm/send',
                 method: 'post',
                 headers: {
@@ -475,66 +476,19 @@ export const setDateAndTime = (itinId, event, date, time, toSchedule) => dispatc
             }
         })
         .then(theKey => {
-            console.log(time, itinId, theKey)
             const evRef = firebase.database().ref().child('itineraries').child(itinId).child('events').child(theKey).child('schedule').update({date: dateToAdd, time: timeToAdd, toSchedule: toSchedule})
-            console.log('updated')
         })
         .then(() => {
             dispatch(causeRefresh('setDateAndTime'))
-            console.log('refresh')
         })
         
 }
 
-    
-
-// export const geoFindMe = () => dispatch => {
-    
-//     console.log('handleClick thunk')
-
-//     var output = document.getElementById("out");
-
-//     //if no geolocation on browser
-//     if (!navigator.geolocation){
-//       output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-//       return;
-//     }
-    
-//     //success function triggers when allowed
-//     function success(position) {
-//       let latitude  = position.coords.latitude;
-//       let longitude = position.coords.longitude;
-      
-//       let userCoor = [];
-//       userCoor.push(longitude, latitude)
-
-//       // this.setState({
-//       //   userCoordinates: userCoor,
-//       //   onClickDirty: true,
-//       // })
-
-//       console.log('userCoor', userCoor)
-//       return userCoor;
-      
-//     }
-    
-//     //error handler
-//     function error() {
-//       output.innerHTML = "Unable to retrieve your location";
-//     }
-  
-//     output.innerHTML = "<p>Locating…</p>";
-
-//     navigator.geolocation.getCurrentPosition(success, error);
-  
-// }
 
 
 // *******************
 
 export const postUserCoordinates =  itin => dispatch => {
-    console.log('post coor hit')
-    
     const coorRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
     const noCoorRef = firebase.database().ref().child('itineraries').child(itin)
     noCoorRef.once('value')
@@ -542,7 +496,6 @@ export const postUserCoordinates =  itin => dispatch => {
         let payload = [];
 
         if (!navigator.geolocation){
-            console.log('not supported')
             //output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
             return;
           }
@@ -575,7 +528,6 @@ export const postUserCoordinates =  itin => dispatch => {
 
 
 export const postGeoLocation = itin => dispatch => {
-    console.log('itinpost', itin)
     const userRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
     axios.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${googServerKey}`)
     .then(result => {
@@ -588,7 +540,6 @@ export const postGeoLocation = itin => dispatch => {
         return resultArr
     })
     .then(resultArray => {
-        console.log('resultArraythen', resultArray )
         userRef.push({lat: resultArray[0], long: resultArray[1]})
     })}
 
@@ -619,6 +570,7 @@ export const setCurrentUser = user => ({type: SET_CURRENT_USER, user})
 export const causeRefresh = message => ({type: REFRESH, message})
 export const connectionChange = status => ({type: CONNECT, status})
 export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
+export const searchedUser = user => ({type: SEARCH_USER, user});
 
 
 
