@@ -177,7 +177,8 @@ export const fetchUsers = () => dispatch => {
                     name: users[key].name, 
                     image: users[key].image,
                     status: users[key].status,
-                    localToken: users[key].localToken
+                    localToken: users[key].localToken,
+                    notifications: users[key].notifications
                 }
                 usersArr.push(toAdd)
             }
@@ -329,7 +330,8 @@ export const getCurrentUser = () => dispatch => {
                         image: users[key].image,
                         name: users[key].name,
                         requests: users[key].requests,
-                        status: users[key].status
+                        status: users[key].status,
+                        notifications: users[key].notifications
                     }}
                 }
 
@@ -396,7 +398,8 @@ export const onUserListener = (user) => dispatch => {
                 image: users[key].image,
                 status: users[key].status,
                 name: users[key].name,
-                requests: users[key].requests
+                requests: users[key].requests,
+                notifications: users[key].notifications
             }}
 
         }
@@ -603,6 +606,22 @@ export const addToNotifications = body => dispatch => {
         .then(userKey => {
             const currentUserRef = firebase.database().ref().child('users').child(userKey).child('notifications')
             currentUserRef.push({body: body, time: new Date()})
+        })
+}
+
+export const removeNotification = (user, body) => dispatch => {
+    const requestRef = firebase.database().ref().child('users').child(user.key).child('notifications')
+    requestRef.once('value')
+        .then(snapshot => snapshot.val())
+        .then(requests => {
+            for (let key in requests) {
+                if (requests[key].body === body){return key}
+            }
+        })
+        .then(reqKey => {
+            console.log('KEY: ', reqKey)
+            console.log('USER: ', user.key)
+            firebase.database().ref().child('users').child(user.key).child('notifications').child(reqKey).remove()
         })
 }
 
