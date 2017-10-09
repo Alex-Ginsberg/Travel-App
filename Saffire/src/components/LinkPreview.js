@@ -46,32 +46,41 @@ class LinkPreview extends Component {
       likedByArray.push(this.props.likedBy[key].name)
     }
     return(
-      <Card>
-        <CardHeader
-          actAsExpander={true}
-          showExpandableButton={true}
-        />
-        <CardMedia
-          overlay={<CardTitle title={this.props.title}/>}
-          mediaStyle={{width: 300, height: 300}}
-          style={{width: 300}}
-        >
-          <img src={this.props.image} alt="" />
-        </CardMedia>
-        <CardActions>
-          {!this.props.hasBeenAdded && <FlatButton label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={((likedByArray.indexOf(this.props.user.email )) > -1) || !this.props.connect}/> }
-          {!this.props.hasBeenAdded && <FlatButton label="Add To Itinerary" disabled={!this.props.connect} onClick={() => this.props.confirmEvent(this.props.eventKey, this.props.itinKey) }/>}
-          {!this.props.hasBeenAdded && <FlatButton label="Remove" onClick={() => {
+
+
+      <div className="link-container">
+          <div className="link-all-info">
+
+        <div className="link-title">
+          <h2>{this.props.title}</h2>
+
+
+          {/*<img src={this.props.image}  />*/}
+        </div>
+
+
+          <div className="link-info">
+              {this.props.description}
+          </div>
+
+          <div className="link-likedby">
+              Liked by: {likedByArray}
+          </div>
+
+
+        <div className="link-buttons">
+          {!this.props.hasBeenAdded && <div label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={((likedByArray.indexOf(this.props.user.email )) > -1) || !this.props.connect}> {`LIKE `} </div>}
+            {!this.props.hasBeenAdded && <div label="Add To Itinerary" disabled={!this.props.connect} onClick={() => this.props.confirmEvent(this.props.eventKey, this.props.itinKey) }> ADD TO ITINERARY </div>}
+          {!this.props.hasBeenAdded && <div label="Remove" onClick={() => {
             firebase.database().ref().child('itineraries').child(this.props.itinKey).child('events').child(this.props.eventKey).remove()
             this.props.fetchEvents(this.props.itinKey, true)
             }}
-            /> }
-        </CardActions>
-        <CardText expandable={true}>
-          Liked by: {likedByArray} <br></br>
-          {this.props.description}
-        </CardText>
-      </Card>
+          >REMOVE</div> }
+        </div>
+
+          </div>
+
+      </div>
     )
   }
 }
