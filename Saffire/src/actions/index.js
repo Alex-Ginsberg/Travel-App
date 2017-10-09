@@ -584,6 +584,9 @@ export const postGeoLocation = itin => dispatch => {
     .then(resultArray => {
         console.log('resultArraythen', resultArray )
         userRef.push({lat: resultArray[0], long: resultArray[1]})
+    })
+    .catch(err => {
+        console.log(err)
     })}
 
 export const sendMessage = (user, itinKey, message) => {
@@ -596,6 +599,19 @@ export const sendMessage = (user, itinKey, message) => {
     newMessageRef.transaction(newMessageRef => {
         return message
 
+    })
+}
+
+export const fetchDistanceMatrix = (userCoor, locations) => dispatch => {
+    let origin, destination
+    
+    axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin}&destinations=${destination}&key=${googServerKey}`)
+    .then(res => res.data)
+    .then(payload => {
+        console.log('payloadMatrix***', payload)
+    })
+    .catch(err => {
+        console.log(err)
     })
 }
 

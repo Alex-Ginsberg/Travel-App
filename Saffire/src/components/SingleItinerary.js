@@ -148,6 +148,8 @@ class SingleItinerary extends Component{
             chatMessages.push(this.state.itin.messages[i])
         }
         console.log('IIITTTIIINNNN ', this.state.itin)
+
+        console.log('itinStuff*****', this.props.itineraryName)
         return (
             <div>
                 <div className="single-itin-header">
