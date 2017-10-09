@@ -637,7 +637,7 @@ MENU ITEM
 }
 
 .menu-item:hover {
-    background-color: #f4b642;
+    background-color: #054dc1;
     color: white;
     text-decoration: none;
 }
@@ -803,6 +803,7 @@ MENU ITEM
     text-align: left;
     border-radius: 5px;
     font-size: .6em;
+    color: #054dc1;
 }
 
 
@@ -845,7 +846,9 @@ MENU ITEM
     font-weight: 300;
     color: black;
     letter-spacing: .3em;
-    /*text-align: right;*/
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .single-itin-event-title {
@@ -1037,11 +1040,40 @@ MENU ITEM
     padding: 10px;
 }
 
+
+
 .idea-board-words {
     text-align: center;
     padding: 10px;
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    text-align: center;
 }
 
+.idea-form-control {
+    width: 250px;
+    border-radius: 5px;
+}
+
+.idea-itinerary-form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
+.idea-button {
+    height: 27px;
+    border-radius: 5px;
+    background-color: #054dc1;
+    color: white;
+}
+
+.idea-to-itin {
+    text-align: center;
+}
 
 
 

@@ -20,7 +20,7 @@ export const styles = {
       background: 'white',
       padding: '2.5em 1.5em 0',
       fontSize: '1.15em',
-      opacity: 0.7,
+      // opacity: 0.7,/
     },
     bmMorphShape: {
       fill: '#373a47'

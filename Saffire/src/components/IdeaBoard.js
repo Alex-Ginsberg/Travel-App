@@ -7,6 +7,7 @@ import {Container} from './DragContainer';
 import firebase from 'firebase';
 import Geosuggest from 'react-geosuggest';
 import history from '../history';
+import BurgerMenu from './Menu';
 
 
 
@@ -101,7 +102,6 @@ class IdeaBoard extends Component {
     }
         
     render() {
-        console.log("BEGINNING OF RENDER")
         /*
             FIREBASE EVENT LISTENERS
          =========================================================================================================================================================
@@ -130,7 +130,6 @@ class IdeaBoard extends Component {
             END FIREBASE EVENT LISTNERS
         */
 
-        console.log('idea board', this.state);
         // if (this.props.connect && !this.props.currentEvents.length) {
         //     this.props.getItineraryEvents(this.props.match.params.id)
         // }
@@ -147,7 +146,6 @@ class IdeaBoard extends Component {
         for (var key in friends) {
             friendsArr.push(friends[key])
         }
-        console.log('EVENTS: ', currentEvents)
 
     
         //     var card = document.getElementById('pac-card');
@@ -193,53 +191,65 @@ class IdeaBoard extends Component {
         <div className="idea-board-div" >
             
             <div className="single-itin-header">
+                <BurgerMenu />
                 {/* <img className="single-itin-image" src={this.state.itin.imageURL} /> */}
                 <h2 className="single-itin-title" >{this.state.itin.name}</h2>
             </div>
 
+            <div className="row">
 
-            {/* add link */}
-            {this.props.connect && <div className = "idea-board-url"> 
-                <p className="idea-board-words">DROP YOUR LINKS</p>
-                <div>
-                    {/* Form for adding a link preview by putting in a URL */}
-                    <form onSubmit={handleSubmit} className="itinerary-form">
-                        <input className="urlForm" 
-                            type="url" 
-                            onChange={handleChange}
-                            placeholder="Enter a URL"
-                            value={this.state.newURL}/>                       
-                        <button type="submit" className="">Enter</button>
-                    </form>
+                <div className="col-lg-6">
+                    {/* google places search */}
+                    {this.props.connect && <div className = "idea-board-url">
+                        <h2 className="idea-board-words">SEARCH WITH GOOGLE</h2>
+                        <Geosuggest onSuggestSelect={this.onSuggestSelect} autoComplete="on"/>
+                    </div>}
                 </div>
-            </div>}
 
+
+                <div className="col-lg-6">
+                    {/* add link */}
+                    {this.props.connect && <div className = "idea-board-url">
+                        <h2 className="idea-board-words">DROP YOUR LINKS</h2>
+                        <div>
+                            {/* Form for adding a link preview by putting in a URL */}
+                            <form onSubmit={handleSubmit} className="idea-itinerary-form">
+                                <input className="idea-form-control"
+                                    type="url"
+                                    onChange={handleChange}
+                                    placeholder="Enter a URL"
+                                    value={this.state.newURL}/>
+                                <button type="submit" className="idea-button" >Enter</button>
+                            </form>
+                        </div>
+                    </div>}
+                </div>
         
 
-            {/* google places search */}
-            {this.props.connect && <div className = "idea-board-url">
-                <Geosuggest onSuggestSelect={this.onSuggestSelect} autoComplete="on"/>
-            </div>}
 
-            {/*go to single itin view*/}
-
-            <div>
-                <div onClick={() => {history.push(`/itinerary/${this.props.match.params.id}`)}}>View Itinerary</div>
             </div>
+
 
             {/* add friend  */}
             {this.props.connect && <div className = "idea-board-url">
-                <form onSubmit={this.addToGroup}>
+                <form className="idea-itinerary-form" onSubmit={this.addToGroup}>
                     <select name="friends" onChange={(e) => this.setState({currentFriend: e.target.value})}>
-                        <option value="" defaultValue>Invite a friend</option>
+                        <option value="" defaultValue>Invite a Friend</option>
                         {friendsArr.map(friend => (
                             <option key={friend.key} value={friend.key}>{friend.name}</option>
                         ))}
                     </select>
-                    <button type="submit">Add</button>
+                    <button type="submit" className="idea-button">Add</button>
                 </form>
             </div>}
-            
+
+
+            {/*go to single itin view*/}
+
+            <div className="idea-to-itin">
+                <div onClick={() => {history.push(`/itinerary/${this.props.match.params.id}`)}}>View Itinerary</div>
+            </div>
+
 
             <div className="row">
                 <div className="col-lg-6">

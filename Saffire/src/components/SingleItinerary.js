@@ -171,9 +171,9 @@ class SingleItinerary extends Component{
                     <BurgerMenu />
 
                     <div className="single-itin-dash">
-                        <img className='single-itin-image' src={this.state.itin.imageURL}/>
+                        <div className="row">
 
-
+                        <div className="col-lg-6">
                             <h1 className="single-itin-title">{this.state.itin.name}</h1>
                             <MuiThemeProvider>
                                 <div className="single-itin-status">
@@ -187,6 +187,17 @@ class SingleItinerary extends Component{
                                     ))}
                                 </div>
                             </MuiThemeProvider>
+                        </div>
+
+                            <div className="col-lg-6">
+                                <img className='single-itin-image' src={this.state.itin.imageURL}/>
+                            </div>
+
+
+                        </div>
+
+
+
                     </div>
                 </div>
 
