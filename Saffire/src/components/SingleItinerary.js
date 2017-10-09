@@ -281,8 +281,11 @@ class SingleItinerary extends Component{
                                         this.state.currentTime.getSeconds(),
                                         this.state.currentTime.getMilliseconds()
                                     )
+                                    console.log('MONTH: ', toSchedule.getMonth())
+                                    const schedString = `${toSchedule.getSeconds()} ${toSchedule.getMinutes()} ${toSchedule.getHours()} ${toSchedule.getDate()} ${toSchedule.getMonth() + 1} ${toSchedule.getDay()}`
+                                    console.log('TO BE SCHEDULED: ', schedString)
                                     memberArray.map(member => {
-                                        cron.schedule(`* * * * *`, () => {
+                                        cron.schedule(schedString, () => {
                                             axios({ url: 'https://fcm.googleapis.com/fcm/send',
                                             method: 'post',
                                             headers: {
