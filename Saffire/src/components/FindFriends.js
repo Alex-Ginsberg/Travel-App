@@ -43,24 +43,23 @@ class FindFriends extends Component {
         <div className="find-friends-container">
             <h1>Find Friends!</h1>
 
-            <div>
+            <div className="find-friend-form">
                 <form onSubmit={this.handleSubmit}>
                     <input type="email" placeholder="enter email" className="form-control" onChange={this.handleChange}/>
                     <button type="submit" className="btn btn-primary">SEARCH</button>
-
                 </form>
             </div>
 
             {this.props.searchUser.email &&
 
-            <div className="find-friends-container">
-                    <div>
+            <div className="found-friend">
                     <h3>{this.props.searchUser.name}</h3>
-                    <button onClick={() => this.props.sendFriendRequest(this.props.currentUser, this.props.searchUser)}>Send Friend Request</button>
-                    </div>
+                    <button type="submit" className="btn btn-primary" onClick={() => this.props.sendFriendRequest(this.props.currentUser, this.props.searchUser)}>SEND REQUEST</button>
 
             </div>
             }
+
+
 
 
         </div>

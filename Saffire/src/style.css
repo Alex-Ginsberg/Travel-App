@@ -1067,9 +1067,39 @@ color: #fff;
 
 
 
+.find-friends.container {
+    padding: 15px;
+    text-align: center;
+}
+
+.find-friend-form {
+    text-align: center;
+}
+
+.find-friend-form button {
+    margin-top: 10px;
+}
 
 
+.found-friend {
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    text-align: center;
+    font-size: 1.5em;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: row;
+    width: 100px;
+    justify-content: space-between;
 
+}
+
+.found-friend h3 {
+    padding-right: 10px;
+}
 
 
 

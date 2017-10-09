@@ -356,6 +356,10 @@ export const searchForUser = (searchEmail) => dispatch => {
                     }
                 }
 
+                if (!foundUser) {
+                    return;
+                }
+
                 const userCred = {
                     name: foundUser.name,
                     email: foundUser.email,
