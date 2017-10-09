@@ -20,9 +20,6 @@ class Main extends Component {
     super(props)
   }
 
-  componentDidMount() {
-    this.props.getCurrentUser()
-  }
 
   render() {
     console.log('main currentUser', this.props.currentUser.name)

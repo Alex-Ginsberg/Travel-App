@@ -15,9 +15,18 @@ export const REFRESH = 'REFRESH'
 export const CONNECT = 'CONNECT'
 export const FETCH_USER_COOR = 'FETCH_USER_COOR'
 export const SEARCH_USER = 'SEARCH_USER'
+export const UPDATE_USER = 'UPDATE_USER'
 
 
-
+export const updateUser = (newName, newEmail, newPassword, userID) => dispatch => {
+    const selectedUser = firebase.database().ref().child('users').child(userID);
+    const newData = {
+        name : newName,
+        email: newEmail,
+        password: newPassword
+    }
+    // return selectedUser.update(newData)
+}
                                                                                             // Used for adding a new itinerary to the database
 export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const itinerariesRef = firebase.database().ref('itineraries')                       // Gets a reference to the 'itineraries' table in firebase
@@ -589,6 +598,7 @@ export const causeRefresh = message => ({type: REFRESH, message})
 export const connectionChange = status => ({type: CONNECT, status})
 export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
 export const searchedUser = user => ({type: SEARCH_USER, user});
+export const updatedUser = newUpdatedUser => ({type: UPDATE_USER, newUpdatedUser})
 
 
 
