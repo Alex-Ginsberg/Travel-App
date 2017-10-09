@@ -32,7 +32,7 @@ class Main extends Component {
   return (
     <div className="sapphire-app">
       <BurgerMenu />
-      <NotificationCounter />
+      {this.props.currentUser.name && <NotificationCounter />}
 
         <h1 className="sapphire-app-title">SAFFIRE</h1>
 

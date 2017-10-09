@@ -135,6 +135,8 @@ class IdeaBoard extends Component {
         let friends = this.props.connect ? this.props.currentUser.friends : JSON.parse(window.localStorage.currentUser).friends
         const currentEvents = this.props.connect ? this.props.currentEvents : this.state.events
         const currentUser = this.props.connect ? this.props.currentUser : JSON.parse(window.localStorage.currentUser)
+        const isOwner = currentUser.email === itinerary.owner
+        console.log('IS OWNER: ', isOwner)
         let friendsArr = []
         for (var key in friends) {
             friendsArr.push(friends[key])
@@ -155,7 +157,9 @@ class IdeaBoard extends Component {
             <div className="single-itin-header">
                 <BurgerMenu />
                 {/* <img className="single-itin-image" src={this.state.itin.imageURL} /> */}
-                <h2 className="single-itin-title" >{this.state.itin.name}</h2>
+                <h2 className="single-itin-title" >{this.state.itin.name}: IDEABOARD</h2>
+                <p className="single-itin-subheader">SELECT ATTRACTIONS TO BUILD YOUR ITINERARY</p>
+                <h5 className="single-itin-subheader">GROUP ADMIN: {itinerary.owner}</h5>
             </div>
 
             <div className="row">
@@ -163,7 +167,7 @@ class IdeaBoard extends Component {
                 <div className="col-lg-6">
                     {/* google places search */}
                     {this.props.connect && <div className = "idea-board-url">
-                        <h2 className="idea-board-words">SEARCH WITH GOOGLE</h2>
+                        <h2 className="idea-board-words">FIND ATTRACTION WITH GOOGLE PLACES</h2>
                         <Geosuggest onSuggestSelect={this.onSuggestSelect} autoComplete="on"/>
                     </div>}
                 </div>
@@ -172,7 +176,7 @@ class IdeaBoard extends Component {
                 <div className="col-lg-6">
                     {/* add link */}
                     {this.props.connect && <div className = "idea-board-url">
-                        <h2 className="idea-board-words">DROP YOUR LINKS</h2>
+                        <h2 className="idea-board-words">PASTE LINK TO ATTRACTION</h2>
                         <div>
                             {/* Form for adding a link preview by putting in a URL */}
                             <form onSubmit={handleSubmit} className="idea-itinerary-form">
@@ -218,11 +222,11 @@ class IdeaBoard extends Component {
 
                 {/*plan idea board*/}
                 <div className="col-lg-6">
-                    <h4 className="idea-board-words">PLAN</h4>
+                    <h4 className="idea-board-words">GROUP SUGGESTIONS</h4>
                     {/* Will render out all events that have not been added yet */}
                     {currentEvents.map(event => (
                         <MuiThemeProvider muiTheme={muiTheme}>
-                            {!event.added  && <div className="idea-board-plan-event" id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} key={this.props.match.params.id}  likes={event.likes} likedBy={event.likedBy} user={currentUser}/></div>}
+                            {!event.added  && <div className="idea-board-plan-event" id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} key={this.props.match.params.id}  likes={event.likes} likedBy={event.likedBy} user={currentUser} isOwner={isOwner}/></div>}
                         </MuiThemeProvider>
                     ))}
                 </div>

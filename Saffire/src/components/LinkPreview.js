@@ -1,31 +1,3 @@
-// import React, {Component} from 'react';
-// import {connect} from 'react-redux';
-// //import Navbar from './navbar';
-// //import { postIdea } from '../actions';
-
-
-// const LinkPreview = (props) => {
-    
-//     return (
-//         <h1>LinkPreview component here</h1>
-//     )
-// }
-
-// const mapStateToProps = (state) => {
-//     return {
-//         itineraryName: state.currentItinerary
-//     }
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-        
-//     }
-// }
-
-// const LinkPreviewContainer = connect(mapStateToProps, mapDispatchToProps)(LinkPreview);
-// export default LinkPreviewContainer;
-
 import React, {Component} from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
@@ -45,6 +17,7 @@ class LinkPreview extends Component {
     for (var key in this.props.likedBy) {
       likedByArray.push(this.props.likedBy[key].name)
     }
+    console.log(((likedByArray.indexOf(this.props.user.email)) > -1) || !this.props.connect)
     return(
 
 
@@ -64,14 +37,14 @@ class LinkPreview extends Component {
           </div>
 
           <div className="link-likedby">
-              Liked by: {likedByArray}
+              FRIENDS GOING: {likedByArray}
           </div>
 
 
         <div className="link-buttons">
-          {!this.props.hasBeenAdded && <div label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={((likedByArray.indexOf(this.props.user.email )) > -1) || !this.props.connect}> {`LIKE `} </div>}
-            {!this.props.hasBeenAdded && <div label="Add To Itinerary" disabled={!this.props.connect} onClick={() => this.props.confirmEvent(this.props.eventKey, this.props.itinKey) }> ADD TO ITINERARY </div>}
-          {!this.props.hasBeenAdded && <div label="Remove" onClick={() => {
+          {!this.props.hasBeenAdded && <div className="linkpreview-hover" label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={((likedByArray.indexOf(this.props.user.email)) > -1) || !this.props.connect}>JOIN EVENT</div>}
+            {(!this.props.hasBeenAdded && this.props.isOwner) && <div className="linkpreview-hover" label="Add To Itinerary" disabled={!this.props.connect} onClick={() => this.props.confirmEvent(this.props.eventKey, this.props.itinKey) }> ADD TO ITINERARY </div>}
+          {(!this.props.hasBeenAdded && this.props.isOwner) && <div className="linkpreview-hover" label="Remove" onClick={() => {
             firebase.database().ref().child('itineraries').child(this.props.itinKey).child('events').child(this.props.eventKey).remove()
             this.props.fetchEvents(this.props.itinKey, true)
             }}

@@ -26,9 +26,14 @@ class WhereTo extends Component {
 
    async handleSubmit(e) {
         e.preventDefault()
-        let newItinerary = this.state.newItinerary
-        const itineraryImageURL = this.getDestination(newItinerary);
-        this.props.setItineraryName(newItinerary, itineraryImageURL)
+        if (this.props.currentUser.email){
+            let newItinerary = this.state.newItinerary
+            const itineraryImageURL = this.getDestination(newItinerary);
+            this.props.setItineraryName(newItinerary, itineraryImageURL)
+        }
+        else {
+            history.push('/signup')
+        }
     }
 
 
