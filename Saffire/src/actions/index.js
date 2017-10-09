@@ -591,6 +591,21 @@ export const removeSchedule = (itin, event) => dispatch => {
         })
 }
 
+export const addToNotifications = body => dispatch => {
+    const userRef = firebase.database().ref().child('users')
+    userRef.once('value')
+        .then(snapshot => snapshot.val())
+        .then(users => {
+            for (let key in users) {
+                if (users[key].email === firebase.auth().currentUser.email){return key}
+            }
+        })
+        .then(userKey => {
+            const currentUserRef = firebase.database().ref().child('users').child(userKey).child('notifications')
+            currentUserRef.push({body: body, time: new Date()})
+        })
+}
+
 
 
       
