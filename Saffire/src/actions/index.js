@@ -15,6 +15,7 @@ export const REFRESH = 'REFRESH'
 export const CONNECT = 'CONNECT'
 export const FETCH_USER_COOR = 'FETCH_USER_COOR'
 export const SEARCH_USER = 'SEARCH_USER'
+export const PLACE_DETAILS = 'PLACE_DETAILS'
 
 
 
@@ -639,9 +640,9 @@ export const googlePlacesDetails = (placeID) => dispatch => {
     placesDetails
         .then(res => res.data)
         .then(result => {
-            console.log('googleplacesthunk', result.result)
             const simplifiedResult = Object.assign({}, {name: result.result.name, openingHours: result.result.opening_hours, photos: result.result.photos, placeID: result.result.place_id, priceLevel: result.result.price_level, rating: result.result.rating, vicinity: result.result.vicinity, website: result.result.website, reviews: result.result.reviews})
             console.log('googleplacesthunk', simplifiedResult);
+            dispatch(googlePlaceDetails(simplifiedResult))
         })
         .catch(err => console.log(err));
 }
@@ -659,6 +660,7 @@ export const causeRefresh = message => ({type: REFRESH, message})
 export const connectionChange = status => ({type: CONNECT, status})
 export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
 export const searchedUser = user => ({type: SEARCH_USER, user});
+export const googlePlaceDetails = details => ({type: PLACE_DETAILS, details});
 
 
 

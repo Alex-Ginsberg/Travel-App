@@ -864,7 +864,6 @@ MENU ITEM
     font-size: 1.5em;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
-    /*margin: 10px;*/
     padding: 1.5em;
 }
 
@@ -883,11 +882,16 @@ MENU ITEM
     background-size: cover;
 }
 
+.single-itin-scroll {
+
+}
 
 
 .single-itin-event-scheduler-node {
     background-color: white;
     margin: 13px;
+    width: auto;
+    padding: 15px;
     /*margin-top: 13px;*/
     /*margin-bottom: 13px;*/
     /*margin-left: 13px;*/

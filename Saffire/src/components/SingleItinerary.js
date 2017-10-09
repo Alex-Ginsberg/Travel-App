@@ -13,6 +13,7 @@ import {MapComp} from '../components'
 import cron from 'node-cron'
 import axios from 'axios'
 import NotificationCounter from './NotificationCounter'
+import SkyLight from 'react-skylight';
 
 import {
     blue300,
@@ -186,15 +187,10 @@ class SingleItinerary extends Component{
                                 </div>
                             </MuiThemeProvider>
                         </div>
-
                             <div className="col-lg-6">
                                 <img className='single-itin-image' src={this.state.itin.imageURL}/>
                             </div>
-
-
                         </div>
-
-
 
                     </div>
                 </div>
@@ -210,11 +206,13 @@ class SingleItinerary extends Component{
 
                 {/*timeline*/}
                 <div className="single-itin-schedule">
-                    <div className="row">
+                    {/*<div className="row">*/}
 
-                        <div className="col-lg-8">
-                            <h4 className="single-itin-event-title">Your Timeline:</h4>
+                        <div className="col-lg-6">
+
+                            <div className="single-itin-scroll">
                          <div className="single-itin-schedule-list">
+                             <h4 className="single-itin-event-title">TIMELINE</h4>
 
                         {scheduledDates.map(date => (
                             <div key={date} className="single-itin-event-scheduler-node" >
@@ -224,16 +222,32 @@ class SingleItinerary extends Component{
                                 <h1 className="schedule-list-title">{date}</h1>
 
                                 {eventScheduled.map(event => (
-                                    <div key={event.url} onClick={() => this.props.getGoogleDeets(event.placeID)}>
+                                    <div key={event.url}>
+
+                                        <SkyLight hideOnOverlayClicked ref={ref => this.simpleDialog = ref} title={this.props.googleDetails.name}>
+                                            <section>
+                                                {/*{this.props.googleDetails.openingHours}*/}
+                                                {/*<h4>{this.props.googleDetails.openingHours.open_now ? 'Open' : 'Closed'}</h4>*/}
+                                                <h4>Rating {this.props.googleDetails.rating}</h4>
+
+                                            </section>
+                                        </SkyLight>
+
                                     {event.schedule.date === date && 
 
                                         <List>
+                                            <div onClick={async () => {
+                                                await this.props.getGoogleDeets(event.placeID)
+                                                await this.simpleDialog.show()
+                                            }}>
                                             <ListItem disabled={true} hoverColor={indigo900} leftAvatar={<Avatar backgroundColor={blue300} />}>
                                                 {event.title.split(',')[0]} @ {event.schedule.time}
                                             </ListItem>
+
                                             <button className="btn btn-danger" onClick={() => {
                                                this.props.removeSchedule(this.props.match.params.id, event)
                                             }}>REMOVE</button>
+                                            </div>
                                         </List>
                                     }
                                     </div>
@@ -242,26 +256,36 @@ class SingleItinerary extends Component{
                                 </MuiThemeProvider>
                             </div>
                         ))}
+
+                             {events.map(event => (
+                                 <div key={event.url} className="single-itin-event-scheduler-node">
+                                     <MuiThemeProvider>
+
+                                         <div className="single-itin-event-scheduler-info">
+                                             <List>
+                                                 <ListItem disabled={true} hoverColor={indigo900} leftAvatar={<Avatar backgroundColor={blue300} />}>
+                                                     <h5>{event.title}</h5>
+                                                     <p>People going to this event: </p>
+                                                     {event.likedBy && Object.keys(event.likedBy).map(likeByKey => (
+                                                         <p key={likeByKey}>{event.likedBy[likeByKey].name}</p>
+                                                     ))}
+                                                 </ListItem>
+                                                 <button className="single-itin-event-scheduler-button" disabled={!this.props.connect} onClick={() => {this.renderForm(event)}}>Set Schedule</button>
+                                             </List>
+                                         </div>
+                                     </MuiThemeProvider>
+                                 </div>
+                             ))}
+
+
                         </div>
-                        </div>
 
 
 
-                        {/*set events*/}
-                        <div className="col-lg-4">
-                            <h4 className="single-itin-event-title">Set Events: </h4>
-                            {events.map(event => (
-                                <div key={event.url} className="single-itin-event-scheduler-node">
-                                    <div className="single-itin-event-scheduler-info">
-                                        <h5>{event.title}</h5>
-                                        <p>People going to this event: </p>
-                                        {event.likedBy && Object.keys(event.likedBy).map(likeByKey => (
-                                            <p key={likeByKey}>{event.likedBy[likeByKey].name}</p>
-                                        ))}
-                                        <button className="single-itin-event-scheduler-button" disabled={!this.props.connect} onClick={() => {this.renderForm(event)}}>Set Schedule</button>
-                                    </div>
-                                </div>
-                            ))}
+
+
+
+
                             {this.state.showForm.title &&
                             <div>
                                 <p>Schedule when to go to {this.state.showForm.title}</p>
@@ -351,13 +375,14 @@ class SingleItinerary extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log('state', state)
+    console.log('single itin state', state)
     return {
         itineraryName: state.currentItinerary,
         refresh: state.refresh,
         users: state.users,
         user: state.currentUser,
-        connect: state.connect
+        connect: state.connect,
+        googleDetails: state.googleDetails,
 
     }
 }
