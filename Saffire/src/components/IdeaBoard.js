@@ -8,6 +8,7 @@ import firebase from 'firebase';
 import Geosuggest from 'react-geosuggest';
 import history from '../history';
 import BurgerMenu from './Menu';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 
 
@@ -149,46 +150,13 @@ class IdeaBoard extends Component {
             friendsArr.push(friends[key])
         }
 
-    
-        //     var card = document.getElementById('pac-card');
-        //     var input = document.getElementById('pac-input');
-        //     var types = document.getElementById('type-selector');
-        //     var strictBounds = document.getElementById('strict-bounds-selector');
-    
-        //     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
-    
-        //     var autocomplete = new google.maps.places.Autocomplete(input);
-            
+        const muiTheme = getMuiTheme({
+            fontFamily: 'Montserrat',
+            // padding: '10px',
+            // 'margin-left': 's15px',
+        })
 
 
-        
-        // function drag(event, eventId, itineraryKey) {
-        //     var obj = {
-        //         id: event.target.id,
-        //         eventId: eventId,
-        //         itineraryKey: itineraryKey
-        //     }
-        //     var finalObj = JSON.stringify(obj);
-        //     event.dataTransfer.setData("text", finalObj);
-        // }
-        
-        // function drop(event, props) {
-        //     event.preventDefault();
-            
-        //     var data = JSON.parse(event.dataTransfer.getData("text")).id;
-        //     var eventId = JSON.parse(event.dataTransfer.getData("text")).eventId;
-        //     var itineraryKey = JSON.parse(event.dataTransfer.getData("text")).itineraryKey;
-        //     props.confirmEvent(eventId, itineraryKey);
-        //     event.target.appendChild(document.getElementById(data));
-        // }
-        
-        
-        // function allowDrop(event, props) {
-        //     event.preventDefault();
-        // }
-        
-        //starts at top of page
-        // window.scrollTo(0,0);
         return (
         <div className="idea-board-div" >
             <BurgerMenu />
@@ -227,7 +195,7 @@ class IdeaBoard extends Component {
                         </div>
                     </div>}
                 </div>
-        
+
 
 
             </div>
@@ -250,33 +218,37 @@ class IdeaBoard extends Component {
             {/*go to single itin view*/}
 
             <div className="idea-to-itin">
-                <div onClick={() => {history.push(`/itinerary/${this.props.match.params.id}`)}}>View Itinerary</div>
+                <div onClick={() => {history.push(`/itinerary/${this.props.match.params.id}`)}} >VIEW ITINERARY</div>
             </div>
 
 
+
             <div className="row">
+
+                {/*plan idea board*/}
                 <div className="col-lg-6">
                     <h4 className="idea-board-words">PLAN</h4>
                     {/* Will render out all events that have not been added yet */}
                     {currentEvents.map(event => (
-                        <MuiThemeProvider>
-                            {!event.added  && <div id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} key={this.props.match.params.id}  likes={event.likes} likedBy={event.likedBy} user={currentUser}/></div>}
+                        <MuiThemeProvider muiTheme={muiTheme}>
+                            {!event.added  && <div className="idea-board-plan-event" id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} key={this.props.match.params.id}  likes={event.likes} likedBy={event.likedBy} user={currentUser}/></div>}
                         </MuiThemeProvider>
                     ))}
                 </div>
 
-             
-
+                {/*itinerary board*/}
                 <div className="col-lg-6">
                     <h4 className="idea-board-words">ITINERARY</h4>
                     {/* Will render all events that HAVE been added */}
                     {currentEvents.map(event => (
                         <MuiThemeProvider>
-                            {event.added && <div key={event.key}><LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy} user={currentUser}/></div>}
+                            {event.added && <div className="idea-board-plan-event" key={event.key}><LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy} user={currentUser}/></div>}
                         </MuiThemeProvider>
                     ))}
                 </div>
+
             </div>
+
         </div>
         )
     }

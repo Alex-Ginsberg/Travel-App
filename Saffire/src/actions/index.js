@@ -186,7 +186,8 @@ export const fetchUsers = () => dispatch => {
                     name: users[key].name, 
                     image: users[key].image,
                     status: users[key].status,
-                    localToken: users[key].localToken
+                    localToken: users[key].localToken,
+                    notifications: users[key].notifications
                 }
                 usersArr.push(toAdd)
             }
@@ -338,7 +339,8 @@ export const getCurrentUser = () => dispatch => {
                         image: users[key].image,
                         name: users[key].name,
                         requests: users[key].requests,
-                        status: users[key].status
+                        status: users[key].status,
+                        notifications: users[key].notifications
                     }}
                 }
 
@@ -405,7 +407,8 @@ export const onUserListener = (user) => dispatch => {
                 image: users[key].image,
                 status: users[key].status,
                 name: users[key].name,
-                requests: users[key].requests
+                requests: users[key].requests,
+                notifications: users[key].notifications
             }}
 
         }
@@ -554,6 +557,9 @@ export const postGeoLocation = itin => dispatch => {
     })
     .then(resultArray => {
         userRef.push({lat: resultArray[0], long: resultArray[1]})
+    })
+    .catch(err => {
+        console.log(err)
     })}
 
 export const sendMessage = (user, itinKey, message) => {
@@ -569,6 +575,20 @@ export const sendMessage = (user, itinKey, message) => {
     })
 }
 
+
+export const fetchDistanceMatrix = (userCoor, locations) => dispatch => {
+    let origin, destination
+    
+    axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin}&destinations=${destination}&key=${googServerKey}`)
+    .then(res => res.data)
+    .then(payload => {
+        console.log('payloadMatrix***', payload)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}
+
 export const removeSchedule = (itin, event) => dispatch => {
     const itinRef = firebase.database().ref().child('itineraries').child(itin)
     itinRef.once('value')
@@ -580,6 +600,37 @@ export const removeSchedule = (itin, event) => dispatch => {
         })
         .then(eventKey => {
             itinRef.child('events').child(eventKey).child('schedule').remove()
+        })
+}
+
+export const addToNotifications = body => dispatch => {
+    const userRef = firebase.database().ref().child('users')
+    userRef.once('value')
+        .then(snapshot => snapshot.val())
+        .then(users => {
+            for (let key in users) {
+                if (users[key].email === firebase.auth().currentUser.email){return key}
+            }
+        })
+        .then(userKey => {
+            const currentUserRef = firebase.database().ref().child('users').child(userKey).child('notifications')
+            currentUserRef.push({body: body, time: new Date()})
+        })
+}
+
+export const removeNotification = (user, body) => dispatch => {
+    const requestRef = firebase.database().ref().child('users').child(user.key).child('notifications')
+    requestRef.once('value')
+        .then(snapshot => snapshot.val())
+        .then(requests => {
+            for (let key in requests) {
+                if (requests[key].body === body){return key}
+            }
+        })
+        .then(reqKey => {
+            console.log('KEY: ', reqKey)
+            console.log('USER: ', user.key)
+            firebase.database().ref().child('users').child(user.key).child('notifications').child(reqKey).remove()
         })
 }
 

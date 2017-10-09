@@ -160,8 +160,7 @@ class SingleItinerary extends Component{
         for (let i in this.state.itin.messages) {
             chatMessages.push(this.state.itin.messages[i])
         }
-
-
+      
         return (
             <div>
                 <div className="single-itin-header">
@@ -281,8 +280,11 @@ class SingleItinerary extends Component{
                                         this.state.currentTime.getSeconds(),
                                         this.state.currentTime.getMilliseconds()
                                     )
+                                    console.log('MONTH: ', toSchedule.getMonth())
+                                    const schedString = `${toSchedule.getSeconds()} ${toSchedule.getMinutes()} ${toSchedule.getHours() - 1} ${toSchedule.getDate()} ${toSchedule.getMonth() + 1} ${toSchedule.getDay()}`
+                                    console.log('TO BE SCHEDULED: ', schedString)
                                     memberArray.map(member => {
-                                        cron.schedule(`* * * * *`, () => {
+                                        cron.schedule(schedString, () => {
                                             axios({ url: 'https://fcm.googleapis.com/fcm/send',
                                             method: 'post',
                                             headers: {
@@ -292,7 +294,7 @@ class SingleItinerary extends Component{
                                             data: {
                                                     "notification": {
                                                     "title": "Saffire",
-                                                    "body": `You have an hour until ${this.state.showForm.title}`,
+                                                    "body": `You have an hour until your next event`,
                                                     "icon": "firebase-logo.png",
                                                     "click_action": "https://deets-76612.firebaseapp.com/requests"
                                                     },

@@ -3,15 +3,20 @@ import { bubble as Menu } from 'react-burger-menu'
 import { styles } from '../styles/styles_burgerMenu';
 import firebase from 'firebase';
 import history from '../history';
-import { updateStatus, onUserListener } from '../actions';
+import { updateStatus, onUserListener, removeNotification } from '../actions';
 import {connect} from 'react-redux';
+import Badge from 'material-ui/Badge';
+import IconButton from 'material-ui/IconButton';
+import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 class BurgerMenu extends React.Component {
   constructor() {
     super()
     this.state = {
-      showButtons: false
+      showButtons: false,
+      showNotifications: false
     }
     this.handleUpdate = this.handleUpdate.bind(this)
   }
@@ -35,6 +40,10 @@ class BurgerMenu extends React.Component {
 }
   
   render () {
+    const notificationsArray = []
+    for (let key in this.props.currentUser.notifications) {
+      notificationsArray.push(this.props.currentUser.notifications[key].body)
+    }
     return (
       
       <Menu styles={styles}>
@@ -43,8 +52,16 @@ class BurgerMenu extends React.Component {
           {/* <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li> */}
           <li><a className="menu-item" id="Itineraries"  href="/itineraries">MY ITINERARIES</a></li> 
           <li><a className="menu-item" id="MyFriends"  href="/myfriends">FRIENDS</a></li>
+          <MuiThemeProvider>
+          <li><p className="menu-item" onClick={() => this.setState({showNotifications: !this.state.showNotifications})} >NOTIFICATIONS<Badge badgeContent={notificationsArray.length} primary={true}></Badge></p></li>
+          </MuiThemeProvider>
+          {this.state.showNotifications && notificationsArray.map(notification => (
+            <li key={notification}><a className="menu-item" href="/myfriends">{notification}</a></li>
+          ))}
+
           {this.props.connect && <li><p className="menu-item" onClick={() => this.setState({showButtons: !this.state.showButtons})}>UPDATE STATUS</p></li>}
         </div>
+
         
         
         {this.state.showButtons &&  <li><p className="menu-item-current-status">CURRENT STATUS: {this.props.currentUser.status.length > 1 ? this.props.currentUser.status : 'No selected status'}</p></li>}
@@ -78,6 +95,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       getCurrentUser(user) {
         dispatch(onUserListener(user))
+      },
+      removeNotification(user, body) {
+        dispatch(removeNotification(user, body))
       }
   }
 }
