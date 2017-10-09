@@ -7,7 +7,9 @@ import firebase from 'firebase';
 import Geosuggest from 'react-geosuggest';
 import history from '../history';
 import BurgerMenu from './Menu';
+import NotificationCounter from './NotificationCounter'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 
 
 
@@ -148,6 +150,7 @@ class IdeaBoard extends Component {
         return (
         <div className="idea-board-div" >
             <BurgerMenu />
+            <NotificationCounter />
             
             <div className="single-itin-header">
                 <BurgerMenu />
