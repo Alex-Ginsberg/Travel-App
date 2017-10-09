@@ -57,6 +57,7 @@ export class MapComp extends Component {
      fireLocationsRef.once('value')
      .then(result => result.val())
      .then(payload => {
+    if(payload){
      let added = Object.keys(payload).filter(itin => {
          return payload[itin].added === true
        })
@@ -65,21 +66,23 @@ export class MapComp extends Component {
         trueEvents.push(payload[added[i]])
       }
       return trueEvents;
-     })
+     }})
      .then(events => {
+       if(events){
        console.log('events***', events)
        return events.map(event => {
          return event.location
        })
        
-     })
+     }})
      .then(locations => {
        let locationState = [];
+       if(locations){
        locations.forEach(location => {
         locationState.push([location.lng, location.lat])
        })
        this.setState({locations: locationState})
-     })
+     }})
      
     }
 
@@ -142,7 +145,7 @@ export class MapComp extends Component {
               >
               <img  style = {{width: "54px", height: "54px"}} src="/assets/user-marker.png"/>
             </Marker>
-            {this.state.locations.map((location, i)=> {
+            {this.state.locations && this.state.locations.map((location, i)=> {
               return (
                 <div key={location[i]} className="place-marker">
                 <Marker
