@@ -8,6 +8,7 @@ import firebase from 'firebase';
 import Geosuggest from 'react-geosuggest';
 import history from '../history';
 import BurgerMenu from './Menu';
+import NotificationCounter from './NotificationCounter'
 
 
 
@@ -192,6 +193,7 @@ class IdeaBoard extends Component {
         return (
         <div className="idea-board-div" >
             <BurgerMenu />
+            <NotificationCounter />
             
             <div className="single-itin-header">
                 <BurgerMenu />

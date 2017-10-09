@@ -12,6 +12,7 @@ import Avatar from 'material-ui/Avatar';
 import {MapComp} from '../components'
 import cron from 'node-cron'
 import axios from 'axios'
+import NotificationCounter from './NotificationCounter'
 
 import {
     blue300,
@@ -166,6 +167,7 @@ class SingleItinerary extends Component{
             <div>
                 <div className="single-itin-header">
                     <BurgerMenu />
+                    <NotificationCounter />
 
                     <div className="single-itin-dash">
                         <div className="row">

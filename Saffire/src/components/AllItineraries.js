@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom'
 import firebase from '../firebase'
 import { postItinerary, setCurrentItinerary, getCurrentUser } from '../actions'
 import BurgerMenu from './Menu'
+import NotificationCounter from './NotificationCounter'
 
 // const losAngeles = "../destination-images/los-angeles.jpeg";
 
@@ -63,6 +64,7 @@ class AllItineraries extends React.Component {
       <div className="saffire-all-itineraries-div">
         
         <BurgerMenu />
+        <NotificationCounter />
         
         <h1>SAFFIRE</h1>
 

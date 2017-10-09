@@ -28,7 +28,7 @@ body {
 
 .sapphire-app {
     text-align: center;
-    background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg");
+    /* background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg"); */
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -1143,4 +1143,16 @@ color: #fff;
     font-size: 1.5em;
     padding-top: 30px;
 
+}
+
+/*
+    ==================================
+                 Notification Counter
+    ==================================
+*/
+
+.notification-counter {
+    position: fixed;
+    top: 20px;
+    right: 20px;
 }
