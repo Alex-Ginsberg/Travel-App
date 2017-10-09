@@ -1,10 +1,11 @@
 import React from 'react';
 import { bubble as Menu } from 'react-burger-menu'
-import {styles } from '../styles/styles_burgerMenu';
+import { styles } from '../styles/styles_burgerMenu';
 import firebase from 'firebase';
 import history from '../history';
 import { updateStatus, onUserListener } from '../actions';
 import {connect} from 'react-redux';
+
 
 class BurgerMenu extends React.Component {
   constructor() {
