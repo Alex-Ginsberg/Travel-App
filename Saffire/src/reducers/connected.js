@@ -1,6 +1,6 @@
 import { CONNECT } from '../actions';
 
-const initialState =  true
+const initialState =  false
 
 
 

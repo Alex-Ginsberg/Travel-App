@@ -36,50 +36,62 @@ body {
 
 .sapphire-app-title {
     font-family: 'Montserrat', sans-serif;
-    font-size: 5em;
+    font-size: 3.5em;
     font-weight: 300;
-    margin-top: 0;
-    color: white;
+    color: black;
     letter-spacing: .3em;
-    padding-top: 30px;
+    padding-top: 1.5em;
     display: inline-block;
-    margin-right: -200px;
+    /*margin-right: -200px;*/
+    text-align: center;
 }
+
+.sapphire-app-login {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+    display: inline-block;
+    color: black;
+    padding: 0 15px;
+    padding-bottom: .5em;
+}
+
+
+.sapphire-auth-div {
+
+    /*font-size: .8em;*/
+    /*float: right;*/
+    /*margin-top: 30px;*/
+    /*margin-right: 50px;*/
+}
+
+
 
 .sapphire-itinerary-form input{
     width: 400px;
-    height: 50px;
+    height: 40px;
     font-size: 20px;
     border-radius: 5px;
+    font-size: 1.2em;
     font-style: italic;
     display: inline-block;
 }
 
 
 .sapphire-itinerary-form button{
-    font-size: 25px;
-    background-color: #CD853F;
+    /*font-size: 25px;*/
+    background-color: #b8b7ad;
+    font-family: 'Montserrat', sans-serif;
     color: white;
-    padding: 8px;
     border-radius: 5px;
-    margin-left: 15px;
+    margin-left: 10px;
     vertical-align: top;
+    height: 40px;
+    text-align: center;
 }
 
-.sapphire-auth-div {
-    font-size: .8em;
-    float: right;
-    margin-top: 30px;
-    margin-right: 50px;
-}
 
-.sapphire-app-login {
-    font-size: 3em;
-    display: inline-block;
-    text-decoration: none;
-    color: white;
-    padding: 0 15px;
-}
+
+
 
 .sapphire-app-login:hover {
     text-decoration: none;
@@ -87,9 +99,9 @@ body {
 
 .sapphire-home-page-border {
     background-color: white;
-    background: rgba(255, 255, 255, 0.5);
-    margin-top: 50px;
-    padding: 60px;
+    background: rgba(255, 255, 255, 0.75);
+    margin-top: 5em;
+    /*padding: 100px;*/
 }
 
 .sapphire-itinerary-div {
@@ -97,18 +109,18 @@ body {
 }
 
 #home-page-label {
-    color: white;
+    color: black;
     font-size: 2em;
     padding-bottom: 30px;
     display: block;
-    letter-spacing: .3em;
+    letter-spacing: .2em;
 }
 
-.clearfix {
-    clear: both;
-    display: table;
-    content: "";
-}
+/*.clearfix {*/
+    /*clear: both;*/
+    /*display: table;*/
+    /*content: "";*/
+/*}*/
 
 /*
     ========================================
@@ -118,7 +130,7 @@ body {
 
 @media (min-width: 870px) and (max-width: 1050px) {
     .sapphire-app-title {
-        font-size: 3.0em;
+        font-size: 2em;
     } 
 
     .sapphire-auth-div {
@@ -203,15 +215,20 @@ and (-webkit-min-device-pixel-ratio: 2)
 and (orientation: portrait) 
 {
     .sapphire-app-title {
-        position: fixed;
+        /*position: fixed;*/
         font-size: 2em;
-        left: 100px;
+        /*text-align: center;*/
+        /*left: 100px;*/
     }
 
     .sapphire-auth-div { 
         float: none;
         margin: 0 auto;
         padding-top: 40px;
+    }
+
+    .sapphire-app-login {
+        font-size: 2em;
     }
 
     .sapphire-home-page-border {
@@ -240,103 +257,105 @@ and (orientation: portrait)
     ==================================
 */
 
-.bg-login {
-    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/KPMRVAREV0.jpg");
-    background-size: cover;
-    height: 100vh;
-}
+/*.bg-login {*/
+    /*background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/KPMRVAREV0.jpg");*/
+    /*background-size: cover;*/
+    /*height: 100vh;*/
+/*}*/
 
-.box-login {
-    /* display: inline-block; */
-    background-color: #7C7A7A;
-    opacity: .90;
-    box-shadow: 15%;
-    width: 400px;
-    height: 250px;
-    /* text-align: center; */
-    display:flex;
-    /* justify-content:center; */
-    align-items:center;
-    margin: auto;
-    /* margin-top: 200px; */
-    /* margin-left: 800px; */
-    
-}
+/*.box-login {*/
+    /*!* display: inline-block; *!*/
+    /*background-color: #7C7A7A;*/
+    /*opacity: .90;*/
+    /*box-shadow: 15%;*/
+    /*width: 400px;*/
+    /*height: 250px;*/
+    /*!* text-align: center; *!*/
+    /*display:flex;*/
+    /*!* justify-content:center; *!*/
+    /*align-items:center;*/
+    /*margin: auto;*/
+    /*!* margin-top: 200px; *!*/
+    /*!* margin-left: 800px; *!*/
+    /**/
+/*}*/
 
-.login-title {
+/*.login-title {*/
 
-/*     font-family: "Helvetica Neue";
-    font-size: 2.5em;
-    margin: 50px 145px;
-    position: fixed; */
+/*!*     font-family: "Helvetica Neue";*/
+    /*font-size: 2.5em;*/
+    /*margin: 50px 145px;*/
+    /*position: fixed; *!*/
 
-    font-style: "Helvetica";
-    font-size: 1.2em;
-    text-align: center;
-    /* padding-top: 5%; */
-    
-    /* position: center; */
+    /*font-style: "Helvetica";*/
+    /*font-size: 1.2em;*/
+    /*text-align: center;*/
+    /*!* padding-top: 5%; *!*/
+    /**/
+    /*!* position: center; *!*/
 
-}
+/*}*/
 
 
 
-.login-form {
-    margin: auto;
-    align-content: center;
-}
-.login-label-email {
+/*.login-form {*/
+    /*margin: auto;*/
+    /*align-content: center;*/
+/*}*/
 
-/* font-family: "Helvetica Neue";
-font-size: 2.5em;
-padding: 10px;
-margin-left: 120px;
-}
 
-.login-label-password {
-font-family: "Helvetica Neue";
-font-size: 2.5em;
-padding: 10px;
-margin-left: 90px; */
+/*.login-label-email {*/
 
-font-style: "Helvetica";
-font-size: 1.2em;
-/* padding: 5%; */
-/* margin-left: 120px; */
-}
+/*!* font-family: "Helvetica Neue";*/
+/*font-size: 2.5em;*/
+/*padding: 10px;*/
+/*margin-left: 120px;*/
+/*}*/
 
-.login-label-password {
-font-style: "Helvetica";
-font-size: 1.2em;
-/* padding: 5%; */
-/* margin-left: 90px; */
+/*.login-label-password {*/
+/*font-family: "Helvetica Neue";*/
+/*font-size: 2.5em;*/
+/*padding: 10px;*/
+/*margin-left: 90px; *!*/
 
-}
+/*font-style: "Helvetica";*/
+/*font-size: 1.2em;*/
+/*!* padding: 5%; *!*/
+/*!* margin-left: 120px; *!*/
+/*}*/
 
-.login-input {
-    width: 90%;
-    height: 25px;
-    font-style: "Helvetica";
-    font-size: .8em;
-    border-radius: 5%;
-    /* margin: 5px 30px; */
-    margin: 3%;
-    border: 1px solid black
-}
+/*.login-label-password {*/
+/*font-style: "Helvetica";*/
+/*font-size: 1.2em;*/
+/*!* padding: 5%; *!*/
+/*!* margin-left: 90px; *!*/
 
-.login-submit-button {
-    font-size: .8em;
-    font-style: "Helvetica";
-    margin: 4%;
-    border-radius: 5%;
-    width: 90%;
-    height: 25px;
-    /* margin-top: 25px; */
-    /* margin-left: 130px; */
-    background-color: white;
-    color: black;
-    border: 1px solid black
-}
+/*}*/
+
+/*.login-input {*/
+    /*width: 90%;*/
+    /*height: 25px;*/
+    /*font-style: "Helvetica";*/
+    /*font-size: .8em;*/
+    /*border-radius: 5%;*/
+    /*!* margin: 5px 30px; *!*/
+    /*margin: 3%;*/
+    /*border: 1px solid black*/
+/*}*/
+
+/*.login-submit-button {*/
+    /*font-size: .8em;*/
+    /*font-style: "Helvetica";*/
+    /*margin: 4%;*/
+    /*border-radius: 5%;*/
+    /*width: 90%;*/
+    /*height: 25px;*/
+    /*!* margin-top: 25px; *!*/
+    /*!* margin-left: 130px; *!*/
+    /*background-color: white;*/
+    /*color: black;*/
+    /*border: 1px solid black*/
+/*}*/
 
 
 
@@ -345,64 +364,70 @@ font-size: 1.2em;
 
 /*
     ===========================================
-                   User Sign-Up
+                   User Sign-Up/Login
     ===========================================
 */
 
 .sapphire-user-signup-div {
-    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/UG76JFIIHZ.jpg");
+    /*background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/UG76JFIIHZ.jpg");*/
     background-size: cover;
     height: 100vh;
 }
 
 .sapphire-user-signup-div h1 {
-    color: white;
+    color: black;
     font-family: 'Montserrat', sans-serif;
     letter-spacing: .2em;
     font-weight: 100;
     text-align: center;
-    font-size: 5em;
+    font-size: 3em;
     padding-top: 60px;
 }
 
 .sapphire-user-signup-box {
     text-align: center;
-    margin-top: 80px;
+    margin-top: 100px;
 }
 
 .sapphire-user-signup-form {
+    font-family: 'Montserrat', sans-serif;
     display: inline-block;
     background: rgba(255,255,255, 0.7);
     padding: 60px;
 }
 
-.sapphire-user-signup-form h1 {
-    font-size: 2em;
-    color: white;
-    text-align: right;
-    margin-bottom: 30px;
+.sapphire-user-signup-form h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5em;
+    color: black;
+    text-align: center;
+    margin-bottom: 40px;
 }
 
 .sapphire-user-signup-input input {
     width: 400px;
-    font-size: 20px;
+    font-size: 14px;
     font-family: 'Montserrat', sans-serif;
     font-style: italic;
     border-radius: 5px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
+    height: 35px;
 }
 
 .sapphire-user-signup-button-div {
-    text-align: right;
+    text-align: center;
 }
 
 .sapphire-user-signup-form button {
-    font-size: 20px;
-    border-radius: 5px;
-    background-color: #D2691E;
+
+    background-color: #b8b7ad;
     color: white;
-    letter-spacing: .1em;
-    padding: 4px 20px;
+    border-radius: 5px;
+    margin-left: 10px;
+    vertical-align: top;
+    height: 40px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
 }
 
 @media(min-width: 400px) and (max-width: 700px) {
@@ -506,7 +531,7 @@ and (orientation: portrait) {
 */
 
 .dash-div-image {
-    background-image: url("https://static.pexels.com/photos/210200/pexels-photo-210200.jpeg");
+    /*background-image: url("https://static.pexels.com/photos/210200/pexels-photo-210200.jpeg");*/
     background-size: cover;
     display: flex;
     height: 700px;
@@ -591,7 +616,7 @@ ITINERARY
 ========================================= */
 
 .itin-main {
-    background-image: url("/assets/car-map.jpg");
+    /*background-image: url("/assets/car-map.jpg");*/
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -612,7 +637,7 @@ MENU ITEM
 }
 
 .menu-item:hover {
-    background-color: #f4b642;
+    background-color: #054dc1;
     color: white;
     text-decoration: none;
 }
@@ -694,51 +719,58 @@ MENU ITEM
 */
 
 .saffire-all-itineraries-div{
-    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/75PYASX6U1.jpg");
-    background-size: cover;
-    height: 100vh;
+    /*background-image: url("/assets/all-itineraries.jpg");*/
+    /*background-size: cover;*/
+    /*height: 100vh;*/
+    /*width: 100%;*/
+    /*background-attachment: scroll;*/
 }
 
 .saffire-all-itineraries-div h1 {
     font-family: 'Montserrat', sans-serif;
-    color: white;
+    color: black;
     letter-spacing: .2em;
     text-align: center;
-    font-size: 6em;
+    font-size: 3em;
     padding-top: 30px;
 }
 
+
 .saffire-all-itineraries-div h3 {
-    font-size: 2.5em;
-    color: white;
-    text-decoration: underline;
+    font-size: 2em;
+    color: #b8b7ad;
+    /*text-decoration: underline;*/
     text-align: center;
     letter-spacing: .2em;
-    margin-top: 50px;
+    margin: 50px;
     font-weight: 100;
 }
 
 .saffire-all-itineraries-container {
     text-align: center;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(410px, 1fr));
+    /*margin: 10%;*/
 }
 
 .saffire-all-itineraries-item {
-    padding: 40px;
+    margin: 20px;
+
 }
 
-.saffire-all-itineraries-item img {
+.saffire-all-itineraries-img {
     border-radius: 5px;
-    width: 450px;
+    width: 400px;
+    max-height: 260px;
+    min-height: 260px;
 }
 
 .little-saffire-item {
     color: white;
     background: rgba(190, 190, 190, 0.7);
     font-family: 'Montserrat', sans-serif;
-    width: 450px;
-    height: 230px;
+    width: 400px;
+    height: 200px;
     margin: 0 auto;
 }
 
@@ -748,26 +780,30 @@ MENU ITEM
 }
 
 .sapphire-itin-name-x {
-    font-size: 2.3em;
+    font-size: 2em;
+    color: black;
 }
 
 .sapphire-itin-name-y {
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 .sapphire-itin-name-z {
-    font-size: 1.4em;
+    font-size: 1em;
 }
 
 .sapphire-itin-name-z img {
-    width: 45px;
+    width: 35px;
     padding-right: 6px;
 }
 
 .sapphire-itin-name-xx {
-    border: 1px solid black;
-    background-color: grey;
+    /*border: 1px solid black;*/
+    /*background-color: grey;*/
+    text-align: left;
     border-radius: 5px;
+    font-size: .6em;
+    color: #054dc1;
 }
 
 
@@ -782,42 +818,93 @@ MENU ITEM
     ==================================
 */
 
-.single-itin-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 4em;
-    font-weight: 300;
-    color: black;
-    letter-spacing: .3em;
-    padding-top: 20px;
-    display: inline-block;
-    /* margin-right: -200px; */
-    text-align: center;
-}
-
-.single-itin-image {
-    padding: 10px;
-    justify-content: 'center';
-     align-items: 'center';
-     width: 100%; 
-     height: 70%;
-}
-
 .single-itin-header {
-    text-align: center;
     /* background-image: url("http://www.australia.com/content/australia/en_us/facts/_jcr_content/mainParsys/hero/image.adapt.1663.medium.jpg"); */
     /* background-size: 10; */
     /* background-repeat: no-repeat; */
     /* height: 100vh; */
 }
 
-.single-itin-status {
-    display: inline;
-    padding: 20px;
-    /* position: absolute; */
-    /* bottom: 0; */
+
+.single-itin-image {
+    padding: 2%;
+    max-height: 530px;
+    max-width: 750px;
+    height: 80%;
+    width: 80%;
+}
+
+.single-itin-dash {
+    /*display: inline-block;*/
+    text-align: center;
 }
 
 
+.single-itin-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5em;
+    font-weight: 300;
+    color: black;
+    letter-spacing: .3em;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.single-itin-event-title {
+    font-size: 1.5em;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    /*margin: 10px;*/
+    padding: 1.5em;
+}
+
+
+
+.single-itin-status {
+    display: inline-block;
+}
+
+.single-itin-map {
+    margin-top: 3%;
+}
+
+.single-itin-schedule {
+    background-image: url('/assets/single-itin-schedule.jpg');
+    background-size: cover;
+}
+
+
+
+.single-itin-event-scheduler-node {
+    background-color: white;
+    margin: 13px;
+    /*margin-top: 13px;*/
+    /*margin-bottom: 13px;*/
+    /*margin-left: 13px;*/
+    /*box-shadow: 3px 3px grey;*/
+}
+
+.single-itin-event-scheduler-info {
+    margin-left: 15px;
+    padding: 12px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+
+.single-itin-event-scheduler-button {
+    font-size: 10px;
+    border-radius: 10px;
+}
+
+.single-itin-schedule-list {
+    padding: 15px;
+}
+
+.schedule-list-title {
+    text-align: center;
+    font-size: 1.5em;
+}
 
 
 /*
@@ -827,29 +914,47 @@ MENU ITEM
 */
 
 .saffire-friends-container {
-    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/U3ESM8YMDM.jpg");
+    /*background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/U3ESM8YMDM.jpg");*/
     background-size: cover;
     height: 100vh;
 }
 
-.saffire-friends-title {
-    font-size: 3.3em; 
+.friends-header > h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
     text-align: center;
-    color: white;
+    font-size: 3em;
+    padding-top: 30px;
+}
+
+.my-friends-list {
+    text-align: center;
+}
+.saffire-friends-title {
+    font-size: 3em;
+    text-align: center;
+    color: #b8b7ad;
     padding-top: 100px;
     text-decoration: underline;
     letter-spacing: .1em;
 }
 
 .saffire-friends-little-wrapper {
-    padding-top: 80px;
+    /*padding-top: 80px;*/
+    width: 500px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /*grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));*/
     color: white;
+    margin-bottom: 30px;
+    /*overflow-y: auto;*/
+    /*max-width: 500px;*/
+    /*max-height: 500px;*/
 }
 
 .saffire-friend-item {
     background-color: lightgrey;
+    /*box-shadow: 5px 5px grey;*/
     margin: 0 auto;
 }
 
@@ -864,6 +969,38 @@ MENU ITEM
     font-size: 1.8em;
     padding: 20px 0;
 }
+
+.friends-header {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.find-friend {
+    width:300px;
+    height:300px;
+    background-color:white;
+    overflow-y: auto;
+    max-width:300px;
+    padding: 12px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 15px;
+
+}
+
+.friend-requests {
+    width:300px;
+    height:300px;
+    background-color:white;
+    overflow-y: auto;
+    max-width:300px;
+    padding: 12px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 200px;
+
+}
+
 /*
     ==================================
                 Idea Board
@@ -903,11 +1040,40 @@ MENU ITEM
     padding: 10px;
 }
 
+
+
 .idea-board-words {
     text-align: center;
     padding: 10px;
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    text-align: center;
 }
 
+.idea-form-control {
+    width: 250px;
+    border-radius: 5px;
+}
+
+.idea-itinerary-form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
+.idea-button {
+    height: 27px;
+    border-radius: 5px;
+    background-color: #054dc1;
+    color: white;
+}
+
+.idea-to-itin {
+    text-align: center;
+}
 
 
 
@@ -925,5 +1091,56 @@ MENU ITEM
 .geosuggest__item--active {
 background: #267dc0;
 color: #fff;
+
+}
+
+
+
+
+
+
+.find-friends.container {
+    padding: 15px;
+    text-align: center;
+}
+
+.find-friend-form {
+    text-align: center;
+}
+
+.find-friend-form button {
+    margin-top: 10px;
+}
+
+
+.found-friend {
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    text-align: center;
+    font-size: 1.5em;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: row;
+    width: 100px;
+    justify-content: space-between;
+
+}
+
+.found-friend h3 {
+    padding-right: 10px;
+}
+
+
+
+.find-friends-container h1{
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    text-align: center;
+    font-size: 1.5em;
+    padding-top: 30px;
 
 }

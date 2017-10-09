@@ -4,7 +4,6 @@ import {onUserListener, connectionChange} from './actions'
 import store from './store'
 
 
-console.log('CONECTIOM: ', connectionChange)
 var config = {
     apiKey: firebase_pw,
     authDomain: 'deets-76612.firebaseapp.com',

@@ -140,7 +140,7 @@ export class MapComp extends Component {
               coordinates={this.state.userCoordinates}
               anchor="bottom"
               >
-              <img  style = {{width: "64px", height: "64px"}} src="/assets/user-marker.png"/>
+              <img  style = {{width: "54px", height: "54px"}} src="/assets/user-marker.png"/>
             </Marker>
             {this.state.locations.map((location, i)=> {
               return (
