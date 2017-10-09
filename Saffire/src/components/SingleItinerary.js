@@ -160,8 +160,7 @@ class SingleItinerary extends Component{
         for (let i in this.state.itin.messages) {
             chatMessages.push(this.state.itin.messages[i])
         }
-
-
+      
         return (
             <div>
                 <div className="single-itin-header">

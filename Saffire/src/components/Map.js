@@ -3,9 +3,10 @@ import googleMaps from '@google/maps'
 import {googServerKey, mapboxKey} from '../secrets.js'
 import {connect} from 'react-redux'
 import mapboxgl from 'mapbox-gl'
-import ReactMapboxGl, {Layer, Feature, Marker} from 'react-mapbox-gl'
+import ReactMapboxGl, {Layer, Feature, Marker, GeoJSONLayer, Popup} from 'react-mapbox-gl'
 import {geoFindMe, postUserCoordinates, postGeoLocation} from '../actions'
 import firebase from '../firebase'
+import {Distance} from '../components'
 
 
 
@@ -27,6 +28,7 @@ export class MapComp extends Component {
     this.state = {
       userCoordinates: [],
       onClickDirty: false,
+      locations: [],
     }
   }
 
@@ -36,7 +38,51 @@ export class MapComp extends Component {
       console.log('component mount hit')
       // this.setState({userCoordinates: this.props.handleClick(this.props.itinKey.id)})
      this.props.handleClick(this.props.itinKey)
+
+     let userCoordinates = this.state.userCoordinates
+     let userLocation = []
+     let userCoor = firebase.database().ref().child('itineraries').child(this.props.itinKey.id).child('coordinates')
+
+     //get user coordinate
+     userCoor.once('value')
+     .then(result => {
+       let objResult = Object.keys(result.val())
+       userLocation.push(result.val()[objResult[0]].lat, result.val()[objResult[0]].long )
+       console.log('userlocation', userLocation)
+       this.setState({userCoordinates: userLocation})
+     })
+
+     //get events locations
+     let fireLocationsRef = firebase.database().ref().child('itineraries').child(this.props.itinKey.id).child('events')
+     fireLocationsRef.once('value')
+     .then(result => result.val())
+     .then(payload => {
+     let added = Object.keys(payload).filter(itin => {
+         return payload[itin].added === true
+       })
+      let trueEvents = [];
+      for(let i = 0; i < added.length; i++){
+        trueEvents.push(payload[added[i]])
+      }
+      return trueEvents;
+     })
+     .then(events => {
+       console.log('events***', events)
+       return events.map(event => {
+         return event.location
+       })
+       
+     })
+     .then(locations => {
+       let locationState = [];
+       locations.forEach(location => {
+        locationState.push([location.lng, location.lat])
+       })
+       this.setState({locations: locationState})
+     })
+     
     }
+
 
     handleClickLocal (e) {
       let itinKey = this.props.itinKey
@@ -46,31 +92,43 @@ export class MapComp extends Component {
       //   userCoordinates: result,
       //   onClickDirty: true,
       // })
+
+
+    }
+
+    onClickMap(marker, evt) {
+      console.log('evt*****', evt)
     }
 
     render() {
       let {handleClick, user, itineraryName, itinKey} = this.props
-      let userCoordinates = this.state.userCoordinates
-      let userLocation = []
-      let userCoor = firebase.database().ref().child('itineraries').child(itinKey.id).child('coordinates')
+      // let userCoordinates = this.state.userCoordinates
+      // let userLocation = []
+      // let userCoor = firebase.database().ref().child('itineraries').child(itinKey.id).child('coordinates')
 
-      //get user coordinate
-      userCoor.once('value')
-      .then(result => {
-        let objResult = Object.keys(result.val())
-        userLocation.push(result.val()[objResult[0]].lat, result.val()[objResult[0]].long )
-        console.log('userlocation', userLocation)
-      })
+      // //get user coordinate
+      // userCoor.once('value')
+      // .then(result => {
+      //   let objResult = Object.keys(result.val())
+      //   userLocation.push(result.val()[objResult[0]].lat, result.val()[objResult[0]].long )
+      //   console.log('userlocation', userLocation)
+      // })
       return (
+        
           <div>
+            
+            {this.state.userCoordinates.length && 
             <Map
+            key = "UniqueMap"
             zoom={[14]}
-            center={[-74.0091638, 40.7049151]}
+            center={this.state.userCoordinates}
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
-              height: "300px",
+              height: "25em",
               width: "100%"
-            }}>
+            }}
+            
+            >
               <Layer
                 type="symbol"
                 id="marker"
@@ -79,27 +137,39 @@ export class MapComp extends Component {
               </Layer>
               <div className="map-marker">
             <Marker 
-              coordinates={userLocation}
-              anchor="bottom">
+              coordinates={this.state.userCoordinates}
+              anchor="bottom"
+              >
               <img  style = {{width: "54px", height: "54px"}} src="/assets/user-marker.png"/>
             </Marker>
-              {/* this.state.userCoordinates.length && <Marker
-              coordinates={this.state.userCoordinates}
-              anchor="bottom">
-              <img  style = {{width: "64px", height: "64px"}} src="/assets/map-marker.png"/>
-              </Marker> */}
+            {this.state.locations.map((location, i)=> {
+              return (
+                <div key={location[i]} className="place-marker">
+                <Marker
+                coordinates={location}
+                anchor="bottom"
+                >
+                <img style = {{width: "64px", height: "64px"}} src="/assets/map-marker.png"/>
+                </Marker>
+                </div>
+              )
+            })}
               </div>
               <div className="user-Marker">
                 {}
               </div>
-          </Map>
-          <div>
-            {/*<p><button onClick={this.handleClickLocal}>Show my location</button></p>*/}
+          </Map>}
+          {/* <div>
+            <p><button onClick={this.handleClickLocal}>Show my location</button></p>
             <div id="out"></div>
-          </div>
+          </div> */}
+           <div>
+          <Distance userCoordinates={this.state.userCoordinates} locations={this.state.locations}/>
+          </div> 
           </div>
           
-        )
+          )
+      
       }
     }
 
@@ -117,30 +187,10 @@ const mapDispatch = dispatch => {
       console.log('clicked***')
       console.log('itinKey******', key.id)
       let keyID = key.id
-      dispatch(postGeoLocation(keyID))
+      dispatch(postUserCoordinates(keyID))
     }, 
   }
 }
 
 export default connect(mapState, mapDispatch)(MapComp)
-
-// const { Marker } = require("mapbox-gl");
-
-// const iconURLs = {
-//   hotels: "http://i.imgur.com/D9574Cu.png",
-//   restaurants: "http://i.imgur.com/cqR6pUI.png",
-//   activities: "http://i.imgur.com/WbMOfMl.png"
-// };
-
-// const buildMarker = (type, coords) => {
-//   const markerEl = document.createElement("div");
-//   markerEl.style.backgroundSize = "contain";
-//   markerEl.style.width = "32px";
-//   markerEl.style.height = "37px";
-//   markerEl.style.backgroundImage = `url(${iconURLs[type]})`;
-//   return new Marker(markerEl).setLngLat(coords);
-// };
-
-// module.exports = buildMarker;
-
 
