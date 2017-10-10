@@ -6,6 +6,7 @@ import BurgerMenu from './Menu';
 import { getCurrentUser } from '../actions';
 import firebase from '../firebase'
 import NotificationCounter from './NotificationCounter'
+import Loading from './Loading'
 
 
 
@@ -27,6 +28,7 @@ class Main extends Component {
     
   return (
     <div className="sapphire-app">
+
       <BurgerMenu />
       {this.props.currentUser.name && <NotificationCounter />}
 
