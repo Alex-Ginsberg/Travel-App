@@ -56,7 +56,7 @@ class BurgerMenu extends React.Component {
 
         
         
-        {this.state.showButtons &&  <li><p className="menu-item-current-status">CURRENT STATUS: {this.props.currentUser.status.length > 1 ? this.props.currentUser.status : 'No selected status'}</p></li>}
+        {this.state.showButtons &&  <li><p className="menu-item-current-status">CURRENT STATUS: {this.props.currentUser.status ? this.props.currentUser.status : 'No selected status'}</p></li>}
         {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('')}>NO STATUS</p></li>}
         {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('Just landed!')}>Just landed!</p></li>}
         {this.state.showButtons &&   <li><p className="menu-item-status" onClick={() => this.handleUpdate('At the hotel')}>At the hotel</p></li>}

@@ -1,9 +1,11 @@
 //actions
 import firebase from '../firebase'
 import axios from 'axios'
-import {googServerKey, googlePlacesKey} from '../secrets.js'
+import {googServerKey, mapboxKey, googlePlacesKey} from '../secrets.js'
 import history from '../history';
-
+import googleMaps, {google} from '@google/maps'
+import jsonp from 'jsonp';
+import Geofire from 'geofire';
 
 export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
@@ -14,11 +16,39 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const REFRESH = 'REFRESH'
 export const CONNECT = 'CONNECT'
 export const FETCH_USER_COOR = 'FETCH_USER_COOR'
+export const FETCH_COOR_DISTANCE = 'FETCH_COOR_DISTANCE'
+export const FETCH_COOR_TIME = 'FETCH_COOR_TIME'
+export const FETCH_PLACES_COOR = 'FETCH_PLACES_COOR'
+export const SET_USER_COOR = 'SET_USER_COOR'
+export const SET_PLACES_COOR = 'SET_PLACES_COOR'
+export const SET_COOR_DISTANCE = 'SET_COOR_DISTANCE'
+export const SET_COOR_TIME = 'SET_COOR_TIME'
 export const SEARCH_USER = 'SEARCH_USER'
 export const UPDATE_USER = 'UPDATE_USER'
 export const GET_ITINERARY_MEMBERS = 'GET_ITINERARY_MEMBERS'
 export const PLACE_DETAILS = 'PLACE_DETAILS'
+export const updateUser = (newName, newEmail, newPassword, userID) => dispatch => {
+    console.log( firebase.auth().currentUser, ")))0000000000")
+    const authUser = firebase.auth().currentUser;
+    const selectedUser = firebase.database().ref().child(`users/${userID}`);
+    const newData = {
+        name : newName,
+        email: newEmail,
+        
+    }
 
+
+
+const googleMapsClient = googleMaps.createClient({
+    key: googServerKey,
+    Promise: Promise
+  })
+
+    selectedUser.update(newData);
+    return authUser.updateEmail(newEmail).then( () => {
+        return authUser.updatePassword(newPassword)
+    })
+}
                                                                                             // Used for adding a new itinerary to the database
 export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const itinerariesRef = firebase.database().ref('itineraries')                       // Gets a reference to the 'itineraries' table in firebase
@@ -83,7 +113,12 @@ export const addEvent = (url, itinID) => dispatch => {
                 image: preview.image,
                 url: preview.url,
                 added: false,
-                likes: 0})
+                likes: 0,
+                location: {
+                    lat: 0,
+                    lng: 0
+                }      
+            })
             const newId = newRef.key
             const eventNode = {
                 title: preview.title,
@@ -93,6 +128,10 @@ export const addEvent = (url, itinID) => dispatch => {
                 added: false, 
                 key: newId,
                 likes: 0,
+                location: {
+                    lat: 0,
+                    lng: 0
+                }
             }
         
             return dispatch(newEvent(eventNode))
@@ -521,18 +560,23 @@ export const postUserCoordinates =  itin => dispatch => {
 
             let fireRef = firebase.database().ref().child('itineraries').child(itin)
             fireRef.child('coordinates').push({lat: payload[0], long: payload[1]})
-
+           
             }
         
           function error() {
             console.log('sorry no geolocator')
             //output.innerHTML = "Unable to retrieve your location";
+           
           }
         
           //output.innerHTML = "<p>Locating…</p>";
           navigator.geolocation.getCurrentPosition(success, error)
-
+          return payload;
          })
+    .then(userLocation => {
+        console.log('userLocation thunk**', userLocation)
+        dispatch(setUserCoor(userLocation))
+    })
     .catch(err => {
         console.log(err)
     })
@@ -572,17 +616,59 @@ export const sendMessage = (user, itinKey, message) => {
 }
 
 
-export const fetchDistanceMatrix = (userCoor, locations) => dispatch => {
-    let origin, destination
+export const fetchTimeMatrix = (userCoor, locations) => dispatch => {
     
-    axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin}&destinations=${destination}&key=${googServerKey}`)
-    .then(res => res.data)
-    .then(payload => {
-        console.log('payloadMatrix***', payload)
+    // console.log('***userCoor', userCoor)
+    // console.log('***locations', locations)
+    
+    // let origin = `${userCoor[0]},${userCoor[1]}`
+    // let destinations = locations.map(location => {
+    //     return `${location[0]},${location[1]}`
+    // }).join(';')
+
+    // let googOrigin = [userCoor[0], userCoor[1]]
+    // let googDestination = locations.map(location => {
+    //     return [location[1] ,location[0]]
+    // })
+
+    // console.log('orign***', origin)
+    // console.log('destinations****', destinations)
+    
+    // let geoDistances = locations.map(location => {
+    //     return Geofire.distance(userCoor, location)
+    // })
+
+
+    // axios.get(`https://api.mapbox.com/directions-matrix/v1/mapbox/driving/${origin};${destinations}?sources=0&destinations=all&access_token=${mapboxKey}`)
+    // .then(res => res.data)
+    // .then(payload => {
+    //     let durationsArr = payload.durations.map((duration) => {
+    //         return duration
+    //     })
+    //     return durationsArr
+    // })
+    // .then(results => {
+    //     console.log('resultsForConversion', results)
+
+    // })
+    // .catch(error => {
+    //     console.log(error)
+    // })
+
+    // console.log('geofire distance', Geofire.distance(userCoor, locations[0]))
+    
+
+}
+
+export const fetchDistanceMatrix = (userCoor, locations) => dispatch => {
+    let geoDistances = locations.map(location => {
+        return Geofire.distance(userCoor, location)
     })
-    .catch(err => {
-        console.log(err)
-    })
+
+}
+
+export const getUserCoordinates = userCoor => dispatch => {
+    dispatch(fetchUserCoor(userCoor))
 }
 
 export const removeSchedule = (itin, event) => dispatch => {
@@ -637,11 +723,16 @@ export const getItineraryMembers = itinKey => dispatch => {
         .then(snapshot => snapshot.val())
         .then(members => {
             const membersArray = []
-            Object.keys(members).map(key => {
-                firebase.database().ref().child('users').child(members[key].key).once('value')
-                    .then(snapshot => membersArray.push(snapshot.val()))
-            })
-            return membersArray
+            if (members) {
+                Object.keys(members).map(key => {
+                    firebase.database().ref().child('users').child(members[key].key).once('value')
+                        .then(snapshot => membersArray.push(snapshot.val()))
+                })
+                return membersArray
+            }
+            else { 
+                return []
+            }
         })
         .then(membersArray => dispatch(setItinerayMembers(membersArray)))
 }
@@ -693,7 +784,14 @@ export const setCurrentUser = user => ({type: SET_CURRENT_USER, user})
 export const causeRefresh = message => ({type: REFRESH, message})
 export const connectionChange = status => ({type: CONNECT, status})
 export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
+export const fetchPlacesCoor = coors => ({type: FETCH_PLACES_COOR, coors})
+export const fetchCoorTime = times => ({type: FETCH_COOR_TIME, times})
+export const fetchCoorDistance = distances => ({type: FETCH_COOR_DISTANCE, distances})
 export const searchedUser = user => ({type: SEARCH_USER, user});
+export const setUserCoor = coor => ({type: SET_USER_COOR, coor})
+export const setPlacesCoor = coors => ({type: SET_PLACES_COOR, coors})
+export const setCoorDistance = distances => ({type: SET_COOR_DISTANCE, distances})
+export const setCoorTime = times => ({type: SET_COOR_TIME, times})
 export const updatedUser = newUpdatedUser => ({type: UPDATE_USER, newUpdatedUser})
 export const setItinerayMembers = members => ({type: GET_ITINERARY_MEMBERS, members})
 export const googlePlaceDetails = details => ({type: PLACE_DETAILS, details});
