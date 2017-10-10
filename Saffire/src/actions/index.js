@@ -34,8 +34,6 @@ const googleMapsClient = googleMaps.createClient({
     Promise: Promise
   })
 
-    
-
                                                                                             // Used for adding a new itinerary to the database
 export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const itinerariesRef = firebase.database().ref('itineraries')                       // Gets a reference to the 'itineraries' table in firebase
