@@ -99,7 +99,12 @@ export const addEvent = (url, itinID) => dispatch => {
                 image: preview.image,
                 url: preview.url,
                 added: false,
-                likes: 0})
+                likes: 0,
+                location: {
+                    lat: 0,
+                    lng: 0
+                }      
+            })
             const newId = newRef.key
             const eventNode = {
                 title: preview.title,
@@ -109,6 +114,10 @@ export const addEvent = (url, itinID) => dispatch => {
                 added: false, 
                 key: newId,
                 likes: 0,
+                location: {
+                    lat: 0,
+                    lng: 0
+                }
             }
         
             return dispatch(newEvent(eventNode))
@@ -653,11 +662,16 @@ export const getItineraryMembers = itinKey => dispatch => {
         .then(snapshot => snapshot.val())
         .then(members => {
             const membersArray = []
-            Object.keys(members).map(key => {
-                firebase.database().ref().child('users').child(members[key].key).once('value')
-                    .then(snapshot => membersArray.push(snapshot.val()))
-            })
-            return membersArray
+            if (members) {
+                Object.keys(members).map(key => {
+                    firebase.database().ref().child('users').child(members[key].key).once('value')
+                        .then(snapshot => membersArray.push(snapshot.val()))
+                })
+                return membersArray
+            }
+            else { 
+                return []
+            }
         })
         .then(membersArray => dispatch(setItinerayMembers(membersArray)))
 }
