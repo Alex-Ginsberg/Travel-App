@@ -1262,3 +1262,97 @@ color: #fff;
 .link-buttons > div {
     margin: 15px;
 }
+
+/*
+    ======================================
+                User Settings
+    ======================================
+*/
+
+.saffire-user-settings-div {
+    background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7FL8QPFX/background.png");
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-size: cover;
+}
+
+
+.saffire-user-settings-div h1 {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.2em;
+    font-size: 4.5em;
+    text-align: center;
+    padding-top: 70px;
+}
+
+.saffire-profile-div {
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.saffire-profile-div h3 {
+    font-size: 2.8em;
+    letter-spacing: 0.2em;
+    border-bottom: 1px solid white;
+    color: white;
+    margin-top: 180px;
+}
+
+.saffire-profile-div p {
+    text-align: left;
+    padding: 10px 0px;
+}
+
+.saffire-label{
+    color: white;
+    font-size: 1.8em;
+    letter-spacing: .2em;
+}
+
+.saffire-user-information {
+    color: white;
+    padding-left: 20px;
+    font-size: 1.7em;
+    letter-spacing: 0.2em;
+}
+
+.saffire-user-setting-change-div {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.saffire-user-setting-form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 100px;
+    padding: 20px;
+    border: 5px solid white;
+}
+
+.saffire-user-setting-form label {
+    color: white;
+    font-size: 1.7em;
+    padding-right: 10px;
+
+}
+
+.saffire-user-setting-form input {
+    margin-right: 10px;
+    border-radius: 5px;
+    width: 80%;
+    font-style: italic;
+}
+
+.saffire-user-setting-form button {
+    width: 200px;
+    border-radius: 5px;
+    background-color: lightgrey;
+    color: black;
+    font-weight: 600;
+    font-size: 20px;
+}
+

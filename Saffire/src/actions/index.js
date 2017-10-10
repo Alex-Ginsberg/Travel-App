@@ -27,8 +27,6 @@ export const SEARCH_USER = 'SEARCH_USER'
 export const UPDATE_USER = 'UPDATE_USER'
 export const GET_ITINERARY_MEMBERS = 'GET_ITINERARY_MEMBERS'
 export const PLACE_DETAILS = 'PLACE_DETAILS'
-
-
 export const updateUser = (newName, newEmail, newPassword, userID) => dispatch => {
     console.log( firebase.auth().currentUser, ")))0000000000")
     const authUser = firebase.auth().currentUser;
@@ -756,6 +754,25 @@ export const googlePlacesDetails = (placeID) => dispatch => {
 }
 
       
+
+export const updateUser = (newName, newEmail, newPassword, userID) => dispatch => {
+    console.log( firebase.auth().currentUser, ")))0000000000")
+    const authUser = firebase.auth().currentUser;
+    const selectedUser = firebase.database().ref().child(`users/${userID}`);
+    const newData = {
+        name : newName,
+        email: newEmail,
+        
+    }
+    selectedUser.update(newData);
+    return authUser.updateEmail(newEmail)
+    .then( () => {
+        return authUser.updatePassword(newPassword)
+    })
+    .then(() => {
+        return dispatch(getCurrentUser())
+    })
+}
 
 //action creator
 
