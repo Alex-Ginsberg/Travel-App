@@ -34,22 +34,32 @@ class LinkPreview extends Component {
       const commentRef = firebase.database().ref().child('itineraries').child(this.props.itinKey).child('events').child(this.props.eventKey).child('comments')
       commentRef.on('child_added', snapshot => {
         if (initialDataLoad){
+          initialDataLoad = false
+          console.log('HHHHHHHHH')
           const commentArray = []
           const newComment = snapshot.val()
           if (this.state.newComments.length > 0) {
             const oldComments = this.state.newComments
-            if (oldComments.indexOf(newComment) === -1){
+            const oldBodies = []
+            oldComments.map(comment => oldBodies.push(comment.body))
+            console.log(oldComments)
+            if (oldBodies.indexOf(newComment.body) === -1){
               oldComments.push(newComment)
             }
             this.setState({newComments: oldComments})
           }
-          else{
+          else if(this.state.comments){
             Object.keys(this.state.comments).map(key => {
               commentArray.push(this.state.comments[key])
             })
             commentArray.push(newComment)
             this.setState({newComments: commentArray})
           }
+          else{
+            commentArray.push(newComment)
+            this.setState({newComments: commentArray})
+          }
+          
           
         }
       })
@@ -95,7 +105,7 @@ class LinkPreview extends Component {
             this.props.fetchEvents(this.props.itinKey, true)
             }}
           >REMOVE</div> }
-          <div className="linkpreview-hover" disabled={!this.props.connect} onClick={() => this.setState({showComments: !this.state.showComments})}> Comments </div>
+          {!this.props.hasBeenAdded && <div className="linkpreview-hover" disabled={!this.props.connect} onClick={() => this.setState({showComments: !this.state.showComments})}> Comments </div>}
           
         </div>
         {this.state.showComments && 
@@ -103,8 +113,8 @@ class LinkPreview extends Component {
             {(this.state.comments && !this.state.newComments.length) && Object.keys(this.state.comments).map(key => (
               <p key={key}>{this.state.comments[key].sender}: {this.state.comments[key].body}</p>
             ))}
-            {(this.state.newComments.length > 0) && this.state.newComments.map(comment => (
-              <p>{comment.sender}: {comment.body}</p>
+            {(this.state.newComments.length > 0) && this.state.newComments.map((comment, index) => (
+              <p key={index}>{comment.sender}: {comment.body}</p>
             ))}
             <form onSubmit={this.submitComment}>
             <input className="idea-form-control"
