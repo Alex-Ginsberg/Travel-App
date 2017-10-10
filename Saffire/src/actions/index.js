@@ -1,7 +1,7 @@
 //actions
 import firebase from '../firebase'
 import axios from 'axios'
-import {googServerKey} from '../secrets.js'
+import {googServerKey, googlePlacesKey} from '../secrets.js'
 import history from '../history';
 
 
@@ -16,6 +16,8 @@ export const CONNECT = 'CONNECT'
 export const FETCH_USER_COOR = 'FETCH_USER_COOR'
 export const SEARCH_USER = 'SEARCH_USER'
 export const UPDATE_USER = 'UPDATE_USER'
+export const GET_ITINERARY_MEMBERS = 'GET_ITINERARY_MEMBERS'
+export const PLACE_DETAILS = 'PLACE_DETAILS'
 
 
 export const updateUser = (newName, newEmail, newPassword, userID) => dispatch => {
@@ -25,7 +27,7 @@ export const updateUser = (newName, newEmail, newPassword, userID) => dispatch =
     const newData = {
         name : newName,
         email: newEmail,
-        password: newPassword
+        
     }
 
     selectedUser.update(newData);
@@ -122,6 +124,7 @@ export const googlePlace = (suggest, itinID) => dispatch => {
                 likes: 0,
                 location: suggest.location,
                 address: suggest.gmaps.formatted_address,
+                placeID: suggest.placeId,
                 })
 
             const newId = newRef.key
@@ -136,10 +139,13 @@ export const googlePlace = (suggest, itinID) => dispatch => {
             likes: 0,
             types: suggest.types,
             address: suggest.gmaps.formatted_address,
+            placeID: suggest.placeId,
         }
 
         return dispatch(newEvent(eventNode))
-} 
+}
+
+
 
 
 
@@ -637,10 +643,40 @@ export const removeNotification = (user, body) => dispatch => {
             console.log('KEY: ', reqKey)
             console.log('USER: ', user.key)
             firebase.database().ref().child('users').child(user.key).child('notifications').child(reqKey).remove()
+            dispatch(getCurrentUser())
         })
 }
 
+export const getItineraryMembers = itinKey => dispatch => {
+    const itinRef = firebase.database().ref().child('itineraries').child(itinKey).child('members')
+    itinRef.once('value')
+        .then(snapshot => snapshot.val())
+        .then(members => {
+            const membersArray = []
+            Object.keys(members).map(key => {
+                firebase.database().ref().child('users').child(members[key].key).once('value')
+                    .then(snapshot => membersArray.push(snapshot.val()))
+            })
+            return membersArray
+        })
+        .then(membersArray => dispatch(setItinerayMembers(membersArray)))
+}
 
+
+
+
+export const googlePlacesDetails = (placeID) => dispatch => {
+
+    const placesDetails = axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeID}&key=${googlePlacesKey}`);
+    placesDetails
+        .then(res => res.data)
+        .then(result => {
+            const simplifiedResult = Object.assign({}, {name: result.result.name, openingHours: result.result.opening_hours, photos: result.result.photos, placeID: result.result.place_id, priceLevel: result.result.price_level, rating: result.result.rating, vicinity: result.result.vicinity, website: result.result.website, reviews: result.result.reviews})
+            console.log('googleplacesthunk', simplifiedResult);
+            dispatch(googlePlaceDetails(simplifiedResult))
+        })
+        .catch(err => console.log(err));
+}
 
       
 
@@ -656,6 +692,9 @@ export const connectionChange = status => ({type: CONNECT, status})
 export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
 export const searchedUser = user => ({type: SEARCH_USER, user});
 export const updatedUser = newUpdatedUser => ({type: UPDATE_USER, newUpdatedUser})
+export const setItinerayMembers = members => ({type: GET_ITINERARY_MEMBERS, members})
+export const googlePlaceDetails = details => ({type: PLACE_DETAILS, details});
+
 
 
 

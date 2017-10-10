@@ -5,6 +5,7 @@ import WhereTo from './WhereTo'
 import BurgerMenu from './Menu';
 import { getCurrentUser } from '../actions';
 import firebase from '../firebase'
+import NotificationCounter from './NotificationCounter'
 
 
 
@@ -27,6 +28,7 @@ class Main extends Component {
   return (
     <div className="sapphire-app">
       <BurgerMenu />
+      {this.props.currentUser.name && <NotificationCounter />}
 
         <h1 className="sapphire-app-title">SAFFIRE</h1>
 
