@@ -17,6 +17,8 @@ class UserSettings extends React.Component {
         this.emailUpdate = this.emailUpdate.bind(this);
         this.passwordUpdate = this.passwordUpdate.bind(this);
         this.settingUpdate = this.settingUpdate.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        
     }
     nameUpdate(event) {
         const newName = event.target.value;
@@ -33,21 +35,27 @@ class UserSettings extends React.Component {
         this.setState({newPassword : newPassword});
     }
 
-
+    
     settingUpdate(newName, newEmail, newPassword, userID) {
         this.props.getUpdatedUser(newName, newEmail, newPassword, userID)
     }
 
+    handleSubmit(evt){
+        evt.preventDefault()
+        console.log("THISSSS", this)
+        return this.settingUpdate(this.state.newName, this.state.newEmail, this.state.newPassword, this.props.currentUser.key)
+    }
+
     render () {
-        console.log(this.props.currentUser, "*******")
-        console.log(this.state.newName, "1");
-        console.log(this.state.newEmail, "2");
-        console.log(this.state.newPassword, "3");
-        console.log(this.state.updatedUser, "((((((((")
+            console.log(this.props.currentUser, "*******")
             return (
                 <div>
-                    <h1>Im here</h1>
-                    <form onSubmit = {this.settingUpdate(this.state.newName, this.state.newEmail, this.state.newPassword, this.props.currentUser.key)}>
+                    <h1>My Profile</h1>
+                    <img src={this.props.currentUser.image ? this.props.currentUser.image: null} />
+                    <p>{this.props.currentUser.name}</p>
+                     <p>{this.props.currentUser.email}</p>
+            
+                    <form onSubmit = {this.handleSubmit}>
                         Name: <input name = "username" onChange = {this.nameUpdate}/>
                         <br />
                         Email: <input name = "email" onChange = {this.emailUpdate}/>
@@ -68,9 +76,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
+  return { 
     getUpdatedUser(newName, newEmail, newPassword, userID) {
-        dispatch(updateUser(newName, newEmail, newPassword, userID))
+       dispatch(updateUser(newName, newEmail, newPassword, userID))
     }
   }
 }

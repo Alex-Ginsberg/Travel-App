@@ -22,8 +22,7 @@ class Main extends Component {
 
 
   render() {
-    console.log('main currentUser', this.props.currentUser.name)
-    console.log('LOCAL STORAGE: ', window.localStorage)
+  
     
   return (
     <div className="sapphire-app">

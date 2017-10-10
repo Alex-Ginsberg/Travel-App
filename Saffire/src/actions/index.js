@@ -19,13 +19,19 @@ export const UPDATE_USER = 'UPDATE_USER'
 
 
 export const updateUser = (newName, newEmail, newPassword, userID) => dispatch => {
-    const selectedUser = firebase.database().ref().child('users').child(userID);
+    console.log( firebase.auth().currentUser, ")))0000000000")
+    const authUser = firebase.auth().currentUser;
+    const selectedUser = firebase.database().ref().child(`users/${userID}`);
     const newData = {
         name : newName,
         email: newEmail,
         password: newPassword
     }
-    // return selectedUser.update(newData)
+
+    selectedUser.update(newData);
+    return authUser.updateEmail(newEmail).then( () => {
+        return authUser.updatePassword(newPassword)
+    })
 }
                                                                                             // Used for adding a new itinerary to the database
 export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
@@ -391,7 +397,7 @@ export const onUserListener = (user) => dispatch => {
     .then(snapshot => {
         const users = snapshot.val()
         const localToken = window.localStorage.getItem('localUserToken');
-        let loggedInUser = null
+        let loggedInUser = {};
 
         for (let key in users) {
             if (users[key].email === user.email){
