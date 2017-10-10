@@ -19,6 +19,7 @@ export {default as FriendRequests} from './FriendRequests'
 export {default as MapComp} from './Map'
 export {default as StatusUpdate} from './StatusUpdate'
 export {default as MyFriends} from './myFriends'
+export {default as UserSettings} from './userSettings'
 export {default as Distance} from './Distance'
 export {default as NotificationCounter} from './NotificationCounter'
 

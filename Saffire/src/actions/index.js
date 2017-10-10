@@ -15,12 +15,26 @@ export const REFRESH = 'REFRESH'
 export const CONNECT = 'CONNECT'
 export const FETCH_USER_COOR = 'FETCH_USER_COOR'
 export const SEARCH_USER = 'SEARCH_USER'
+export const UPDATE_USER = 'UPDATE_USER'
 export const GET_ITINERARY_MEMBERS = 'GET_ITINERARY_MEMBERS'
 export const PLACE_DETAILS = 'PLACE_DETAILS'
 
 
+export const updateUser = (newName, newEmail, newPassword, userID) => dispatch => {
+    console.log( firebase.auth().currentUser, ")))0000000000")
+    const authUser = firebase.auth().currentUser;
+    const selectedUser = firebase.database().ref().child(`users/${userID}`);
+    const newData = {
+        name : newName,
+        email: newEmail,
+        
+    }
 
-
+    selectedUser.update(newData);
+    return authUser.updateEmail(newEmail).then( () => {
+        return authUser.updatePassword(newPassword)
+    })
+}
                                                                                             // Used for adding a new itinerary to the database
 export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const itinerariesRef = firebase.database().ref('itineraries')                       // Gets a reference to the 'itineraries' table in firebase
@@ -389,7 +403,7 @@ export const onUserListener = (user) => dispatch => {
     .then(snapshot => {
         const users = snapshot.val()
         const localToken = window.localStorage.getItem('localUserToken');
-        let loggedInUser = null
+        let loggedInUser = {};
 
         for (let key in users) {
             if (users[key].email === user.email){
@@ -677,6 +691,7 @@ export const causeRefresh = message => ({type: REFRESH, message})
 export const connectionChange = status => ({type: CONNECT, status})
 export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
 export const searchedUser = user => ({type: SEARCH_USER, user});
+export const updatedUser = newUpdatedUser => ({type: UPDATE_USER, newUpdatedUser})
 export const setItinerayMembers = members => ({type: GET_ITINERARY_MEMBERS, members})
 export const googlePlaceDetails = details => ({type: PLACE_DETAILS, details});
 
