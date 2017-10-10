@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {Route, Router} from 'react-router'
-import {Switch} from 'react-router-dom'
+import {Switch, Redirect} from 'react-router-dom'
 import history from './history'
 import {connect} from 'react-redux'
 import {fetchUsers} from './actions'
 import firebase from './firebase'
-import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindFriends, SingleItinerary, FriendRequests, StatusUpdate, MyFriends, WhereTo} from './components'
+import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindFriends, SingleItinerary, FriendRequests, StatusUpdate, MyFriends, WhereTo, NotFound} from './components'
 
 
 /**
@@ -46,8 +46,10 @@ class Routes extends Component {
           <Route path="/itinerary/:id" component={SingleItinerary} />
           <Route path="/requests" component={FriendRequests} />
           <Route path="/update" component={StatusUpdate} />
-          <Route path = "/myfriends" component = {MyFriends} />
-          <Route path = "/whereto" component = {WhereTo} />
+          <Route path= "/myfriends" component = {MyFriends} />
+          <Route path= "/whereto" component = {WhereTo} />
+          <Route path="/notfound" component = {NotFound} />
+          <Redirect to= "/notfound" component={NotFound} /> 
         </Switch>    
       </Router>
     )

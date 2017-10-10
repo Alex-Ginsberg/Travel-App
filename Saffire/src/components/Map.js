@@ -4,9 +4,9 @@ import {googServerKey, mapboxKey} from '../secrets.js'
 import {connect} from 'react-redux'
 import mapboxgl from 'mapbox-gl'
 import ReactMapboxGl, {Layer, Feature, Marker, GeoJSONLayer, Popup} from 'react-mapbox-gl'
-import {geoFindMe, postUserCoordinates, postGeoLocation} from '../actions'
+import {geoFindMe, postUserCoordinates, postGeoLocation, getUserCoordinates} from '../actions'
 import firebase from '../firebase'
-import {Distance} from '../components'
+import {Distance, Loading} from '../components'
 
 
 
@@ -32,11 +32,20 @@ export class MapComp extends Component {
     }
   }
 
+  // componentWillMount() {
+  //   this.props.handleClick(this.props.itinKey)
+  // }
     
+    // componentWillReceiveProps (nextProps) {
+    //   console.log('nextprops***', nextProps)
+    //   this.setState({userCoordinates: nextProps.currentCoordinates.userCoor})
+      
+    //   //this.props.handleUser(nextProps.currentCoordinates.userCoor)
+    // }
 
     componentDidMount() {
       console.log('component mount hit')
-      // this.setState({userCoordinates: this.props.handleClick(this.props.itinKey.id)})
+      //this.setState({userCoordinates: this.props.handleClick(this.props.itinKey.id)})
      this.props.handleClick(this.props.itinKey)
 
      let userCoordinates = this.state.userCoordinates
@@ -104,7 +113,9 @@ export class MapComp extends Component {
     }
 
     render() {
-      let {handleClick, user, itineraryName, itinKey} = this.props
+      let {handleClick, user, itineraryName, itinKey, currentCoordinates} = this.props
+
+      console.log('propsuserCoor', currentCoordinates)
       // let userCoordinates = this.state.userCoordinates
       // let userLocation = []
       // let userCoor = firebase.database().ref().child('itineraries').child(itinKey.id).child('coordinates')
@@ -116,15 +127,17 @@ export class MapComp extends Component {
       //   userLocation.push(result.val()[objResult[0]].lat, result.val()[objResult[0]].long )
       //   console.log('userlocation', userLocation)
       // })
+
+      
       return (
         
           <div>
             
-            {this.state.userCoordinates.length && 
-            <Map
+            { this.state.userCoordinates.length &&
+            <Map 
             key = "UniqueMap"
-            zoom={[14]}
-            center={this.state.userCoordinates}
+            zoom={[1]}
+            center={[0, 0]}
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
               height: "25em",
@@ -140,7 +153,7 @@ export class MapComp extends Component {
               </Layer>
               <div className="map-marker">
             <Marker 
-              coordinates={this.state.userCoordinates}
+              coordinates={currentCoordinates.userCoor}
               anchor="bottom"
               >
               <img  style = {{width: "54px", height: "54px"}} src="/assets/user-marker.png"/>
@@ -152,7 +165,7 @@ export class MapComp extends Component {
                 coordinates={location}
                 anchor="bottom"
                 >
-                <img style = {{width: "64px", height: "64px"}} src="/assets/map-marker.png"/>
+                <img style = {{width: "54px", height: "54px"}} src="/assets/map-marker.png"/>
                 </Marker>
                 </div>
               )
@@ -161,13 +174,16 @@ export class MapComp extends Component {
               <div className="user-Marker">
                 {}
               </div>
-          </Map>}
+          </Map> 
+        }
           {/* <div>
             <p><button onClick={this.handleClickLocal}>Show my location</button></p>
             <div id="out"></div>
           </div> */}
            <div>
+             {this.state.locations.length && 
           <Distance userCoordinates={this.state.userCoordinates} locations={this.state.locations}/>
+             }
           </div> 
           </div>
           
@@ -177,10 +193,12 @@ export class MapComp extends Component {
     }
 
 const mapState = state => {
+  console.log('stateprops', state.current)
   return {
   itineraryName: state.currentItinerary,
   users: state.users,
-  user: state.currentUser
+  user: state.currentUser,
+  currentCoordinates: state.currentCoordinates,
   }
 }
 
@@ -192,6 +210,10 @@ const mapDispatch = dispatch => {
       let keyID = key.id
       dispatch(postUserCoordinates(keyID))
     }, 
+    handleUser (userCoor) {
+      dispatch(getUserCoordinates(userCoor))
+    }
+    
   }
 }
 

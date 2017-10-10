@@ -1144,3 +1144,16 @@ color: #fff;
     padding-top: 30px;
 
 }
+
+/*
+    ==================================
+               Loading
+    ==================================
+*/
+
+.loading-comp {
+    height: 100vh;
+    margin-top: 50%;
+    margin-left: 40%;
+
+}
