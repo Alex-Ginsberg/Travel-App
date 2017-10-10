@@ -21,10 +21,12 @@ const Map = ReactMapboxGl({
 })
 
 
+
 export class MapComp extends Component {
   constructor(props){
     super(props)
     this.handleClickLocal = this.handleClickLocal.bind(this)
+    this.onClickMap = this.onClickMap.bind(this)
     this.state = {
       userCoordinates: [],
       onClickDirty: false,
@@ -109,8 +111,17 @@ export class MapComp extends Component {
 
     }
 
-    onClickMap(marker, evt) {
+    onClickMap(map, evt) {
       console.log('evt*****', evt)
+      map.flyTo({
+        center: [evt.lngLat.lng, evt.lngLat.lat],
+        zoom: 11
+      })
+    }
+
+    onClickMarker(marker) {
+      console.log(document.getElementsByClassName('map-map'))
+      console.log('e*****', marker)
     }
 
     render() {
@@ -131,44 +142,48 @@ export class MapComp extends Component {
 
       
       return (
-        
+          
           <div>
             
-            { this.state.userCoordinates.length &&
+            {
             <Map 
             key = "UniqueMap"
             zoom={[1]}
-            center={[0, 0]}
+            center={[-74.0, 40.7]}
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
               height: "25em",
               width: "100%"
             }}
+            className="map-map"
+            onClick={this.onClickMap}
             
             >
               <Layer
                 type="symbol"
                 id="marker"
-                layout={{ "icon-image": "marker-15" }}>
-                <Feature coordinates={[-74.0, 40.731]}/>
+                layout={{ "icon-image": "/assets/user-marker.png" }}>
+                <Feature coordinates={[this.state.userCoordinates]} onClick={this.onClickMarker} />
               </Layer>
               <div className="map-marker">
             <Marker 
-              coordinates={currentCoordinates.userCoor}
+              coordinates={this.state.userCoordinates}
               anchor="bottom"
+              onClick={this.onClickMarker}
               >
               <img  style = {{width: "54px", height: "54px"}} src="/assets/user-marker.png"/>
             </Marker>
             {this.state.locations && this.state.locations.map((location, i)=> {
               return (
-                <div key={location[i]} className="place-marker">
+                
                 <Marker
                 coordinates={location}
                 anchor="bottom"
+                onClick={this.onClickMarker}
                 >
                 <img style = {{width: "54px", height: "54px"}} src="/assets/map-marker.png"/>
                 </Marker>
-                </div>
+                
               )
             })}
               </div>
