@@ -15,6 +15,7 @@ export const REFRESH = 'REFRESH'
 export const CONNECT = 'CONNECT'
 export const FETCH_USER_COOR = 'FETCH_USER_COOR'
 export const SEARCH_USER = 'SEARCH_USER'
+export const GET_ITINERARY_MEMBERS = 'GET_ITINERARY_MEMBERS'
 
 
 
@@ -626,6 +627,21 @@ export const removeNotification = (user, body) => dispatch => {
         })
 }
 
+export const getItineraryMembers = itinKey => dispatch => {
+    const itinRef = firebase.database().ref().child('itineraries').child(itinKey).child('members')
+    itinRef.once('value')
+        .then(snapshot => snapshot.val())
+        .then(members => {
+            const membersArray = []
+            Object.keys(members).map(key => {
+                firebase.database().ref().child('users').child(members[key].key).once('value')
+                    .then(snapshot => membersArray.push(snapshot.val()))
+            })
+            return membersArray
+        })
+        .then(membersArray => dispatch(setItinerayMembers(membersArray)))
+}
+
 
 
       
@@ -641,6 +657,7 @@ export const causeRefresh = message => ({type: REFRESH, message})
 export const connectionChange = status => ({type: CONNECT, status})
 export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
 export const searchedUser = user => ({type: SEARCH_USER, user});
+export const setItinerayMembers = members => ({type: GET_ITINERARY_MEMBERS, members})
 
 
 

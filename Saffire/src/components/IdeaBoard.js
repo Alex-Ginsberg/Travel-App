@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import LinkPreview from './LinkPreview'
-import { addEvent, fetchEvents, addToItinerary, confirmEvent, googlePlace } from '../actions';
+import { addEvent, fetchEvents, addToItinerary, confirmEvent, googlePlace, getItineraryMembers } from '../actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Container} from './DragContainer';
 import firebase from 'firebase';
@@ -10,6 +10,9 @@ import history from '../history';
 import BurgerMenu from './Menu';
 import NotificationCounter from './NotificationCounter'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Avatar from 'material-ui/Avatar';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
 
 
 
@@ -35,6 +38,7 @@ class IdeaBoard extends Component {
     componentDidMount() {
         const currentItinKey = this.props.match.params.id;
         this.props.getItineraryEvents(this.props.match.params.id)
+        this.props.getItineraryMembers(this.props.match.params.id)
         // If the user is connected to the internet, find the current itinerary in firebase, set it on state, and dispatch to find the events associated with it
         if (this.props.connect) {
             console.log('CONNECTED IN IDEA BOARD')
@@ -148,7 +152,10 @@ class IdeaBoard extends Component {
         const currentEvents = this.props.connect ? this.props.currentEvents : this.state.events
         const currentUser = this.props.connect ? this.props.currentUser : JSON.parse(window.localStorage.currentUser)
         const isOwner = currentUser.email === itinerary.owner
-        console.log('IS OWNER: ', isOwner)
+        console.log(this.props.currentMembers)
+
+        
+        
         let friendsArr = []
         for (var key in friends) {
             friendsArr.push(friends[key])
@@ -172,6 +179,15 @@ class IdeaBoard extends Component {
                 <h2 className="single-itin-title" >{this.state.itin.name}: IDEABOARD</h2>
                 <p className="single-itin-subheader">SELECT ATTRACTIONS TO BUILD YOUR ITINERARY</p>
                 <h5 className="single-itin-subheader">GROUP ADMIN: {itinerary.owner}</h5>
+                <MuiThemeProvider>
+                {this.props.currentMembers.map(member => (
+                    <List>
+                        <ListItem disabled={true} leftAvatar={<Avatar src={member.image} />} >
+                        {member.name}
+                        </ListItem>
+                    </List>
+                ))}
+                </MuiThemeProvider>
             </div>
 
             <div className="row">
@@ -267,7 +283,8 @@ const mapStateToProps = (state) => {
         itineraryImage: state.currentItinerary.imageURL,
         currentEvents: state.currentEvents,
         currentUser: state.currentUser,
-        connect: state.connect
+        connect: state.connect,
+        currentMembers: state.members
     }
 }
 
@@ -287,6 +304,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         googleSelect(suggest, itinID) {
             dispatch(googlePlace(suggest, itinID))
+        }, 
+        getItineraryMembers(itinKey) {
+            dispatch(getItineraryMembers(itinKey))
         }
     }
 }

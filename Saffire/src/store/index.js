@@ -11,10 +11,10 @@ import currentUser from '../reducers/currentUser'
 import refresh from '../reducers/refresh'
 import connect from '../reducers/connected'
 import searchUser from '../reducers/searchUser';
+import members from '../reducers/members'
 
 
-
-const reducer = combineReducers({user, currentItinerary, burgerMenu, currentEvents, users, currentUser, refresh, connect, searchUser })
+const reducer = combineReducers({user, currentItinerary, burgerMenu, currentEvents, users, currentUser, refresh, connect, searchUser, members })
 const store = createStore(reducer, applyMiddleware(thunkMiddleware, createLogger()));
 
 export default store
