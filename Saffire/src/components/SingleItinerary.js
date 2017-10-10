@@ -34,7 +34,7 @@ class SingleItinerary extends Component{
             currentTime: '',
             currentDate: '',
             showChat: false,
-            chatMessage: '', 
+            chatMessage: '',
             events: []
         }
         this.renderForm = this.renderForm.bind(this)
@@ -52,7 +52,7 @@ class SingleItinerary extends Component{
                 })
         }
 
-        // If the user is not connected to the internet, find the current itinerary in local storage, set it on state, and make an array with all of its events 
+        // If the user is not connected to the internet, find the current itinerary in local storage, set it on state, and make an array with all of its events
         else {
             const allItins = JSON.parse(localStorage.allItineraries)
             let itinToAdd
@@ -81,6 +81,10 @@ class SingleItinerary extends Component{
         this.props.sendMessage(this.props.user, this.props.match.params.id, this.state.chatMessage)
         // this.setState({chatMessage: ''})
     }
+
+
+
+
 
     render() {
         const memberArray = []
@@ -139,7 +143,7 @@ class SingleItinerary extends Component{
         // }
         const chatMessages = []
 
-        
+
 
         let events = []
         let eventScheduled = []
@@ -153,15 +157,78 @@ class SingleItinerary extends Component{
         eventScheduled.sort((a,b) => {
             return new Date(a.schedule.toSchedule) - new Date(b.schedule.toSchedule);
           });
-        
+
         let scheduledDates = []
         for (let i = 0; i < eventScheduled.length; i++) {
-            if (scheduledDates.indexOf(eventScheduled[i].schedule.date) === -1){scheduledDates.push(eventScheduled[i].schedule.date)}   
+            if (scheduledDates.indexOf(eventScheduled[i].schedule.date) === -1){scheduledDates.push(eventScheduled[i].schedule.date)}
         }
 
         for (let i in this.state.itin.messages) {
             chatMessages.push(this.state.itin.messages[i])
         }
+
+
+        const myBigGreenDialog = {
+            width: '70%',
+            height: '700px',
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            marginTop: '-350px',
+            marginLeft: '-35%',
+            backgroundColor: '#fff',
+            borderRadius: '2px',
+            zIndex: 100,
+            padding: '15px',
+            boxShadow: '0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28)',
+            'transition-duration' : '400ms',
+            overflow: 'auto'
+        };
+
+
+
+        // const styles = {
+        //     overlayStyles: {
+        //         // position: 'fixed',
+        //         top: 0,
+        //         left: 0,
+        //         width: '100%',
+        //         height: '100%',
+        //         zIndex: 99,
+        //         backgroundColor: 'rgba(0,0,0,0.3)'
+        //     },
+        //
+        //     dialogStyles: {
+        //         width: '70%',
+        //         height: '700px',
+        //         position: 'fixed',
+        //         top: '50%',
+        //         left: '50%',
+        //         marginTop: '-350px',
+        //         marginLeft: '-35%',
+        //         backgroundColor: '#fff',
+        //         borderRadius: '2px',
+        //         zIndex: 100,
+        //         padding: '15px',
+        //         boxShadow: '0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28)',
+        //         'transition-duration' : '400ms',
+        //         overflow: auto
+        //     },
+        //
+        //     title: {
+        //         marginTop: '0'
+        //     },
+        //
+        //     closeButtonStyle: {
+        //         cursor: 'pointer',
+        //         position: 'absolute',
+        //         fontSize: '1.8em',
+        //         right: '10px',
+        //         top: '0'
+        //     }
+        // };
+
+
 
         return (
             <div>
@@ -224,16 +291,69 @@ class SingleItinerary extends Component{
                                 {eventScheduled.map(event => (
                                     <div key={event.url}>
 
-                                        <SkyLight hideOnOverlayClicked ref={ref => this.simpleDialog = ref} title={this.props.googleDetails.name}>
-                                            <section>
-                                                {/*{this.props.googleDetails.openingHours}*/}
-                                                {/*<h4>{this.props.googleDetails.openingHours.open_now ? 'Open' : 'Closed'}</h4>*/}
-                                                <h4>Rating {this.props.googleDetails.rating}</h4>
+                                        <SkyLight dialogStyles={myBigGreenDialog} hideOnOverlayClicked ref={ref => this.simpleDialog = ref} title={this.props.googleDetails.name} transitionDuration={100} >
+                                            <section className="google-details-main">
+
+                                             { this.props.googleDetails.photos &&
+
+                                                <section id="photos">
+                                                    <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[0].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                    <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[1].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                    <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[2].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                    <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[3].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                    <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[4].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                    <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[5].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                </section>
+                                            }
+
+
+                                                <div className="google-details-info">
+                                                    {this.props.googleDetails.openingHours && this.props.googleDetails.openingHours.open_now ? 'OPEN NOW' : '' }
+
+                                                    <div className="google-details-openingHours">
+                                                        {this.props.googleDetails.openingHours && this.props.googleDetails.openingHours.weekday_text ?
+                                                            this.props.googleDetails.openingHours.weekday_text.map(day => {
+                                                                return <span>{day}</span>
+                                                            })
+                                                            :
+                                                            ''
+                                                        }
+                                                    </div>
+                                                    <span><a href={this.props.googleDetails.website}>{this.props.googleDetails.website}</a></span>
+                                                    <h4>Rating {this.props.googleDetails.rating}</h4>
+
+
+
+
+                                                    <h3 className="details-locationnear">{this.props.googleDetails.name} is located near {this.props.googleDetails.vicinity}</h3>
+
+
+
+
+
+                                                    <div className="google-details-reviews">
+                                                        { this.props.googleDetails.reviews &&
+
+                                                            this.props.googleDetails.reviews.map(review => {
+                                                                return (<div className="google-individual-review">
+                                                                            <p>Rating {review.rating}</p>
+                                                                            <p>{review.text}</p>
+                                                                            <p>{review.author_name}</p>
+                                                                        </div>)
+                                                            })
+
+                                                        }
+                                                    </div>
+
+
+
+
+                                                </div>
 
                                             </section>
                                         </SkyLight>
 
-                                    {event.schedule.date === date && 
+                                    {event.schedule.date === date &&
 
                                         <List>
                                             <div onClick={async () => {
@@ -311,7 +431,7 @@ class SingleItinerary extends Component{
                                     )
                                     this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime, toSchedule)
                                     this.setState({showForm: {}})
-                                    
+
                                     console.log('MONTH: ', toSchedule.getMonth())
                                     const schedString = `${toSchedule.getSeconds()} ${toSchedule.getMinutes()} ${toSchedule.getHours() - 1} ${toSchedule.getDate()} ${toSchedule.getMonth() + 1} ${toSchedule.getDay()}`
                                     console.log('TO BE SCHEDULED: ', schedString)
@@ -336,11 +456,11 @@ class SingleItinerary extends Component{
                                     .then(response => console.log('post sent', response.data))
                                         })
                                     })
-                                   
+
                                     // schedule.scheduleJob(toSchedule, () => {
                                     //     alert('hi')
                                     // })
-                                    
+
                                 }}>Submit event</button>
                             </div>
                             }
