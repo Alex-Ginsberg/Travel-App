@@ -260,7 +260,7 @@ class IdeaBoard extends Component {
                     {/* Will render all events that HAVE been added */}
                     {currentEvents.map(event => (
                         <MuiThemeProvider>
-                            {event.added && <div className="idea-board-plan-event" key={event.key}><LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy} user={currentUser}/></div>}
+                            {event.added && <div className="idea-board-plan-event" key={event.key}><LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy} user={currentUser} comments={event.comments}/></div>}
                         </MuiThemeProvider>
                     ))}
                 </div>

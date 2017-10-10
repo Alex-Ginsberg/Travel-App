@@ -693,6 +693,13 @@ export const googlePlacesDetails = (placeID) => dispatch => {
         .catch(err => console.log(err));
 }
 
+export const sendComment = (itinKey, eventKey, currentUser, body) => dispatch => {
+    firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventKey).child('comments').push({
+        sender: currentUser.name,
+        body: body
+    })
+}
+
       
 
 //action creator

@@ -1130,6 +1130,7 @@ MENU ITEM
 }
 
 .linkpreview-hover:hover{
+    cursor: pointer;
     background-color: blue;
 }
 
