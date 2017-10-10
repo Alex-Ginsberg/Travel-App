@@ -31,7 +31,6 @@ export const GET_ITINERARY_MEMBERS = 'GET_ITINERARY_MEMBERS'
 export const PLACE_DETAILS = 'PLACE_DETAILS'
 
 
-
 const googleMapsClient = googleMaps.createClient({
     key: googServerKey,
     Promise: Promise
