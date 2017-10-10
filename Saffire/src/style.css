@@ -708,6 +708,16 @@ MENU ITEM
 
  }
 
+ .view-itinerary {
+     transition: 0.5s;
+ }
+
+ .view-itinerary:hover {
+    background-color: blue; 
+    text-shadow: 0 0 5px violet; 
+    cursor: pointer;
+ }
+
 
 @media (min-width: 600px) and (max-width: 1200px) {
     #dash-title {
@@ -856,6 +866,10 @@ MENU ITEM
 }
 
 .single-itin-subheader {
+    text-align: center;
+}
+
+.single-itin-admin {
     text-align: center;
     margin-bottom: 40px;
 }
@@ -1111,8 +1125,12 @@ MENU ITEM
 
 }
 
+.linkpreview-hover{
+    transition: 0.5s;
+}
+
 .linkpreview-hover:hover{
-    background-color: yellow;
+    background-color: blue;
 }
 
 

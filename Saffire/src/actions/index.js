@@ -79,6 +79,7 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
                     likes: events[key].likes,
                     likedBy: events[key].likedBy,
                     location: events[key].location,
+                    comments: events[key].comments
                     // address: events[key].gmaps.formatted_address,
                 }
                 eventsArr.push(toAdd)

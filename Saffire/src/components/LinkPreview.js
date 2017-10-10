@@ -8,6 +8,9 @@ import firebase from '../firebase'
 class LinkPreview extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      showComments: false
+    }
   }
 
   render () {
@@ -49,8 +52,16 @@ class LinkPreview extends Component {
             this.props.fetchEvents(this.props.itinKey, true)
             }}
           >REMOVE</div> }
+          <div className="linkpreview-hover" disabled={!this.props.connect} onClick={() => this.setState({showComments: !this.state.showComments})}> Comments </div>
+          
         </div>
-
+        {this.state.showComments && 
+          <div className="ideaboard-comments">
+            {this.props.comments && Object.keys(this.props.comments).map(key => (
+              <p>{this.props.comments[key].sender}: {this.props.comments[key].body}</p>
+            ))}
+          </div>
+        }
           </div>
 
       </div>
