@@ -51,7 +51,9 @@
     "redux-burger-menu": "^0.2.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "vis": "^4.20.1"
+    "seconds-converter": "^1.2.0",
+    "vis": "^4.20.1",
+    "wgs84-util": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

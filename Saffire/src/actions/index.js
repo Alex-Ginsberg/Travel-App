@@ -6,6 +6,8 @@ import history from '../history';
 import googleMaps, {google} from '@google/maps'
 import jsonp from 'jsonp';
 import Geofire from 'geofire';
+// import {UTMtoLL, LLtoUTM} from 'wgs84-util'
+import secondsConverter from 'seconds-converter'
 
 export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
@@ -28,10 +30,12 @@ export const UPDATE_USER = 'UPDATE_USER'
 export const GET_ITINERARY_MEMBERS = 'GET_ITINERARY_MEMBERS'
 export const PLACE_DETAILS = 'PLACE_DETAILS'
 
+
 const googleMapsClient = googleMaps.createClient({
     key: googServerKey,
     Promise: Promise
   })
+
                                                                                             // Used for adding a new itinerary to the database
 export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const itinerariesRef = firebase.database().ref('itineraries')                       // Gets a reference to the 'itineraries' table in firebase
@@ -605,10 +609,10 @@ export const fetchTimeMatrix = (userCoor, locations) => dispatch => {
     // console.log('***userCoor', userCoor)
     // console.log('***locations', locations)
     
-    // let origin = `${userCoor[0]},${userCoor[1]}`
-    // let destinations = locations.map(location => {
-    //     return `${location[0]},${location[1]}`
-    // }).join(';')
+    let origin = `${userCoor[0]},${userCoor[1]}`
+    let destinations = locations.map(location => {
+        return `${location[0]},${location[1]}`
+    }).join(';')
 
     // let googOrigin = [userCoor[0], userCoor[1]]
     // let googDestination = locations.map(location => {
@@ -617,27 +621,31 @@ export const fetchTimeMatrix = (userCoor, locations) => dispatch => {
 
     // console.log('orign***', origin)
     // console.log('destinations****', destinations)
-    
-    // let geoDistances = locations.map(location => {
-    //     return Geofire.distance(userCoor, location)
-    // })
 
 
-    // axios.get(`https://api.mapbox.com/directions-matrix/v1/mapbox/driving/${origin};${destinations}?sources=0&destinations=all&access_token=${mapboxKey}`)
-    // .then(res => res.data)
-    // .then(payload => {
-    //     let durationsArr = payload.durations.map((duration) => {
-    //         return duration
-    //     })
-    //     return durationsArr
-    // })
-    // .then(results => {
-    //     console.log('resultsForConversion', results)
-
-    // })
-    // .catch(error => {
-    //     console.log(error)
-    // })
+    axios.get(`https://api.mapbox.com/directions-matrix/v1/mapbox/driving/${origin};${destinations}?sources=0&destinations=all&access_token=${mapboxKey}`)
+    .then(res => res.data)
+    .then(payload => {
+        let durationsArr = payload.durations.map((duration) => {
+            return duration
+        })
+        return durationsArr
+    })
+    .then(results => {
+        // dispatch(fetchCoorTime(results))
+        return results[0].map((result , i) => {
+            return secondsConverter(result, 'sec')
+        })
+    })
+    .then(converts => {
+        console.log('converts***', converts)
+        
+        
+        dispatch(fetchCoorTime(converts))
+    })
+    .catch(error => {
+        console.log(error)
+    })
 
     // console.log('geofire distance', Geofire.distance(userCoor, locations[0]))
     
@@ -645,9 +653,12 @@ export const fetchTimeMatrix = (userCoor, locations) => dispatch => {
 }
 
 export const fetchDistanceMatrix = (userCoor, locations) => dispatch => {
-    let geoDistances = locations.map(location => {
-        return Geofire.distance(userCoor, location)
-    })
+    console.log('distancematrixxxx', userCoor, locations)
+    // let geoDistances = locations.map(location => {
+    //     return Geofire.distance(userCoor, location)
+    // })
+    // console.log('geofireLocationssss', geoDistances)
+    //dispatch(fetchCoorDistance(geoDistances))
 
 }
 
