@@ -1014,6 +1014,14 @@ MENU ITEM
 
 }
 
+.remove-notification-button {
+    display: inline-block;
+}
+
+.notification-body {
+    display: inline-block;
+}
+
 /*
     ==================================
                 Idea Board

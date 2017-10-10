@@ -91,6 +91,7 @@ class IdeaBoard extends Component {
     addToGroup(e) {
         e.preventDefault()
         this.props.addMember(this.props.match.params.id, this.state.currentFriend)
+        this.props.getItineraryMembers(this.props.match.params.id)
     }
 
      
@@ -140,13 +141,16 @@ class IdeaBoard extends Component {
         const currentEvents = this.props.connect ? this.props.currentEvents : this.state.events
         const currentUser = this.props.connect ? this.props.currentUser : JSON.parse(window.localStorage.currentUser)
         const isOwner = currentUser.email === itinerary.owner
-        console.log(this.props.currentMembers)
-
-        
-        
-        let friendsArr = []
+        const currentMemberEmails = []
+        Object.keys(this.props.currentMembers).map(key => {
+            currentMemberEmails.push(this.props.currentMembers[key].email)
+        })        
+        const friendsArr = []
         for (var key in friends) {
-            friendsArr.push(friends[key])
+            console.log(friends[key])
+            if (currentMemberEmails.indexOf(friends[key].email) === -1){
+                friendsArr.push(friends[key])
+            }
         }
 
         const muiTheme = getMuiTheme({
@@ -295,7 +299,7 @@ const mapDispatchToProps = (dispatch) => {
         }, 
         getItineraryMembers(itinKey) {
             dispatch(getItineraryMembers(itinKey))
-        }
+        },
     }
 }
 

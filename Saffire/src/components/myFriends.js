@@ -25,7 +25,6 @@ class MyFriends extends React.Component {
         Object.keys(this.props.user.notifications).map(currentKey => {
             notificationArray.push(this.props.user.notifications[currentKey])
         })
-        console.log('NOTIFICATIONS: ', notificationArray)
     }
     return (
       <div className="saffire-friends-container">
@@ -69,7 +68,10 @@ class MyFriends extends React.Component {
                             <div>
                                 <h3>Your notifications:</h3>
                                 {notificationArray.map(notification => (
-                                    <h5 onClick={() => this.props.removeNotification(this.props.user, notification.body)}>{notification.body}</h5>
+                                    <div key={notification.body}>
+                                        <button className="remove-notification-button btn btn-danger" onClick={() => this.props.removeNotification(this.props.user, notification.body)}>X</button>
+                                        <h5 className="notification-body">{notification.body}</h5>
+                                    </div>
                                 ))}
                             </div>
                             }
