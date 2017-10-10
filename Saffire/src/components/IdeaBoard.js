@@ -91,6 +91,7 @@ class IdeaBoard extends Component {
     addToGroup(e) {
         e.preventDefault()
         this.props.addMember(this.props.match.params.id, this.state.currentFriend)
+        this.props.getItineraryMembers(this.props.match.params.id)
     }
 
      
@@ -138,15 +139,19 @@ class IdeaBoard extends Component {
         let itineraryName = this.props.connect ? this.props.itineraryName : this.state.itin
         let friends = this.props.connect ? this.props.currentUser.friends : JSON.parse(window.localStorage.currentUser).friends
         const currentEvents = this.props.connect ? this.props.currentEvents : this.state.events
+        console.log(currentEvents)
         const currentUser = this.props.connect ? this.props.currentUser : JSON.parse(window.localStorage.currentUser)
         const isOwner = currentUser.email === itinerary.owner
-        console.log(this.props.currentMembers)
-
-        
-        
-        let friendsArr = []
+        const currentMemberEmails = []
+        Object.keys(this.props.currentMembers).map(key => {
+            currentMemberEmails.push(this.props.currentMembers[key].email)
+        })        
+        const friendsArr = []
         for (var key in friends) {
-            friendsArr.push(friends[key])
+            console.log(friends[key])
+            if (currentMemberEmails.indexOf(friends[key].email) === -1){
+                friendsArr.push(friends[key])
+            }
         }
 
         const muiTheme = getMuiTheme({
@@ -166,7 +171,7 @@ class IdeaBoard extends Component {
                 {/* <img className="single-itin-image" src={this.state.itin.imageURL} /> */}
                 <h2 className="single-itin-title" >{this.state.itin.name}: IDEABOARD</h2>
                 <p className="single-itin-subheader">SELECT ATTRACTIONS TO BUILD YOUR ITINERARY</p>
-                <h5 className="single-itin-subheader">GROUP ADMIN: {itinerary.owner}</h5>
+                <h5 className="single-itin-admin">GROUP ADMIN: {itinerary.owner}</h5>
                 <MuiThemeProvider>
                 {this.props.currentMembers.map(member => (
                     <List>
@@ -178,12 +183,25 @@ class IdeaBoard extends Component {
                 </MuiThemeProvider>
             </div>
 
+            {/* add friend  */}
+            {this.props.connect && <div className = "idea-board-url">
+                <form className="idea-itinerary-form" onSubmit={this.addToGroup}>
+                    <select name="friends" onChange={(e) => this.setState({currentFriend: e.target.value})}>
+                        <option value="" defaultValue>Invite a Friend</option>
+                        {friendsArr.map(friend => (
+                            <option key={friend.key} value={friend.key}>{friend.name}</option>
+                        ))}
+                    </select>
+                    <button type="submit" className="idea-button">Add</button>
+                </form>
+            </div>}
+
             <div className="row">
 
                 <div className="col-lg-6">
                     {/* google places search */}
                     {this.props.connect && <div className = "idea-board-url">
-                        <h2 className="idea-board-words">FIND ATTRACTION WITH GOOGLE PLACES</h2>
+                        <h2 className="idea-board-words">SEARCH WITH GOOGLE PLACES</h2>
                         <Geosuggest onSuggestSelect={this.onSuggestSelect} autoComplete="on"/>
                     </div>}
                 </div>
@@ -212,24 +230,13 @@ class IdeaBoard extends Component {
             </div>
 
 
-            {/* add friend  */}
-            {this.props.connect && <div className = "idea-board-url">
-                <form className="idea-itinerary-form" onSubmit={this.addToGroup}>
-                    <select name="friends" onChange={(e) => this.setState({currentFriend: e.target.value})}>
-                        <option value="" defaultValue>Invite a Friend</option>
-                        {friendsArr.map(friend => (
-                            <option key={friend.key} value={friend.key}>{friend.name}</option>
-                        ))}
-                    </select>
-                    <button type="submit" className="idea-button">Add</button>
-                </form>
-            </div>}
+            
 
 
             {/*go to single itin view*/}
 
             <div className="idea-to-itin">
-                <div onClick={() => {history.push(`/itinerary/${this.props.match.params.id}`)}} >VIEW ITINERARY</div>
+                <div className="view-itinerary" onClick={() => {history.push(`/itinerary/${this.props.match.params.id}`)}} >VIEW ITINERARY</div>
             </div>
 
 
@@ -242,7 +249,7 @@ class IdeaBoard extends Component {
                     {/* Will render out all events that have not been added yet */}
                     {currentEvents.map(event => (
                         <MuiThemeProvider muiTheme={muiTheme}>
-                            {!event.added  && <div className="idea-board-plan-event" id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} key={this.props.match.params.id}  likes={event.likes} likedBy={event.likedBy} user={currentUser} isOwner={isOwner}/></div>}
+                            {!event.added  && <div className="idea-board-plan-event" id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} key={this.props.match.params.id}  likes={event.likes} likedBy={event.likedBy} user={currentUser} isOwner={isOwner} comments={event.comments}/></div>}
                         </MuiThemeProvider>
                     ))}
                 </div>
@@ -253,7 +260,7 @@ class IdeaBoard extends Component {
                     {/* Will render all events that HAVE been added */}
                     {currentEvents.map(event => (
                         <MuiThemeProvider>
-                            {event.added && <div className="idea-board-plan-event" key={event.key}><LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy} user={currentUser}/></div>}
+                            {event.added && <div className="idea-board-plan-event" key={event.key}><LinkPreview hasBeenAdded={true} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy} user={currentUser} comments={event.comments}/></div>}
                         </MuiThemeProvider>
                     ))}
                 </div>
@@ -295,7 +302,7 @@ const mapDispatchToProps = (dispatch) => {
         }, 
         getItineraryMembers(itinKey) {
             dispatch(getItineraryMembers(itinKey))
-        }
+        },
     }
 }
 

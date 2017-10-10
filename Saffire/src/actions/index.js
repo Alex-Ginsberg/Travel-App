@@ -93,6 +93,7 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
                     likes: events[key].likes,
                     likedBy: events[key].likedBy,
                     location: events[key].location,
+                    comments: events[key].comments
                     // address: events[key].gmaps.formatted_address,
                 }
                 eventsArr.push(toAdd)
@@ -751,6 +752,13 @@ export const googlePlacesDetails = (placeID) => dispatch => {
             dispatch(googlePlaceDetails(simplifiedResult))
         })
         .catch(err => console.log(err));
+}
+
+export const sendComment = (itinKey, eventKey, currentUser, body) => dispatch => {
+    firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventKey).child('comments').push({
+        sender: currentUser.name,
+        body: body
+    })
 }
 
       
