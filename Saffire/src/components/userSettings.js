@@ -12,6 +12,7 @@ class UserSettings extends React.Component {
             newName: '',
             newEmail: '',
             newPassword: '',
+            currentName: ''
         }
         this.nameUpdate = this.nameUpdate.bind(this);
         this.emailUpdate = this.emailUpdate.bind(this);
@@ -20,6 +21,9 @@ class UserSettings extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        this.setState({currentName: this.props.currentUser.name ? this.props.currentUser.name : null});
+    }
 
     nameUpdate(event) {
         const newName = event.target.value;
@@ -49,9 +53,12 @@ class UserSettings extends React.Component {
     }
 
     render () {
-        console.log("name:", this.props.currentUser.name)
+        console.log("name:", this.props.updatedUser, "*******")
             return (
                 <div className = "saffire-user-settings-div">
+                    <BurgerMenu />
+
+
                     <h1>SAFFIRE</h1>
                     
                     <div className = "saffire-profile-div">
@@ -70,11 +77,11 @@ class UserSettings extends React.Component {
 
                     <div className = "saffire-user-setting-change-div">
                         <form className = "saffire-user-setting-form" onSubmit = {this.handleSubmit}>
-                            <label>NAME:</label><input type ="text" name = "username" onChange = {this.nameUpdate}/>
+                            <label>NAME:</label><input type ="text" name = "username" onChange = {this.nameUpdate} placeholder = "name"/>
                             <br />
-                            <label>EMAIL:</label><input type = "email" name = "email" onChange = {this.emailUpdate}/>
+                            <label>EMAIL:</label><input type = "email" name = "email" onChange = {this.emailUpdate} placeholder = "email"/>
                             <br />
-                            <label>PASSWORD:</label><input type = "password" name = "password" onChange = {this.passwordUpdate}/>
+                            <label>PASSWORD:</label><input type = "password" name = "password" onChange = {this.passwordUpdate} placeholder ="password"/>
                             <br />
                             <button type="submit">Submit</button>
                         </form>

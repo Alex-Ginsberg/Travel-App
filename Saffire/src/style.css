@@ -1332,13 +1332,15 @@ color: #fff;
     margin-right: 10px;
     border-radius: 5px;
     width: 80%;
+    font-style: italic;
 }
 
 .saffire-user-setting-form button {
     width: 200px;
     border-radius: 5px;
-    background-color: grey;
-    color: white;
+    background-color: lightgrey;
+    color: black;
+    font-weight: 600;
     font-size: 20px;
 }
 
