@@ -3,15 +3,19 @@ import { bubble as Menu } from 'react-burger-menu'
 import { styles } from '../styles/styles_burgerMenu';
 import firebase from 'firebase';
 import history from '../history';
-import { updateStatus, onUserListener } from '../actions';
+import { updateStatus, onUserListener, removeNotification } from '../actions';
 import {connect} from 'react-redux';
+import Badge from 'material-ui/Badge';
+import IconButton from 'material-ui/IconButton';
+import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 class BurgerMenu extends React.Component {
   constructor() {
     super()
     this.state = {
-      showButtons: false
+      showButtons: false,
     }
     this.handleUpdate = this.handleUpdate.bind(this)
   }
@@ -39,12 +43,17 @@ class BurgerMenu extends React.Component {
       
       <Menu styles={styles}>
         <div>
-          <li><a className="menu-item" id="home" href="/">START YOUR ADVENTURE</a></li>
-          {/* <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li> */}
-          <li><a className="menu-item" id="Itineraries"  href="/itineraries">MY ITINERARIES</a></li> 
-          <li><a className="menu-item" id="MyFriends"  href="/myfriends">FRIENDS</a></li>
-          {this.props.connect && <li><p className="menu-item" onClick={() => this.setState({showButtons: !this.state.showButtons})}>UPDATE STATUS</p></li>}
+            <ul className="menu-list">
+            <li><a className="menu-item" id="home" href="/">START YOUR ADVENTURE</a></li>
+            {/* <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li> */}
+            <li><a className="menu-item" id="Itineraries"  href={(this.props.currentUser.email || !this.props.connect) ? "/itineraries" : "/signup"}>MY ITINERARIES</a></li> 
+            <li><a className="menu-item" id="MyFriends"  href={(this.props.currentUser.email) ? "/myfriends" : "/signup"}>FRIENDS</a></li>
+            {this.props.currentUser.email && <li><a className="menu-item" onClick={this.signout} href=''>LOGOUT</a></li>}
+            {!this.props.currentUser.email && <li><a className="menu-item"  href='/login'>LOGIN</a></li>}
+            {this.props.connect && this.props.currentUser.email && <li><p className="menu-item" onClick={() => this.setState({showButtons: !this.state.showButtons})}>UPDATE STATUS</p></li>} 
+          </ul>
         </div>
+
         
         
         {this.state.showButtons &&  <li><p className="menu-item-current-status">CURRENT STATUS: {this.props.currentUser.status.length > 1 ? this.props.currentUser.status : 'No selected status'}</p></li>}
@@ -55,10 +64,6 @@ class BurgerMenu extends React.Component {
         {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('Just finished my event')}>Just finished my event</p></li>}
         {this.state.showButtons && <li><p className="menu-item-status" onClick={() => this.handleUpdate('Getting food')}>Getting food</p></li>}
         {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('Heading home')}>Heading home</p></li>}
-
-        <div>
-          <li><a className="menu-item" onClick={this.signout} href=''>LOGOUT</a></li>
-        </div>
       </Menu>
     );
   }
@@ -78,7 +83,7 @@ const mapDispatchToProps = (dispatch) => {
       },
       getCurrentUser(user) {
         dispatch(onUserListener(user))
-      }
+      },
   }
 }
 

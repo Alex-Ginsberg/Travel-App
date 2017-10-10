@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 import {firebase_pw} from './secrets.js';
-import {onUserListener, connectionChange} from './actions'
+import {onUserListener, connectionChange, addToNotifications} from './actions'
 import store from './store'
 
 
@@ -61,6 +61,7 @@ messaging.requestPermission()
 
 messaging.onMessage(function(payload) {
   console.log('onMessage firebase.js', payload);
+  store.dispatch(addToNotifications(payload.notification.body))
 })
 
 

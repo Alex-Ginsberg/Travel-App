@@ -62,6 +62,7 @@ export class MapComp extends Component {
      })
 
      //get events locations
+     console.log('ITIN KEY: ', this.props.itinKey.id)
      let fireLocationsRef = firebase.database().ref().child('itineraries').child(this.props.itinKey.id).child('events')
      fireLocationsRef.once('value')
      .then(result => result.val())

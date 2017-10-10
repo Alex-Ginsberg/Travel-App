@@ -5,7 +5,9 @@ import {withRouter} from 'react-router-dom';
 import BurgerMenu from './Menu';
 import FriendRequests from './FriendRequests';
 import FindFriends from './FindFriends';
+import {removeNotification} from '../actions'
 let toonAvatar = require('cartoon-avatar');
+
 
 
 class MyFriends extends React.Component {
@@ -18,6 +20,13 @@ class MyFriends extends React.Component {
 
   render () {
     let friends = Object.keys(this.props.currentUser !== undefined ? this.props.currentUser: 10)
+    const notificationArray = []
+    if (this.props.user && this.props.user.notifications){
+        Object.keys(this.props.user.notifications).map(currentKey => {
+            notificationArray.push(this.props.user.notifications[currentKey])
+        })
+        console.log('NOTIFICATIONS: ', notificationArray)
+    }
     return (
       <div className="saffire-friends-container">
           <div className="friends-header">
@@ -56,6 +65,14 @@ class MyFriends extends React.Component {
                       <div className="find-friend">
                       <FindFriends />
                       </div>
+                            {notificationArray.length > 0 && 
+                            <div>
+                                <h3>Your notifications:</h3>
+                                {notificationArray.map(notification => (
+                                    <h5 onClick={() => this.props.removeNotification(this.props.user, notification.body)}>{notification.body}</h5>
+                                ))}
+                            </div>
+                            }
 
                       <div className="friend-requests">
                       <FriendRequests />
@@ -79,12 +96,17 @@ class MyFriends extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-      currentUser: state.currentUser.friends
+      currentUser: state.currentUser.friends,
+      user: state.currentUser
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    removeNotification(user, body) {
+        dispatch(removeNotification(user, body))
+    }
+  }
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MyFriends))

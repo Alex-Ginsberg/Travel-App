@@ -1,4 +1,4 @@
-import {SET_USERS} from '../actions';
+import { GET_ITINERARY_MEMBERS } from '../actions';
 
 const initialState =  []
 
@@ -6,8 +6,8 @@ const initialState =  []
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case SET_USERS: 
-            return action.users;
+        case GET_ITINERARY_MEMBERS: 
+            return action.members;
         default:
             return state;
     }

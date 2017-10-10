@@ -5,6 +5,7 @@ import WhereTo from './WhereTo'
 import BurgerMenu from './Menu';
 import { getCurrentUser } from '../actions';
 import firebase from '../firebase'
+import NotificationCounter from './NotificationCounter'
 
 
 
@@ -20,17 +21,14 @@ class Main extends Component {
     super(props)
   }
 
-  componentDidMount() {
-    this.props.getCurrentUser()
-  }
 
   render() {
-    console.log('main currentUser', this.props.currentUser.name)
-    console.log('LOCAL STORAGE: ', window.localStorage)
+  
     
   return (
     <div className="sapphire-app">
       <BurgerMenu />
+      {this.props.currentUser.name && <NotificationCounter />}
 
         <h1 className="sapphire-app-title">SAFFIRE</h1>
 

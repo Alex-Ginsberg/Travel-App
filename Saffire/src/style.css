@@ -28,7 +28,7 @@ body {
 
 .sapphire-app {
     text-align: center;
-    background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg");
+    /* background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg"); */
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -531,7 +531,7 @@ and (orientation: portrait) {
 */
 
 .dash-div-image {
-    /*background-image: url("https://static.pexels.com/photos/210200/pexels-photo-210200.jpeg");*/
+    background-image: url("https://static.pexels.com/photos/210200/pexels-photo-210200.jpeg");
     background-size: cover;
     display: flex;
     height: 700px;
@@ -666,6 +666,10 @@ MENU ITEM
     background-color: #f4b642;
     color: white;
     text-decoration: none;
+}
+
+.menu-list {
+    list-style-type: none;
 }
 
 .sapphire-idea-board {
@@ -851,11 +855,15 @@ MENU ITEM
     margin-bottom: 15px;
 }
 
+.single-itin-subheader {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
 .single-itin-event-title {
     font-size: 1.5em;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
-    /*margin: 10px;*/
     padding: 1.5em;
 }
 
@@ -874,11 +882,16 @@ MENU ITEM
     background-size: cover;
 }
 
+.single-itin-scroll {
+
+}
 
 
 .single-itin-event-scheduler-node {
     background-color: white;
     margin: 13px;
+    width: auto;
+    padding: 15px;
     /*margin-top: 13px;*/
     /*margin-bottom: 13px;*/
     /*margin-left: 13px;*/
@@ -1072,7 +1085,26 @@ MENU ITEM
 }
 
 .idea-to-itin {
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    margin-top: 15px;
+    margin-bottom: 40px;
     text-align: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
+.idea-board-plan-event {
+    margin: 20px;
+
+}
+
+.linkpreview-hover:hover{
+    background-color: yellow;
 }
 
 
@@ -1145,6 +1177,7 @@ color: #fff;
 
 }
 
+
 /*
     ==================================
                Loading
@@ -1155,5 +1188,77 @@ color: #fff;
     height: 100vh;
     margin-top: 50%;
     margin-left: 40%;
+}
 
+/*
+    ==================================
+                 Notification Counter
+    ==================================
+*/
+
+.notification-counter {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+
+.link-container {
+    background-color: #054dc1;
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+.link-all-info {
+    background-color: white;
+}
+
+
+.link-title {
+    font-size: .8em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    margin-bottom: 15px;
+    text-align: center;
+    padding: 10px;
+}
+
+.link-info {
+    font-size: .9em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    padding: 10px;
+}
+
+.link-likedby {
+    font-size: .8em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    padding: 10px;
+}
+
+.link-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: .8em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    width: 100%;
+
+}
+
+.link-buttons > div {
+    margin: 15px;
 }
