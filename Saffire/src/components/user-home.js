@@ -52,7 +52,6 @@ const UserHome = (props) => {
       return false
     })
     let itins = itinsOwned.concat(itinsBelongTo)
-    console.log('ITINS: ', itins)
 
   return (
     

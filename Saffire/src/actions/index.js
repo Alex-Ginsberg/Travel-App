@@ -87,6 +87,7 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
             }
             return dispatch(setEvents(eventsArr))
         })
+        .catch(err => console.log(err))
 }
                                                                                             // Used when a new event is added to the itinerary's idea board
 export const addEvent = (url, itinID) => dispatch => {
@@ -123,7 +124,7 @@ export const addEvent = (url, itinID) => dispatch => {
             }
         
             return dispatch(newEvent(eventNode))
-        })
+        }).catch(err => console.log(err))
 }
 
 export const googlePlace = (suggest, itinID) => dispatch => {
@@ -216,6 +217,7 @@ export const fetchUsers = () => dispatch => {
             }
             return dispatch(setUsers(usersArr))
         })
+        .catch(err => console.log(err))
 }
 
 export const sendFriendRequest = (user, friend) => dispatch => {
@@ -263,11 +265,9 @@ export const sendFriendRequest = (user, friend) => dispatch => {
     })
     .catch(err => console.log(err))
 
-
-
-
-
 }
+
+
 
 export const addFriend = (user, friend) => dispatch => {
             const currentUserRef = firebase.database().ref().child('users').child(user.key).child('friends')
@@ -339,12 +339,13 @@ export const addFriend = (user, friend) => dispatch => {
             })
             .catch(err => console.log(err))
 
-
-
-
-
         return dispatch(getCurrentUser())
 }
+
+
+
+
+
 
 export const getCurrentUser = () => dispatch => {
     if (firebase.auth().currentUser) {
@@ -369,6 +370,7 @@ export const getCurrentUser = () => dispatch => {
 
                 return dispatch(setCurrentUser(loggedInUser))
             })
+            .catch(err => console.log(err))
     }
     else {
         return dispatch(setCurrentUser({}))
@@ -399,11 +401,10 @@ export const searchForUser = (searchEmail) => dispatch => {
                     email: foundUser.email,
                     key: foundUserID,
                 }
-                console.log('found user', foundUser);
-                console.log('userCred', userCred);
 
                 return dispatch(searchedUser(userCred))
             })
+            .catch(err => console.log(err))
 }
 
 
@@ -437,7 +438,7 @@ export const onUserListener = (user) => dispatch => {
         }
 
         return dispatch(setCurrentUser(loggedInUser))
-    })
+    }).catch(err => console.log(err))
 }
 
 
@@ -446,7 +447,6 @@ export const addToItinerary = (itinID, user) => dispatch => {
 
     const itinRef = firebase.database().ref().child('itineraries').child(itinID).child('members')
     const recipient = firebase.database().ref().child('users').child(user)
-
 
     //push notifications for add friend to itinerary
     recipient.once('value')
@@ -520,12 +520,9 @@ export const setDateAndTime = (itinId, event, date, time, toSchedule) => dispatc
         .then(() => {
             dispatch(causeRefresh('setDateAndTime'))
         })
-        
 }
 
 
-
-// *******************
 
 export const postUserCoordinates =  itin => dispatch => {
     const coorRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
@@ -710,6 +707,7 @@ export const removeNotification = (user, body) => dispatch => {
             firebase.database().ref().child('users').child(user.key).child('notifications').child(reqKey).remove()
             dispatch(getCurrentUser())
         })
+        .catch(err => console.log(err))
 }
 
 export const getItineraryMembers = itinKey => dispatch => {
@@ -730,6 +728,7 @@ export const getItineraryMembers = itinKey => dispatch => {
             }
         })
         .then(membersArray => dispatch(setItinerayMembers(membersArray)))
+        .catch(err => console.log(err))
 }
 
 
@@ -756,7 +755,6 @@ export const sendComment = (itinKey, eventKey, currentUser, body) => dispatch =>
       
 
 export const updateUser = (newName, newEmail, newPassword, userID) => dispatch => {
-    console.log( firebase.auth().currentUser, ")))0000000000")
     const authUser = firebase.auth().currentUser;
     const selectedUser = firebase.database().ref().child(`users/${userID}`);
     const newData = {
@@ -772,6 +770,7 @@ export const updateUser = (newName, newEmail, newPassword, userID) => dispatch =
     .then(() => {
         return dispatch(getCurrentUser())
     })
+        .catch(err => console.log(err))
 }
 
 //action creator

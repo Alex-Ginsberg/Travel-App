@@ -13,12 +13,10 @@ import firebase from '../firebase'
 class Distance extends Component {
   constructor(props){
     super(props)
-    
   }
 
   componentDidMount (e) {
     this.props.handleTime(this.props.userCoordinates, this.props.locations)
-    console.log('mountedpropsuserlocation', this.props)
     this.props.handleDistance(this.props.userCoordinates, this.props.locations)
   }
       
@@ -38,14 +36,10 @@ class Distance extends Component {
                   </li>
                 )
               }
-              
             })}
-
             </ul>
           </div>
-          
           )
-      
       }
     }
 

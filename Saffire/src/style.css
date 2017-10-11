@@ -535,8 +535,8 @@ and (orientation: portrait) {
     background-size: cover;
     display: flex;
     height: 700px;
-    
 }
+
 
 #dash-title-border {
     background-color: #7C7A7A;
@@ -545,8 +545,8 @@ and (orientation: portrait) {
     margin-left: 350px;
     margin-top: 100px;
     opacity: .6;
-    
 }
+
 
 #dash-title {
     font-family: "Helvetica Neue";
@@ -555,8 +555,8 @@ and (orientation: portrait) {
     margin-left: 525px;
     margin-top: 200px;
     color: white;
-
 }
+
 
 #dash-welcome {
     font-size: 25px;
@@ -564,6 +564,7 @@ and (orientation: portrait) {
     margin-top: 35px;
     color: white;
 }
+
 
 #dash-logout {
     font-size: 25px;
@@ -573,16 +574,19 @@ and (orientation: portrait) {
     color: white;
 }
 
+
 .dash-itinerary {
     width: auto;
     height: 1500px;
 }
+
 
 .dash-groups {
     width: auto;
     height: 500px;
     background-color: #F09903;
 }
+
 
 #dash-myItinerary-header {
     display: absolute;
@@ -592,6 +596,7 @@ and (orientation: portrait) {
     color: black;
 }
 
+
 #dash-header-line {
     width: 500px;
     height: 1px;
@@ -600,6 +605,7 @@ and (orientation: portrait) {
     margin-top: 100px;
 
 }
+
 
 #dash-myBuddies-header {
     float: left;
@@ -622,6 +628,7 @@ ITINERARY
     height: 100vh;
 }
 
+
 /* =========================================
 MENU ITEM
 ========================================= */
@@ -636,11 +643,13 @@ MENU ITEM
     text-decoration: none;
 }
 
+
 .menu-item:hover {
     background-color: #054dc1;
     color: white;
     text-decoration: none;
 }
+
 
 .menu-item-status {
     font-family: 'Montserrat', sans-serif;
@@ -652,6 +661,7 @@ MENU ITEM
     font-size: 5;
 }
 
+
 .menu-item-current-status {
     font-family: 'Montserrat', sans-serif;
     padding: 20px;
@@ -662,15 +672,18 @@ MENU ITEM
     font-size: 5;
 }
 
+
 .menu-item-status:hover {
     background-color: #f4b642;
     color: white;
     text-decoration: none;
 }
 
+
 .menu-list {
     list-style-type: none;
 }
+
 
 .sapphire-idea-board {
     border: 7px solid;
@@ -678,6 +691,7 @@ MENU ITEM
     padding: 20px;
     background-color: white;
 }
+
 
 .sapphire-idea-board button{
     display: block;
@@ -689,6 +703,7 @@ MENU ITEM
     margin: 20px 0;
 }
 
+
 .sapphire-event-board {
     border: 10px solid black;
     display: inline-block;
@@ -697,6 +712,7 @@ MENU ITEM
     height: 500px;
     margin-left: 200px;
 }
+
 
 .sapphire-event-box{
     border: 10px solid black;
@@ -708,9 +724,11 @@ MENU ITEM
 
  }
 
+
  .view-itinerary {
      transition: 0.5s;
  }
+
 
  .view-itinerary:hover {
     background-color: blue; 
