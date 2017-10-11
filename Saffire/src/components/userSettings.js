@@ -43,7 +43,7 @@ class UserSettings extends React.Component {
     
     settingUpdate(newName, newEmail, newPassword, userID) {
         if(!newName) newName = this.props.currentUser.name;
-        if(!newEmail) newEmail = this.props.currentUser.newEmail
+        if(!newEmail) newEmail = this.props.currentUser.newEmail;
         this.props.getUpdatedUser(newName, newEmail, newPassword, userID)
     }
 
@@ -53,7 +53,6 @@ class UserSettings extends React.Component {
     }
 
     render () {
-        console.log("name:", this.props.updatedUser, "*******")
             return (
                 <div className = "saffire-user-settings-div">
                     <BurgerMenu />

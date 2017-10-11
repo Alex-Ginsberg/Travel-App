@@ -12,7 +12,6 @@ class FriendRequests extends Component {
         for (var key in requests) {
             requestsArr.push({email: requests[key].from, key: requests[key].userKey, name: requests[key].name, reqKey: key})
         }
-        console.log('REQ ARR: ', requestsArr)
         return (
             <div>
                 <h2>Respond to your friend requests</h2>
@@ -40,7 +39,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         addFriend(user, friend) {
             dispatch(addFriend(user, friend))
-        } ,
+        }
     }
 }
 

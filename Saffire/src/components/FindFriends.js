@@ -38,7 +38,6 @@ class FindFriends extends Component {
 
     render() {
         // const users = this.props.users;
-        console.log('friend', this.props.searchUser.email);
         return (
         <div className="find-friends-container">
             <h1>Find Friends!</h1>

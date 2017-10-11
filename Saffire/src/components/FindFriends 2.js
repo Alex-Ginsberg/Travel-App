@@ -67,12 +67,6 @@ class FindFriends extends Component {
                 </form>
             </div>
 
-            {this.state.searchUser &&
-
-
-            }
-
-
         </div>
         )
     }
