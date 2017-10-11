@@ -40,6 +40,7 @@ class SingleItinerary extends Component{
         }
         this.renderForm = this.renderForm.bind(this)
         this.sendChat = this.sendChat.bind(this)
+        this._executeAfterModalClose = this._executeAfterModalClose.bind(this)
 }
 
     componentDidMount() {
@@ -73,14 +74,20 @@ class SingleItinerary extends Component{
 
 
     renderForm(event) {
+        
         if(!this.state.showForm.title){this.setState({showForm: event})}
         else {this.setState({showForm: {}})}
+        
     }
 
     sendChat(e) {
         e.preventDefault()
         this.props.sendMessage(this.props.user, this.props.match.params.id, this.state.chatMessage)
         // this.setState({chatMessage: ''})
+    }
+
+    _executeAfterModalClose() {
+        this.setState({showForm: {}})
     }
 
 
@@ -194,20 +201,21 @@ class SingleItinerary extends Component{
 
                         <div className="col-lg-6">
                             <h1 className="single-itin-title">{this.state.itin.name}</h1>
+                            <div className="idea-to-itin">
+                                        <div className="view-itinerary" onClick={() => {history.push(`/ideaboard/${this.props.match.params.id}`)}} >IDEABOARD</div>
+                            </div>
                             <MuiThemeProvider>
-                                <div className="single-itin-status">
+                                {/* <div className="single-itin-status"> */}
                                     {memberArray.map(member => (
-                                        <List >
+                                        <List style={{textAlign: 'left'}}>
                                             {member && <ListItem disabled={true}  leftAvatar={<Avatar backgroundColor={blue300} src={member.image} />}>
                                                 {member.name}: {member.status}
                                             </ListItem>}
 
                                         </List>
                                     ))}
-                                    <div className="idea-to-itin">
-                                        <div className="view-itinerary" onClick={() => {history.push(`/ideaboard/${this.props.match.params.id}`)}} >IDEABOARD</div>
-                                    </div>
-                                </div>
+                                    
+                                {/* </div> */}
                             </MuiThemeProvider>
                         </div>
                             <div className="col-lg-6">
@@ -363,7 +371,10 @@ class SingleItinerary extends Component{
                                                          <p key={likeByKey}>{event.likedBy[likeByKey].name}</p>
                                                      ))}
                                                  </ListItem>
-                                                 <button className="single-itin-event-scheduler-button" disabled={!this.props.connect} onClick={() => {this.renderForm(event)}}>Set Schedule</button>
+                                                 <button className="single-itin-event-scheduler-button" disabled={!this.props.connect} onClick={async () => {
+                                                     await this.renderForm(event)
+                                                     await this.simpleDialog.show()
+                                                     }}>Set Schedule</button>
                                              </List>
                                          </div>
                                      </MuiThemeProvider>
@@ -374,7 +385,7 @@ class SingleItinerary extends Component{
                             </div>
 
                             {this.state.showForm.title &&
-                            <div>
+                            <SkyLight hideOnOverlayClicked ref={ref => this.simpleDialog = ref} title={this.props.googleDetails.name} afterClose={this._executeAfterModalClose}>
                                 <p>Schedule when to go to {this.state.showForm.title}</p>
                                 <MuiThemeProvider>
                                     <DatePicker
@@ -428,7 +439,7 @@ class SingleItinerary extends Component{
                                     // })
                                     
                                 }}>Submit event</button>
-                            </div>
+                            </SkyLight>
                             }
                         </div>
 
