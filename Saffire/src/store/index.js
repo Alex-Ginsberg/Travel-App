@@ -12,12 +12,13 @@ import refresh from '../reducers/refresh'
 import connect from '../reducers/connected'
 import searchUser from '../reducers/searchUser'
 import currentCoordinates from '../reducers/reducer_Coor'
+import locationList from '../reducers/reducer_Location'
 import members from '../reducers/members'
 
 import googleDetails from '../reducers/googleDetails'
 
 
-const reducer = combineReducers({user, currentItinerary, burgerMenu, currentEvents, users, currentUser, refresh, connect, searchUser, currentCoordinates, googleDetails, members })
+const reducer = combineReducers({user, currentItinerary, burgerMenu, currentEvents, users, currentUser, refresh, connect, searchUser, currentCoordinates, googleDetails, members, locationList })
 const store = createStore(reducer, applyMiddleware(thunkMiddleware, createLogger()));
 
 export default store
