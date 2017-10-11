@@ -311,26 +311,6 @@ class SingleItinerary extends Component{
                                  </div>
                              ))}
 
-                                {events.map(event => (
-                                    <div key={event.url} className="single-itin-event-scheduler-node">
-                                        <MuiThemeProvider>
-
-                                            <div className="single-itin-event-scheduler-info">
-                                                <List>
-                                                    <ListItem disabled={true} hoverColor={indigo900} leftAvatar={<Avatar backgroundColor={blue300} />}>
-                                                        <h5>{event.title}</h5>
-                                                        <p>People going to this event: </p>
-                                                        {event.likedBy && Object.keys(event.likedBy).map(likeByKey => (
-                                                            <p key={likeByKey}>{event.likedBy[likeByKey].name}</p>
-                                                        ))}
-                                                    </ListItem>
-                                                    <button className="single-itin-event-scheduler-button" disabled={!this.props.connect} onClick={() => {this.renderForm(event)}}>Set Schedule</button>
-                                                </List>
-                                            </div>
-                                        </MuiThemeProvider>
-                                     </div>
-                                ))}
-
 
                             </div>
 
