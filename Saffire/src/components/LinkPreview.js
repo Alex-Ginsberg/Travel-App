@@ -25,14 +25,11 @@ class LinkPreview extends Component {
   }
 
   componentDidMount(){
-    console.log(this.props.comments)
     this.setState({comments: this.props.comments})
   }
 
   render () {
-      const placeID = this.props.placeID
 
-      console.log('LINK PREVIEW PLACEID ', placeID)
       const myBigGreenDialog = {
           width: '70%',
           height: '700px',
@@ -102,6 +99,10 @@ class LinkPreview extends Component {
     for (var key in this.props.likedBy) {
       likedByArray.push(this.props.likedBy[key].name)
     }
+
+      const placeID = this.props.placeID
+
+
     return(
       <div className="link-container">
           <div className="link-all-info" >
@@ -253,8 +254,8 @@ const mapDispatchToProps = (dispatch) => {
     sendComment(itinKey, eventKey, currentUser, body){
       dispatch(sendComment(itinKey, eventKey, currentUser, body))
     },
-      getGoogleDeets (placeID) {
-          dispatch(googlePlacesDetails(placeID))
+      getGoogleDeets (placeid) {
+          dispatch(googlePlacesDetails(placeid))
       }
   }
 }

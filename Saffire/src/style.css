@@ -772,7 +772,9 @@ MENU ITEM
 }
 
 .single-itin-map {
-    margin-top: 3%;
+    padding-left: 59px;
+    margin: auto;
+
 }
 
 .single-itin-schedule {
