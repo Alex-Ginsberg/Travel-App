@@ -6,7 +6,6 @@ import history from '../history';
 import googleMaps, {google} from '@google/maps'
 import jsonp from 'jsonp';
 import Geofire from 'geofire';
-// import {UTMtoLL, LLtoUTM} from 'wgs84-util'
 import secondsConverter from 'seconds-converter'
 
 export const SET_ITINERARY = 'SET_ITINERARY'
@@ -29,6 +28,7 @@ export const SEARCH_USER = 'SEARCH_USER'
 export const UPDATE_USER = 'UPDATE_USER'
 export const GET_ITINERARY_MEMBERS = 'GET_ITINERARY_MEMBERS'
 export const PLACE_DETAILS = 'PLACE_DETAILS'
+export const FETCH_LOCATION_NAMES = 'FETCH_LOCATION_NAMES'
 
 
 const googleMapsClient = googleMaps.createClient({
@@ -663,6 +663,23 @@ export const getUserCoordinates = userCoor => dispatch => {
     dispatch(fetchUserCoor(userCoor))
 }
 
+export const getLocationNames = key => dispatch => {
+    let eventsRef = firebase.database().ref().child('itineraries').child(key.id).child('events')
+    eventsRef.once('value')
+    .then(snapshot => {
+        let objSnap = Object.keys(snapshot.val())
+        console.log('snapshotval', snapshot.val())
+        let events = []
+         objSnap.forEach(snap => {
+            events.push(snapshot.val()[snap].address)
+        })
+        return events
+    })
+    .then(res => {
+        dispatch(fetchLocationNames(res))
+    })
+}
+
 export const removeSchedule = (itin, event) => dispatch => {
     const itinRef = firebase.database().ref().child('itineraries').child(itin)
     itinRef.once('value')
@@ -786,6 +803,7 @@ export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
 export const fetchPlacesCoor = coors => ({type: FETCH_PLACES_COOR, coors})
 export const fetchCoorTime = times => ({type: FETCH_COOR_TIME, times})
 export const fetchCoorDistance = distances => ({type: FETCH_COOR_DISTANCE, distances})
+export const fetchLocationNames = locations =>({type: FETCH_LOCATION_NAMES, locations})
 export const searchedUser = user => ({type: SEARCH_USER, user});
 export const setUserCoor = coor => ({type: SET_USER_COOR, coor})
 export const setPlacesCoor = coors => ({type: SET_PLACES_COOR, coors})
