@@ -23,6 +23,7 @@
     "google-maps-react": "^1.1.0",
     "history": "^4.7.2",
     "interact.js": "^1.2.8",
+    "jsonp": "^0.2.1",
     "mapbox-gl": "^0.40.1",
     "material-ui": "^0.19.3",
     "moment": "^2.18.1",
@@ -39,6 +40,7 @@
     "react-frame": "^2.1.0",
     "react-geosuggest": "^2.5.0",
     "react-google-maps": "^8.3.4",
+    "react-loading": "^0.1.4",
     "react-mapbox-gl": "^2.6.0",
     "react-places-autocomplete": "^5.4.3",
     "react-redux": "^5.0.6",
@@ -51,7 +53,9 @@
     "redux-burger-menu": "^0.2.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "vis": "^4.20.1"
+    "seconds-converter": "^1.2.0",
+    "vis": "^4.20.1",
+    "wgs84-util": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

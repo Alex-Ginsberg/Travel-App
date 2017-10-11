@@ -9,6 +9,7 @@ import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Loading from './Loading'
 
 
 class BurgerMenu extends React.Component {
@@ -42,12 +43,13 @@ class BurgerMenu extends React.Component {
     return (
       
       <Menu styles={styles}>
+
         <div>
             <ul className="menu-list">
             <li><a className="menu-item" id="home" href="/">START YOUR ADVENTURE</a></li>
-            {/* <li><a className="menu-item" id="mypassport"  href="/mypassport">MY PASSPORT</a></li> */}
             <li><a className="menu-item" id="Itineraries"  href={(this.props.currentUser.email || !this.props.connect) ? "/itineraries" : "/signup"}>MY ITINERARIES</a></li> 
             <li><a className="menu-item" id="MyFriends"  href={(this.props.currentUser.email) ? "/myfriends" : "/signup"}>FRIENDS</a></li>
+            <li><a className="menu-item" id="Settings"  href="/settings">SETTINGS</a></li>
             {this.props.currentUser.email && <li><a className="menu-item" onClick={this.signout} href=''>LOGOUT</a></li>}
             {!this.props.currentUser.email && <li><a className="menu-item"  href='/login'>LOGIN</a></li>}
             {this.props.connect && this.props.currentUser.email && <li><p className="menu-item" onClick={() => this.setState({showButtons: !this.state.showButtons})}>UPDATE STATUS</p></li>} 
@@ -56,7 +58,7 @@ class BurgerMenu extends React.Component {
 
         
         
-        {this.state.showButtons &&  <li><p className="menu-item-current-status">CURRENT STATUS: {this.props.currentUser.status.length > 1 ? this.props.currentUser.status : 'No selected status'}</p></li>}
+        {this.state.showButtons &&  <li><p className="menu-item-current-status">CURRENT STATUS: {this.props.currentUser.status ? this.props.currentUser.status : 'No selected status'}</p></li>}
         {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('')}>NO STATUS</p></li>}
         {this.state.showButtons &&  <li><p className="menu-item-status" onClick={() => this.handleUpdate('Just landed!')}>Just landed!</p></li>}
         {this.state.showButtons &&   <li><p className="menu-item-status" onClick={() => this.handleUpdate('At the hotel')}>At the hotel</p></li>}

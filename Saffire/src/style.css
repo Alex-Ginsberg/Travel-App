@@ -708,6 +708,16 @@ MENU ITEM
 
  }
 
+ .view-itinerary {
+     transition: 0.5s;
+ }
+
+ .view-itinerary:hover {
+    background-color: blue; 
+    text-shadow: 0 0 5px violet; 
+    cursor: pointer;
+ }
+
 
 @media (min-width: 600px) and (max-width: 1200px) {
     #dash-title {
@@ -856,6 +866,10 @@ MENU ITEM
 }
 
 .single-itin-subheader {
+    text-align: center;
+}
+
+.single-itin-admin {
     text-align: center;
     margin-bottom: 40px;
 }
@@ -1014,6 +1028,14 @@ MENU ITEM
 
 }
 
+.remove-notification-button {
+    display: inline-block;
+}
+
+.notification-body {
+    display: inline-block;
+}
+
 /*
     ==================================
                 Idea Board
@@ -1103,8 +1125,13 @@ MENU ITEM
 
 }
 
+.linkpreview-hover{
+    transition: 0.5s;
+}
+
 .linkpreview-hover:hover{
-    background-color: yellow;
+    cursor: pointer;
+    background-color: blue;
 }
 
 
@@ -1180,6 +1207,18 @@ color: #fff;
 
 /*
     ==================================
+               Loading
+    ==================================
+*/
+
+.loading-comp {
+    height: 100vh;
+    margin-top: 50%;
+    margin-left: 40%;
+}
+
+/*
+    ==================================
                  Notification Counter
     ==================================
 */
@@ -1252,6 +1291,7 @@ color: #fff;
 }
 
 
+
 .details-locationnear h3{
     text-align: right;
     font-size: .7em;
@@ -1309,3 +1349,179 @@ color: #fff;
     width: 100% !important;
     height: auto !important;
 }
+
+/*
+    ======================================
+                User Settings
+    ======================================
+*/
+
+.saffire-user-settings-div {
+    background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7FL8QPFX/background.png");
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-size: cover;
+}
+
+
+.saffire-user-settings-div h1 {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.2em;
+    font-size: 4.5em;
+    text-align: center;
+    padding-top: 70px;
+}
+
+.saffire-profile-div {
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.saffire-profile-div h3 {
+    font-size: 2.8em;
+    letter-spacing: 0.2em;
+    border-bottom: 1px solid white;
+    color: white;
+    margin-top: 100px;
+}
+
+.saffire-profile-div p {
+    text-align: left;
+    padding: 10px 0px;
+}
+
+.saffire-label{
+    color: white;
+    font-size: 1.8em;
+    letter-spacing: .2em;
+}
+
+.saffire-user-information {
+    color: white;
+    padding-left: 20px;
+    font-size: 1.7em;
+    letter-spacing: 0.2em;
+}
+
+.saffire-user-setting-change-div {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.saffire-user-setting-form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 100px;
+    padding: 20px;
+    border: 5px solid white;
+}
+
+.saffire-user-setting-form label {
+    color: white;
+    font-size: 1.7em;
+    padding-right: 10px;
+
+}
+
+.saffire-user-setting-form input {
+    margin-right: 10px;
+    border-radius: 5px;
+    width: 80%;
+    font-style: italic;
+}
+
+.saffire-user-setting-form button {
+    width: 200px;
+    border-radius: 5px;
+    background-color: lightgrey;
+    color: black;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+@media(min-width: 400px) and (max-width: 550px) {
+    .saffire-user-settings-div h1 {
+        font-size: 1.6em;
+    }
+
+    .saffire-profile-div h3 {
+        font-size: 1.6em;
+    }
+
+    .saffire-label {
+        font-size: .9em;
+    }
+
+    .saffire-user-information {
+        font-size: .9em;
+    }
+
+    .saffire-user-setting-form button {
+        width: 100px;
+    }
+}
+
+@media(min-width: 550px) and (max-width: 730px) {
+    
+    .saffire-label {
+        font-size: 1.2em;
+    }
+
+    .saffire-user-information {
+        font-size: 1.2em;
+    }
+
+    .saffire-user-setting-form button {
+        width: 150px;
+    }
+}
+
+@media(min-width: 550px) and (max-width: 730px) {
+    .saffire-user-settings-div h1 {
+        font-size: 2.5em;
+    }
+    
+    .saffire-profile-div h3 {
+        font-size: 2em;
+    }
+}
+
+@media only screen and (min-width: 375px ) and (max-width: 667px) {
+    .saffire-user-settings-div h1 {
+        font-size: 1.7em;
+    }
+
+    .saffire-profile-div h3 {
+        font-size: 1.4em;
+        margin-top: 40px;
+    }
+
+    .saffire-label {
+        font-size: 1em;
+    }
+
+    .saffire-user-information {
+        font-size: .9em;
+    }
+
+    .saffire-user-setting-form {
+        margin-top: 30px;
+    }
+
+    .saffire-user-setting-form button {
+        width: 80px;
+        font-size: 15px;
+    }
+    .saffire-user-setting-form label {
+        font-size: 1em;
+    }
+
+    .saffire-user-setting-form input {
+        width: 90%;
+    }
+}
+

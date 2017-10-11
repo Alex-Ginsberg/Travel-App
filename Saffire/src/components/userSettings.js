@@ -11,15 +11,20 @@ class UserSettings extends React.Component {
         this.state = {
             newName: '',
             newEmail: '',
-            newPassword: ''
+            newPassword: '',
+            currentName: ''
         }
         this.nameUpdate = this.nameUpdate.bind(this);
         this.emailUpdate = this.emailUpdate.bind(this);
         this.passwordUpdate = this.passwordUpdate.bind(this);
         this.settingUpdate = this.settingUpdate.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        
     }
+
+    componentDidMount() {
+        this.setState({currentName: this.props.currentUser.name ? this.props.currentUser.name : null});
+    }
+
     nameUpdate(event) {
         const newName = event.target.value;
         this.setState({newName : newName});
@@ -37,32 +42,50 @@ class UserSettings extends React.Component {
 
     
     settingUpdate(newName, newEmail, newPassword, userID) {
+        if(!newName) newName = this.props.currentUser.name;
+        if(!newEmail) newEmail = this.props.currentUser.newEmail
         this.props.getUpdatedUser(newName, newEmail, newPassword, userID)
     }
 
     handleSubmit(evt){
         evt.preventDefault()
-        console.log("THISSSS", this)
         return this.settingUpdate(this.state.newName, this.state.newEmail, this.state.newPassword, this.props.currentUser.key)
     }
 
     render () {
-            console.log(this.props.currentUser, "*******")
+        console.log("name:", this.props.updatedUser, "*******")
             return (
-                <div>
-                    <h1>My Profile</h1>
-                    <img src={this.props.currentUser.image ? this.props.currentUser.image: null} />
-                    <p>{this.props.currentUser.name}</p>
-                     <p>{this.props.currentUser.email}</p>
-            
-                    <form onSubmit = {this.handleSubmit}>
-                        Name: <input name = "username" onChange = {this.nameUpdate}/>
-                        <br />
-                        Email: <input name = "email" onChange = {this.emailUpdate}/>
-                        <br />
-                        Password: <input name = "password" onChange = {this.passwordUpdate}/>
-                        <button type="submit">Submit</button>
-                    </form>
+                <div className = "saffire-user-settings-div">
+                    <BurgerMenu />
+
+
+                    <h1>SAFFIRE</h1>
+                    
+                    <div className = "saffire-profile-div">
+                        <h3>MY PROFILE</h3>
+                        
+                        <p>
+                            <span className = "saffire-label">NAME:</span>
+                            <span className = "saffire-user-information">{this.props.currentUser.name}</span>
+                        </p>
+
+                        <p>
+                            <span className = "saffire-label">EMAIL:</span>
+                            <span className = "saffire-user-information">{this.props.currentUser.email}</span>
+                        </p>
+                    </div>
+
+                    <div className = "saffire-user-setting-change-div">
+                        <form className = "saffire-user-setting-form" onSubmit = {this.handleSubmit}>
+                            <label>NAME:</label><input type ="text" name = "username" onChange = {this.nameUpdate} placeholder = "name"/>
+                            <br />
+                            <label>EMAIL:</label><input type = "email" name = "email" onChange = {this.emailUpdate} placeholder = "email"/>
+                            <br />
+                            <label>PASSWORD:</label><input type = "password" name = "password" onChange = {this.passwordUpdate} placeholder ="password"/>
+                            <br />
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
                 </div>
             )
         }

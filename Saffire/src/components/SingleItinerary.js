@@ -14,6 +14,7 @@ import cron from 'node-cron'
 import axios from 'axios'
 import NotificationCounter from './NotificationCounter'
 import SkyLight from 'react-skylight';
+import history from '../history';
 
 import {
     blue300,
@@ -251,6 +252,9 @@ class SingleItinerary extends Component{
 
                                         </List>
                                     ))}
+                                    <div className="idea-to-itin">
+                                        <div className="view-itinerary" onClick={() => {history.push(`/ideaboard/${this.props.match.params.id}`)}} >IDEABOARD</div>
+                                    </div>
                                 </div>
                             </MuiThemeProvider>
                         </div>
@@ -263,11 +267,11 @@ class SingleItinerary extends Component{
                 </div>
 
 
-                <div className="single-itin-map">
+                {/* <div className="single-itin-map">
                 {this.props.connect &&
                 <MapComp itinKey = {this.props.match.params}/>
                 }
-                </div>
+                </div>  */}
 
 
 
@@ -399,12 +403,6 @@ class SingleItinerary extends Component{
 
 
                         </div>
-
-
-
-
-
-
 
                             {this.state.showForm.title &&
                             <div>

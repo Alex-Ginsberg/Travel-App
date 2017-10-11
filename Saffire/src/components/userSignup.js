@@ -71,6 +71,7 @@ class UserSignup extends React.Component {
       password: this.state.password
     })
     console.log(firebase.auth().currentUser)
+    this.props.history.push('/')
   }
 }
 
