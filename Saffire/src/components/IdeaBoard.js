@@ -140,7 +140,7 @@ class IdeaBoard extends Component {
         let itineraryName = this.props.connect ? this.props.itineraryName : this.state.itin
         let friends = this.props.connect ? this.props.currentUser.friends : JSON.parse(window.localStorage.currentUser).friends
         const currentEvents = this.props.connect ? this.props.currentEvents : this.state.events
-        console.log(currentEvents)
+        console.log('current Events IDEA BOARD', currentEvents)
         const currentUser = this.props.connect ? this.props.currentUser : JSON.parse(window.localStorage.currentUser)
         const isOwner = currentUser.email === itinerary.owner
         const currentMemberEmails = []
@@ -149,7 +149,6 @@ class IdeaBoard extends Component {
         })        
         const friendsArr = []
         for (var key in friends) {
-            console.log(friends[key])
             if (currentMemberEmails.indexOf(friends[key].email) === -1){
                 friendsArr.push(friends[key])
             }
@@ -250,7 +249,11 @@ class IdeaBoard extends Component {
                     {/* Will render out all events that have not been added yet */}
                     {currentEvents.map(event => (
                         <MuiThemeProvider muiTheme={muiTheme}>
-                            {!event.added  && <div className="idea-board-plan-event" id ={event.key}><LinkPreview  eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} key={this.props.match.params.id}  likes={event.likes} likedBy={event.likedBy} user={currentUser} isOwner={isOwner} comments={event.comments}/></div>}
+                            {!event.added  &&
+                            <div className="idea-board-plan-event" id ={event.key}>
+
+                                <LinkPreview  placeID={event.placeID} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} key={this.props.match.params.id}  likes={event.likes} likedBy={event.likedBy} user={currentUser} isOwner={isOwner} comments={event.comments}/>
+                            </div>}
                         </MuiThemeProvider>
                     ))}
                 </div>

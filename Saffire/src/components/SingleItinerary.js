@@ -94,7 +94,6 @@ class SingleItinerary extends Component{
         }
         const ownerAdd = this.props.users.filter(currentUser => currentUser.email === this.state.itin.owner)
         memberArray.push(ownerAdd[0])
-        console.log('MEMBERS: ', memberArray)
 
         /*
             FIREBASE EVENT LISTENERS

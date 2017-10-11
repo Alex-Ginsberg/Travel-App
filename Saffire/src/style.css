@@ -1214,7 +1214,7 @@ color: #fff;
     font-size: 1em;
     font-family: 'Montserrat', sans-serif;
     color: black;
-    letter-spacing: .2em;
+    /*letter-spacing: .2em;*/
     margin-top: 15px;
     margin-bottom: 15px;
 }

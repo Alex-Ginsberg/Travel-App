@@ -70,6 +70,8 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
             const events = snapshot.val().events                                          // Get the events object from the reference
             let eventsArr = []
             for (let key in events) {                                                       // Loop adds an object to state array
+                // console.log('')
+
                 const toAdd = {
                     key: key,
                     added: events[key].added,
@@ -80,7 +82,8 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
                     likes: events[key].likes,
                     likedBy: events[key].likedBy,
                     location: events[key].location,
-                    comments: events[key].comments
+                    comments: events[key].comments,
+                    placeID: events[key].place
                     // address: events[key].gmaps.formatted_address,
                 }
                 eventsArr.push(toAdd)
@@ -97,6 +100,7 @@ export const addEvent = (url, itinID) => dispatch => {
             // let isFirstEvent = false
             // con newId
             const currentItinRef = firebase.database().ref().child('itineraries').child(itinID).child('events')
+            console.log('add event ', preview)
             const newRef = currentItinRef.push({title: preview.title,
                 description: preview.description,
                 image: preview.image,
@@ -106,7 +110,7 @@ export const addEvent = (url, itinID) => dispatch => {
                 location: {
                     lat: 0,
                     lng: 0
-                }      
+                }
             })
             const newId = newRef.key
             const eventNode = {
@@ -719,8 +723,6 @@ export const removeNotification = (user, body) => dispatch => {
             }
         })
         .then(reqKey => {
-            console.log('KEY: ', reqKey)
-            console.log('USER: ', user.key)
             firebase.database().ref().child('users').child(user.key).child('notifications').child(reqKey).remove()
             dispatch(getCurrentUser())
         })
@@ -752,6 +754,7 @@ export const getItineraryMembers = itinKey => dispatch => {
 
 
 export const googlePlacesDetails = (placeID) => dispatch => {
+    console.log('ACTIONS PLACEID', placeID);
     const placesDetails = axios.post(`http://localhost:5001/deets-76612/us-central1/helloWorld?placeid=${placeID}`);
 
         placesDetails
