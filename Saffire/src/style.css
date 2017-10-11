@@ -28,7 +28,7 @@ body {
 
 .sapphire-app {
     text-align: center;
-    background-image: url("/assets/dennis-kummer-171041.jpg");
+    background-image: url("/assets/shutterstock_370732148.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -37,7 +37,7 @@ body {
 .sapphire-app-title {
     font-family: 'Montserrat', sans-serif;
     font-size: 4.5em;
-    color: white;
+    color: black;
     letter-spacing: .4em;
     padding-top: 1.5em;
     display: inline-block;
@@ -48,7 +48,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.6em;
     display: inline-block;
-    color: white;
+    color: black;
     padding: 0 15px;
     padding-bottom: .5em;
 }
@@ -90,7 +90,7 @@ body {
 }
 
 #home-page-label {
-    color: white;
+    color: black;
     font-weight: 300;
     font-size: 2em;
     padding-bottom: 30px;
@@ -636,7 +636,7 @@ MENU ITEM
 .saffire-all-itineraries-img {
     border-radius: 5px;
     width: 400px;
-
+    height: 250px;
 }
 
 .little-saffire-item {
@@ -795,47 +795,47 @@ MENU ITEM
 */
 
 .saffire-friends-container {
-    /*background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/U3ESM8YMDM.jpg");*/
+    background-image: url("/assets/StockSnap_U2YGKACAVC.jpg");
     background-size: cover;
     height: 100vh;
 }
 
-.friends-header > h1 {
+.saffire-friends-container h1 {
     font-family: 'Montserrat', sans-serif;
-    color: black;
-    letter-spacing: .2em;
+    color: white;
+    letter-spacing: .3em;
     text-align: center;
-    font-size: 3em;
-    padding-top: 30px;
+    font-size: 4em;
+    padding-top: 80px;
 }
 
-.my-friends-list {
-    text-align: center;
+.saffire-friends-column-8 {
+    width: 64%;
+    display: inline-block;
 }
-.saffire-friends-title {
+
+.saffire-friends-column-8 h2{
+    color: white;
+    letter-spacing: .2em;
+    text-decoration: underline;
     font-size: 3em;
     text-align: center;
-    color: #b8b7ad;
-    padding-top: 100px;
-    text-decoration: underline;
-    letter-spacing: .1em;
+    padding-top: 40px;
 }
 
 .saffire-friends-little-wrapper {
-    /*padding-top: 80px;*/
-    width: 500px;
     display: grid;
-    /*grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));*/
-    color: white;
-    margin-bottom: 30px;
-    /*overflow-y: auto;*/
-    /*max-width: 500px;*/
-    /*max-height: 500px;*/
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-gap: 40px 0px;
+}
+
+.sapphire-friends-column-4 {
+    width: 33%;
+    float: right;
 }
 
 .saffire-friend-item {
     background-color: lightgrey;
-    /*box-shadow: 5px 5px grey;*/
     margin: 0 auto;
 }
 
@@ -851,36 +851,25 @@ MENU ITEM
     padding: 20px 0;
 }
 
-.friends-header {
-    text-align: center;
-    padding-top: 30px;
+.clearfix,
+.clearfix:after {
+    clear: both;
 }
 
-.find-friend {
-    width:300px;
-    height:300px;
-    background-color:white;
-    overflow-y: auto;
-    max-width:300px;
-    padding: 12px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 15px;
-
+.sapphire-friends-notification-div {
+    color: white;
 }
 
-.friend-requests {
-    width:300px;
-    height:300px;
-    background-color:white;
-    overflow-y: auto;
-    max-width:300px;
-    padding: 12px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 200px;
-
+.sapphire-friends-notification-div h3{
+    font-size: 1.8em;
+    padding-top: 70px;
+    letter-spacing: .2em;
 }
+
+.sapphire-friends-notification-div p {
+    font-size: 1.3em;
+}
+
 
 .remove-notification-button {
     display: inline-block;
@@ -889,6 +878,7 @@ MENU ITEM
 .notification-body {
     display: inline-block;
 }
+
 
 /*
     ==================================
@@ -1009,16 +999,25 @@ color: #fff;
 
 
 
+/*
+    ==================================
+            Find Friends 
+    ==================================
+*/
 
-
-
-.find-friends.container {
-    padding: 15px;
-    text-align: center;
+#sapphire-find-friends-title {
+    font-family: 'Montserrat', sans-serif;
+    padding-top: 60px;
+    text-align: left;
+    color:white;
+    letter-spacing: .2em;
+    font-size: 1.7em;
 }
 
-.find-friend-form {
-    text-align: center;
+.find-friend-form input {
+    width: 80%;
+    border-radius: 5px;
+    font-style: italic;
 }
 
 .find-friend-form button {
@@ -1027,37 +1026,29 @@ color: #fff;
 
 
 .found-friend {
-    text-align: center;
-    margin-top: 15px;
     font-family: 'Montserrat', sans-serif;
-    color: black;
+    color: white;
     letter-spacing: .2em;
-    text-align: center;
     font-size: 1.5em;
-    padding-top: 30px;
+    padding-top: 40px;
     display: flex;
     flex-direction: row;
-    width: 100px;
-    justify-content: space-between;
-
 }
 
 .found-friend h3 {
-    padding-right: 10px;
+    padding-right: 20px;
 }
 
+/*
+    =====================================
+               Friend Requests
+    =====================================
+*/
 
-
-.find-friends-container h1{
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    letter-spacing: .2em;
-    text-align: center;
-    font-size: 1.5em;
-    padding-top: 30px;
-
+.saffire-friend-requests-div {
+    color: white;
+    padding-top: 70px;
 }
-
 
 /*
     ==================================

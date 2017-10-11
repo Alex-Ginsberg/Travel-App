@@ -28,68 +28,43 @@ class MyFriends extends React.Component {
     }
     return (
       <div className="saffire-friends-container">
-          <div className="friends-header">
-            <BurgerMenu />
-              <h1>SAFFIRE</h1>
-          </div>
+        
+        <BurgerMenu />
+        <h1>SAFFIRE</h1>
 
-
-          <div className="row">
-
-              <div className="col-lg-8">
-                  <div className="my-friends-list">
-                  <h1 className = "saffire-friends-title">My Friends</h1>
-                    <div className = "saffire-friends-little-wrapper">
-                        {
-                         friends.map(friend => {
-                             return (
-                                 <div className = "saffire-friend-item">
-                                     <img src = {toonAvatar.generate_avatar()} />
-                                        <div className = "friend-align">
-                                            <p>{this.props.currentUser[friend].name}</p>
-                                            <p>{this.props.currentUser[friend].email} </p>
-                                        </div>
+        <div className="saffire-friends-column-8 clearfix">
+            <h2>MY FRIENDS</h2>
+            <div className = "saffire-friends-little-wrapper">
+                {
+                    friends.map(friend => {
+                        return (
+                            <div className = "saffire-friend-item">
+                                <img src = {toonAvatar.generate_avatar()} />
+                                <div className = "friend-align">
+                                    <p>{this.props.currentUser[friend].name}</p>
+                                    <p>{this.props.currentUser[friend].email} </p>
                                 </div>
-                             )
-                         })
-                        }
-                    </div>
-                  </div>
-              </div>
+
+                        </div>
+                        )
+                    })
+                }
+            </div>
+        </div>
 
 
-              <div className="col-lg-3">
-                  <div className="saffire-friends-dash-friendUtilities">
-
-                      <div className="find-friend">
-                      <FindFriends />
-                      </div>
-                            {notificationArray.length > 0 && 
-                            <div>
-                                <h3>Your notifications:</h3>
-                                {notificationArray.map(notification => (
-                                    <div key={notification.body}>
-                                        <button className="remove-notification-button btn btn-danger" onClick={() => this.props.removeNotification(this.props.user, notification.body)}>X</button>
-                                        <h5 className="notification-body">{notification.body}</h5>
-                                    </div>
-                                ))}
-                            </div>
-                            }
-
-                      <div className="friend-requests">
-                      <FriendRequests />
-                      </div>
-
-                  </div>
-
-
-
-              </div>
-
-
-
-
-          </div>
+        <div className="sapphire-friends-column-4 clearfix">
+            <FindFriends />
+            { notificationArray.length > 0 && 
+                <div className = "sapphire-friends-notification-div">
+                    <h3>MY NOTIFICATIONS</h3>
+                    {notificationArray.map(notification => (
+                        <p onClick={() => this.props.removeNotification(this.props.user, notification.body)}>{notification.body}</p>
+                    ))}
+                </div>
+            }
+            <FriendRequests />
+        </div>
 
       </div>
     )

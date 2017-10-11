@@ -37,30 +37,25 @@ class FindFriends extends Component {
 
 
     render() {
+
         // const users = this.props.users;
+
         return (
-        <div className="find-friends-container">
-            <h1>Find Friends!</h1>
+        <div className="sapphire-find-friends-container">
+            <h1 id = "sapphire-find-friends-title">FIND FRIENDS</h1>
 
-            <div className="find-friend-form">
-                <form onSubmit={this.handleSubmit}>
-                    <input type="email" placeholder="enter email" className="form-control" onChange={this.handleChange}/>
-                    <button type="submit" className="btn btn-primary">SEARCH</button>
-                </form>
-            </div>
+            <form className = "find-friend-form" onSubmit={this.handleSubmit}>
+                <input type="email" placeholder="enter email" className="form-control" onChange={this.handleChange}/>
+                <button type="submit" className="btn btn-primary">SEARCH</button>
+            </form>
 
-            {this.props.searchUser.email &&
-
-            <div className="found-friend">
+            {
+                this.props.searchUser.email &&
+                <div className="found-friend">
                     <h3>{this.props.searchUser.name}</h3>
                     <button type="submit" className="btn btn-primary" onClick={() => this.props.sendFriendRequest(this.props.currentUser, this.props.searchUser)}>SEND REQUEST</button>
-
-            </div>
+                </div>
             }
-
-
-
-
         </div>
         )
     }
