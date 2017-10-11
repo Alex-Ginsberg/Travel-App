@@ -270,9 +270,9 @@ class SingleItinerary extends Component{
                                                                         {event.title.split(',')[0]} @ {event.schedule.time}
                                                                     </ListItem>
 
-                                                                    <button className="btn btn-danger" onClick={() => {
+                                                                    {this.props.connect && <button className="btn btn-danger" onClick={() => {
                                                                     this.props.removeSchedule(this.props.match.params.id, event)
-                                                                    }}>REMOVE</button>
+                                                                    }}>REMOVE</button>}
                                                                 </div>
                                                             </List>
                                                         }
