@@ -19,19 +19,19 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
         axios.post(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeid}&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`)
             .then(res => res.data)
             .then(result => {
-                // const simplifiedResult = Object.assign({}, {
-                //     name: result.result.name,
-                //     openingHours: result.result.opening_hours,
-                //     photos: result.result.photos,
-                //     placeID: result.result.place_id,
-                //     priceLevel: result.result.price_level,
-                //     rating: result.result.rating,
-                //     vicinity: result.result.vicinity,
-                //     website: result.result.website,
-                //     reviews: result.result.reviews
-                // })
+                const simplifiedResult = Object.assign({}, {
+                    name: result.result.name,
+                    openingHours: result.result.opening_hours,
+                    photos: result.result.photos,
+                    placeID: result.result.place_id,
+                    priceLevel: result.result.price_level,
+                    rating: result.result.rating,
+                    vicinity: result.result.vicinity,
+                    website: result.result.website,
+                    reviews: result.result.reviews
+                })
              
-                // response.json(simplifiedResult);
+                response.json(simplifiedResult);
             })
             .catch(err => console.log(err));
     })
