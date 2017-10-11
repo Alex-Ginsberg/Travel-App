@@ -31,7 +31,6 @@ body {
     background-image: url("/assets/shutterstock_370732148.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100%;
     height: 100vh;
 }
 
@@ -221,7 +220,7 @@ and (max-device-width: 667px) */
     background-image: url("/assets/StockSnap_U2YGKACAVC.jpg");
     background-size: cover;
     height: 100vh;
-    height: 100vh;
+
 }
 
 .sapphire-user-signup-div h1 {
@@ -604,8 +603,8 @@ MENU ITEM
 .saffire-all-itineraries-div{
     background-image: url("/assets/pawel-nolbert-284898.jpg");
     background-size: cover;
+    min-height: 100vh;
     height: 100%;
-    height: 100vh;
 }
 
 .saffire-all-itineraries-div h1 {
@@ -800,8 +799,8 @@ MENU ITEM
 .saffire-friends-container {
     background-image: url("/assets/StockSnap_U2YGKACAVC.jpg");
     background-size: cover;
+    min-height: 100vh;
     height: 100%;
-    height: 100vh;
 }
 
 .saffire-friends-container h1 {
@@ -1213,7 +1212,6 @@ color: #fff;
     background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7FL8QPFX/background.png");
     background-repeat: no-repeat;
     height: 100vh;
-    height: 100%;
     background-size: cover;
 }
 
