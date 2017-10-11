@@ -26,7 +26,6 @@ class Distance extends Component {
       return (
         
           <div>
-            <p>Travel Time by Car</p>
             <ul> 
             {currentCoordinates.coorTime.map((time, i) => {
               if( i !== 0){
