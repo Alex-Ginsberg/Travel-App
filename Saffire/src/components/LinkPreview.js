@@ -128,14 +128,14 @@ class LinkPreview extends Component {
 
 
         <div className="link-buttons">
-          {!this.props.hasBeenAdded && <div className="linkpreview-hover" label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={((likedByArray.indexOf(this.props.user.email)) > -1) || !this.props.connect}>JOIN EVENT</div>}
-            {(!this.props.hasBeenAdded && this.props.isOwner) && <div className="linkpreview-hover" label="Add To Itinerary" disabled={!this.props.connect} onClick={() => this.props.confirmEvent(this.props.eventKey, this.props.itinKey) }> ADD TO ITINERARY </div>}
-          {(!this.props.hasBeenAdded && this.props.isOwner) && <div className="linkpreview-hover" label="Remove" onClick={() => {
+          {(!this.props.hasBeenAdded && this.props.connect) && <div className="linkpreview-hover" label={`Like ${this.props.likes}`} onClick={() => this.props.newLike(this.props.eventKey, this.props.itinKey)} disabled={((likedByArray.indexOf(this.props.user.email)) > -1) || !this.props.connect}>JOIN EVENT</div>}
+            {(!this.props.hasBeenAdded && this.props.isOwner && this.props.connect) && <div className="linkpreview-hover" label="Add To Itinerary" disabled={!this.props.connect} onClick={() => this.props.confirmEvent(this.props.eventKey, this.props.itinKey) }> ADD TO ITINERARY </div>}
+          {(!this.props.hasBeenAdded && this.props.isOwner && this.props.connect) && <div className="linkpreview-hover" label="Remove" onClick={() => {
             firebase.database().ref().child('itineraries').child(this.props.itinKey).child('events').child(this.props.eventKey).remove()
             this.props.fetchEvents(this.props.itinKey, true)
             }}
           >REMOVE</div> }
-          {!this.props.hasBeenAdded && <div className="linkpreview-hover" disabled={!this.props.connect} onClick={() => this.setState({showComments: !this.state.showComments})}> Comments </div>}
+          {(!this.props.hasBeenAdded && this.props.connect) && <div className="linkpreview-hover" disabled={!this.props.connect} onClick={() => this.setState({showComments: !this.state.showComments})}> Comments </div>}
           
         </div>
 
