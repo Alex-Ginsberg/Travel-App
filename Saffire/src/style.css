@@ -1290,6 +1290,66 @@ color: #fff;
     margin: 15px;
 }
 
+
+
+.details-locationnear h3{
+    text-align: right;
+    font-size: .7em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+.google-details-reviews {
+    margin: 10px;
+    overflow: scroll;
+
+}
+
+.google-details-main {
+    overflow: scroll;
+}
+
+
+.google-details-info h4 {
+    font-size: 1.4em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.google-individual-review p {
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+
+#photos {
+    /* Prevent vertical gaps */
+    line-height: 0;
+    -webkit-column-count: 3;
+    -webkit-column-gap:   0px;
+    -moz-column-count:    3;
+    -moz-column-gap:      0px;
+    column-count:         3;
+    column-gap:           0px;
+}
+
+#photos img {
+    /* Just in case there are inline attributes */
+    width: 100% !important;
+    height: auto !important;
+}
+
 /*
     ======================================
                 User Settings
@@ -1324,7 +1384,7 @@ color: #fff;
     letter-spacing: 0.2em;
     border-bottom: 1px solid white;
     color: white;
-    margin-top: 180px;
+    margin-top: 100px;
 }
 
 .saffire-profile-div p {
@@ -1381,5 +1441,87 @@ color: #fff;
     color: black;
     font-weight: 600;
     font-size: 20px;
+}
+
+@media(min-width: 400px) and (max-width: 550px) {
+    .saffire-user-settings-div h1 {
+        font-size: 1.6em;
+    }
+
+    .saffire-profile-div h3 {
+        font-size: 1.6em;
+    }
+
+    .saffire-label {
+        font-size: .9em;
+    }
+
+    .saffire-user-information {
+        font-size: .9em;
+    }
+
+    .saffire-user-setting-form button {
+        width: 100px;
+    }
+}
+
+@media(min-width: 550px) and (max-width: 730px) {
+    
+    .saffire-label {
+        font-size: 1.2em;
+    }
+
+    .saffire-user-information {
+        font-size: 1.2em;
+    }
+
+    .saffire-user-setting-form button {
+        width: 150px;
+    }
+}
+
+@media(min-width: 550px) and (max-width: 730px) {
+    .saffire-user-settings-div h1 {
+        font-size: 2.5em;
+    }
+    
+    .saffire-profile-div h3 {
+        font-size: 2em;
+    }
+}
+
+@media only screen and (min-width: 375px ) and (max-width: 667px) {
+    .saffire-user-settings-div h1 {
+        font-size: 1.7em;
+    }
+
+    .saffire-profile-div h3 {
+        font-size: 1.4em;
+        margin-top: 40px;
+    }
+
+    .saffire-label {
+        font-size: 1em;
+    }
+
+    .saffire-user-information {
+        font-size: .9em;
+    }
+
+    .saffire-user-setting-form {
+        margin-top: 30px;
+    }
+
+    .saffire-user-setting-form button {
+        width: 80px;
+        font-size: 15px;
+    }
+    .saffire-user-setting-form label {
+        font-size: 1em;
+    }
+
+    .saffire-user-setting-form input {
+        width: 90%;
+    }
 }
 
