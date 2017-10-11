@@ -200,11 +200,11 @@ class SingleItinerary extends Component{
                 </div>
 
 
-                {/* <div className="single-itin-map">
+                <div className="single-itin-map">
                 {this.props.connect &&
                 <MapComp itinKey = {this.props.match.params}/>
                 }
-                </div>  */}
+                </div>  
 
 
 

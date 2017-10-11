@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import LinkPreview from './LinkPreview'
-import { addEvent, fetchEvents, addToItinerary, confirmEvent, googlePlace, getItineraryMembers } from '../actions';
+import { addEvent, fetchEvents, addToItinerary, confirmEvent, googlePlace, getItineraryMembers, postUserCoordinates } from '../actions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import firebase from 'firebase';
 import Geosuggest from 'react-geosuggest';
@@ -38,6 +38,7 @@ class IdeaBoard extends Component {
         const currentItinKey = this.props.match.params.id;
         this.props.getItineraryEvents(this.props.match.params.id)
         this.props.getItineraryMembers(this.props.match.params.id)
+        this.props.askUserCoor(this.props.match.params.id)
         // If the user is connected to the internet, find the current itinerary in firebase, set it on state, and dispatch to find the events associated with it
         if (this.props.connect) {
             const itinRef = firebase.database().ref().child('itineraries').child(currentItinKey)
@@ -303,6 +304,9 @@ const mapDispatchToProps = (dispatch) => {
         getItineraryMembers(itinKey) {
             dispatch(getItineraryMembers(itinKey))
         },
+        askUserCoor(itinKey) {
+            dispatch(postUserCoordinates(itinKey))
+        }
     }
 }
 

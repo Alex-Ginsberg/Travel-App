@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import googleMaps from '@google/maps'
 import {googServerKey, mapboxKey} from '../secrets.js'
 import {connect} from 'react-redux'
 import mapboxgl from 'mapbox-gl'
@@ -10,14 +9,12 @@ import {Distance, Loading} from '../components'
 
 
 
-//creates Google Client and serves key
-let googleMapsClient = googleMaps.createClient({
-  key: googServerKey
-})
 
 //creates map and serves accessToken
 const Map = ReactMapboxGl({
-    accessToken: mapboxKey
+    accessToken: mapboxKey,
+    doubleClickZoom: true,
+    
 })
 
 
@@ -25,8 +22,8 @@ const Map = ReactMapboxGl({
 export class MapComp extends Component {
   constructor(props){
     super(props)
-    this.handleClickLocal = this.handleClickLocal.bind(this)
     this.onClickMap = this.onClickMap.bind(this)
+    this.onClickMap = this.onClickMarker.bind(this)
     this.state = {
       userCoordinates: [],
       onClickDirty: false,
@@ -34,21 +31,7 @@ export class MapComp extends Component {
     }
   }
 
-  // componentWillMount() {
-  //   this.props.handleClick(this.props.itinKey)
-  // }
-    
-    // componentWillReceiveProps (nextProps) {
-    //   console.log('nextprops***', nextProps)
-    //   this.setState({userCoordinates: nextProps.currentCoordinates.userCoor})
-      
-    //   //this.props.handleUser(nextProps.currentCoordinates.userCoor)
-    // }
-
     componentDidMount() {
-      console.log('component mount hit')
-      //this.setState({userCoordinates: this.props.handleClick(this.props.itinKey.id)})
-     this.props.handleClick(this.props.itinKey)
 
      let userCoordinates = this.state.userCoordinates
      let userLocation = []
@@ -81,7 +64,6 @@ export class MapComp extends Component {
      }})
      .then(events => {
        if(events){
-       console.log('events***', events)
        return events.map(event => {
          return event.location
        })
@@ -99,106 +81,86 @@ export class MapComp extends Component {
     }
 
 
-    handleClickLocal (e) {
-      let itinKey = this.props.itinKey
-      this.props.handleClick(itinKey)
-      //let result = this.props.handleClick(key.id)
-      // this.setState({
-      //   userCoordinates: result,
-      //   onClickDirty: true,
-      // })
-
-
-    }
-
     onClickMap(map, evt) {
-      console.log('evt*****', evt)
       map.flyTo({
         center: [evt.lngLat.lng, evt.lngLat.lat],
-        zoom: 11
+        
       })
     }
 
     onClickMarker(marker) {
-      console.log(document.getElementsByClassName('map-map'))
-      console.log('e*****', marker)
+      marker.map.flyTo({
+        center: [marker.lngLat.lng, marker.lngLat.lat],
+        zoom: 5.4,
+        curve: 2,
+      })
+     
     }
 
     render() {
       let {handleClick, user, itineraryName, itinKey, currentCoordinates} = this.props
 
-      console.log('propsuserCoor', currentCoordinates)
-      // let userCoordinates = this.state.userCoordinates
-      // let userLocation = []
-      // let userCoor = firebase.database().ref().child('itineraries').child(itinKey.id).child('coordinates')
-
-      // //get user coordinate
-      // userCoor.once('value')
-      // .then(result => {
-      //   let objResult = Object.keys(result.val())
-      //   userLocation.push(result.val()[objResult[0]].lat, result.val()[objResult[0]].long )
-      //   console.log('userlocation', userLocation)
-      // })
-
-      
       return (
-          
-          <div>
+    
+          <div id="mapbox-map" style={{marginLeft: "20em"}}>
             
-            {
+           {this.state.userCoordinates.length &&
             <Map 
             key = "UniqueMap"
-            zoom={[1]}
-            center={[-74.0, 40.7]}
+            zoom={[1.1]}
+            center={[-35.01, 30.09]}
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
-              height: "25em",
-              width: "100%"
+              height: "50vh",
+              width: "50vw",
             }}
-            className="map-map"
-            onClick={this.onClickMap}
-            
-            >
+            className="map-map">
               <Layer
                 type="symbol"
                 id="marker"
-                layout={{ "icon-image": "/assets/user-marker.png" }}>
-                <Feature coordinates={[this.state.userCoordinates]} onClick={this.onClickMarker} />
+                layout={{ "icon-image": "marker-15" }}>
+                {this.state.locations.map((location, index) => (
+                
+                    <Feature
+                    key={index}
+                    onClick={this.onClickMarker}
+                    coordinates={location}/>
+                  
+                ))}
+              </Layer>
+              <Layer
+                type="symbol"
+                id="marker-user"
+                layout={{ "icon-image": "marker-15" }}>
+                
+                    <Feature
+                    onClick={this.onClickMarker}
+                    coordinates={this.state.userCoordinates}/>
+                  
               </Layer>
               <div className="map-marker">
-            <Marker 
-              coordinates={this.state.userCoordinates}
-              anchor="bottom"
-              onClick={this.onClickMarker}
-              >
+            <Marker coordinates={this.state.userCoordinates} anchor="bottom">
               <img  style = {{width: "54px", height: "54px"}} src="/assets/user-marker.png"/>
             </Marker>
             {this.state.locations && this.state.locations.map((location, i)=> {
+
               return (
                 
-                <Marker
-                coordinates={location}
-                anchor="bottom"
-                onClick={this.onClickMarker}
-                >
-                <img style = {{width: "54px", height: "54px"}} src="/assets/map-marker.png"/>
+                <Marker coordinates={location} anchor="bottom">
+                <img style = {{width: "40px", height: "40px"}} src="/assets/map-marker.png"/>
                 </Marker>
                 
-              )
-            })}
+              )}
+            )}
               </div>
               <div className="user-Marker">
                 {}
               </div>
           </Map> 
         }
-          {/* <div>
-            <p><button onClick={this.handleClickLocal}>Show my location</button></p>
-            <div id="out"></div>
-          </div> */}
            <div>
              {this.state.locations.length && 
-          <Distance userCoordinates={this.state.userCoordinates} locations={this.state.locations}/>
+          <Distance userCoordinates={this.state.userCoordinates} itinKey={this.props.itinKey} locations={this.state.locations}/>
              }
           </div> 
           </div>
@@ -209,7 +171,6 @@ export class MapComp extends Component {
     }
 
 const mapState = state => {
-  console.log('stateprops', state.current)
   return {
   itineraryName: state.currentItinerary,
   users: state.users,
@@ -221,8 +182,6 @@ const mapState = state => {
 const mapDispatch = dispatch => {
    return {
     handleClick (key) {
-      console.log('clicked***')
-      console.log('itinKey******', key.id)
       let keyID = key.id
       dispatch(postUserCoordinates(keyID))
     }, 
