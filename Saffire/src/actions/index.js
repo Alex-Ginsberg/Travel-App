@@ -753,14 +753,12 @@ export const getItineraryMembers = itinKey => dispatch => {
 
 
 export const googlePlacesDetails = (placeID) => dispatch => {
+    const placesDetails = axios.post(`http://localhost:5001/deets-76612/us-central1/helloWorld?placeid=${placeID}`);
 
-    const placesDetails = axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeID}&key=${googlePlacesKey}`);
-    placesDetails
-        .then(res => res.data)
-        .then(result => {
-            const simplifiedResult = Object.assign({}, {name: result.result.name, openingHours: result.result.opening_hours, photos: result.result.photos, placeID: result.result.place_id, priceLevel: result.result.price_level, rating: result.result.rating, vicinity: result.result.vicinity, website: result.result.website, reviews: result.result.reviews})
-            console.log('googleplacesthunk', simplifiedResult);
-            dispatch(googlePlaceDetails(simplifiedResult))
+        placesDetails
+        .then(res => {
+            console.log('CLIENT SIDE', res)
+            dispatch(googlePlaceDetails(res.data))
         })
         .catch(err => console.log(err));
 }

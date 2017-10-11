@@ -1294,6 +1294,66 @@ color: #fff;
 }
 
 
+
+
+.details-locationnear h3{
+    text-align: right;
+    font-size: .7em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+.google-details-reviews {
+    margin: 10px;
+    overflow: scroll;
+
+}
+
+.google-details-main {
+    overflow: scroll;
+}
+
+
+.google-details-info h4 {
+    font-size: 1.4em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.google-individual-review p {
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+
+#photos {
+    /* Prevent vertical gaps */
+    line-height: 0;
+    -webkit-column-count: 3;
+    -webkit-column-gap:   0px;
+    -moz-column-count:    3;
+    -moz-column-gap:      0px;
+    column-count:         3;
+    column-gap:           0px;
+}
+
+#photos img {
+    /* Just in case there are inline attributes */
+    width: 100% !important;
+    height: auto !important;
+}
+
 /*
     ======================================
                 User Settings
@@ -1468,3 +1528,4 @@ color: #fff;
         width: 90%;
     }
 }
+
