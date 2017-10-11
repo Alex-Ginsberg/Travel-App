@@ -32,7 +32,8 @@ class LinkPreview extends Component {
     let initialDataLoad = false
     if (this.props.eventKey && this.props.itinKey) {
       const commentRef = firebase.database().ref().child('itineraries').child(this.props.itinKey).child('events').child(this.props.eventKey).child('comments')
-      commentRef.on('child_added', snapshot => {
+
+        commentRef.on('child_added', snapshot => {
         if (initialDataLoad){
           initialDataLoad = false
           const commentArray = []
@@ -63,10 +64,10 @@ class LinkPreview extends Component {
             commentArray.push(newComment)
             this.setState({newComments: commentArray})
           }
-          
-          
         }
       })
+
+
       commentRef.once('value', snapshot => {
         initialDataLoad = true
       })

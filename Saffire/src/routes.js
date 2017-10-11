@@ -5,15 +5,26 @@ import history from './history'
 import {connect} from 'react-redux'
 import {fetchUsers} from './actions'
 import firebase from './firebase'
-import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindFriends, SingleItinerary, FriendRequests, StatusUpdate, MyFriends, WhereTo, UserSettings, NotFound} from './components'
+import { Main, UserLogin, UserSignup, AllItineraries, IdeaBoard, UserHome, FindFriends, SingleItinerary, FriendRequests, StatusUpdate, MyFriends, WhereTo, UserSettings, NotFound, Loading} from './components'
 
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      loading: true,
+    }
+  }
   componentDidMount () {
+
     this.props.loadInitialData()
+
+    setTimeout(() => {
+      this.setState({loading: false})
+    }, 2000 )
 
     /*
       LOADING ALL ITINERARIES ONTO LOCAL STORAGE SO THE USER CAN ACCESS THEM OFFLINE
@@ -33,6 +44,10 @@ class Routes extends Component {
     })
   }
   render () {
+    if(this.state.loading){
+      return <Loading/>
+    }
+
     return (
       <Router history={history}>
         <Switch>

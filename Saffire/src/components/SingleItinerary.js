@@ -68,9 +68,9 @@ class SingleItinerary extends Component{
                 events.push(itinToAdd.events[key])
             }
             this.setState({itin: itinToAdd, events: events})
-
         }
     }
+
 
     renderForm(event) {
         if(!this.state.showForm.title){this.setState({showForm: event})}
@@ -82,6 +82,8 @@ class SingleItinerary extends Component{
         this.props.sendMessage(this.props.user, this.props.match.params.id, this.state.chatMessage)
         // this.setState({chatMessage: ''})
     }
+
+
 
     render() {
         const memberArray = []
@@ -144,7 +146,6 @@ class SingleItinerary extends Component{
 
         let events = []
         let eventScheduled = []
-        console.log('THE CURRENT STATE: ', this.state)
         for (let key in this.state.itin.events) {
             if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){ console.log('not scheduled'); events.push(this.state.itin.events[key])}
             else if (this.state.itin.events[key].schedule){console.log('scheduled'); eventScheduled.push(this.state.itin.events[key])}
@@ -163,6 +164,25 @@ class SingleItinerary extends Component{
         for (let i in this.state.itin.messages) {
             chatMessages.push(this.state.itin.messages[i])
         }
+
+
+        const myBigGreenDialog = {
+            width: '70%',
+            height: '700px',
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            marginTop: '-350px',
+            marginLeft: '-35%',
+            backgroundColor: '#fff',
+            borderRadius: '2px',
+            zIndex: 100,
+            padding: '15px',
+            boxShadow: '0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28)',
+            'transition-duration' : '400ms',
+            overflow: 'auto'
+        };
+
 
         return (
             <div>
@@ -208,6 +228,7 @@ class SingleItinerary extends Component{
 
 
 
+
                 {/*timeline*/}
                 <div className="single-itin-schedule">
                     {/*<div className="row">*/}
@@ -237,7 +258,7 @@ class SingleItinerary extends Component{
 
                                                             </section>
                                                         </SkyLight>
-
+                                                        
                                                         {event.schedule.date === date && 
 
                                                             <List>
@@ -257,11 +278,38 @@ class SingleItinerary extends Component{
                                                         }
                                                     </div>
                                                 ))}
-                                            </div>
-                                        </MuiThemeProvider>
-                                        
-                                    </div>
-                                ))}
+                                                </div>
+                                                
+
+
+
+                                              
+
+                                    
+
+                                </MuiThemeProvider>
+                            </div>
+                        ))}
+
+                             {events.map(event => (
+                                 <div key={event.url} className="single-itin-event-scheduler-node">
+                                     <MuiThemeProvider>
+
+                                         <div className="single-itin-event-scheduler-info">
+                                             <List>
+                                                 <ListItem disabled={true} hoverColor={indigo900} leftAvatar={ <Avatar backgroundColor={blue300} />}>
+                                                     <h5>{event.title}</h5>
+                                                     <p>People going to this event: </p>
+                                                     {event.likedBy && Object.keys(event.likedBy).map(likeByKey => (
+                                                         <p key={likeByKey}>{event.likedBy[likeByKey].name}</p>
+                                                     ))}
+                                                 </ListItem>
+                                                 <button className="single-itin-event-scheduler-button" disabled={!this.props.connect} onClick={() => {this.renderForm(event)}}>Set Schedule</button>
+                                             </List>
+                                         </div>
+                                     </MuiThemeProvider>
+                                 </div>
+                             ))}
 
                                 {events.map(event => (
                                     <div key={event.url} className="single-itin-event-scheduler-node">
@@ -311,10 +359,8 @@ class SingleItinerary extends Component{
                                     )
                                     this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime, toSchedule)
                                     this.setState({showForm: {}})
-                                    
-                                    console.log('MONTH: ', toSchedule.getMonth())
                                     const schedString = `${toSchedule.getSeconds()} ${toSchedule.getMinutes()} ${toSchedule.getHours() - 1} ${toSchedule.getDate()} ${toSchedule.getMonth() + 1} ${toSchedule.getDay()}`
-                                    console.log('TO BE SCHEDULED: ', schedString)
+
                                     memberArray.map(member => {
                                         cron.schedule(schedString, () => {
                                             axios({ url: 'https://fcm.googleapis.com/fcm/send',
@@ -334,6 +380,7 @@ class SingleItinerary extends Component{
                                                 }
                                     })
                                     .then(response => console.log('post sent', response.data))
+                                                .catch(err => console.log(err));
                                         })
                                     })
                                    
@@ -375,7 +422,6 @@ class SingleItinerary extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log('single itin state', state)
     return {
         itineraryName: state.currentItinerary,
         refresh: state.refresh,
