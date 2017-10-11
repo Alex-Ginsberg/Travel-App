@@ -28,7 +28,7 @@ body {
 
 .sapphire-app {
     text-align: center;
-    /* background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg"); */
+    background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -36,35 +36,22 @@ body {
 
 .sapphire-app-title {
     font-family: 'Montserrat', sans-serif;
-    font-size: 3.5em;
-    font-weight: 300;
+    font-size: 4.5em;
     color: black;
-    letter-spacing: .3em;
+    letter-spacing: .4em;
     padding-top: 1.5em;
     display: inline-block;
-    /*margin-right: -200px;*/
     text-align: center;
 }
 
 .sapphire-app-login {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.2em;
+    font-size: 1.6em;
     display: inline-block;
     color: black;
     padding: 0 15px;
     padding-bottom: .5em;
 }
-
-
-.sapphire-auth-div {
-
-    /*font-size: .8em;*/
-    /*float: right;*/
-    /*margin-top: 30px;*/
-    /*margin-right: 50px;*/
-}
-
-
 
 .sapphire-itinerary-form input{
     width: 400px;
@@ -78,8 +65,7 @@ body {
 
 
 .sapphire-itinerary-form button{
-    /*font-size: 25px;*/
-    background-color: #b8b7ad;
+    background-color: #D2691E;
     font-family: 'Montserrat', sans-serif;
     color: white;
     border-radius: 5px;
@@ -89,10 +75,6 @@ body {
     text-align: center;
 }
 
-
-
-
-
 .sapphire-app-login:hover {
     text-decoration: none;
 }
@@ -101,7 +83,6 @@ body {
     background-color: white;
     background: rgba(255, 255, 255, 0.75);
     margin-top: 5em;
-    /*padding: 100px;*/
 }
 
 .sapphire-itinerary-div {
@@ -116,11 +97,6 @@ body {
     letter-spacing: .2em;
 }
 
-/*.clearfix {*/
-    /*clear: both;*/
-    /*display: table;*/
-    /*content: "";*/
-/*}*/
 
 /*
     ========================================
@@ -251,125 +227,13 @@ and (orientation: portrait)
 }
 
 /*
-
-    ==================================
-                Login
-    ==================================
-*/
-
-/*.bg-login {*/
-    /*background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/KPMRVAREV0.jpg");*/
-    /*background-size: cover;*/
-    /*height: 100vh;*/
-/*}*/
-
-/*.box-login {*/
-    /*!* display: inline-block; *!*/
-    /*background-color: #7C7A7A;*/
-    /*opacity: .90;*/
-    /*box-shadow: 15%;*/
-    /*width: 400px;*/
-    /*height: 250px;*/
-    /*!* text-align: center; *!*/
-    /*display:flex;*/
-    /*!* justify-content:center; *!*/
-    /*align-items:center;*/
-    /*margin: auto;*/
-    /*!* margin-top: 200px; *!*/
-    /*!* margin-left: 800px; *!*/
-    /**/
-/*}*/
-
-/*.login-title {*/
-
-/*!*     font-family: "Helvetica Neue";*/
-    /*font-size: 2.5em;*/
-    /*margin: 50px 145px;*/
-    /*position: fixed; *!*/
-
-    /*font-style: "Helvetica";*/
-    /*font-size: 1.2em;*/
-    /*text-align: center;*/
-    /*!* padding-top: 5%; *!*/
-    /**/
-    /*!* position: center; *!*/
-
-/*}*/
-
-
-
-/*.login-form {*/
-    /*margin: auto;*/
-    /*align-content: center;*/
-/*}*/
-
-
-/*.login-label-email {*/
-
-/*!* font-family: "Helvetica Neue";*/
-/*font-size: 2.5em;*/
-/*padding: 10px;*/
-/*margin-left: 120px;*/
-/*}*/
-
-/*.login-label-password {*/
-/*font-family: "Helvetica Neue";*/
-/*font-size: 2.5em;*/
-/*padding: 10px;*/
-/*margin-left: 90px; *!*/
-
-/*font-style: "Helvetica";*/
-/*font-size: 1.2em;*/
-/*!* padding: 5%; *!*/
-/*!* margin-left: 120px; *!*/
-/*}*/
-
-/*.login-label-password {*/
-/*font-style: "Helvetica";*/
-/*font-size: 1.2em;*/
-/*!* padding: 5%; *!*/
-/*!* margin-left: 90px; *!*/
-
-/*}*/
-
-/*.login-input {*/
-    /*width: 90%;*/
-    /*height: 25px;*/
-    /*font-style: "Helvetica";*/
-    /*font-size: .8em;*/
-    /*border-radius: 5%;*/
-    /*!* margin: 5px 30px; *!*/
-    /*margin: 3%;*/
-    /*border: 1px solid black*/
-/*}*/
-
-/*.login-submit-button {*/
-    /*font-size: .8em;*/
-    /*font-style: "Helvetica";*/
-    /*margin: 4%;*/
-    /*border-radius: 5%;*/
-    /*width: 90%;*/
-    /*height: 25px;*/
-    /*!* margin-top: 25px; *!*/
-    /*!* margin-left: 130px; *!*/
-    /*background-color: white;*/
-    /*color: black;*/
-    /*border: 1px solid black*/
-/*}*/
-
-
-
-
-
-
-/*
     ===========================================
-                   User Sign-Up/Login
+                User Sign-Up/Login
     ===========================================
 */
 
 .sapphire-user-signup-div {
-    /*background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/UG76JFIIHZ.jpg");*/
+    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/UG76JFIIHZ.jpg");
     background-size: cover;
     height: 100vh;
 }
@@ -377,23 +241,22 @@ and (orientation: portrait)
 .sapphire-user-signup-div h1 {
     color: black;
     font-family: 'Montserrat', sans-serif;
-    letter-spacing: .2em;
-    font-weight: 100;
+    letter-spacing: .3em;
     text-align: center;
-    font-size: 3em;
+    font-size: 4em;
     padding-top: 60px;
 }
 
 .sapphire-user-signup-box {
     text-align: center;
-    margin-top: 100px;
+    margin-top: 80px;
 }
 
 .sapphire-user-signup-form {
     font-family: 'Montserrat', sans-serif;
     display: inline-block;
-    background: rgba(255,255,255, 0.7);
-    padding: 60px;
+    background: rgba(255,255,255, 0.6);
+    padding: 70px;
 }
 
 .sapphire-user-signup-form h2 {
@@ -406,7 +269,7 @@ and (orientation: portrait)
 
 .sapphire-user-signup-input input {
     width: 400px;
-    font-size: 14px;
+    font-size: 15px;
     font-family: 'Montserrat', sans-serif;
     font-style: italic;
     border-radius: 5px;
@@ -419,8 +282,7 @@ and (orientation: portrait)
 }
 
 .sapphire-user-signup-form button {
-
-    background-color: #b8b7ad;
+    background-color:#D2691E;
     color: white;
     border-radius: 5px;
     margin-left: 10px;
@@ -611,9 +473,11 @@ and (orientation: portrait) {
 
 
 
-/* =========================================
-ITINERARY 
-========================================= */
+/* 
+    =========================================
+                    ITINERARY 
+    ========================================= 
+*/
 
 .itin-main {
     /*background-image: url("/assets/car-map.jpg");*/
@@ -622,9 +486,11 @@ ITINERARY
     height: 100vh;
 }
 
-/* =========================================
-MENU ITEM
-========================================= */
+/* 
+    =========================================
+                   MENU ITEM
+    ========================================= 
+*/
 
 
 .menu-item {
@@ -827,9 +693,9 @@ MENU ITEM
 
 
 /*
-    ==================================
-                 Single Itinerary
-    ==================================
+    =====================================
+            Single Itinerary
+    =====================================
 */
 
 .single-itin-header {
@@ -1421,12 +1287,12 @@ color: #fff;
     text-align: left;
     margin-top: 100px;
     padding: 20px;
-    border: 5px solid white;
+    border: 1px solid white;
 }
 
 .saffire-user-setting-form label {
     color: white;
-    font-size: 1.7em;
+    font-size: 1.5em;
     padding-right: 10px;
 
 }
@@ -1434,7 +1300,7 @@ color: #fff;
 .saffire-user-setting-form input {
     margin-right: 10px;
     border-radius: 5px;
-    width: 80%;
+    width: 50%;
     font-style: italic;
 }
 
@@ -1446,6 +1312,12 @@ color: #fff;
     font-weight: 600;
     font-size: 20px;
 }
+
+/*
+    ========================================
+         User Settting Web Responsive
+    ========================================
+*/
 
 @media(min-width: 400px) and (max-width: 550px) {
     .saffire-user-settings-div h1 {
@@ -1493,6 +1365,12 @@ color: #fff;
         font-size: 2em;
     }
 }
+
+/*
+    ===============================================
+            User Setting Iphone Responsive
+    ===============================================
+*/
 
 @media only screen and (min-width: 375px ) and (max-width: 667px) {
     .saffire-user-settings-div h1 {
