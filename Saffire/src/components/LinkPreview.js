@@ -25,6 +25,7 @@ class LinkPreview extends Component {
   }
 
   componentDidMount(){
+    console.log(this.props.comments)
     this.setState({comments: this.props.comments})
   }
 
@@ -58,19 +59,24 @@ class LinkPreview extends Component {
           initialDataLoad = false
           const commentArray = []
           const newComment = snapshot.val()
+          const newKey = snapshot.key
+          console.log('VAL: ', snapshot.key)
           if (this.state.newComments.length > 0) {
             const oldComments = this.state.newComments
-            const oldBodies = []
-            oldComments.map(comment => oldBodies.push(comment.body))
             console.log(oldComments)
-            if (oldBodies.indexOf(newComment.body) === -1){
-              oldComments.push(newComment)
+            const oldKeys = []
+            oldComments.map(comment => oldKeys.push(comment.key))
+            console.log(oldKeys)
+            if (oldKeys.indexOf(newKey) === -1){
+              const toAdd = {key: newKey, body: newComment.body, sender: newComment.sender}
+              oldComments.push(toAdd)
             }
             this.setState({newComments: oldComments})
           }
           else if(this.state.comments){
             Object.keys(this.state.comments).map(key => {
-              commentArray.push(this.state.comments[key])
+              const toAdd = {key, body: this.state.comments[key].body, sender: this.state.comments[key].sender}
+              commentArray.push(toAdd)
             })
             commentArray.push(newComment)
             this.setState({newComments: commentArray})
