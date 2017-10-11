@@ -28,7 +28,7 @@ body {
 
 .sapphire-app {
     text-align: center;
-    background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7DUXCDC7/shutterstock_370732148.jpg");
+    background-image: url("/assets/dennis-kummer-171041.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -37,7 +37,7 @@ body {
 .sapphire-app-title {
     font-family: 'Montserrat', sans-serif;
     font-size: 4.5em;
-    color: black;
+    color: white;
     letter-spacing: .4em;
     padding-top: 1.5em;
     display: inline-block;
@@ -48,7 +48,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.6em;
     display: inline-block;
-    color: black;
+    color: white;
     padding: 0 15px;
     padding-bottom: .5em;
 }
@@ -81,7 +81,7 @@ body {
 
 .sapphire-home-page-border {
     background-color: white;
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.5);
     margin-top: 5em;
 }
 
@@ -90,7 +90,8 @@ body {
 }
 
 #home-page-label {
-    color: black;
+    color: white;
+    font-weight: 300;
     font-size: 2em;
     padding-bottom: 30px;
     display: block;
@@ -104,114 +105,97 @@ body {
     ========================================
 */
 
-@media (min-width: 870px) and (max-width: 1050px) {
+@media (min-width: 400px) and (max-width:500px) {
     .sapphire-app-title {
-        font-size: 2em;
-    } 
+        font-size: 1.6em;
+    }
 
-    .sapphire-auth-div {
-        font-size: .7em;
-        float: right;
-        margin-top: 25px;
-        margin-right: 50px;
+    .sapphire-app-login {
+        font-size: 1em;
     }
 }
 
-
-@media (min-width: 600px) and (max-width: 869px) {
+@media (min-width: 500px) and (max-width:600px) {
     .sapphire-app-title {
-        font-size: 2em;
-    } 
-    .sapphire-auth-div {
-        font-size: .5em;
-        float: right;
-        margin-top: 25px;
-        margin-right: 50px;
+        font-size: 2.3em;
+    }
+    .sapphire-app-login {
+        font-size: 1.2em;
+   
     }
 }
 
-@media (min-width: 530px) and (max-width: 630px) {
+
+@media (min-width:600px) and (max-width:800px) {
     .sapphire-app-title {
-        font-size: 1.4em;
-        margin-left: -60px;
-    } 
-    .sapphire-auth-div {
-        font-size: .6em;
-        float: right;
-        margin-top: 15px;
-        margin-right: 50px;
+        font-size: 3em;
+    }
+
+    .sapphire-app-login {
+        font-size: 1.5em;
     }
 }
 
-@media (min-width: 400px) and (max-width: 529px) {
-    .sapphire-app-title {
-        font-size: .8em;
-        margin-left: -90px;
-        margin-top: 20px;
-    } 
-    .sapphire-auth-div {
-        font-size: .4em;
-        float: right;
-        margin-top: 35px;
-        margin-right: 50px;
+@media (min-width:400px) and (max-width:500px) {
+    .sapphire-itinerary-form input {
+        width: 200px;
+    }
+    #home-page-label {
+        font-size: 1.2em;
     }
 }
 
-@media (min-width: 500px) and (max-width: 790px) {
-    .sapphire-itinerary-form input{
-        width: 180px;
-        height: 40px;
+@media (min-width:500px) and (max-width:600px) {
+    .sapphire-itinerary-form input {
+        width: 240px;
     }
-    
-    .sapphire-itinerary-form button{
-        font-size: 17px;
+    #home-page-label {
+        font-size: 1.3em;
     }
 }
 
-@media (min-width: 400px) and (max-width: 560px) {
-    .sapphire-itinerary-form input{
-        width: 130px;
-        height: 35px;
+@media (min-width:600px) and (max-width:700px) {
+    .sapphire-itinerary-form input {
+        width: 300px;
     }
-    
-    .sapphire-itinerary-form button{
-        font-size: 14px;
+    #home-page-label {
+        font-size: 1.5em;
     }
 }
+
+
+
+
  
 /*
     ======================================
          Iphone Home Page Responsive
     ======================================
 */
-@media only screen 
+/* @media only screen 
 and (min-device-width : 375px) 
-and (max-device-width: 667px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: portrait) 
-{
-    .sapphire-app-title {
+and (max-device-width: 667px) */
+
+/* { */
+    /* .sapphire-app-title { */
         /*position: fixed;*/
-        font-size: 2em;
+        /* font-size: 2em; */
         /*text-align: center;*/
         /*left: 100px;*/
-    }
+    /* } */
 
-    .sapphire-auth-div { 
+    /* .sapphire-auth-div { 
         float: none;
         margin: 0 auto;
         padding-top: 40px;
     }
 
-    .sapphire-app-login {
-        font-size: 2em;
-    }
 
     .sapphire-home-page-border {
         margin: 0;
         padding: 0;
-    }
-    
+    } */
+/*     
     #home-page-label {
         font-size: 1.4em;
     }
@@ -223,8 +207,8 @@ and (orientation: portrait)
     .sapphire-itinerary-form button {
         margin: 0 auto;
         margin-top: 10px;
-    }
-}
+    } */
+/* } */
 
 /*
     ===========================================
@@ -233,13 +217,13 @@ and (orientation: portrait)
 */
 
 .sapphire-user-signup-div {
-    background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/UG76JFIIHZ.jpg");
+    background-image: url("/assets/StockSnap_U2YGKACAVC.jpg");
     background-size: cover;
     height: 100vh;
 }
 
 .sapphire-user-signup-div h1 {
-    color: black;
+    color: white;
     font-family: 'Montserrat', sans-serif;
     letter-spacing: .3em;
     text-align: center;
@@ -255,14 +239,14 @@ and (orientation: portrait)
 .sapphire-user-signup-form {
     font-family: 'Montserrat', sans-serif;
     display: inline-block;
-    background: rgba(255,255,255, 0.6);
+    background: rgba(255,255,255, 0.5);
     padding: 70px;
 }
 
 .sapphire-user-signup-form h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.5em;
-    color: black;
+    color: white;
     text-align: center;
     margin-bottom: 40px;
 }
@@ -292,65 +276,64 @@ and (orientation: portrait)
     font-family: 'Montserrat', sans-serif;
 }
 
-@media(min-width: 400px) and (max-width: 700px) {
-    .sapphire-user-signup-div h1 {
-        font-size: 2.5em;
+/*
+    =================================================
+           User Login/Sign Up Web Responsive
+    =================================================
+*/
+
+@media (min-width: 660px) and (max-width: 770px) {
+    .sapphire-user-signup-input input {
+        width: 330px;
     }
 }
 
-@media(min-width: 750px) and (max-width: 900px) {
-    .sapphire-user-signup-form {
-        padding: 40px;
+@media (min-width: 620px) and (max-width: 660px) {
+    .sapphire-user-signup-div h1 {
+        font-size: 2.8em;
     }
 
     .sapphire-user-signup-input input {
-        width: 300px;
+        width: 270px;
     }
-
 }
 
-@media(min-width: 560px) and (max-width: 750px) {
-    .sapphire-user-signup-form {
-        padding: 40px;
+@media (min-width: 550px) and (max-width: 620px) {
+    .sapphire-user-signup-div h1 {
+        font-size: 2.8em;
     }
 
     .sapphire-user-signup-input input {
         width: 200px;
     }
-
-    .sapphire-user-signup-form button {
-        font-size: 13px;
-    }
-
-    .sapphire-user-signup-form h1 {
-        font-size: 1.2em;
-    }
 }
 
-@media(min-width: 400px) and (max-width: 560px) {
-
+@media (min-width: 505px) and (max-width: 550px) {
     .sapphire-user-signup-div h1 {
-        font-size: 2.4em;
-    }
-
-    .sapphire-user-signup-form {
-        padding: 70px;
+        font-size: 2.8em;
     }
 
     .sapphire-user-signup-input input {
-        width: 130px;
+        width: 200px;
     }
+}
 
-    .sapphire-user-signup-form button {
-        font-size: 8px;
+@media (min-width: 400px) and (max-width: 505px) {
+    .sapphire-user-signup-div h1 {
+        font-size: 2em;
     }
-
-    .sapphire-user-signup-form h1 {
-        font-size: .9em;
+    .sapphire-user-signup-input input {
+        width: 180px;
     }
 }
 
 
+/*
+    ============================================
+       User Login/Sign-Up Iphone Responsive
+    ============================================
+*/
+/* 
 @media only screen 
 and (min-device-width : 375px) 
 and (max-device-width: 667px)
@@ -384,7 +367,7 @@ and (orientation: portrait) {
         font-size: 15px;
         padding: 4px 9px;
     }
-}
+} */
 
 /*
     ===========================================
@@ -617,50 +600,43 @@ MENU ITEM
 */
 
 .saffire-all-itineraries-div{
-    /*background-image: url("/assets/all-itineraries.jpg");*/
-    /*background-size: cover;*/
-    /*height: 100vh;*/
-    /*width: 100%;*/
-    /*background-attachment: scroll;*/
+    background-image: url("/assets/pawel-nolbert-284898.jpg");
+    background-size: cover;
+    height: 100vh;
 }
 
 .saffire-all-itineraries-div h1 {
     font-family: 'Montserrat', sans-serif;
     color: black;
-    letter-spacing: .2em;
+    letter-spacing: .3em;
     text-align: center;
-    font-size: 3em;
-    padding-top: 30px;
+    font-size: 4em;
+    padding-top: 100px;
 }
 
 
 .saffire-all-itineraries-div h3 {
     font-size: 2em;
-    color: #b8b7ad;
-    /*text-decoration: underline;*/
+    color: black;
     text-align: center;
     letter-spacing: .2em;
     margin: 50px;
-    font-weight: 100;
 }
 
 .saffire-all-itineraries-container {
     text-align: center;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(410px, 1fr));
-    /*margin: 10%;*/
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 
 .saffire-all-itineraries-item {
     margin: 20px;
-
 }
 
 .saffire-all-itineraries-img {
     border-radius: 5px;
     width: 400px;
-    max-height: 260px;
-    min-height: 260px;
+
 }
 
 .little-saffire-item {
@@ -696,19 +672,11 @@ MENU ITEM
 }
 
 .sapphire-itin-name-xx {
-    /*border: 1px solid black;*/
-    /*background-color: grey;*/
-    text-align: left;
+    text-align: center;
     border-radius: 5px;
     font-size: .6em;
     color: #054dc1;
 }
-
-
-
-
-
-
 
 /*
     =====================================
