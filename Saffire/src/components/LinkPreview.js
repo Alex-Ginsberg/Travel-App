@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import {connect} from 'react-redux';
-import {newLike, confirmEvent, fetchEvents, sendComment} from '../actions'
+import {newLike, confirmEvent, fetchEvents, sendComment, googlePlacesDetails} from '../actions'
 import firebase from '../firebase'
+import SkyLight from 'react-skylight';
 
 class LinkPreview extends Component {
   constructor(props) {
@@ -24,11 +25,28 @@ class LinkPreview extends Component {
   }
 
   componentDidMount(){
-    console.log(this.props.comments)
     this.setState({comments: this.props.comments})
   }
 
   render () {
+
+      const myBigGreenDialog = {
+          width: '70%',
+          height: '700px',
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          marginTop: '-350px',
+          marginLeft: '-35%',
+          backgroundColor: '#fff',
+          borderRadius: '2px',
+          zIndex: 100,
+          padding: '15px',
+          boxShadow: '0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28)',
+          'transition-duration' : '400ms',
+          overflow: 'auto'
+      };
+
     let initialDataLoad = false
     if (this.props.eventKey && this.props.itinKey) {
       const commentRef = firebase.database().ref().child('itineraries').child(this.props.itinKey).child('events').child(this.props.eventKey).child('comments')
@@ -81,11 +99,18 @@ class LinkPreview extends Component {
     for (var key in this.props.likedBy) {
       likedByArray.push(this.props.likedBy[key].name)
     }
+
+      const placeID = this.props.placeID
+
+
     return(
       <div className="link-container">
-          <div className="link-all-info">
+          <div className="link-all-info" >
 
-        <div className="link-title">
+        <div className="link-title" onClick={async () => {
+            await this.props.getGoogleDeets(placeID)
+            await this.simpleDialog.show()
+        }}>
           <h2>{this.props.title}</h2>
 
 
@@ -113,6 +138,7 @@ class LinkPreview extends Component {
           {!this.props.hasBeenAdded && <div className="linkpreview-hover" disabled={!this.props.connect} onClick={() => this.setState({showComments: !this.state.showComments})}> Comments </div>}
           
         </div>
+
         {this.state.showComments && 
           <div className="ideaboard-comments">
             {(this.state.comments && !this.state.newComments.length) && Object.keys(this.state.comments).map(key => (
@@ -131,6 +157,75 @@ class LinkPreview extends Component {
             </form>
           </div>
         }
+
+
+            <SkyLight dialogStyles={myBigGreenDialog} hideOnOverlayClicked ref={ref => this.simpleDialog = ref} title={this.props.googleDetails.name} transitionDuration={100} >
+              <section className="google-details-main">
+
+                  { this.props.googleDetails.photos &&
+
+                  <section id="photos">
+                    <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[0].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                    <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[1].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                    <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[2].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                    <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[3].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                    <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[4].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                    <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[5].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                  </section>
+                  }
+
+
+                <div className="google-details-info">
+                    {this.props.googleDetails.openingHours && this.props.googleDetails.openingHours.open_now ? 'OPEN NOW' : '' }
+
+                  <div className="google-details-openingHours">
+                      {this.props.googleDetails.openingHours && this.props.googleDetails.openingHours.weekday_text ?
+                          this.props.googleDetails.openingHours.weekday_text.map(day => {
+                              return <span>{day}</span>
+                          })
+                          :
+                          ''
+                      }
+                  </div>
+                  <span><a href={this.props.googleDetails.website}>{this.props.googleDetails.website}</a></span>
+                  <h4>Rating {this.props.googleDetails.rating}</h4>
+
+
+
+
+                  <h3 className="details-locationnear">{this.props.googleDetails.name} is located near {this.props.googleDetails.vicinity}</h3>
+
+
+
+
+
+                  <div className="google-details-reviews">
+                      { this.props.googleDetails.reviews &&
+
+                      this.props.googleDetails.reviews.map(review => {
+                          return (<div className="google-individual-review">
+                            <p>Rating {review.rating}</p>
+                            <p>{review.text}</p>
+                            <p>{review.author_name}</p>
+                          </div>)
+                      })
+
+                      }
+                  </div>
+
+
+
+
+                </div>
+
+              </section>
+            </SkyLight>
+
+
+
+
+
+
           </div>
 
       </div>
@@ -140,7 +235,8 @@ class LinkPreview extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    connect: state.connect
+    connect: state.connect,
+      googleDetails: state.googleDetails,
   }
 }
 
@@ -157,7 +253,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     sendComment(itinKey, eventKey, currentUser, body){
       dispatch(sendComment(itinKey, eventKey, currentUser, body))
-    }
+    },
+      getGoogleDeets (placeid) {
+          dispatch(googlePlacesDetails(placeid))
+      }
   }
 }
 

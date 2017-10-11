@@ -7,7 +7,6 @@ const initialState =  []
 export default function(state = initialState, action) {
     switch (action.type) {
         case GET_CURRENT_EVENTS: 
-            console.log('reducer', action.events);
             return action.events;
         case ADD_EVENT:
             return [...state, action.event]  

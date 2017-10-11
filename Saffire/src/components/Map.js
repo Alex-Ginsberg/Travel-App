@@ -102,7 +102,7 @@ export class MapComp extends Component {
 
       return (
     
-          <div id="mapbox-map" style={{marginLeft: "20em"}}>
+          <div >
             
            {this.state.userCoordinates.length &&
             <Map 
@@ -112,9 +112,9 @@ export class MapComp extends Component {
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
               height: "50vh",
-              width: "50vw",
+              width: "70vw",
             }}
-            className="map-map">
+            >
               <Layer
                 type="symbol"
                 id="marker"

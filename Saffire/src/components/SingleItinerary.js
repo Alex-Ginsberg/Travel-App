@@ -94,7 +94,6 @@ class SingleItinerary extends Component{
         }
         const ownerAdd = this.props.users.filter(currentUser => currentUser.email === this.state.itin.owner)
         memberArray.push(ownerAdd[0])
-        console.log('MEMBERS: ', memberArray)
 
         /*
             FIREBASE EVENT LISTENERS
@@ -250,11 +249,71 @@ class SingleItinerary extends Component{
                                                 {eventScheduled.map(event => (
                                                     <div key={event.url}>
 
-                                                        <SkyLight hideOnOverlayClicked ref={ref => this.simpleDialog = ref} title={this.props.googleDetails.name}>
+                                                        <SkyLight dialogStyles={myBigGreenDialog} hideOnOverlayClicked ref={ref => this.simpleDialog = ref} title={this.props.googleDetails.name}>
                                                             <section>
                                                                 {/*{this.props.googleDetails.openingHours}*/}
                                                                 {/*<h4>{this.props.googleDetails.openingHours.open_now ? 'Open' : 'Closed'}</h4>*/}
                                                                 <h4>Rating {this.props.googleDetails.rating}</h4>
+
+                                                                <section className="google-details-main">
+
+                                                                    { this.props.googleDetails.photos &&
+
+                                                                    <section id="photos">
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[0].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[1].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[2].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[3].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[4].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[5].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                    </section>
+                                                                    }
+
+
+                                                                    <div className="google-details-info">
+                                                                        {this.props.googleDetails.openingHours && this.props.googleDetails.openingHours.open_now ? 'OPEN NOW' : '' }
+
+                                                                        <div className="google-details-openingHours">
+                                                                            {this.props.googleDetails.openingHours && this.props.googleDetails.openingHours.weekday_text ?
+                                                                                this.props.googleDetails.openingHours.weekday_text.map(day => {
+                                                                                    return <span>{day}</span>
+                                                                                })
+                                                                                :
+                                                                                ''
+                                                                            }
+                                                                        </div>
+                                                                        <span><a href={this.props.googleDetails.website}>{this.props.googleDetails.website}</a></span>
+                                                                        <h4>Rating {this.props.googleDetails.rating}</h4>
+
+
+
+
+                                                                        <h3 className="details-locationnear">{this.props.googleDetails.name} is located near {this.props.googleDetails.vicinity}</h3>
+
+
+
+
+
+                                                                        <div className="google-details-reviews">
+                                                                            { this.props.googleDetails.reviews &&
+
+                                                                            this.props.googleDetails.reviews.map(review => {
+                                                                                return (<div className="google-individual-review">
+                                                                                    <p>Rating {review.rating}</p>
+                                                                                    <p>{review.text}</p>
+                                                                                    <p>{review.author_name}</p>
+                                                                                </div>)
+                                                                            })
+
+                                                                            }
+                                                                        </div>
+
+
+
+
+                                                                    </div>
+
+                                                                </section>
 
                                                             </section>
                                                         </SkyLight>

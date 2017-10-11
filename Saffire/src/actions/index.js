@@ -70,6 +70,8 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
             const events = snapshot.val().events                                          // Get the events object from the reference
             let eventsArr = []
             for (let key in events) {                                                       // Loop adds an object to state array
+                console.log('FETCH EVENT ', events)
+
                 const toAdd = {
                     key: key,
                     added: events[key].added,
@@ -80,7 +82,8 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
                     likes: events[key].likes,
                     likedBy: events[key].likedBy,
                     location: events[key].location,
-                    comments: events[key].comments
+                    comments: events[key].comments,
+                    placeID: events[key].placeID
                     // address: events[key].gmaps.formatted_address,
                 }
                 eventsArr.push(toAdd)
@@ -97,6 +100,7 @@ export const addEvent = (url, itinID) => dispatch => {
             // let isFirstEvent = false
             // con newId
             const currentItinRef = firebase.database().ref().child('itineraries').child(itinID).child('events')
+            console.log('add event ', preview)
             const newRef = currentItinRef.push({title: preview.title,
                 description: preview.description,
                 image: preview.image,
@@ -106,7 +110,7 @@ export const addEvent = (url, itinID) => dispatch => {
                 location: {
                     lat: 0,
                     lng: 0
-                }      
+                }
             })
             const newId = newRef.key
             const eventNode = {
@@ -559,7 +563,6 @@ export const postUserCoordinates =  itin => dispatch => {
           return payload;
          })
     .then(userLocation => {
-        console.log('userLocation thunk**', userLocation)
         dispatch(setUserCoor(userLocation))
     })
     .catch(err => {
@@ -603,9 +606,6 @@ export const sendMessage = (user, itinKey, message) => {
 
 export const fetchTimeMatrix = (userCoor, locations) => dispatch => {
     
-    // console.log('***userCoor', userCoor)
-    // console.log('***locations', locations)
-    
     let origin = `${userCoor[0]},${userCoor[1]}`
     let destinations = locations.map(location => {
         return `${location[0]},${location[1]}`
@@ -635,9 +635,6 @@ export const fetchTimeMatrix = (userCoor, locations) => dispatch => {
         })
     })
     .then(converts => {
-        console.log('converts***', converts)
-        
-        
         dispatch(fetchCoorTime(converts))
     })
     .catch(error => {
@@ -650,7 +647,6 @@ export const fetchTimeMatrix = (userCoor, locations) => dispatch => {
 }
 
 export const fetchDistanceMatrix = (userCoor, locations) => dispatch => {
-    console.log('distancematrixxxx', userCoor, locations)
     // let geoDistances = locations.map(location => {
     //     return Geofire.distance(userCoor, location)
     // })
@@ -719,8 +715,6 @@ export const removeNotification = (user, body) => dispatch => {
             }
         })
         .then(reqKey => {
-            console.log('KEY: ', reqKey)
-            console.log('USER: ', user.key)
             firebase.database().ref().child('users').child(user.key).child('notifications').child(reqKey).remove()
             dispatch(getCurrentUser())
         })
@@ -751,12 +745,12 @@ export const getItineraryMembers = itinKey => dispatch => {
 
 
 
-export const googlePlacesDetails = (placeID) => dispatch => {
-    const placesDetails = axios.post(`http://localhost:5001/deets-76612/us-central1/helloWorld?placeid=${placeID}`);
+export const googlePlacesDetails = (placeid) => dispatch => {
+    console.log('ACTIONS PLACEID', placeid);
+    const placesDetails = axios.post(`http://localhost:5001/deets-76612/us-central1/helloWorld?placeid=${placeid}`);
 
         placesDetails
         .then(res => {
-            console.log('CLIENT SIDE', res)
             dispatch(googlePlaceDetails(res.data))
         })
         .catch(err => console.log(err));
