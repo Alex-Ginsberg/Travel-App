@@ -37,6 +37,9 @@ class FindFriends extends Component {
 
 
     render() {
+
+        // const users = this.props.users;
+
         return (
         <div className="sapphire-find-friends-container">
             <h1 id = "sapphire-find-friends-title">FIND FRIENDS</h1>

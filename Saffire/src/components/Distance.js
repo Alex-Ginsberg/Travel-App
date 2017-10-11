@@ -4,7 +4,7 @@ import {googServerKey, mapboxKey} from '../secrets.js'
 import {connect} from 'react-redux'
 import mapboxgl from 'mapbox-gl'
 import ReactMapboxGl, {Layer, Feature, Marker, GeoJSONLayer, Popup} from 'react-mapbox-gl'
-import {fetchTimeMatrix, fetchDistanceMtrix} from '../actions'
+import {fetchTimeMatrix, fetchDistanceMatrix, getLocationNames} from '../actions'
 import firebase from '../firebase'
 
 
@@ -13,27 +13,33 @@ import firebase from '../firebase'
 class Distance extends Component {
   constructor(props){
     super(props)
-    
   }
 
   componentDidMount (e) {
-    this.props.handleClick(this.props.userCoordinates, this.props.locations)
-    console.log('mountedpropsuserlocation', this.props)
+    this.props.handleTime(this.props.userCoordinates, this.props.locations)
+    this.props.handleDistance(this.props.userCoordinates, this.props.locations)
+    this.props.handleLocation(this.props.itinKey)
   }
       
     render() {
-      let {handleClick, user, itineraryName, itinKey, userCoordinates, locations} = this.props
-      
+      let {handleClick, user, itineraryName, itinKey, userCoordinates, locations, currentCoordinates, locationList} = this.props
       return (
         
           <div>
-            <h1>hello distance component</h1>
-
-            
+            <ul> 
+            {currentCoordinates.coorTime.map((time, i) => {
+              if( i !== 0){
+                return (
+                  <li key={i}>
+                  {`${time.days} days, ${time.hours} hours, ${time.minutes} minutes`}
+                  {}
+                  </li>
+                )
+              }
+            })}
+            </ul>
           </div>
-          
           )
-      
       }
     }
 
@@ -44,14 +50,21 @@ const mapState = state => {
   users: state.users,
   user: state.currentUser,
   currentCoordinates: state.currentCoordinates,
+  locationList: state.locationList,
   }
 }
 
 const mapDispatch = dispatch => {
    return {
-    handleClick (origin, destinations) {
+    handleTime (origin, destinations) {
       dispatch(fetchTimeMatrix(origin, destinations))
     }, 
+    handleDistance (origin, destinations) {
+      dispatch(fetchDistanceMatrix(origin, destinations))
+    },
+    handleLocation(key) {
+      dispatch(getLocationNames(key))
+    }
   }
 }
 

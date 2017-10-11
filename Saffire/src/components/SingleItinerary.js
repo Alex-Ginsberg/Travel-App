@@ -14,6 +14,7 @@ import cron from 'node-cron'
 import axios from 'axios'
 import NotificationCounter from './NotificationCounter'
 import SkyLight from 'react-skylight';
+import history from '../history';
 
 import {
     blue300,
@@ -67,9 +68,9 @@ class SingleItinerary extends Component{
                 events.push(itinToAdd.events[key])
             }
             this.setState({itin: itinToAdd, events: events})
-
         }
     }
+
 
     renderForm(event) {
         if(!this.state.showForm.title){this.setState({showForm: event})}
@@ -82,6 +83,8 @@ class SingleItinerary extends Component{
         // this.setState({chatMessage: ''})
     }
 
+
+
     render() {
         const memberArray = []
         for (let i in this.state.itin.members) {
@@ -91,7 +94,6 @@ class SingleItinerary extends Component{
         }
         const ownerAdd = this.props.users.filter(currentUser => currentUser.email === this.state.itin.owner)
         memberArray.push(ownerAdd[0])
-        console.log('MEMBERS: ', memberArray)
 
         /*
             FIREBASE EVENT LISTENERS
@@ -143,7 +145,6 @@ class SingleItinerary extends Component{
 
         let events = []
         let eventScheduled = []
-        console.log('THE CURRENT STATE: ', this.state)
         for (let key in this.state.itin.events) {
             if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){ console.log('not scheduled'); events.push(this.state.itin.events[key])}
             else if (this.state.itin.events[key].schedule){console.log('scheduled'); eventScheduled.push(this.state.itin.events[key])}
@@ -162,6 +163,25 @@ class SingleItinerary extends Component{
         for (let i in this.state.itin.messages) {
             chatMessages.push(this.state.itin.messages[i])
         }
+
+
+        const myBigGreenDialog = {
+            width: '70%',
+            height: '700px',
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            marginTop: '-350px',
+            marginLeft: '-35%',
+            backgroundColor: '#fff',
+            borderRadius: '2px',
+            zIndex: 100,
+            padding: '15px',
+            boxShadow: '0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28)',
+            'transition-duration' : '400ms',
+            overflow: 'auto'
+        };
+
 
         return (
             <div>
@@ -184,6 +204,9 @@ class SingleItinerary extends Component{
 
                                         </List>
                                     ))}
+                                    <div className="idea-to-itin">
+                                        <div className="view-itinerary" onClick={() => {history.push(`/ideaboard/${this.props.match.params.id}`)}} >IDEABOARD</div>
+                                    </div>
                                 </div>
                             </MuiThemeProvider>
                         </div>
@@ -200,7 +223,8 @@ class SingleItinerary extends Component{
                 {this.props.connect &&
                 <MapComp itinKey = {this.props.match.params}/>
                 }
-                </div>
+                </div> 
+
 
 
 
@@ -208,51 +232,120 @@ class SingleItinerary extends Component{
                 <div className="single-itin-schedule">
                     {/*<div className="row">*/}
 
+
                         <div className="col-lg-6">
 
-                            <div className="single-itin-scroll">
-                         <div className="single-itin-schedule-list">
-                             <h4 className="single-itin-event-title">TIMELINE</h4>
+                        <div className="single-itin-scroll">
+                            <div className="single-itin-schedule-list">
+                                <h4 className="single-itin-event-title">TIMELINE</h4>
 
-                        {scheduledDates.map(date => (
-                            <div key={date} className="single-itin-event-scheduler-node" >
-                                <MuiThemeProvider>
+                                {scheduledDates.map(date => (
+                                    <div key={date} className="single-itin-event-scheduler-node" >
+                                        <MuiThemeProvider>
 
-                                <div className="single-itin-event-scheduler-info">
-                                <h1 className="schedule-list-title">{date}</h1>
+                                            <div className="single-itin-event-scheduler-info">
+                                                <h1 className="schedule-list-title">{date}</h1>
 
-                                {eventScheduled.map(event => (
-                                    <div key={event.url}>
+                                                {eventScheduled.map(event => (
+                                                    <div key={event.url}>
 
-                                        <SkyLight hideOnOverlayClicked ref={ref => this.simpleDialog = ref} title={this.props.googleDetails.name}>
-                                            <section>
-                                                {/*{this.props.googleDetails.openingHours}*/}
-                                                {/*<h4>{this.props.googleDetails.openingHours.open_now ? 'Open' : 'Closed'}</h4>*/}
-                                                <h4>Rating {this.props.googleDetails.rating}</h4>
+                                                        <SkyLight dialogStyles={myBigGreenDialog} hideOnOverlayClicked ref={ref => this.simpleDialog = ref} title={this.props.googleDetails.name}>
+                                                            <section>
+                                                                {/*{this.props.googleDetails.openingHours}*/}
+                                                                {/*<h4>{this.props.googleDetails.openingHours.open_now ? 'Open' : 'Closed'}</h4>*/}
+                                                                <h4>Rating {this.props.googleDetails.rating}</h4>
 
-                                            </section>
-                                        </SkyLight>
+                                                                <section className="google-details-main">
 
-                                    {event.schedule.date === date && 
+                                                                    { this.props.googleDetails.photos &&
 
-                                        <List>
-                                            <div onClick={async () => {
-                                                await this.props.getGoogleDeets(event.placeID)
-                                                await this.simpleDialog.show()
-                                            }}>
-                                            <ListItem disabled={true} hoverColor={indigo900} leftAvatar={<Avatar backgroundColor={blue300} />}>
-                                                {event.title.split(',')[0]} @ {event.schedule.time}
-                                            </ListItem>
+                                                                    <section id="photos">
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[0].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[1].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[2].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[3].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[4].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[5].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                    </section>
+                                                                    }
 
-                                            <button className="btn btn-danger" onClick={() => {
-                                               this.props.removeSchedule(this.props.match.params.id, event)
-                                            }}>REMOVE</button>
-                                            </div>
-                                        </List>
-                                    }
-                                    </div>
-                                ))}
-                                </div>
+
+                                                                    <div className="google-details-info">
+                                                                        {this.props.googleDetails.openingHours && this.props.googleDetails.openingHours.open_now ? 'OPEN NOW' : '' }
+
+                                                                        <div className="google-details-openingHours">
+                                                                            {this.props.googleDetails.openingHours && this.props.googleDetails.openingHours.weekday_text ?
+                                                                                this.props.googleDetails.openingHours.weekday_text.map(day => {
+                                                                                    return <span>{day}</span>
+                                                                                })
+                                                                                :
+                                                                                ''
+                                                                            }
+                                                                        </div>
+                                                                        <span><a href={this.props.googleDetails.website}>{this.props.googleDetails.website}</a></span>
+                                                                        <h4>Rating {this.props.googleDetails.rating}</h4>
+
+
+
+
+                                                                        <h3 className="details-locationnear">{this.props.googleDetails.name} is located near {this.props.googleDetails.vicinity}</h3>
+
+
+
+
+
+                                                                        <div className="google-details-reviews">
+                                                                            { this.props.googleDetails.reviews &&
+
+                                                                            this.props.googleDetails.reviews.map(review => {
+                                                                                return (<div className="google-individual-review">
+                                                                                    <p>Rating {review.rating}</p>
+                                                                                    <p>{review.text}</p>
+                                                                                    <p>{review.author_name}</p>
+                                                                                </div>)
+                                                                            })
+
+                                                                            }
+                                                                        </div>
+
+
+
+
+                                                                    </div>
+
+                                                                </section>
+
+                                                            </section>
+                                                        </SkyLight>
+                                                        
+                                                        {event.schedule.date === date && 
+
+                                                            <List>
+                                                                <div onClick={async () => {
+                                                                    await this.props.getGoogleDeets(event.placeID)
+                                                                    await this.simpleDialog.show()
+                                                                }}>
+                                                                    <ListItem disabled={true} hoverColor={indigo900} leftAvatar={<Avatar backgroundColor={blue300} />}>
+                                                                        {event.title.split(',')[0]} @ {event.schedule.time}
+                                                                    </ListItem>
+
+                                                                    {this.props.connect && <button className="btn btn-danger" onClick={() => {
+                                                                    this.props.removeSchedule(this.props.match.params.id, event)
+                                                                    }}>REMOVE</button>}
+                                                                </div>
+                                                            </List>
+                                                        }
+                                                    </div>
+                                                ))}
+                                                </div>
+                                                
+
+
+
+                                              
+
+                                    
+
                                 </MuiThemeProvider>
                             </div>
                         ))}
@@ -263,7 +356,7 @@ class SingleItinerary extends Component{
 
                                          <div className="single-itin-event-scheduler-info">
                                              <List>
-                                                 <ListItem disabled={true} hoverColor={indigo900} leftAvatar={<Avatar backgroundColor={blue300} />}>
+                                                 <ListItem disabled={true} hoverColor={indigo900} leftAvatar={ <Avatar backgroundColor={blue300} />}>
                                                      <h5>{event.title}</h5>
                                                      <p>People going to this event: </p>
                                                      {event.likedBy && Object.keys(event.likedBy).map(likeByKey => (
@@ -278,13 +371,7 @@ class SingleItinerary extends Component{
                              ))}
 
 
-                        </div>
-
-
-
-
-
-
+                            </div>
 
                             {this.state.showForm.title &&
                             <div>
@@ -311,10 +398,8 @@ class SingleItinerary extends Component{
                                     )
                                     this.props.setDateAndTime(this.props.match.params.id, this.state.showForm, this.state.currentDate, this.state.currentTime, toSchedule)
                                     this.setState({showForm: {}})
-                                    
-                                    console.log('MONTH: ', toSchedule.getMonth())
                                     const schedString = `${toSchedule.getSeconds()} ${toSchedule.getMinutes()} ${toSchedule.getHours() - 1} ${toSchedule.getDate()} ${toSchedule.getMonth() + 1} ${toSchedule.getDay()}`
-                                    console.log('TO BE SCHEDULED: ', schedString)
+
                                     memberArray.map(member => {
                                         cron.schedule(schedString, () => {
                                             axios({ url: 'https://fcm.googleapis.com/fcm/send',
@@ -334,6 +419,7 @@ class SingleItinerary extends Component{
                                                 }
                                     })
                                     .then(response => console.log('post sent', response.data))
+                                                .catch(err => console.log(err));
                                         })
                                     })
                                    
@@ -375,7 +461,6 @@ class SingleItinerary extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log('single itin state', state)
     return {
         itineraryName: state.currentItinerary,
         refresh: state.refresh,

@@ -12,7 +12,7 @@ class FriendRequests extends Component {
         for (var key in requests) {
             requestsArr.push({email: requests[key].from, key: requests[key].userKey, name: requests[key].name, reqKey: key})
         }
-
+      
         return (
             <div className = "saffire-friend-requests-div">
                 <h2>FRIEND REQUESTS</h2>
@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         addFriend(user, friend) {
             dispatch(addFriend(user, friend))
-        } ,
+        }
     }
 }
 

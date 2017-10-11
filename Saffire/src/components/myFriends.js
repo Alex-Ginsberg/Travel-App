@@ -44,6 +44,7 @@ class MyFriends extends React.Component {
                                     <p>{this.props.currentUser[friend].name}</p>
                                     <p>{this.props.currentUser[friend].email} </p>
                                 </div>
+
                         </div>
                         )
                     })
@@ -64,6 +65,7 @@ class MyFriends extends React.Component {
             }
             <FriendRequests />
         </div>
+
       </div>
     )
   }

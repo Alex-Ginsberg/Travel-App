@@ -380,8 +380,8 @@ and (orientation: portrait) {
     background-size: cover;
     display: flex;
     height: 700px;
-    
 }
+
 
 #dash-title-border {
     background-color: #7C7A7A;
@@ -390,8 +390,8 @@ and (orientation: portrait) {
     margin-left: 350px;
     margin-top: 100px;
     opacity: .6;
-    
 }
+
 
 #dash-title {
     font-family: "Helvetica Neue";
@@ -400,8 +400,8 @@ and (orientation: portrait) {
     margin-left: 525px;
     margin-top: 200px;
     color: white;
-
 }
+
 
 #dash-welcome {
     font-size: 25px;
@@ -409,6 +409,7 @@ and (orientation: portrait) {
     margin-top: 35px;
     color: white;
 }
+
 
 #dash-logout {
     font-size: 25px;
@@ -418,16 +419,19 @@ and (orientation: portrait) {
     color: white;
 }
 
+
 .dash-itinerary {
     width: auto;
     height: 1500px;
 }
+
 
 .dash-groups {
     width: auto;
     height: 500px;
     background-color: #F09903;
 }
+
 
 #dash-myItinerary-header {
     display: absolute;
@@ -437,6 +441,7 @@ and (orientation: portrait) {
     color: black;
 }
 
+
 #dash-header-line {
     width: 500px;
     height: 1px;
@@ -445,6 +450,7 @@ and (orientation: portrait) {
     margin-top: 100px;
 
 }
+
 
 #dash-myBuddies-header {
     float: left;
@@ -469,11 +475,12 @@ and (orientation: portrait) {
     height: 100vh;
 }
 
-/* 
-    =========================================
-                   MENU ITEM
-    ========================================= 
-*/
+
+
+/* =========================================
+MENU ITEM
+========================================= */
+
 
 
 .menu-item {
@@ -485,11 +492,13 @@ and (orientation: portrait) {
     text-decoration: none;
 }
 
+
 .menu-item:hover {
     background-color: #054dc1;
     color: white;
     text-decoration: none;
 }
+
 
 .menu-item-status {
     font-family: 'Montserrat', sans-serif;
@@ -501,6 +510,7 @@ and (orientation: portrait) {
     font-size: 5;
 }
 
+
 .menu-item-current-status {
     font-family: 'Montserrat', sans-serif;
     padding: 20px;
@@ -511,15 +521,18 @@ and (orientation: portrait) {
     font-size: 5;
 }
 
+
 .menu-item-status:hover {
     background-color: #f4b642;
     color: white;
     text-decoration: none;
 }
 
+
 .menu-list {
     list-style-type: none;
 }
+
 
 .sapphire-idea-board {
     border: 7px solid;
@@ -527,6 +540,7 @@ and (orientation: portrait) {
     padding: 20px;
     background-color: white;
 }
+
 
 .sapphire-idea-board button{
     display: block;
@@ -538,6 +552,7 @@ and (orientation: portrait) {
     margin: 20px 0;
 }
 
+
 .sapphire-event-board {
     border: 10px solid black;
     display: inline-block;
@@ -547,6 +562,7 @@ and (orientation: portrait) {
     margin-left: 200px;
 }
 
+
 .sapphire-event-box{
     border: 10px solid black;
     display: inline-block;
@@ -555,6 +571,18 @@ and (orientation: portrait) {
     height: 1000px;
     margin-left: 200px;
 
+ }
+
+
+ .view-itinerary {
+     transition: 0.5s;
+ }
+
+
+ .view-itinerary:hover {
+    background-color: blue; 
+    text-shadow: 0 0 5px violet; 
+    cursor: pointer;
  }
 
 
@@ -691,6 +719,10 @@ and (orientation: portrait) {
 
 .single-itin-subheader {
     text-align: center;
+}
+
+.single-itin-admin {
+    text-align: center;
     margin-bottom: 40px;
 }
 
@@ -708,7 +740,9 @@ and (orientation: portrait) {
 }
 
 .single-itin-map {
-    margin-top: 3%;
+    padding-left: 59px;
+    margin: auto;
+
 }
 
 .single-itin-schedule {
@@ -837,6 +871,14 @@ and (orientation: portrait) {
 }
 
 
+.remove-notification-button {
+    display: inline-block;
+}
+
+.notification-body {
+    display: inline-block;
+}
+
 
 /*
     ==================================
@@ -927,8 +969,13 @@ and (orientation: portrait) {
 
 }
 
+.linkpreview-hover{
+    transition: 0.5s;
+}
+
 .linkpreview-hover:hover{
-    background-color: yellow;
+    cursor: pointer;
+    background-color: blue;
 }
 
 
@@ -1011,9 +1058,12 @@ color: #fff;
 
 .loading-comp {
     height: 100vh;
-    margin-top: 50%;
     margin-left: 40%;
+    margin-top: 10%;
+    
 }
+
+
 
 /*
     ==================================
@@ -1086,6 +1136,67 @@ color: #fff;
 
 .link-buttons > div {
     margin: 15px;
+}
+
+
+
+
+.details-locationnear h3{
+    text-align: right;
+    font-size: .7em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+.google-details-reviews {
+    margin: 10px;
+    overflow: scroll;
+
+}
+
+.google-details-main {
+    overflow: scroll;
+}
+
+
+.google-details-info h4 {
+    font-size: 1.4em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    letter-spacing: .2em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.google-individual-review p {
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    /*letter-spacing: .2em;*/
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+
+#photos {
+    /* Prevent vertical gaps */
+    line-height: 0;
+    -webkit-column-count: 3;
+    -webkit-column-gap:   0px;
+    -moz-column-count:    3;
+    -moz-column-gap:      0px;
+    column-count:         3;
+    column-gap:           0px;
+}
+
+#photos img {
+    /* Just in case there are inline attributes */
+    width: 100% !important;
+    height: auto !important;
 }
 
 /*
@@ -1274,3 +1385,4 @@ color: #fff;
         width: 90%;
     }
 }
+

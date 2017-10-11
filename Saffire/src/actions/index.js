@@ -6,6 +6,7 @@ import history from '../history';
 import googleMaps, {google} from '@google/maps'
 import jsonp from 'jsonp';
 import Geofire from 'geofire';
+import secondsConverter from 'seconds-converter'
 
 export const SET_ITINERARY = 'SET_ITINERARY'
 export const GET_CURRENT_EVENTS = 'GET_CURRENT_EVENTS'
@@ -27,11 +28,14 @@ export const SEARCH_USER = 'SEARCH_USER'
 export const UPDATE_USER = 'UPDATE_USER'
 export const GET_ITINERARY_MEMBERS = 'GET_ITINERARY_MEMBERS'
 export const PLACE_DETAILS = 'PLACE_DETAILS'
+export const FETCH_LOCATION_NAMES = 'FETCH_LOCATION_NAMES'
+
 
 const googleMapsClient = googleMaps.createClient({
     key: googServerKey,
     Promise: Promise
   })
+
                                                                                             // Used for adding a new itinerary to the database
 export const postItinerary = (itinerary, itineraryImageURL) => dispatch => {
         const itinerariesRef = firebase.database().ref('itineraries')                       // Gets a reference to the 'itineraries' table in firebase
@@ -66,6 +70,8 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
             const events = snapshot.val().events                                          // Get the events object from the reference
             let eventsArr = []
             for (let key in events) {                                                       // Loop adds an object to state array
+                console.log('FETCH EVENT ', events)
+
                 const toAdd = {
                     key: key,
                     added: events[key].added,
@@ -76,12 +82,15 @@ export const fetchEvents = (itineraryKey, fromLike) => dispatch => {
                     likes: events[key].likes,
                     likedBy: events[key].likedBy,
                     location: events[key].location,
+                    comments: events[key].comments,
+                    placeID: events[key].placeID
                     // address: events[key].gmaps.formatted_address,
                 }
                 eventsArr.push(toAdd)
             }
             return dispatch(setEvents(eventsArr))
         })
+        .catch(err => console.log(err))
 }
                                                                                             // Used when a new event is added to the itinerary's idea board
 export const addEvent = (url, itinID) => dispatch => {
@@ -91,6 +100,7 @@ export const addEvent = (url, itinID) => dispatch => {
             // let isFirstEvent = false
             // con newId
             const currentItinRef = firebase.database().ref().child('itineraries').child(itinID).child('events')
+            console.log('add event ', preview)
             const newRef = currentItinRef.push({title: preview.title,
                 description: preview.description,
                 image: preview.image,
@@ -100,7 +110,7 @@ export const addEvent = (url, itinID) => dispatch => {
                 location: {
                     lat: 0,
                     lng: 0
-                }      
+                }
             })
             const newId = newRef.key
             const eventNode = {
@@ -118,7 +128,7 @@ export const addEvent = (url, itinID) => dispatch => {
             }
         
             return dispatch(newEvent(eventNode))
-        })
+        }).catch(err => console.log(err))
 }
 
 export const googlePlace = (suggest, itinID) => dispatch => {
@@ -211,6 +221,7 @@ export const fetchUsers = () => dispatch => {
             }
             return dispatch(setUsers(usersArr))
         })
+        .catch(err => console.log(err))
 }
 
 export const sendFriendRequest = (user, friend) => dispatch => {
@@ -258,11 +269,9 @@ export const sendFriendRequest = (user, friend) => dispatch => {
     })
     .catch(err => console.log(err))
 
-
-
-
-
 }
+
+
 
 export const addFriend = (user, friend) => dispatch => {
             const currentUserRef = firebase.database().ref().child('users').child(user.key).child('friends')
@@ -334,12 +343,13 @@ export const addFriend = (user, friend) => dispatch => {
             })
             .catch(err => console.log(err))
 
-
-
-
-
         return dispatch(getCurrentUser())
 }
+
+
+
+
+
 
 export const getCurrentUser = () => dispatch => {
     if (firebase.auth().currentUser) {
@@ -364,6 +374,7 @@ export const getCurrentUser = () => dispatch => {
 
                 return dispatch(setCurrentUser(loggedInUser))
             })
+            .catch(err => console.log(err))
     }
     else {
         return dispatch(setCurrentUser({}))
@@ -394,11 +405,10 @@ export const searchForUser = (searchEmail) => dispatch => {
                     email: foundUser.email,
                     key: foundUserID,
                 }
-                console.log('found user', foundUser);
-                console.log('userCred', userCred);
 
                 return dispatch(searchedUser(userCred))
             })
+            .catch(err => console.log(err))
 }
 
 
@@ -432,7 +442,7 @@ export const onUserListener = (user) => dispatch => {
         }
 
         return dispatch(setCurrentUser(loggedInUser))
-    })
+    }).catch(err => console.log(err))
 }
 
 
@@ -441,7 +451,6 @@ export const addToItinerary = (itinID, user) => dispatch => {
 
     const itinRef = firebase.database().ref().child('itineraries').child(itinID).child('members')
     const recipient = firebase.database().ref().child('users').child(user)
-
 
     //push notifications for add friend to itinerary
     recipient.once('value')
@@ -515,12 +524,9 @@ export const setDateAndTime = (itinId, event, date, time, toSchedule) => dispatc
         .then(() => {
             dispatch(causeRefresh('setDateAndTime'))
         })
-        
 }
 
 
-
-// *******************
 
 export const postUserCoordinates =  itin => dispatch => {
     const coorRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
@@ -557,7 +563,6 @@ export const postUserCoordinates =  itin => dispatch => {
           return payload;
          })
     .then(userLocation => {
-        console.log('userLocation thunk**', userLocation)
         dispatch(setUserCoor(userLocation))
     })
     .catch(err => {
@@ -601,13 +606,10 @@ export const sendMessage = (user, itinKey, message) => {
 
 export const fetchTimeMatrix = (userCoor, locations) => dispatch => {
     
-    // console.log('***userCoor', userCoor)
-    // console.log('***locations', locations)
-    
-    // let origin = `${userCoor[0]},${userCoor[1]}`
-    // let destinations = locations.map(location => {
-    //     return `${location[0]},${location[1]}`
-    // }).join(';')
+    let origin = `${userCoor[0]},${userCoor[1]}`
+    let destinations = locations.map(location => {
+        return `${location[0]},${location[1]}`
+    }).join(';')
 
     // let googOrigin = [userCoor[0], userCoor[1]]
     // let googDestination = locations.map(location => {
@@ -616,27 +618,28 @@ export const fetchTimeMatrix = (userCoor, locations) => dispatch => {
 
     // console.log('orign***', origin)
     // console.log('destinations****', destinations)
-    
-    // let geoDistances = locations.map(location => {
-    //     return Geofire.distance(userCoor, location)
-    // })
 
 
-    // axios.get(`https://api.mapbox.com/directions-matrix/v1/mapbox/driving/${origin};${destinations}?sources=0&destinations=all&access_token=${mapboxKey}`)
-    // .then(res => res.data)
-    // .then(payload => {
-    //     let durationsArr = payload.durations.map((duration) => {
-    //         return duration
-    //     })
-    //     return durationsArr
-    // })
-    // .then(results => {
-    //     console.log('resultsForConversion', results)
-
-    // })
-    // .catch(error => {
-    //     console.log(error)
-    // })
+    axios.get(`https://api.mapbox.com/directions-matrix/v1/mapbox/driving/${origin};${destinations}?sources=0&destinations=all&access_token=${mapboxKey}`)
+    .then(res => res.data)
+    .then(payload => {
+        let durationsArr = payload.durations.map((duration) => {
+            return duration
+        })
+        return durationsArr
+    })
+    .then(results => {
+        // dispatch(fetchCoorTime(results))
+        return results[0].map((result , i) => {
+            return secondsConverter(result, 'sec')
+        })
+    })
+    .then(converts => {
+        dispatch(fetchCoorTime(converts))
+    })
+    .catch(error => {
+        console.log(error)
+    })
 
     // console.log('geofire distance', Geofire.distance(userCoor, locations[0]))
     
@@ -644,14 +647,33 @@ export const fetchTimeMatrix = (userCoor, locations) => dispatch => {
 }
 
 export const fetchDistanceMatrix = (userCoor, locations) => dispatch => {
-    let geoDistances = locations.map(location => {
-        return Geofire.distance(userCoor, location)
-    })
+    // let geoDistances = locations.map(location => {
+    //     return Geofire.distance(userCoor, location)
+    // })
+    // console.log('geofireLocationssss', geoDistances)
+    //dispatch(fetchCoorDistance(geoDistances))
 
 }
 
 export const getUserCoordinates = userCoor => dispatch => {
     dispatch(fetchUserCoor(userCoor))
+}
+
+export const getLocationNames = key => dispatch => {
+    let eventsRef = firebase.database().ref().child('itineraries').child(key.id).child('events')
+    eventsRef.once('value')
+    .then(snapshot => {
+        let objSnap = Object.keys(snapshot.val())
+        console.log('snapshotval', snapshot.val())
+        let events = []
+         objSnap.forEach(snap => {
+            events.push(snapshot.val()[snap].address)
+        })
+        return events
+    })
+    .then(res => {
+        dispatch(fetchLocationNames(res))
+    })
 }
 
 export const removeSchedule = (itin, event) => dispatch => {
@@ -693,11 +715,10 @@ export const removeNotification = (user, body) => dispatch => {
             }
         })
         .then(reqKey => {
-            console.log('KEY: ', reqKey)
-            console.log('USER: ', user.key)
             firebase.database().ref().child('users').child(user.key).child('notifications').child(reqKey).remove()
             dispatch(getCurrentUser())
         })
+        .catch(err => console.log(err))
 }
 
 export const getItineraryMembers = itinKey => dispatch => {
@@ -718,28 +739,33 @@ export const getItineraryMembers = itinKey => dispatch => {
             }
         })
         .then(membersArray => dispatch(setItinerayMembers(membersArray)))
+        .catch(err => console.log(err))
 }
 
 
 
 
-export const googlePlacesDetails = (placeID) => dispatch => {
+export const googlePlacesDetails = (placeid) => dispatch => {
+    console.log('ACTIONS PLACEID', placeid);
+    const placesDetails = axios.post(`http://localhost:5001/deets-76612/us-central1/helloWorld?placeid=${placeid}`);
 
-    const placesDetails = axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeID}&key=${googlePlacesKey}`);
-    placesDetails
-        .then(res => res.data)
-        .then(result => {
-            const simplifiedResult = Object.assign({}, {name: result.result.name, openingHours: result.result.opening_hours, photos: result.result.photos, placeID: result.result.place_id, priceLevel: result.result.price_level, rating: result.result.rating, vicinity: result.result.vicinity, website: result.result.website, reviews: result.result.reviews})
-            console.log('googleplacesthunk', simplifiedResult);
-            dispatch(googlePlaceDetails(simplifiedResult))
+        placesDetails
+        .then(res => {
+            dispatch(googlePlaceDetails(res.data))
         })
         .catch(err => console.log(err));
+}
+
+export const sendComment = (itinKey, eventKey, currentUser, body) => dispatch => {
+    firebase.database().ref().child('itineraries').child(itinKey).child('events').child(eventKey).child('comments').push({
+        sender: currentUser.name,
+        body: body
+    })
 }
 
       
 
 export const updateUser = (newName, newEmail, newPassword, userID) => dispatch => {
-    console.log( firebase.auth().currentUser, ")))0000000000")
     const authUser = firebase.auth().currentUser;
     const selectedUser = firebase.database().ref().child(`users/${userID}`);
     const newData = {
@@ -755,6 +781,7 @@ export const updateUser = (newName, newEmail, newPassword, userID) => dispatch =
     .then(() => {
         return dispatch(getCurrentUser())
     })
+        .catch(err => console.log(err))
 }
 
 //action creator
@@ -770,6 +797,7 @@ export const fetchUserCoor = coor => ({type: FETCH_USER_COOR, coor})
 export const fetchPlacesCoor = coors => ({type: FETCH_PLACES_COOR, coors})
 export const fetchCoorTime = times => ({type: FETCH_COOR_TIME, times})
 export const fetchCoorDistance = distances => ({type: FETCH_COOR_DISTANCE, distances})
+export const fetchLocationNames = locations =>({type: FETCH_LOCATION_NAMES, locations})
 export const searchedUser = user => ({type: SEARCH_USER, user});
 export const setUserCoor = coor => ({type: SET_USER_COOR, coor})
 export const setPlacesCoor = coors => ({type: SET_PLACES_COOR, coors})
