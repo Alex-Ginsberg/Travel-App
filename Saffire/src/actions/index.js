@@ -746,8 +746,7 @@ export const getItineraryMembers = itinKey => dispatch => {
 
 
 export const googlePlacesDetails = (placeid) => dispatch => {
-    console.log('ACTIONS PLACEID', placeid);
-    const placesDetails = axios.post(`http://localhost:5001/deets-76612/us-central1/helloWorld?placeid=${placeid}`);
+    const placesDetails = axios.post(`https://us-central1-deets-76612.cloudfunctions.net/helloWorld?placeid=${placeid}`);
 
         placesDetails
         .then(res => {
