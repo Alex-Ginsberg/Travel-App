@@ -23,7 +23,7 @@ body {
 
 /*
     ==================================
-                 Home Page 
+                 Home Page
     ==================================
 */
 
@@ -48,7 +48,7 @@ body {
 
 .sapphire-app-login {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.6em;
+    font-size: 1em;
     display: inline-block;
     color: black;
     padding: 0 15px;
@@ -58,7 +58,6 @@ body {
 .sapphire-itinerary-form input{
     width: 400px;
     height: 40px;
-    font-size: 20px;
     border-radius: 5px;
     font-size: 1.2em;
     font-style: italic;
@@ -87,14 +86,16 @@ body {
     margin-top: 5em;
 }
 
-.sapphire-itinerary-div {
-    /*padding: 100px;*/
+.sapphire-itinerary-div h2{
+    font-size: 1em;
 }
+
+
 
 #home-page-label {
     color: black;
     font-weight: 300;
-    font-size: 2em;
+    font-size: 1.2em;
     padding-bottom: 30px;
     display: block;
     letter-spacing: .2em;
@@ -123,7 +124,7 @@ body {
     }
     .sapphire-app-login {
         font-size: 1.2em;
-   
+
     }
 }
 
@@ -168,14 +169,14 @@ body {
 
 
 
- 
+
 /*
     ======================================
          Iphone Home Page Responsive
     ======================================
 */
-/* @media only screen 
-and (min-device-width : 375px) 
+/* @media only screen
+and (min-device-width : 375px)
 and (max-device-width: 667px) */
 
 /* { */
@@ -186,7 +187,7 @@ and (max-device-width: 667px) */
         /*left: 100px;*/
     /* } */
 
-    /* .sapphire-auth-div { 
+    /* .sapphire-auth-div {
         float: none;
         margin: 0 auto;
         padding-top: 40px;
@@ -197,7 +198,7 @@ and (max-device-width: 667px) */
         margin: 0;
         padding: 0;
     } */
-/*     
+/*
     #home-page-label {
         font-size: 1.4em;
     }
@@ -226,11 +227,11 @@ and (max-device-width: 667px) */
 }
 
 .sapphire-user-signup-div h1 {
-    color: white;
+    color: black;
     font-family: 'Montserrat', sans-serif;
     letter-spacing: .3em;
     text-align: center;
-    font-size: 4em;
+    font-size: 3em;
     padding-top: 60px;
 }
 
@@ -248,8 +249,8 @@ and (max-device-width: 667px) */
 
 .sapphire-user-signup-form h2 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.5em;
-    color: white;
+    font-size: 1.3em;
+    color: black;
     text-align: center;
     margin-bottom: 40px;
 }
@@ -336,9 +337,9 @@ and (max-device-width: 667px) */
        User Login/Sign-Up Iphone Responsive
     ============================================
 */
-/* 
-@media only screen 
-and (min-device-width : 375px) 
+/*
+@media only screen
+and (min-device-width : 375px)
 and (max-device-width: 667px)
 and (-webkit-min-device-pixel-ratio: 2)
 and (orientation: portrait) {
@@ -465,10 +466,10 @@ and (orientation: portrait) {
 
 
 
-/* 
+/*
     =========================================
-                    ITINERARY 
-    ========================================= 
+                    ITINERARY
+    =========================================
 */
 
 .itin-main {
@@ -583,8 +584,8 @@ MENU ITEM
 
 
  .view-itinerary:hover {
-    background-color: blue; 
-    text-shadow: 0 0 5px violet; 
+    background-color: blue;
+    text-shadow: 0 0 5px violet;
     cursor: pointer;
  }
 
@@ -615,13 +616,13 @@ MENU ITEM
     color: black;
     letter-spacing: .3em;
     text-align: center;
-    font-size: 4em;
+    font-size: 3em;
     padding-top: 100px;
 }
 
 
 .saffire-all-itineraries-div h3 {
-    font-size: 2em;
+    font-size: 1.4em;
     color: black;
     text-align: center;
     letter-spacing: .2em;
@@ -718,8 +719,9 @@ MENU ITEM
     color: black;
     letter-spacing: .3em;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 25px;
     margin-bottom: 15px;
+    padding: 10px 0 10px 0;
 }
 
 .single-itin-subheader {
@@ -728,6 +730,7 @@ MENU ITEM
 
 .single-itin-admin {
     text-align: center;
+    margin-top: 40px;
     margin-bottom: 40px;
 }
 
@@ -753,6 +756,7 @@ MENU ITEM
 .single-itin-schedule {
     background-image: url('/assets/single-itin-schedule.jpg');
     background-size: cover;
+    border-radius: 10px;
 }
 
 .single-itin-scroll {
@@ -795,12 +799,13 @@ MENU ITEM
 
 /*
     ==================================
-               My Friends 
+               My Friends
     ==================================
 */
 
 .saffire-friends-container {
-    background-image: url("/assets/StockSnap_U2YGKACAVC.jpg");
+    /*background-image: url("/assets/StockSnap_U2YGKACAVC.jpg");*/
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/backgrounds%2Ffriend.jpeg?alt=media&token=2ae50eec-53c0-4028-a318-54c269d0c196');
     background-size: cover;
     min-height: 100vh;
     height: 100%;
@@ -808,10 +813,10 @@ MENU ITEM
 
 .saffire-friends-container h1 {
     font-family: 'Montserrat', sans-serif;
-    color: white;
+    color: black;
     letter-spacing: .3em;
     text-align: center;
-    font-size: 4em;
+    font-size: 3em;
     padding-top: 80px;
 }
 
@@ -821,39 +826,43 @@ MENU ITEM
 }
 
 .saffire-friends-column-8 h2{
-    color: white;
+    color: black;
     letter-spacing: .2em;
-    text-decoration: underline;
-    font-size: 3em;
+    font-size: 1.6em;
     text-align: center;
-    padding-top: 40px;
+    padding-top: 60px;
+    padding-bottom: 30px;
 }
 
 .saffire-friends-little-wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    grid-gap: 40px 0px;
+    grid-gap: 15px 0px;
+
 }
 
 .sapphire-friends-column-4 {
     width: 33%;
     float: right;
+
 }
 
 .saffire-friend-item {
     background-color: lightgrey;
     margin: 0 auto;
+    border-radius: 10px;
 }
 
 .saffire-friend-item img {
     border-radius: 10px;
-    width: 300px;
+    width: 200px;
+    height: 200px;
 }
 
 .friend-align {
     text-align: center;
-    color: white;
-    font-size: 1.8em;
+    color: black;
+    font-size: 1.2em;
     padding: 20px 0;
 }
 
@@ -863,17 +872,27 @@ MENU ITEM
 }
 
 .sapphire-friends-notification-div {
-    color: white;
+    color: black;
+    background-color: lightgrey;
+    border-radius: 10px;
+    margin: 20px 50px 0 0;
+    margin-top: 25px;
+
 }
 
 .sapphire-friends-notification-div h3{
-    font-size: 1.8em;
-    padding-top: 70px;
+    font-size: 1.2em;
+    padding-top: 20px;
     letter-spacing: .2em;
+    padding-bottom: 30px;
+    text-align: center;
+
 }
 
 .sapphire-friends-notification-div p {
-    font-size: 1.3em;
+    font-size: 1em;
+    padding-bottom: 30px;
+    text-align: center;
 }
 
 
@@ -884,6 +903,23 @@ MENU ITEM
 .notification-body {
     display: inline-block;
 }
+
+
+.sapphire-find-friends-container {
+    background-color: lightgrey;
+    margin-right: 50px;
+    border-radius: 10px;
+
+}
+
+/*.sapphire-find-friends-title {*/
+    /*font-family: 'Montserrat', sans-serif;*/
+    /*color: black;*/
+    /*letter-spacing: .2em;*/
+
+
+
+/*}*/
 
 
 /*
@@ -1001,7 +1037,7 @@ MENU ITEM
 
 
 
-/* ========== google place search 
+/* ========== google place search
 
 
 ======== */
@@ -1022,27 +1058,37 @@ color: #fff;
 
 /*
     ==================================
-            Find Friends 
+            Find Friends
     ==================================
 */
 
 #sapphire-find-friends-title {
     font-family: 'Montserrat', sans-serif;
-    padding-top: 60px;
-    text-align: left;
-    color:white;
+    padding-top: 30px;
+    text-align: center;
+    color:black;
     letter-spacing: .2em;
-    font-size: 1.7em;
+    font-size: 1.6em;
+}
+
+
+.find-friend-form {
+    text-align: center;
+    padding-left: 60px;
 }
 
 .find-friend-form input {
     width: 80%;
+    padding-top: 10px;
     border-radius: 5px;
     font-style: italic;
+
 }
 
 .find-friend-form button {
     margin-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 
@@ -1067,8 +1113,29 @@ color: #fff;
 */
 
 .saffire-friend-requests-div {
-    color: white;
-    padding-top: 70px;
+    background-color: lightgrey;
+    border-radius: 10px;
+    color: black;
+    padding-top: 15px;
+    margin: 30px 50px 0 0;
+    text-align: center;
+}
+
+.friend-request-title {
+    font-size: 1.2em;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: .2em;
+}
+
+.friend-request {
+    padding-bottom: 20px;
+}
+
+
+.friend-request-info {
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: .2em;
 }
 
 /*
@@ -1081,7 +1148,7 @@ color: #fff;
     height: 100vh;
     margin-left: 40%;
     margin-top: 10%;
-    
+
 }
 
 
@@ -1104,10 +1171,12 @@ color: #fff;
     text-align: center;
     margin-bottom: 15px;
     padding: 5px;
+    border-radius: 10px;
 }
 
 .link-all-info {
     background-color: white;
+    border-radius: 10px;
 }
 
 
@@ -1238,7 +1307,7 @@ color: #fff;
     color: white;
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 0.2em;
-    font-size: 4.5em;
+    font-size: 3em;
     text-align: center;
     padding-top: 70px;
 }
@@ -1342,7 +1411,7 @@ color: #fff;
 }
 
 @media(min-width: 550px) and (max-width: 730px) {
-    
+
     .saffire-label {
         font-size: 1.2em;
     }
@@ -1360,7 +1429,7 @@ color: #fff;
     .saffire-user-settings-div h1 {
         font-size: 2.5em;
     }
-    
+
     .saffire-profile-div h3 {
         font-size: 2em;
     }
