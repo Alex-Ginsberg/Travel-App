@@ -15,11 +15,11 @@ class FriendRequests extends Component {
       
         return (
             <div className = "saffire-friend-requests-div">
-                <h2>FRIEND REQUESTS</h2>
+                <h2 className="friend-request-title">FRIEND REQUESTS</h2>
                 <div>
                     {requestsArr.map(request => (
-                        <div key={request.key}>
-                            <h3>You have a friend request from {request.email}</h3>
+                        <div key={request.key} className="friend-request">
+                            <h3 className="friend-request-info">You have a friend request from {request.email}</h3>
                             <button onClick={() => {this.props.addFriend(this.props.currentUser, request)}}>Accept</button>
                         </div>
                     ))}

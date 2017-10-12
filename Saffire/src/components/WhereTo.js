@@ -113,7 +113,7 @@ class WhereTo extends Component {
 
                 <form onSubmit={handleSubmit} className="sapphire-itinerary-form">
                     
-                    <label id = "home-page-label">Start Your Adventure</label>
+                    <h2 id = "home-page-label">Start Your Adventure</h2>
                     <input name="itineraryName" 
                         type="text" 
                         className="form-control"

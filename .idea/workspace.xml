@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c522c1b3-f53f-44e4-83dd-7503ce8a738d" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Saffire/src/components/FindFriends 2.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Saffire/functions/package-lock.json" afterPath="$PROJECT_DIR$/Saffire/functions/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Saffire/functions/package.json" afterPath="$PROJECT_DIR$/Saffire/functions/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Saffire/package-lock.json" afterPath="$PROJECT_DIR$/Saffire/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Saffire/src/actions/index.js" afterPath="$PROJECT_DIR$/Saffire/src/actions/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Saffire/src/components/IdeaBoard.js" afterPath="$PROJECT_DIR$/Saffire/src/components/IdeaBoard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Saffire/src/components/FriendRequests.js" afterPath="$PROJECT_DIR$/Saffire/src/components/FriendRequests.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Saffire/src/components/WhereTo.js" afterPath="$PROJECT_DIR$/Saffire/src/components/WhereTo.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Saffire/src/style.css" afterPath="$PROJECT_DIR$/Saffire/src/style.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -24,11 +22,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5081374">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="IdeaBoard.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="IdeaBoard.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Saffire/src/components/IdeaBoard.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="529">
-                  <caret line="296" column="15" lean-forward="false" selection-start-line="296" selection-start-column="15" selection-end-line="296" selection-end-column="15" />
+                  <caret line="296" column="0" lean-forward="false" selection-start-line="296" selection-start-column="0" selection-end-line="296" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -38,7 +36,7 @@
             <entry file="file://$PROJECT_DIR$/Saffire/src/components/AllItineraries.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="495">
-                  <caret line="94" column="0" lean-forward="true" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+                  <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -58,26 +56,6 @@
           </file>
           <file leaf-file-name=".babelrc" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/.babelrc">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Saffire.iml" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Saffire/.idea/Saffire.iml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="modules.xml" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Saffire/.idea/modules.xml">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="0">
                   <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -126,6 +104,26 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name="myFriends.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Saffire/src/components/myFriends.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-607">
+                  <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="32" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="FriendRequests.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Saffire/src/components/FriendRequests.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="270">
+                  <caret line="21" column="62" lean-forward="false" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
         </leaf>
       </split-first>
       <split-second>
@@ -133,7 +131,7 @@
           <file leaf-file-name="SingleItinerary.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Saffire/src/components/SingleItinerary.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3045">
+                <state relative-caret-position="525">
                   <caret line="228" column="0" lean-forward="false" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
@@ -159,8 +157,40 @@
           <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Saffire/src/style.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="332">
-                  <caret line="608" column="16" lean-forward="false" selection-start-line="608" selection-start-column="16" selection-end-line="608" selection-end-column="16" />
+                <state relative-caret-position="376">
+                  <caret line="768" column="17" lean-forward="true" selection-start-line="768" selection-start-column="17" selection-end-line="768" selection-end-column="17" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="FindFriends.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Saffire/src/components/FindFriends.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="175">
+                  <caret line="40" column="16" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Saffire/src/components/main.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-424">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#0#38#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="WhereTo.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Saffire/src/components/WhereTo.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="319">
+                  <caret line="110" column="16" lean-forward="true" selection-start-line="110" selection-start-column="16" selection-end-line="110" selection-end-column="16" />
                   <folding />
                 </state>
               </provider>
@@ -181,26 +211,6 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="180">
                   <caret line="12" column="16" lean-forward="false" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="googleDetails.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Saffire/src/reducers/googleDetails.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="240">
-                  <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Saffire/functions/package.json">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -231,7 +241,6 @@
     <findStrings>
       <find>all-itin</find>
       <find>saffire-a</find>
-      <find>saffire-all</find>
       <find>single-itin-title</find>
       <find>itinerary-form</find>
       <find>display</find>
@@ -251,6 +260,12 @@
       <find>sing</find>
       <find>&lt;Ma</find>
       <find>idea</find>
+      <find>saffire-all</find>
+      <find>friends</find>
+      <find>friend-align</find>
+      <find>saffire-friend-reques</find>
+      <find>sapphire-friends-not</find>
+      <find>saffire-friend</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -274,7 +289,6 @@
         <option value="$PROJECT_DIR$/Saffire/service-worker.js" />
         <option value="$PROJECT_DIR$/Saffire/src/components/myFriends.js" />
         <option value="$PROJECT_DIR$/Saffire/src/components/AllItineraries.js" />
-        <option value="$PROJECT_DIR$/Saffire/src/components/WhereTo.js" />
         <option value="$PROJECT_DIR$/Saffire/src/routes.js" />
         <option value="$PROJECT_DIR$/Saffire/src/reducers/searchUser.js" />
         <option value="$PROJECT_DIR$/Saffire/src/components/Menu.js" />
@@ -289,14 +303,15 @@
         <option value="$PROJECT_DIR$/Saffire/src/components/Distance.js" />
         <option value="$PROJECT_DIR$/Saffire/src/components/FindFriends.js" />
         <option value="$PROJECT_DIR$/Saffire/src/components/FindFriends 2.js" />
-        <option value="$PROJECT_DIR$/Saffire/src/components/FriendRequests.js" />
         <option value="$PROJECT_DIR$/Saffire/src/reducers/currentEvents.js" />
         <option value="$PROJECT_DIR$/Saffire/src/components/LinkPreview.js" />
         <option value="$PROJECT_DIR$/Saffire/src/components/SingleItinerary.js" />
         <option value="$PROJECT_DIR$/Saffire/src/components/Map.js" />
         <option value="$PROJECT_DIR$/Saffire/src/actions/index.js" />
-        <option value="$PROJECT_DIR$/Saffire/src/style.css" />
         <option value="$PROJECT_DIR$/Saffire/src/components/IdeaBoard.js" />
+        <option value="$PROJECT_DIR$/Saffire/src/components/WhereTo.js" />
+        <option value="$PROJECT_DIR$/Saffire/src/components/FriendRequests.js" />
+        <option value="$PROJECT_DIR$/Saffire/src/style.css" />
       </list>
     </option>
   </component>
@@ -455,7 +470,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83079000" />
+    <option name="totallyTimeSpent" value="87918000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -480,12 +495,21 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39914164" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939914" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18418604" sideWeight="0.50263506" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16651163" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33798283" sideWeight="0.49736497" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14587101" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952183" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39914164" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939914" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -553,34 +577,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Saffire/src/styles/styles_burgerMenu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Saffire/src/components/Menu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="52" lean-forward="false" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Saffire/src/components/WhereTo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1798">
-          <caret line="120" column="42" lean-forward="false" selection-start-line="120" selection-start-column="42" selection-end-line="120" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Saffire/src/components/myFriends.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Saffire/src/style 2.css" />
     <entry file="file://$PROJECT_DIR$/Saffire/src/logo.svg">
       <provider selected="true" editor-type-id="text-editor">
@@ -761,31 +757,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Saffire/src/components/FindFriends.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-336">
-          <caret line="40" column="16" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Saffire/src/components/FindFriends 2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9">
-          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Saffire/src/components/FriendRequests.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="41" column="9" lean-forward="true" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Saffire/.idea/Saffire.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -866,18 +837,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Saffire/src/components/SingleItinerary.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3045">
-          <caret line="228" column="0" lean-forward="false" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <marker date="1507754317413" expanded="true" signature="974:1320" ph="{...}" />
-            <marker date="1507754317413" expanded="true" signature="23708:23709" ph="&lt;div/&gt;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Saffire/src/components/Map.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2265">
@@ -922,18 +881,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Saffire/src/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="608" column="16" lean-forward="false" selection-start-line="608" selection-start-column="16" selection-end-line="608" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Saffire/src/components/AllItineraries.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
-          <caret line="94" column="0" lean-forward="true" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -941,7 +892,87 @@
     <entry file="file://$PROJECT_DIR$/Saffire/src/components/IdeaBoard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
-          <caret line="296" column="15" lean-forward="false" selection-start-line="296" selection-start-column="15" selection-end-line="296" selection-end-column="15" />
+          <caret line="296" column="0" lean-forward="false" selection-start-line="296" selection-start-column="0" selection-end-line="296" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Saffire/src/components/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-424">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Saffire/src/components/WhereTo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="110" column="16" lean-forward="true" selection-start-line="110" selection-start-column="16" selection-end-line="110" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Saffire/src/components/FindFriends 2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="975">
+          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Saffire/src/components/FindFriends.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="40" column="16" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Saffire/src/components/SingleItinerary.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="228" column="0" lean-forward="false" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <marker date="1507754317413" expanded="true" signature="974:1320" ph="{...}" />
+            <marker date="1507754317413" expanded="true" signature="23708:23709" ph="&lt;div/&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Saffire/src/components/FriendRequests.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="21" column="62" lean-forward="false" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Saffire/src/components/NotificationCounter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Saffire/src/components/myFriends.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-607">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Saffire/src/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="768" column="17" lean-forward="true" selection-start-line="768" selection-start-column="17" selection-end-line="768" selection-end-column="17" />
           <folding />
         </state>
       </provider>
