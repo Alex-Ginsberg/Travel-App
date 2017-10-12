@@ -174,7 +174,7 @@ class IdeaBoard extends Component {
                 <h5 className="single-itin-admin">GROUP ADMIN: {itinerary.owner}</h5>
                 <MuiThemeProvider>
                 {this.props.currentMembers.map(member => (
-                    <List>
+                    <List className="ideaBoard-member">
                         <ListItem disabled={true} leftAvatar={<Avatar src={member.image} />} >
                         {member.name}
                         </ListItem>
@@ -268,6 +268,33 @@ class IdeaBoard extends Component {
                         </MuiThemeProvider>
                     ))}
                 </div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+
 
             </div>
 

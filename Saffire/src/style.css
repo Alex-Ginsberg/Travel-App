@@ -18,6 +18,7 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
+    height: 100%;
 }
 
 /*
@@ -28,7 +29,8 @@ body {
 
 .sapphire-app {
     text-align: center;
-    background-image: url("/assets/shutterstock_370732148.jpg");
+    /*background-image: url("/assets/shutterstock_370732148.jpg");*/
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/backgrounds%2Fniiice.jpeg?alt=media&token=3c6671b3-fb3b-4aa1-9e50-90389abf44d5');
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -36,9 +38,9 @@ body {
 
 .sapphire-app-title {
     font-family: 'Montserrat', sans-serif;
-    font-size: 4.5em;
+    font-size: 3em;
     color: black;
-    letter-spacing: .4em;
+    letter-spacing: .2em;
     padding-top: 1.5em;
     display: inline-block;
     text-align: center;
@@ -86,7 +88,7 @@ body {
 }
 
 .sapphire-itinerary-div {
-    padding: 100px;
+    /*padding: 100px;*/
 }
 
 #home-page-label {
@@ -217,7 +219,7 @@ and (max-device-width: 667px) */
 */
 
 .sapphire-user-signup-div {
-    background-image: url("/assets/StockSnap_U2YGKACAVC.jpg");
+    /*background-image: url("/assets/StockSnap_U2YGKACAVC.jpg");*/
     background-size: cover;
     height: 100vh;
 
@@ -377,7 +379,7 @@ and (orientation: portrait) {
 */
 
 .dash-div-image {
-    background-image: url("https://static.pexels.com/photos/210200/pexels-photo-210200.jpeg");
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/backgrounds%2Fniiice.jpeg?alt=media&token=3c6671b3-fb3b-4aa1-9e50-90389abf44d5");
     background-size: cover;
     display: flex;
     height: 700px;
@@ -601,10 +603,11 @@ MENU ITEM
 */
 
 .saffire-all-itineraries-div{
-    background-image: url("/assets/pawel-nolbert-284898.jpg");
+    /*background-image: url("/assets/pawel-nolbert-284898.jpg");*/
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/backgrounds%2Fniiice.jpeg?alt=media&token=3c6671b3-fb3b-4aa1-9e50-90389abf44d5');
     background-size: cover;
-    min-height: 100vh;
     height: 100%;
+    background-position: center;
 }
 
 .saffire-all-itineraries-div h1 {
@@ -922,6 +925,21 @@ MENU ITEM
     padding: 10px;
 }
 
+.idea-board-div {
+    text-align: center;
+    /*background-image: url("/assets/shutterstock_370732148.jpg");*/
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/deets-76612.appspot.com/o/backgrounds%2Fblack-and-white-city-houses-skyline.jpg?alt=media&token=a3a96d4a-30e3-4150-9d19-c5be85650a05');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100%;
+
+
+}
+
+.ideaBoard-member {
+    float: left;
+}
 
 
 .idea-board-words {
@@ -1209,7 +1227,7 @@ color: #fff;
 */
 
 .saffire-user-settings-div {
-    background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7FL8QPFX/background.png");
+    /*background-image: url("https://files.slack.com/files-pri/T024FPYBQ-F7FL8QPFX/background.png");*/
     background-repeat: no-repeat;
     height: 100vh;
     background-size: cover;
