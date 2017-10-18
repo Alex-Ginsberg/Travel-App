@@ -116,6 +116,7 @@ class LinkPreview extends Component {
           </div>
 
         <div className="link-buttons">
+
           {(!this.props.hasBeenAdded && this.props.connect) &&
             <div
                 className="linkpreview-hover"
@@ -153,6 +154,7 @@ class LinkPreview extends Component {
                 onClick={() => this.setState({showComments: !this.state.showComments})}>
                 Comments
             </div>}
+
         </div>
 
         {this.state.showComments && 
