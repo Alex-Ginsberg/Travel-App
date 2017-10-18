@@ -102,7 +102,6 @@ export class WhereTo extends Component {
 
     render() {
         let handleSubmit = this.handleSubmit;
-        const imageStr = this.state.imageURL;
 
         return (
 

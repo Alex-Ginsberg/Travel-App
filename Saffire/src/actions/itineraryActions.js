@@ -52,7 +52,7 @@ export const getItineraryMembers = itinKey => dispatch => {
         .then(members => {
             const membersArray = []
             if (members) {
-                Object.keys(members).map(key => {
+                Object.keys(members).forEach(key => {
                     firebase.database().ref().child('users').child(members[key].key).once('value')
                         .then(snapshot => membersArray.push(snapshot.val()))
                 })

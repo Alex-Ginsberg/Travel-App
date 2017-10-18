@@ -75,7 +75,7 @@ class AllItineraries extends React.Component {
             toRenderItins.map(itin => (
 
                 <div className="saffire-all-itineraries-item" key={itin.key}>
-                    <img src={itin.imageURL} className = "saffire-all-itineraries-img" onClick={() => {
+                    <img src={itin.imageURL} alt={`${itin.imageURL}`} className = "saffire-all-itineraries-img" onClick={() => {
                         firebase.database().ref(`/itineraries/${itin.key}`)
                             .once('value')
                             .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
@@ -92,7 +92,7 @@ class AllItineraries extends React.Component {
                           .catch(err => console.log(err)) }}
                   >{itin.name}</span>
 
-                <span className = "sapphire-itin-name-z"> <img src = "https://files.slack.com/files-pri/T024FPYBQ-F7DDVNDUG/person-icon.png" />{currentUser.friends !== undefined ? Object.keys(currentUser.friends).length + ' Friend' : '0 Friend'}</span>
+                <span className = "sapphire-itin-name-z"> <img src = "https://files.slack.com/files-pri/T024FPYBQ-F7DDVNDUG/person-icon.png" alt="https://files.slack.com/files-pri/T024FPYBQ-F7DDVNDUG/person-icon.png"/>{currentUser.friends !== undefined ? Object.keys(currentUser.friends).length + ' Friend' : '0 Friend'}</span>
                 <span className = "sapphire-itin-name-xx" onClick={() => this.props.history.push(`/ideaboard/${itin.key}`)}>IDEA BOARD</span>
               </div>
 

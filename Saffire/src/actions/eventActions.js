@@ -156,7 +156,7 @@ export const setDateAndTime = (itinId, event, date, time, toSchedule) => dispatc
             }
         })
         .then(theKey => {
-            const evRef = firebase.database().ref().child('itineraries').child(itinId).child('events').child(theKey).child('schedule').update({date: dateToAdd, time: timeToAdd, toSchedule: toSchedule})
+            firebase.database().ref().child('itineraries').child(itinId).child('events').child(theKey).child('schedule').update({date: dateToAdd, time: timeToAdd, toSchedule: toSchedule})
         })
         .then(() => {
             dispatch(causeRefresh('setDateAndTime'))

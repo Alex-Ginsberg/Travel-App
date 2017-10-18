@@ -109,7 +109,7 @@ class IdeaBoard extends Component {
         //Sets up an event listener that checks for anytime the amount of likes changes 
         //Uses a conditional to also update when an event is added to the 'itinerary' side 
         if (this.props.connect) {
-            this.props.currentEvents.map(event => {
+            this.props.currentEvents.forEach(event => {
                 const eventRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('events').child(event.key)
 
                 eventRef
@@ -145,7 +145,7 @@ class IdeaBoard extends Component {
         const friendsArr = []
 
 
-        Object.keys(this.props.currentMembers).map(key => {
+        Object.keys(this.props.currentMembers).forEach(key => {
             currentMemberEmails.push(this.props.currentMembers[key].email)
         })
 

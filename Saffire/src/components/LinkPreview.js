@@ -70,7 +70,7 @@ class LinkPreview extends Component {
           }
 
           else if (this.state.comments) {
-            Object.keys(this.state.comments).map(key => {
+            Object.keys(this.state.comments).forEach(key => {
                 const toAdd = {key, body: this.state.comments[key].body, sender: this.state.comments[key].sender}
                 commentArray.push(toAdd)
             })
@@ -185,12 +185,12 @@ class LinkPreview extends Component {
               <section className="google-details-main">
                   {this.props.googleDetails.photos &&
                       <section id="photos">
-                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[0].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
-                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[1].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
-                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[2].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
-                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[3].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
-                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[4].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
-                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[5].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
+                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[0].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`} alt="googlePlaces"></img>
+                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[1].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`} alt="googlePlaces"></img>
+                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[2].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`} alt="googlePlaces"></img>
+                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[3].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`} alt="googlePlaces"></img>
+                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[4].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`} alt="googlePlaces"></img>
+                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[5].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`} alt="googlePlaces"></img>
                       </section>
                   }
 

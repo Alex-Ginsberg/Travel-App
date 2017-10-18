@@ -1,19 +1,11 @@
 import React, {Component} from 'react'
-import googleMaps from '@google/maps'
-import {googServerKey, mapboxKey} from '../secrets.js'
 import {connect} from 'react-redux'
-import mapboxgl from 'mapbox-gl'
-import ReactMapboxGl, {Layer, Feature, Marker, GeoJSONLayer, Popup} from 'react-mapbox-gl'
 import {fetchTimeMatrix, fetchDistanceMatrix, getLocationNames} from '../actions'
-import firebase from '../firebase'
 
 
 
 
 class Distance extends Component {
-  constructor(props){
-    super(props)
-  }
 
   componentDidMount (e) {
     this.props.handleTime(this.props.userCoordinates, this.props.locations)
@@ -22,7 +14,7 @@ class Distance extends Component {
   }
       
     render() {
-      let {handleClick, user, itineraryName, itinKey, userCoordinates, locations, currentCoordinates, locationList} = this.props
+      let {currentCoordinates} = this.props
       return (
         
           <div>

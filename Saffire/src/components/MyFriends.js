@@ -20,7 +20,7 @@ class MyFriends extends React.Component {
     let friends = Object.keys(this.props.currentUser !== undefined ? this.props.currentUser: 10)
     const notificationArray = []
     if (this.props.user && this.props.user.notifications){
-        Object.keys(this.props.user.notifications).map(currentKey => {
+        Object.keys(this.props.user.notifications).forEach(currentKey => {
             notificationArray.push(this.props.user.notifications[currentKey])
         })
     }
@@ -35,7 +35,7 @@ class MyFriends extends React.Component {
                 {friends.map(friend => {
                     return (
                         <div className = "saffire-friend-item">
-                            <img src={toonAvatar.generate_avatar()}/>
+                            <img src={toonAvatar.generate_avatar()} alt="avatar"/>
                             <div className="friend-align">
                                 <p>{this.props.currentUser[friend].name}</p>
                                 <p>{this.props.currentUser[friend].email} </p>

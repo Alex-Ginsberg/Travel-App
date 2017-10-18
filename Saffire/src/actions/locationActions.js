@@ -1,7 +1,6 @@
 import firebase from '../firebase'
 import axios from 'axios'
 import {googServerKey, mapboxKey} from '../secrets.js'
-import Geofire from 'geofire';
 import secondsConverter from 'seconds-converter'
 
 /*
@@ -89,7 +88,6 @@ export const getLocationNames = key => dispatch => {
 }
 
 export const postUserCoordinates =  itin => dispatch => {
-    const coorRef = firebase.database().ref().child('itineraries').child(itin).child('coordinates')
     const noCoorRef = firebase.database().ref().child('itineraries').child(itin)
     noCoorRef.once('value')
     .then(result => {

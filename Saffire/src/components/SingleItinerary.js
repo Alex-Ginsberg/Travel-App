@@ -99,15 +99,15 @@ class SingleItinerary extends Component{
         eventRef.on('child_changed', (data) => {
             const val = data.val()
             const itin = this.state.itin
-            for (let key in this.state.itin.events) {
-                if (this.state.itin.events[key].address === val.address) {
-                    this.state.itin.events[key].schedule = val.schedule
+            for (let key in itin.events) {
+                if (itin.events[key].address === val.address) {
+                    itin.events[key].schedule = val.schedule
                 }
             }
             this.setState({itin: itin})
         })
 
-        memberArray.map(member => {
+        memberArray.forEach(member => {
             if (member) {
             const userRef = firebase.database().ref().child('users').child(member.key)
             userRef
@@ -204,7 +204,7 @@ class SingleItinerary extends Component{
                             </MuiThemeProvider>
                         </div>
                             <div className="col-lg-6">
-                                <img className='single-itin-image' src={this.state.itin.imageURL}/>
+                                <img className='single-itin-image' src={this.state.itin.imageURL} alt={`${this.state.itin.imageURL}`}/>
                             </div>
                         </div>
                     </div>
@@ -240,12 +240,12 @@ class SingleItinerary extends Component{
                                                                     { this.props.googleDetails.photos &&
 
                                                                     <section id="photos">
-                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[0].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
-                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[1].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
-                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[2].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
-                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[3].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
-                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[4].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
-                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[5].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[0].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`} alt="googlePlaces"></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[1].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`} alt="googlePlaces"></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[2].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`} alt="googlePlaces"></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[3].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`} alt="googlePlaces"></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[4].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`} alt="googlePlaces"></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[5].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`} alt="googlePlaces"></img>
                                                                     </section>
                                                                     }
 
@@ -354,7 +354,7 @@ class SingleItinerary extends Component{
                                     this.setState({showForm: {}})
                                     const schedString = `${toSchedule.getSeconds()} ${toSchedule.getMinutes()} ${toSchedule.getHours() - 1} ${toSchedule.getDate()} ${toSchedule.getMonth() + 1} ${toSchedule.getDay()}`
 
-                                    memberArray.map(member => {
+                                    memberArray.forEach(member => {
                                         cron.schedule(schedString, () => {
                                             axios({ url: 'https://fcm.googleapis.com/fcm/send',
                                             method: 'post',

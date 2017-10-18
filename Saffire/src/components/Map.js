@@ -119,13 +119,13 @@ export class MapComp extends Component {
 
                 <div className="map-marker">
                 <Marker coordinates={this.state.userCoordinates} anchor="bottom">
-                  <img  style = {{width: "54px", height: "54px"}} src="/assets/user-marker.png"/>
+                  <img  style = {{width: "54px", height: "54px"}} src="/assets/user-marker.png" alt="map-marker"/>
                 </Marker>
                 {this.state.locations &&
                     this.state.locations.map((location, i)=> {
                       return (
                         <Marker coordinates={location} anchor="bottom">
-                            <img style = {{width: "40px", height: "40px"}} src="/assets/map-marker.png"/>
+                            <img style = {{width: "40px", height: "40px"}} src="/assets/map-marker.png" alt="map-marker"/>
                         </Marker>
                       )}
                 )}
