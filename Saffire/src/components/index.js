@@ -4,9 +4,9 @@
  * having to figure out which file they belong to!
  */
  
-export {default as Main} from './main'
+export {default as Main} from './Main'
 export {default as UserHome} from './user-home'
-export {Login, Signup} from './auth-form'
+export {Login, Signup} from './AuthForm'
 export {default as UserSignup} from './userSignup'
 export {default as UserLogin} from './userLogin'
 export {default as AllItineraries} from './AllItineraries'
@@ -18,7 +18,7 @@ export {default as SingleItinerary} from './SingleItinerary'
 export {default as FriendRequests} from './FriendRequests'
 export {default as MapComp} from './Map'
 export {default as StatusUpdate} from './StatusUpdate'
-export {default as MyFriends} from './myFriends'
+export {default as MyFriends} from './MyFriends'
 export {default as UserSettings} from './userSettings'
 export {default as Distance} from './Distance'
 export {default as Loading} from './Loading'

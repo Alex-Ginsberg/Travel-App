@@ -26,7 +26,7 @@ class AllItineraries extends React.Component {
         for (var key in allItins) {
           let toAdd = allItins[key]
           toAdd.key = key
-          itinArray.push(toAdd)      
+          itinArray.push(toAdd)
         }
         this.setState({itinArray: itinArray})
     })}
@@ -41,16 +41,16 @@ class AllItineraries extends React.Component {
 
     let toRenderItins = []
     // If the user is connected to the internet, set currentUser to be what is one state
-    // If the user is not connected to the itnernet, we cannot rely on the state for info, so we take the user info stored on local storage 
+    // If the user is not connected to the internet, we cannot rely on the state for info, so we take the user info stored on local storage
     const currentUser = this.props.connect ? this.props.currentUser : JSON.parse(localStorage.currentUser)
 
     if (currentUser.key) {
-      for (var i = 0; i < this.state.itinArray.length; i++) {
-        if (this.state.itinArray[i].owner === currentUser.email){ 
+      for (let i = 0; i < this.state.itinArray.length; i++) {
+        if (this.state.itinArray[i].owner === currentUser.email){
           toRenderItins.unshift(this.state.itinArray[i])
         }
         else if (this.state.itinArray[i].members) {
-          for (var key in this.state.itinArray[i].members) {
+          for (let key in this.state.itinArray[i].members) {
             if (this.state.itinArray[i].members[key].key === currentUser.key){
               toRenderItins.unshift(this.state.itinArray[i])
             }
@@ -58,14 +58,14 @@ class AllItineraries extends React.Component {
         }
       }
     }
-    
+
 
     return (
       <div className="saffire-all-itineraries-div">
-        
+
         <BurgerMenu />
         <NotificationCounter />
-        
+
         <h1>SAFFIRE</h1>
 
         <h3>MY ITINERARIES</h3>
@@ -73,30 +73,33 @@ class AllItineraries extends React.Component {
         <div className = "saffire-all-itineraries-container" >
           {
             toRenderItins.map(itin => (
-            
-            <div className = "saffire-all-itineraries-item" key={itin.key}>
-             <img src={itin.imageURL} className = "saffire-all-itineraries-img" onClick={() => {
-                 firebase.database().ref(`/itineraries/${itin.key}`).once('value')
-                     .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
-                     .then(() => this.props.history.push(`/itinerary/${itin.key}`))
-             }}/>
-            
 
-              <div className = "little-saffire-item" key={itin.key}>
-                <span className = "sapphire-itin-name-x" onClick={() => { 
-                firebase.database().ref(`/itineraries/${itin.key}`).once('value')
-                .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
-                .then(() => this.props.history.push(`/itinerary/${itin.key}`))
-                }}>{itin.name}</span>
-                <span className = "sapphire-itin-name-y">10 Aug 2017 - 15 Aug 2017</span>
-                <span className = "sapphire-itin-name-z"> <img src = "https://files.slack.com/files-pri/T024FPYBQ-F7DDVNDUG/person-icon.png"/>{currentUser.friends !== undefined ? Object.keys(currentUser.friends).length + " Friend" : "0 Friend"}</span>
+                <div className="saffire-all-itineraries-item" key={itin.key}>
+                    <img src={itin.imageURL} className = "saffire-all-itineraries-img" onClick={() => {
+                        firebase.database().ref(`/itineraries/${itin.key}`)
+                            .once('value')
+                            .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
+                            .then(() => this.props.history.push(`/itinerary/${itin.key}`))
+                            .catch(err => console.log(err)) }}
+                    />
+
+              <div className="little-saffire-item" key={itin.key}>
+                  <span className="sapphire-itin-name-x" onClick={() => {
+                      firebase.database().ref(`/itineraries/${itin.key}`)
+                          .once('value')
+                          .then(snapshot => this.props.setCurrentItinerary(snapshot.val(), itin.key))
+                          .then(() => this.props.history.push(`/itinerary/${itin.key}`))
+                          .catch(err => console.log(err)) }}
+                  >{itin.name}</span>
+
+                <span className = "sapphire-itin-name-z"> <img src = "https://files.slack.com/files-pri/T024FPYBQ-F7DDVNDUG/person-icon.png" />{currentUser.friends !== undefined ? Object.keys(currentUser.friends).length + ' Friend' : '0 Friend'}</span>
                 <span className = "sapphire-itin-name-xx" onClick={() => this.props.history.push(`/ideaboard/${itin.key}`)}>IDEA BOARD</span>
               </div>
 
             </div>
             ))
           }
-          </div>
+        </div>
       </div>
     )
   }
@@ -111,18 +114,15 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
       setItineraryName(itineraryName) {
           dispatch(postItinerary(itineraryName))
       },
-
       setCurrentItinerary(itinerary, itin) {
         dispatch(setCurrentItinerary(itinerary, itin))
       },
       getCurrentUser() {
         dispatch(getCurrentUser())
     }
-    // Get all itineraries, put them on state, 
   }
 }
 

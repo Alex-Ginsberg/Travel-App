@@ -5,14 +5,11 @@ import {Provider} from 'react-redux'
 import './style.css';
 
 import Routes from './routes'
-import registerServiceWorker, {unregister} from './registerServiceWorker'
-
-console.log('public url: ', process.env.PUBLIC_URL)
+import registerServiceWorker from './registerServiceWorker'
 
 ReactDOM.render(
     
     <Provider store={store} >  
         <Routes />
-    </Provider>, document.getElementById('root'));
-    // unregister();
-registerServiceWorker();
+    </Provider>, document.getElementById('root'))
+registerServiceWorker()

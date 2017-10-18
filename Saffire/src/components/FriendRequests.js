@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import { addFriend } from '../actions';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { addFriend } from '../actions'
 
 
 class FriendRequests extends Component {

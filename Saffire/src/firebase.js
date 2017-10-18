@@ -26,9 +26,7 @@ firebase.initializeApp(config);
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     store.dispatch(onUserListener(user))
-  } else {
-    // store.dispatch(setCurrentUser({}))
-  }
+  } 
 });
 
 const connectedRef = firebase.database().ref(".info/connected")
