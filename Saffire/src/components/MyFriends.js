@@ -1,13 +1,11 @@
-import React from 'react';
-import firebase from '../firebase';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-import BurgerMenu from './Menu';
-import FriendRequests from './FriendRequests';
-import FindFriends from './FindFriends';
+import React from 'react'
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+import BurgerMenu from './Menu'
+import FriendRequests from './FriendRequests'
+import FindFriends from './FindFriends'
 import {removeNotification} from '../actions'
-let toonAvatar = require('cartoon-avatar');
-
+let toonAvatar = require('cartoon-avatar')
 
 
 class MyFriends extends React.Component {
@@ -28,25 +26,21 @@ class MyFriends extends React.Component {
     }
     return (
       <div className="saffire-friends-container">
-        
         <BurgerMenu />
         <h1>SAFFIRE</h1>
 
         <div className="saffire-friends-column-8 clearfix">
             <h2>MY FRIENDS</h2>
             <div className = "saffire-friends-little-wrapper">
-                {
-                    friends.map(friend => {
-                        return (
-                            <div className = "saffire-friend-item">
-                                <img src = {toonAvatar.generate_avatar()} />
-                                <div className = "friend-align">
-                                    <p>{this.props.currentUser[friend].name}</p>
-                                    <p>{this.props.currentUser[friend].email} </p>
-                                </div>
-
-                        </div>
-                        )
+                {friends.map(friend => {
+                    return (
+                        <div className = "saffire-friend-item">
+                            <img src={toonAvatar.generate_avatar()}/>
+                            <div className="friend-align">
+                                <p>{this.props.currentUser[friend].name}</p>
+                                <p>{this.props.currentUser[friend].email} </p>
+                            </div>
+                        </div>)
                     })
                 }
             </div>
@@ -55,7 +49,7 @@ class MyFriends extends React.Component {
 
         <div className="sapphire-friends-column-4 clearfix">
             <FindFriends />
-            { notificationArray.length > 0 && 
+            {notificationArray.length > 0 &&
                 <div className = "sapphire-friends-notification-div">
                     <h3>MY NOTIFICATIONS</h3>
                     {notificationArray.map(notification => (
@@ -65,7 +59,6 @@ class MyFriends extends React.Component {
             }
             <FriendRequests />
         </div>
-
       </div>
     )
   }

@@ -1,27 +1,25 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import LinkPreview from './LinkPreview'
-import { addEvent, fetchEvents, addToItinerary, confirmEvent, googlePlace, getItineraryMembers, postUserCoordinates } from '../actions';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import firebase from 'firebase';
-import Geosuggest from 'react-geosuggest';
-import history from '../history';
-import BurgerMenu from './Menu';
+import { addEvent, fetchEvents, addToItinerary, confirmEvent, googlePlace, getItineraryMembers, postUserCoordinates } from '../actions'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import firebase from 'firebase'
+import Geosuggest from 'react-geosuggest'
+import history from '../history'
+import BurgerMenu from './Menu'
 import NotificationCounter from './NotificationCounter'
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Avatar from 'material-ui/Avatar';
-import List from 'material-ui/List/List';
-import ListItem from 'material-ui/List/ListItem';
-
-
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import Avatar from 'material-ui/Avatar'
+import List from 'material-ui/List/List'
+import ListItem from 'material-ui/List/ListItem'
 
 
 class IdeaBoard extends Component {
     constructor(props) {
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.onSuggestSelect = this.onSuggestSelect.bind(this);
+        super(props)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleFormSubmit = this.handleFormSubmit.bind(this)
+        this.onSuggestSelect = this.onSuggestSelect.bind(this)
         this.handleChange = this.handleChange.bind(this)
 
         this.state = {
@@ -35,15 +33,16 @@ class IdeaBoard extends Component {
     }
     
     componentDidMount() {
-        const currentItinKey = this.props.match.params.id;
+        const currentItinKey = this.props.match.params.id
         this.props.getItineraryEvents(this.props.match.params.id)
         this.props.getItineraryMembers(this.props.match.params.id)
         this.props.askUserCoor(this.props.match.params.id)
         // If the user is connected to the internet, find the current itinerary in firebase, set it on state, and dispatch to find the events associated with it
         if (this.props.connect) {
             const itinRef = firebase.database().ref().child('itineraries').child(currentItinKey)
-           
-            itinRef.once('value')
+
+            itinRef
+                .once('value')
                 .then(snapshot => {
                     const itin = snapshot.val()
                     let events = []
@@ -52,6 +51,7 @@ class IdeaBoard extends Component {
                     }
                     this.setState({itin: snapshot.val(), events: events})
                 })
+                .catch(err => console.log(err))
         }
 
         // If the user is not connected to the internet, find the current itinerary in local storage, set it on state, and make an array with all of its events 
@@ -59,21 +59,23 @@ class IdeaBoard extends Component {
             const allItins = JSON.parse(localStorage.allItineraries)
             let itinToAdd
             let events = []
+
             for (let i = 0; i < allItins.length; i++) {
                 if (allItins[i].key === currentItinKey) {
                     itinToAdd = allItins[i]
                 }
             }
+
             for (let key in itinToAdd.events) {
                 events.push(itinToAdd.events[key])
             }
-            this.setState({itin: itinToAdd, events: events})
 
+            this.setState({itin: itinToAdd, events: events})
         }
     }
     
-    handleChange(e) {
-        let url = e.target.value
+    handleChange(event) {
+        let url = event.target.value
         this.setState({
             newURL: url
         })
@@ -84,23 +86,21 @@ class IdeaBoard extends Component {
     }
 
     
-    handleSubmit(e) {
-        e.preventDefault()
+    handleSubmit(event) {
+        event.preventDefault()
         this.props.sendUrl(this.state.newURL, this.props.match.params.id)
     }
     
-    addToGroup(e) {
-        e.preventDefault()
+    addToGroup(event) {
+        event.preventDefault()
         this.props.addMember(this.props.match.params.id, this.state.currentFriend)
         this.props.getItineraryMembers(this.props.match.params.id)
     }
 
-     
     onSuggestSelect(suggest) {
         this.props.googleSelect(suggest, this.props.match.params.id)
     }
 
-        
     render() {
         /*
             FIREBASE EVENT LISTENERS
@@ -111,7 +111,9 @@ class IdeaBoard extends Component {
         if (this.props.connect) {
             this.props.currentEvents.map(event => {
                 const eventRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('events').child(event.key)
-                eventRef.on('child_changed', (data) => {
+
+                eventRef
+                    .on('child_changed', (data) => {
                     const newLikes = data.val()
                     if (typeof newLikes === 'number') {
                         this.props.getItineraryEvents(this.props.match.params.id)
@@ -129,25 +131,24 @@ class IdeaBoard extends Component {
             END FIREBASE EVENT LISTNERS
         */
 
-        // if (this.props.connect && !this.props.currentEvents.length) {
-        //     this.props.getItineraryEvents(this.props.match.params.id)
-        // }
+
       
-        let itinerary = this.state.itin;
-        let itinImage = itinerary.image;
-        let handleSubmit = this.handleSubmit;
-        let handleChange = this.handleChange;
+        let itinerary = this.state.itin
+        let handleSubmit = this.handleSubmit
+        let handleChange = this.handleChange
         let itineraryName = this.props.connect ? this.props.itineraryName : this.state.itin
         let friends = this.props.connect ? this.props.currentUser.friends : JSON.parse(window.localStorage.currentUser).friends
         const currentEvents = this.props.connect ? this.props.currentEvents : this.state.events
-        console.log('current Events IDEA BOARD', currentEvents)
         const currentUser = this.props.connect ? this.props.currentUser : JSON.parse(window.localStorage.currentUser)
         const isOwner = currentUser.email === itinerary.owner
         const currentMemberEmails = []
+        const friendsArr = []
+
+
         Object.keys(this.props.currentMembers).map(key => {
             currentMemberEmails.push(this.props.currentMembers[key].email)
-        })        
-        const friendsArr = []
+        })
+
         for (var key in friends) {
             if (currentMemberEmails.indexOf(friends[key].email) === -1){
                 friendsArr.push(friends[key])
@@ -156,22 +157,20 @@ class IdeaBoard extends Component {
 
         const muiTheme = getMuiTheme({
             fontFamily: 'Montserrat',
-            // padding: '10px',
-            // 'margin-left': 's15px',
         })
 
 
         return (
-        <div className="idea-board-div" >
+        <div className="idea-board-div">
             <BurgerMenu />
             <NotificationCounter />
             
             <div className="single-itin-header">
                 <BurgerMenu />
-                {/* <img className="single-itin-image" src={this.state.itin.imageURL} /> */}
                 <h2 className="single-itin-title" >{this.state.itin.name}: IDEABOARD</h2>
                 <p className="single-itin-subheader">SELECT ATTRACTIONS TO BUILD YOUR ITINERARY</p>
                 <h5 className="single-itin-admin">GROUP ADMIN: {itinerary.owner}</h5>
+
                 <MuiThemeProvider>
                 {this.props.currentMembers.map(member => (
                     <List className="ideaBoard-member">
@@ -181,12 +180,14 @@ class IdeaBoard extends Component {
                     </List>
                 ))}
                 </MuiThemeProvider>
+
             </div>
 
             {/* add friend  */}
-            {this.props.connect && <div className = "idea-board-url">
+            { this.props.connect &&
+                <div className = "idea-board-url">
                 <form className="idea-itinerary-form" onSubmit={this.addToGroup}>
-                    <select name="friends" onChange={(e) => this.setState({currentFriend: e.target.value})}>
+                    <select name="friends" onChange={(event) => this.setState({currentFriend: event.target.value})}>
                         <option value="" defaultValue>Invite a Friend</option>
                         {friendsArr.map(friend => (
                             <option key={friend.key} value={friend.key}>{friend.name}</option>
@@ -194,22 +195,24 @@ class IdeaBoard extends Component {
                     </select>
                     <button type="submit" className="idea-button">Add</button>
                 </form>
-            </div>}
+                </div>
+            }
 
             <div className="row">
-
                 <div className="col-lg-6">
                     {/* google places search */}
-                    {this.props.connect && <div className = "idea-board-url">
+                    { this.props.connect &&
+                        <div className = "idea-board-url">
                         <h2 className="idea-board-words">SEARCH WITH GOOGLE PLACES</h2>
                         <Geosuggest onSuggestSelect={this.onSuggestSelect} autoComplete="on"/>
-                    </div>}
+                        </div>
+                    }
                 </div>
-
 
                 <div className="col-lg-6">
                     {/* add link */}
-                    {this.props.connect && <div className = "idea-board-url">
+                    { this.props.connect &&
+                        <div className = "idea-board-url">
                         <h2 className="idea-board-words">PASTE LINK TO ATTRACTION</h2>
                         <div>
                             {/* Form for adding a link preview by putting in a URL */}
@@ -218,42 +221,34 @@ class IdeaBoard extends Component {
                                     type="url"
                                     onChange={handleChange}
                                     placeholder="Enter a URL"
-                                    value={this.state.newURL}/>
+                                    value={this.state.newURL}
+                                />
                                 <button type="submit" className="idea-button" >Enter</button>
                             </form>
                         </div>
-                    </div>}
+                    </div>
+                    }
                 </div>
-
-
 
             </div>
 
-
-            
-
-
-            {/*go to single itin view*/}
 
             <div className="idea-to-itin">
                 <div className="view-itinerary" onClick={() => {history.push(`/itinerary/${this.props.match.params.id}`)}} >VIEW ITINERARY</div>
             </div>
 
-
-
             <div className="row">
-
                 {/*plan idea board*/}
                 <div className="col-lg-6">
                     <h4 className="idea-board-words">GROUP SUGGESTIONS</h4>
                     {/* Will render out all events that have not been added yet */}
-                    {currentEvents.map(event => (
+                    { currentEvents.map(event => (
                         <MuiThemeProvider muiTheme={muiTheme}>
-                            {!event.added  &&
-                            <div className="idea-board-plan-event" id ={event.key}>
-
-                                <LinkPreview  placeID={event.placeID} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} key={this.props.match.params.id}  likes={event.likes} likedBy={event.likedBy} user={currentUser} isOwner={isOwner} comments={event.comments}/>
-                            </div>}
+                            { !event.added  &&
+                                <div className="idea-board-plan-event" id ={event.key}>
+                                    <LinkPreview  placeID={event.placeID} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={this.props.match.params.id} key={this.props.match.params.id}  likes={event.likes} likedBy={event.likedBy} user={currentUser} isOwner={isOwner} comments={event.comments}/>
+                                </div>
+                            }
                         </MuiThemeProvider>
                     ))}
                 </div>
@@ -261,10 +256,24 @@ class IdeaBoard extends Component {
                 {/*itinerary board*/}
                 <div className="col-lg-6">
                     <h4 className="idea-board-words">ITINERARY</h4>
-                    {/* Will render all events that HAVE been added */}
-                    {currentEvents.map(event => (
+                    { currentEvents.map(event => (
                         <MuiThemeProvider>
-                            {event.added && <div className="idea-board-plan-event" key={event.key}><LinkPreview hasBeenAdded={true} placeID={event.placeID} eventKey={event.key} title={event.title} image={event.image} description={event.description} itinKey={itineraryName.key} likes={event.likes} likedBy={event.likedBy} user={currentUser} comments={event.comments}/></div>}
+                            { event.added &&
+                            <div className="idea-board-plan-event" key={event.key}>
+                                <LinkPreview
+                                    hasBeenAdded={true}
+                                    placeID={event.placeID}
+                                    eventKey={event.key}
+                                    title={event.title}
+                                    image={event.image}
+                                    description={event.description}
+                                    itinKey={itineraryName.key}
+                                    likes={event.likes}
+                                    likedBy={event.likedBy}
+                                    user={currentUser}
+                                    comments={event.comments}
+                                />
+                            </div>}
                         </MuiThemeProvider>
                     ))}
                 </div>
@@ -295,9 +304,7 @@ class IdeaBoard extends Component {
                 <br></br>
                 <br></br>
 
-
             </div>
-
         </div>
         )
     }

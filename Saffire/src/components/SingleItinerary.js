@@ -1,29 +1,22 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import firebase from '../firebase'
-import TimePicker from 'material-ui/TimePicker';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import DatePicker from 'material-ui/DatePicker';
+import TimePicker from 'material-ui/TimePicker'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import DatePicker from 'material-ui/DatePicker'
 import {setDateAndTime, sendMessage, fetchUsers, removeSchedule, googlePlacesDetails} from '../actions'
-import BurgerMenu from './Menu';
-import List from 'material-ui/List/List';
-import ListItem from 'material-ui/List/ListItem';
-import Avatar from 'material-ui/Avatar';
+import BurgerMenu from './Menu'
+import List from 'material-ui/List/List'
+import ListItem from 'material-ui/List/ListItem'
+import Avatar from 'material-ui/Avatar'
 import {MapComp} from '../components'
 import cron from 'node-cron'
 import axios from 'axios'
 import NotificationCounter from './NotificationCounter'
-import SkyLight from 'react-skylight';
-import history from '../history';
-
-import {
-    blue300,
-    indigo900,
-    orange200,
-    deepOrange300,
-    pink400,
-    purple500,
-  } from 'material-ui/styles/colors';
+import SkyLight from 'react-skylight'
+import history from '../history'
+import { googlePlacesKey } from '../secrets'
+import { blue300, indigo900 } from 'material-ui/styles/colors'
 
 
 class SingleItinerary extends Component{
@@ -48,13 +41,12 @@ class SingleItinerary extends Component{
         // If the user is connected to the internet, find the current itinerary in firebase, set it on state, and dispatch to find the events associated with it
         if (this.props.connect) {
             const itinRef = firebase.database().ref().child('itineraries').child(currentItinKey)
-            itinRef.once('value')
-                .then(snapshot => {
-                    this.setState({itin: snapshot.val()})
-                })
+            itinRef
+                .once('value')
+                .then(snapshot => { this.setState({itin: snapshot.val()}) })
+                .catch(err => console.log(err))
         }
-
-        // If the user is not connected to the internet, find the current itinerary in local storage, set it on state, and make an array with all of its events 
+        // If the user is not connected to the internet, find the current itinerary in local storage, set it on state, and make an array with all of its events
         else {
             const allItins = JSON.parse(localStorage.allItineraries)
             let itinToAdd
@@ -65,25 +57,23 @@ class SingleItinerary extends Component{
                     itinToAdd = allItins[i]
                 }
             }
+
             for (let key in itinToAdd.events) {
                 events.push(itinToAdd.events[key])
             }
+
             this.setState({itin: itinToAdd, events: events})
         }
     }
 
-
     renderForm(event) {
-        
         if(!this.state.showForm.title){this.setState({showForm: event})}
         else {this.setState({showForm: {}})}
-        
     }
 
-    sendChat(e) {
-        e.preventDefault()
+    sendChat(event) {
+        event.preventDefault()
         this.props.sendMessage(this.props.user, this.props.match.params.id, this.state.chatMessage)
-        // this.setState({chatMessage: ''})
     }
 
     _executeAfterModalClose() {
@@ -91,14 +81,13 @@ class SingleItinerary extends Component{
     }
 
 
-
     render() {
         const memberArray = []
         for (let i in this.state.itin.members) {
             let toAdd = this.props.users.filter(currentUser => (currentUser.key === this.state.itin.members[i].key))
-            // memberArray.push(this.props.user[this.props.user.indexOf(this.state.itin.members[i].key]))
             memberArray.push(toAdd[0])
         }
+
         const ownerAdd = this.props.users.filter(currentUser => currentUser.email === this.state.itin.owner)
         memberArray.push(ownerAdd[0])
 
@@ -121,56 +110,51 @@ class SingleItinerary extends Component{
         memberArray.map(member => {
             if (member) {
             const userRef = firebase.database().ref().child('users').child(member.key)
-            userRef.on('child_changed', data => {
-                if(typeof data.val() === 'string') {
-                    this.props.loadInitialData()
-                }
-            })
+            userRef
+                .on('child_changed', data => {
+                    if(typeof data.val() === 'string') {
+                        this.props.loadInitialData()}
+                })
+
             }
         })
-
 
         /*
         =========================================================================================================================================================
             END FIREBASE EVENT LISTNERS
         */
 
-        // if (this.props.connect) {
-        //     const messageRef = firebase.database().ref().child('itineraries').child(this.props.match.params.id).child('messages')
-        //     let initial = false
-        //     messageRef.once('value', snap => {
-        //         initial = true
-        //     })
-        //     messageRef.on('child_added', data => {
-        //         if (!initial) return
-        //         console.log('THE CHILD OF NEWMESSAGE CHANGED:  ', data.val())
-        //     })
-        // }
         const chatMessages = []
-
-        
-
         let events = []
         let eventScheduled = []
+
         for (let key in this.state.itin.events) {
-            if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){ console.log('not scheduled'); events.push(this.state.itin.events[key])}
-            else if (this.state.itin.events[key].schedule){console.log('scheduled'); eventScheduled.push(this.state.itin.events[key])}
+            if (this.state.itin.events[key].added && !this.state.itin.events[key].schedule){
+                console.log('not scheduled')
+                events.push(this.state.itin.events[key])
+            }
+            else if (this.state.itin.events[key].schedule) {
+                console.log('scheduled')
+                eventScheduled.push(this.state.itin.events[key])
+            }
         }
 
         // First sorts the array by the date
         eventScheduled.sort((a,b) => {
             return new Date(a.schedule.toSchedule) - new Date(b.schedule.toSchedule);
-          });
+        })
         
         let scheduledDates = []
+
         for (let i = 0; i < eventScheduled.length; i++) {
-            if (scheduledDates.indexOf(eventScheduled[i].schedule.date) === -1){scheduledDates.push(eventScheduled[i].schedule.date)}   
+            if (scheduledDates.indexOf(eventScheduled[i].schedule.date) === -1) {
+                scheduledDates.push(eventScheduled[i].schedule.date)
+            }
         }
 
         for (let i in this.state.itin.messages) {
             chatMessages.push(this.state.itin.messages[i])
         }
-
 
         const myBigGreenDialog = {
             width: '70%',
@@ -187,7 +171,7 @@ class SingleItinerary extends Component{
             boxShadow: '0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28)',
             'transition-duration' : '400ms',
             overflow: 'auto'
-        };
+        }
 
 
         return (
@@ -202,15 +186,16 @@ class SingleItinerary extends Component{
                         <div className="col-lg-6">
                             <h1 className="single-itin-title">{this.state.itin.name}</h1>
                             <div className="idea-to-itin">
-                                        <div className="view-itinerary" onClick={() => {history.push(`/ideaboard/${this.props.match.params.id}`)}} >IDEABOARD</div>
+                                <div className="view-itinerary" onClick={() => {history.push(`/ideaboard/${this.props.match.params.id}`)}} >IDEABOARD</div>
                             </div>
                             <MuiThemeProvider>
                                 {/* <div className="single-itin-status"> */}
                                     {memberArray.map(member => (
                                         <List style={{textAlign: 'left'}}>
-                                            {member && <ListItem disabled={true}  leftAvatar={<Avatar backgroundColor={blue300} src={member.image} />}>
-                                                {member.name}: {member.status}
-                                            </ListItem>}
+                                            {member &&
+                                                <ListItem disabled={true} leftAvatar={<Avatar backgroundColor={blue300} src={member.image} />}>
+                                            {member.name}: {member.status}
+                                        </ListItem>}
 
                                         </List>
                                     ))}
@@ -222,27 +207,18 @@ class SingleItinerary extends Component{
                                 <img className='single-itin-image' src={this.state.itin.imageURL}/>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
 
                 <div className="single-itin-map">
                 {this.props.connect &&
-                <MapComp itinKey = {this.props.match.params}/>
-                }
-                </div> 
-
-
-
+                    <MapComp itinKey = {this.props.match.params}/>}
+                </div>
 
                 {/*timeline*/}
                 <div className="single-itin-schedule">
-                    {/*<div className="row">*/}
-
-
                         <div className="col-lg-6">
-
                         <div className="single-itin-scroll">
                             <div className="single-itin-schedule-list">
                                 <h4 className="single-itin-event-title">TIMELINE</h4>
@@ -250,17 +226,13 @@ class SingleItinerary extends Component{
                                 {scheduledDates.map(date => (
                                     <div key={date} className="single-itin-event-scheduler-node" >
                                         <MuiThemeProvider>
-
                                             <div className="single-itin-event-scheduler-info">
                                                 <h1 className="schedule-list-title">{date}</h1>
-
                                                 {eventScheduled.map(event => (
                                                     <div key={event.url}>
 
                                                         <SkyLight dialogStyles={myBigGreenDialog} hideOnOverlayClicked ref={ref => this.simpleDialog = ref} title={this.props.googleDetails.name}>
                                                             <section>
-                                                                {/*{this.props.googleDetails.openingHours}*/}
-                                                                {/*<h4>{this.props.googleDetails.openingHours.open_now ? 'Open' : 'Closed'}</h4>*/}
                                                                 <h4>Rating {this.props.googleDetails.rating}</h4>
 
                                                                 <section className="google-details-main">
@@ -268,66 +240,47 @@ class SingleItinerary extends Component{
                                                                     { this.props.googleDetails.photos &&
 
                                                                     <section id="photos">
-                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[0].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
-                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[1].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
-                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[2].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
-                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[3].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
-                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[4].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
-                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[5].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=AIzaSyDbYGkMDYAvdaL7nkulnWnkP70FP83tkdM`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[0].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[1].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[2].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[3].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[4].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
+                                                                        <img src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.props.googleDetails.photos[5].photo_reference}&sensor=false&maxheight=600&maxwidth=600&key=${googlePlacesKey}`}></img>
                                                                     </section>
                                                                     }
-
 
                                                                     <div className="google-details-info">
                                                                         {this.props.googleDetails.openingHours && this.props.googleDetails.openingHours.open_now ? 'OPEN NOW' : '' }
 
-                                                                        <div className="google-details-openingHours">
-                                                                            {this.props.googleDetails.openingHours && this.props.googleDetails.openingHours.weekday_text ?
-                                                                                this.props.googleDetails.openingHours.weekday_text.map(day => {
-                                                                                    return <span>{day}</span>
-                                                                                })
-                                                                                :
-                                                                                ''
-                                                                            }
-                                                                        </div>
-                                                                        <span><a href={this.props.googleDetails.website}>{this.props.googleDetails.website}</a></span>
-                                                                        <h4>Rating {this.props.googleDetails.rating}</h4>
-
-
-
-
-                                                                        <h3 className="details-locationnear">{this.props.googleDetails.name} is located near {this.props.googleDetails.vicinity}</h3>
-
-
-
-
-
-                                                                        <div className="google-details-reviews">
-                                                                            { this.props.googleDetails.reviews &&
-
-                                                                            this.props.googleDetails.reviews.map(review => {
-                                                                                return (<div className="google-individual-review">
-                                                                                    <p>Rating {review.rating}</p>
-                                                                                    <p>{review.text}</p>
-                                                                                    <p>{review.author_name}</p>
-                                                                                </div>)
-                                                                            })
-
-                                                                            }
-                                                                        </div>
-
-
-
-
+                                                                    <div className="google-details-openingHours">
+                                                                        {this.props.googleDetails.openingHours && this.props.googleDetails.openingHours.weekday_text ?
+                                                                            this.props.googleDetails.openingHours.weekday_text.map(day => {
+                                                                                return <span>{day}</span>}) : ''
+                                                                        }
                                                                     </div>
+                                                                    <span><a href={this.props.googleDetails.website}>{this.props.googleDetails.website}</a></span>
+                                                                    <h4>Rating {this.props.googleDetails.rating}</h4>
 
+                                                                    <h3 className="details-locationnear">{this.props.googleDetails.name} is located near {this.props.googleDetails.vicinity}</h3>
+
+
+                                                                    <div className="google-details-reviews">
+                                                                        { this.props.googleDetails.reviews &&
+                                                                        this.props.googleDetails.reviews.map(review => {
+                                                                            return (<div className="google-individual-review">
+                                                                                <p>Rating {review.rating}</p>
+                                                                                <p>{review.text}</p>
+                                                                                <p>{review.author_name}</p>
+                                                                            </div>)
+                                                                            })
+                                                                        }
+                                                                    </div>
+                                                                    </div>
                                                                 </section>
-
                                                             </section>
                                                         </SkyLight>
                                                         
-                                                        {event.schedule.date === date && 
-
+                                                        {event.schedule.date === date &&
                                                             <List>
                                                                 <div onClick={async () => {
                                                                     await this.props.getGoogleDeets(event.placeID)
@@ -346,14 +299,6 @@ class SingleItinerary extends Component{
                                                     </div>
                                                 ))}
                                                 </div>
-                                                
-
-
-
-                                              
-
-                                    
-
                                 </MuiThemeProvider>
                             </div>
                         ))}
@@ -380,8 +325,6 @@ class SingleItinerary extends Component{
                                      </MuiThemeProvider>
                                  </div>
                              ))}
-
-
                             </div>
 
                             {this.state.showForm.title &&
@@ -428,44 +371,17 @@ class SingleItinerary extends Component{
                                                     },
                                                     "to": member.localToken
                                                 }
-                                    })
-                                    .then(response => console.log('post sent', response.data))
-                                                .catch(err => console.log(err));
+                                            })
+                                            .then(response => console.log('post sent', response.data))
+                                            .catch(err => console.log(err));
                                         })
                                     })
-                                   
-                                    // schedule.scheduleJob(toSchedule, () => {
-                                    //     alert('hi')
-                                    // })
-                                    
                                 }}>Submit event</button>
                             </SkyLight>
                             }
                         </div>
-
                     </div>
                 </div>
-
-
-
-                {/*<button onClick={() => this.props.history.push('/ideaboard')}>IdeaBoard</button>*/}
-                {/*<button disabled={!this.props.conenct} onClick={() => this.setState({showChat: !this.state.showChat})}>Chat</button>*/}
-                {/*{this.state.showChat && */}
-                {/*<div>*/}
-                    {/*{chatMessages.map(message => (*/}
-                        {/*<p>{message.sender}: {message.content}</p>*/}
-                    {/*))}*/}
-                    {/*<form onSubmit={this.sendChat}> */}
-                        {/*<input name="chatMessage" */}
-                            {/*type="text" */}
-                            {/*value={this.state.chatMessage}*/}
-                            {/*className="form-control" */}
-                            {/*placeholder="Send message..."*/}
-                            {/*onChange={(e) => {this.setState({chatMessage: e.target.value})}}/>*/}
-                        {/*<button type="submit" className="btn btn-primary">Send</button>*/}
-                    {/*</form>*/}
-                {/*</div>*/}
-                {/*}*/}
             </div>
         )
     }
@@ -503,5 +419,5 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-const SingleItineraryContainer = connect(mapStateToProps, mapDispatchToProps)(SingleItinerary);
-export default SingleItineraryContainer;
+const SingleItineraryContainer = connect(mapStateToProps, mapDispatchToProps)(SingleItinerary)
+export default SingleItineraryContainer
