@@ -1,12 +1,6 @@
 //actions
-import firebase from '../firebase'
-import axios from 'axios'
-import {googServerKey, mapboxKey, googlePlacesKey} from '../secrets.js'
-import history from '../history';
+import {googServerKey} from '../secrets.js'
 import googleMaps, {google} from '@google/maps'
-import jsonp from 'jsonp';
-import Geofire from 'geofire';
-import secondsConverter from 'seconds-converter'
 
 export {GET_CURRENT_EVENTS, ADD_EVENT, REFRESH,
         fetchEvents, addEvent, googlePlace,

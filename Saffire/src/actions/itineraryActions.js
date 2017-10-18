@@ -1,12 +1,6 @@
 import firebase from '../firebase'
 import axios from 'axios'
-import {googServerKey, mapboxKey, googlePlacesKey} from '../secrets.js'
 import history from '../history';
-import googleMaps, {google} from '@google/maps'
-import jsonp from 'jsonp';
-import Geofire from 'geofire';
-import secondsConverter from 'seconds-converter'
-
 
 /*
     ACTION TYPES
