@@ -12,7 +12,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Loading from './Loading'
 
 
-class BurgerMenu extends React.Component {
+export class BurgerMenu extends React.Component {
   constructor() {
     super()
     this.state = {
