@@ -3,6 +3,8 @@ import {firebase_pw} from './secrets.js';
 import {onUserListener, connectionChange, addToNotifications} from './actions'
 import store from './store'
 
+if(process.env.NODE_ENV !== 'test'){
+
 
 var config = {
     apiKey: firebase_pw,
@@ -132,7 +134,7 @@ function setTokenSentToServer(token) {
   }
   // [END get_token]
 
-
+}
 
    
 

@@ -13,7 +13,7 @@ import NotificationCounter from './NotificationCounter'
  *  rendered out by the component's `children`.
  */
 
-class Main extends Component {
+export class Main extends Component {
   constructor(props) {
     super(props)
   }

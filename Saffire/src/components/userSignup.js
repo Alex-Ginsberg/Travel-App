@@ -10,10 +10,10 @@ import firebase from '../firebase'
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-class UserSignup extends React.Component {
-  constructor () {
+export class UserSignup extends React.Component {
+  constructor (props) {
     console.log('HERE')
-    super()
+    super(props)
     this.state = {
       name: '',
       email: '',

@@ -7,7 +7,7 @@ import { updateStatus, onUserListener } from '../actions';
 import {connect} from 'react-redux';
 
 
-class BurgerMenu extends React.Component {
+export class BurgerMenu extends React.Component {
   constructor() {
     super()
     this.state = {

@@ -10,10 +10,9 @@ import BurgerMenu from './Menu';
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-class UserLogin extends React.Component {
+export class UserLogin extends React.Component {
   constructor () {
-    console.log('HERE')
-    console.log('CURRENT USER: ', firebase.auth().currentUser)
+    
     super()
     this.state = {
       email: '',
