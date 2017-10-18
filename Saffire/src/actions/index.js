@@ -1,6 +1,4 @@
 //actions
-import {googServerKey} from '../secrets.js'
-import googleMaps, {google} from '@google/maps'
 
 export {GET_CURRENT_EVENTS, ADD_EVENT, REFRESH,
         fetchEvents, addEvent, googlePlace,
@@ -32,11 +30,6 @@ export {SET_USERS, SET_CURRENT_USER, SEARCH_USER,
         setUsers, setCurrentUser, searchedUser, 
         updatedUser}
         from './userActions'
-
-const googleMapsClient = googleMaps.createClient({
-    key: googServerKey,
-    Promise: Promise
-})
 
 export const CONNECT = 'CONNECT'
 export const connectionChange = status => ({type: CONNECT, status})

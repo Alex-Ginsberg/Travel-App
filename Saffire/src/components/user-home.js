@@ -1,10 +1,9 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import BurgerMenu from './Menu'
 import firebase from 'firebase'
 import history from '../history'
 import AllItineraries from './AllItineraries'
-import {googServerKey} from '../secrets.js'
 
 /**
  * COMPONENT
@@ -19,7 +18,7 @@ function signout() {
 
 
 const UserHome = (props) => {
-  const {email, user, users, getGroup} = props
+  const {user} = props
 
 
   const ref = firebase.database().ref()

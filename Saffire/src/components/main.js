@@ -4,26 +4,11 @@ import {connect} from 'react-redux';
 import WhereTo from './WhereTo'
 import BurgerMenu from './Menu';
 import { getCurrentUser } from '../actions';
-import firebase from '../firebase'
 import NotificationCounter from './NotificationCounter'
-import Loading from './Loading'
-
-
-
-/**
- * COMPONENT
- *  The Main component is our 'picture frame' - it displays the navbar and anything
- *  else common to our entire app. The 'picture' inside the frame is the space
- *  rendered out by the component's `children`.
- */
 
 class Main extends Component {
-  constructor(props) {
-    super(props)
-  }
 
-
-  render() {
+render() {
   
     
   return (
